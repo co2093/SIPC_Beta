@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Register</title>
+    <title>SIPC UES</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -19,10 +19,12 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="custom-class">
 
     <div class="container">
 
@@ -30,11 +32,12 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
+                            <div class="col-lg-5 d-none d-lg-block">
+                                 <img src="{{URL::asset('img/ues.png')}}" class="img-fluid" >
+                            </div>                    <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Crear cuenta</h1>
                             </div>
 
 
@@ -42,8 +45,8 @@
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf
                                 <div class="form-group">                                    
-                                        <input type="text" class="form-control form-control-user" id="name"
-                                            placeholder="Name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                        <input type="text" class="form-control-ues form-control-user" id="name"
+                                            placeholder="Nombre" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="off" autofocus>
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -54,8 +57,8 @@
                                 <div class="form-group">
 
 
-                                    <input type="email" class="form-control form-control-user" id="email"
-                                        placeholder="Email Address" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                    <input type="email" class="form-control-ues form-control-user" id="email"
+                                        placeholder="Correo" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off">
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -68,8 +71,8 @@
                                     <div class="col-sm-6 mb-3 mb-sm-0">
 
 
-                                        <input type="password" class="form-control form-control-user"
-                                            id="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                        <input type="password" class="form-control-ues form-control-user"
+                                            id="password" placeholder="Contraseña" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="off">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -80,12 +83,12 @@
 
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="password-confirm" placeholder="Repeat Password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                        <input type="password" class="form-control-ues form-control-user"
+                                            id="password-confirm" placeholder="Repetir contraseña" class="form-control" name="password_confirmation" required autocomplete="off">
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                <button type="submit" class="btn btn-danger btn-user btn-block">
                                     {{ __('Register') }}
                                 </button>
 
@@ -94,11 +97,9 @@
                             </form>
 
                             <hr>
+            
                             <div class="text-center">
-                                <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>
+                                <a class="small text-gray-900" href="{{ route('login') }}">Ya tengo cuenta</a>
                             </div>
                         </div>
                     </div>
