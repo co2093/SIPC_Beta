@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>SIPC - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -30,7 +30,7 @@
         <div class="row justify-content-center">
 
             <div class="col-xl-10 col-lg-12 col-md-9">
-
+                
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
@@ -39,9 +39,8 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-2900 mb-4">BIENVENIDO</h1>
                                     </div>
-
                                     <form class="user" method="POST" action="{{ route('login') }}">
                                         @csrf
 
@@ -49,7 +48,7 @@
 
                                             <input type="email" class="form-control form-control-user"
                                                 id="email" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address..." class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                                placeholder="Ingrese el Correo Electrónico" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
@@ -61,7 +60,7 @@
                                         <div class="form-group">
 
                                             <input type="password" class="form-control form-control-user"
-                                                id="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                                id="password" placeholder="Ingrese su Contraseña" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
@@ -73,13 +72,13 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                <label class="custom-control-label" for="remember">Remember Me</label>
+                                                <label class="custom-control-label" for="remember">Recuérdame</label>
                                             </div>
                                         </div>
 
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            {{ __('Login') }}
+                                            {{ ('Iniciar Sesión') }}
                                         </button>
                                         <hr>
                                     </form>
@@ -88,13 +87,13 @@
                                     <div class="text-center">    
                                         @if (Route::has('password.request'))
                                             <a class="small" href="{{ route('password.request') }}">
-                                                {{ __('Forgot Your Password?') }}
+                                                {{ ('Recuperar Contraseña') }}
                                             </a> 
                                         @endif
                                     </div>
                                
                                     <div class="text-center">
-                                        <a class="small" href="{{ route('register') }}">Create an Account!</a>
+                                        <a class="small" href="{{ route('register') }}">Crear Cuenta de Usuario</a>
                                     </div>
                                 </div>
                             </div>

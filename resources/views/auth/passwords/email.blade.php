@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Forgot Password</title>
+    <title>SIPC - Forgot Password</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -39,9 +39,8 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
-                                        <p class="mb-4">We get it, stuff happens. Just enter your email address below
-                                            and we'll send you a link to reset your password!</p>
+                                        <h1 class="h4 text-gray-900 mb-2">¿Olvidaste tu contraseña?</h1>
+                                        <p class="mb-4">Simplemente ingrese su dirección de correo electrónico a continuación y le enviaremos un enlace para restablecer su contraseña!</p>
                                     </div>
 
 
@@ -51,7 +50,7 @@
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="email" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address..." class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                                placeholder="Ingresa Correo Electrónico" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -60,7 +59,7 @@
                                         </div>
 
                                          <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            {{ __('Send Password Reset Link') }}
+                                            {{ __('Enviar enlace para restablecer contraseña') }}
                                         </button>
 
                                     </form>
@@ -69,10 +68,10 @@
 
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="{{ route('register') }}">Create an Account!</a>
+                                        <a class="small" href="{{ route('register') }}">Crear una Cuenta!</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>
+                                        <a class="small" href="{{ route('login') }}">¿Ya tienes una cuenta? ¡Acceso!</a>
                                     </div>
                                 </div>
                             </div>
