@@ -8,7 +8,8 @@ class InvestigadorController extends Controller
 {
     public function index()
     {
-        return view('investigadores.index');
+        $investigadores = Investigador::all();
+        return view('investigadores.index')->with('investigadores', $investigadores);
     }
 
     public function create()
