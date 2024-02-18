@@ -2,7 +2,7 @@
 @section('content')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
-<h1 style="text-align: center;">Registro de Docentes e Investigadores</h1>
+<h1 style="text-align: center;">Registro de Investigadores</h1>
 
 <form action="/investigadores" method="post" style="margin: 25px;">
   @csrf
@@ -58,7 +58,6 @@
 
     <div class="d-flex justify-content-between mb-2">
       <button type="submit" class="btn btn-success"><i class="bi bi-plus-lg"></i> Registrar</button>
-      <a href="/investigadores/edit" class="btn btn-warning"><i class="bi bi-pencil"></i> Editar</a>
       <a href="/investigadores" class="btn btn-danger"><i class="bi bi-arrow-left"></i> Cancelar</a>
     </div>
   </div>
