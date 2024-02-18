@@ -83,11 +83,42 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Componentes:</h6>
-                        <a class="collapse-item" href="#">Registrar</a>
-                        <a class="collapse-item" href="#">Consultar</a>
+                        <h6 class="collapse-header">Gestionar proyectos</h6>
+                        <a class="collapse-item" href="{{route('projects.crear')}}">Registrar</a>
+                        <a class="collapse-item" href="{{route('projects.show')}}">Consultar</a>
                         <a class="collapse-item" href="#">Otros</a>
                     </div>
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Objetivos</h6>
+                        <a class="collapse-item" href="{{route('objetivos.crear')}}">Registrar</a>
+                        <a class="collapse-item" href="{{route('objetivos.show')}}">Consultar</a>
+                        <a class="collapse-item" href="#">Otros</a>
+                    </div>
+
+                   <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Actividades</h6>
+                        <a class="collapse-item" href="{{route('actividades.crear')}}">Registrar</a>
+                        <a class="collapse-item" href="{{route('actividades.show')}}">Consultar</a>
+                        <a class="collapse-item" href="#">Otros</a>
+                    </div>
+
+
+                   <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Fuentes de financiamiento</h6>
+                        <a class="collapse-item" href="{{route('fuentes.crear')}}">Registrar</a>
+                        <a class="collapse-item" href="{{route('fuentes.show')}}">Consultar</a>
+                        <a class="collapse-item" href="#">Otros</a>
+                    </div>
+
+
+
+                   <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Presupuesto</h6>
+                        <a class="collapse-item" href="{{route('actividades.crear')}}">Registrar</a>
+                        <a class="collapse-item" href="{{route('actividades.show')}}">Consultar</a>
+                        <a class="collapse-item" href="#">Otros</a>
+                    </div>
+
                 </div>
             </li>
 
@@ -220,7 +251,11 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                @yield('content')
+                <div class="container-fluid">
+
+                       @yield('content')
+
+                </div>
 
             </div>
             <!-- End of Main Content -->
