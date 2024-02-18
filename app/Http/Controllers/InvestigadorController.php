@@ -28,7 +28,8 @@ class InvestigadorController extends Controller
 
     public function edit($id)
     {
-        
+        return view('investigadores.edit');
+
     }
 
     public function update(Request $request, $id)

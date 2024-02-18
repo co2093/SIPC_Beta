@@ -46,6 +46,7 @@
                 <th scope="col">Email</th>
                 <th scope="col">M&aacute;ximo Grado Acad&eacute;mico</th>
                 <th scope="col">Carrera seg&uacute;n T&iacute;tulo</th>
+                <th scope="col">Acr&oacute;nimo</th>
                 <th scope="col">ACCIONES</th>
             </tr>
         </thead>
@@ -63,6 +64,9 @@
                 </td>
                 <td>
                     as
+                </td>
+                <td>
+                    ls
                 </td>
                 <td>
                     ls
