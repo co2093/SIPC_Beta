@@ -2,8 +2,17 @@
 @section('content')
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Proyectos de investigacion</h1>
+        <h1 class="h3 mb-0 text-gray-800">Proyectos de investigación</h1>
     </div>
+
+
+	<nav aria-label="breadcrumb">
+	  <ol class="breadcrumb">
+	    <li class="breadcrumb-item"><a href="{{ route('login') }}">Inicio</a></li>
+	    <li class="breadcrumb-item"><a href="{{ route('projects.show') }}">Ver proyectos</a></li>
+	    <li class="breadcrumb-item active" aria-current="page">Registrar proyecto</li>
+	  </ol>
+	</nav>
 
 
      <div class="row">
@@ -11,7 +20,7 @@
   	        <div class="card shadow mb-4">
 
   	        	    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-dark">Crear proyecto de investigacion</h6>
+                        <h6 class="m-0 font-weight-bold text-dark">Crear proyecto de investigación</h6>
                     </div>
 
                     <div class="card-body">
@@ -28,7 +37,7 @@
 					 </div>
 
 					  <div class="form-group">
-					    <label for="exampleFormControlSelect1">Area de investigacion</label>
+					    <label for="exampleFormControlSelect1">Area de investigación</label>
 					    <select class="form-control" id="exampleFormControlSelect1">
 					      <option>Area 1</option>
 					      <option>Area 2</option>
@@ -39,7 +48,7 @@
 					  </div>
 
 					  <div class="form-group">
-					    <label for="exampleFormControlTextarea1">Descripcion</label>
+					    <label for="exampleFormControlTextarea1">Descripción</label>
 					    <textarea class="form-control" id="Descripcion corta" rows="3"></textarea>
 					  </div>
 
