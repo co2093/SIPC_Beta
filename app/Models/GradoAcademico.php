@@ -11,6 +11,10 @@ class GradoAcademico extends Model
     protected $table = 'grados_academicos';
     protected $primarKey = 'id_g_acad';
     public $timestamps = false;
+    protected $fillable = [
+        'titulo_g_acad',
+        'descrip_g_acad'
+    ];
     public function investigadoresGAcademico()
     {
         return $this->hasMany(

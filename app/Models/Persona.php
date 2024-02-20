@@ -11,6 +11,14 @@ class Persona extends Model
     protected $table = 'personas';
     public $timestamps = false;
     protected $primarKey = 'id_personas';
+    protected $fillable = [
+        'nombre_persona',
+        'apellido_persona',
+        'telefono_persona',
+        'correo_persona',
+        'genero',
+        'direccion_persona'
+    ];
     public function investigadoresPersonas()
     {
         return $this->hasMany(

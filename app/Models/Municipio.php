@@ -9,6 +9,7 @@ class Municipio extends Model
 {
     use HasFactory;
     protected $primarKey = 'id_municipio';
+    protected $fillable = ['cod_municipio','nombre_municipio'];
     public function departamentosMunicipios()
     {
         return $this->belongsTo(

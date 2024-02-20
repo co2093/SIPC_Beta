@@ -9,6 +9,7 @@ class Pais extends Model
 {
     use HasFactory;
     protected $primarKey = 'id_pais';
+    protected $fillable= ['cod_pais','nombre_pais'];
     public function departamentosPaises()
     {
         return $this->belongsTo(
