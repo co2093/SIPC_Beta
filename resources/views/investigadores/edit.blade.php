@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
 
 <div style="text-align: center;">
-<h1>Registro de Docentes e Investigadores</h1>
+<h1>Registro de Investigadores</h1>
 <h3>Actualizaci&oacute;n de datos</h3>
 </div>
 
