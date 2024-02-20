@@ -10,6 +10,12 @@ class Carrera extends Model
     use HasFactory;
     protected $table = 'carreras';
     public $timestamps = false;
-    protected $primarKey='id_carrera';
-  
+    protected $primarKey = 'id_carrera';
+    public function facultades()
+    {
+        return $this->belongsTo(
+            Facultad::class,
+            'id_facultad'
+        );
+    }
 }
