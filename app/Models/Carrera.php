@@ -11,11 +11,18 @@ class Carrera extends Model
     protected $table = 'carreras';
     public $timestamps = false;
     protected $primarKey = 'id_carrera';
-    public function facultades()
+    public function facultadesCarreras()
     {
         return $this->belongsTo(
             Facultad::class,
             'id_facultad'
+        );
+    }
+    public function investigadoresCarreras()
+    {
+        return $this->hasMany(
+            Investigador::class,
+            'id_invest'
         );
     }
 }

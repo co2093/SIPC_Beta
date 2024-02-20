@@ -11,7 +11,7 @@ class GradoAcademico extends Model
     protected $table = 'grados_academicos';
     protected $primarKey = 'id_g_acad';
     public $timestamps = false;
-    public function investigadores()
+    public function investigadoresGAcademico()
     {
         return $this->hasMany(
             Investigador::class,
