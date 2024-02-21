@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Departamento extends Model
 {
     use HasFactory;
-    protected $primarKey = 'id_departamento';
+    protected $table ='departamentos';
+    protected $primaryKey = 'id_departamento';
     protected $fillable= ['cod_depto','nombre_depto'];
     public function paisDepartamentos()
     {

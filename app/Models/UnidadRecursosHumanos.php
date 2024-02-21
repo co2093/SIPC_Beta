@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class UnidadRecursosHumanos extends Model
 {
     use HasFactory;
-    protected $primarKey = 'id_unidad';
+    protected $table = 'unidades_rrhh';
+    protected $primaryKey = 'id_unidad';
     protected $fillable = ['nombre_unidad'];
     public function investigadoresUnidadRRHH()
     {

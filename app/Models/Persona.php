@@ -10,7 +10,7 @@ class Persona extends Model
     use HasFactory;
     protected $table = 'personas';
     public $timestamps = false;
-    protected $primarKey = 'id_personas';
+    protected $primaryKey = 'id_personas';
     protected $fillable = [
         'nombre_persona',
         'apellido_persona',

@@ -9,7 +9,7 @@ class GradoAcademico extends Model
 {
     use HasFactory;
     protected $table = 'grados_academicos';
-    protected $primarKey = 'id_g_acad';
+    protected $primaryKey = 'id_g_acad';
     public $timestamps = false;
     protected $fillable = [
         'titulo_g_acad',
@@ -19,7 +19,7 @@ class GradoAcademico extends Model
     {
         return $this->hasMany(
             Investigador::class,
-            'id_investigador'
+            'id_invest'
         );
     }
 }

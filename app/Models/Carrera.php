@@ -10,7 +10,7 @@ class Carrera extends Model
     use HasFactory;
     protected $table = 'carreras';
     public $timestamps = false;
-    protected $primarKey = 'id_carrera';
+    protected $primaryKey = 'id_carrera';
     protected $fillable=['cod_carrera','nombre_carrera','descrip_carrera'];
     public function facultadesCarreras()
     {

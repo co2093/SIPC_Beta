@@ -8,5 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class UnidadInvestigacion extends Model
 {
     use HasFactory;
-
+    protected $table = 'unidades_de_investigacion';
+    protected $primaryKey = 'id_unidad';
+    protected $fillable = ['nombre_unidad'];
+    public $timestamps = false;
+    public function investigadoresUnidadInvest()
+    {
+        return $this->hasMany(
+            Investigador::class,
+            'id_invest'
+        );
+    }
 }

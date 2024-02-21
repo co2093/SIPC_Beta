@@ -9,8 +9,8 @@ class Investigador extends Model
 {
     use HasFactory;
     protected $table = 'investigadores';
-    protected $primarKey = 'id_invest';
-    protected $fillable = ['tipo_investigador'];
+    protected $primaryKey = 'id_invest';
+    protected $fillable = ['acronimo'];
     public $timestamps = false;
     public function carrerasIvvestigadores()
     {
