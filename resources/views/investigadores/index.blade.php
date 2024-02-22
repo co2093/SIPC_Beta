@@ -16,10 +16,10 @@
             <tr>
                 <th scope="col">Nombres</th>
                 <th scope="col">Apellidos</th>
-                <th scope="col">Correo</th>
+                <!--<th scope="col">Correo</th>-->
                 <th scope="col">Telefono</th>
-                <th scope="col">G&eacute;nero</th>
-                <th scope="col">Direccion</th>
+                <!--<th scope="col">G&eacute;nero</th>
+                <th scope="col">Direccion</th>-->
                 <th scope="col">M&aacute;ximo Grado Acad&eacute;mico</th>
                 <th scope="col">Carrera seg&uacute;n T&iacute;tulo</th>
                 <th scope="col">Acr&oacute;nimo</th>
@@ -31,10 +31,10 @@
             <tr>
                 <td>{{$investigador->personasInvestigadores->nombre_persona}}</td>
                 <td>{{$investigador->personasInvestigadores->apellido_persona}}</td>
-                <td>{{$investigador->personasInvestigadores->correo_persona}}</td>
+                <!--<td>{{$investigador->personasInvestigadores->correo_persona}}</td>-->
                 <td>{{$investigador->personasInvestigadores->telefono_persona}}</td>   
-                <td>{{$investigador->personasInvestigadores->genero_persona}}</td>
-                <td>{{$investigador->personasInvestigadores->direccion_persona}}</td>
+                <!--<td>{{$investigador->personasInvestigadores->genero_persona}}</td>
+                <td>{{$investigador->personasInvestigadores->direccion_persona}}</td>-->
                 <td>{{$investigador->gradosAcadInvestigadores->titulo_g_acad}}</td>
                 <td>{{$investigador->carrerasInvestigadores->nombre_carrera}}</td>
                 <td>{{$investigador->acronimo}}</td>

@@ -30,7 +30,7 @@
       id="teleforno_persona" placeholder="Ingrese el telefono del Investigador">
     </div>
     <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-      <label for="" class="form-label me-3" style="margin-right: 10px;">Direcci&oacute;</label>
+      <label for="" class="form-label me-3" style="margin-right: 10px;">Direcci&oacute;n</label>
       <input type="text" class="form-control w-75" tabindex="3" name="direccion_persona"
        id="direccion_persona" placeholder="Ingrese lugar de residencia del Investigador">
     </div>

@@ -93,9 +93,10 @@ class InvestigadorController extends Controller
         // Buscar el investigador por su ID
         $investigador = Investigador::find($id);
     
-        // Verificar si el investigador existe
+        // Verificar si se encontró el investigador
         if (!$investigador) {
-            return redirect()->route('investigadores.index')->with('error', 'Investigador no encontrado');
+            // Manejar el caso en que el investigador no existe
+            abort(404, 'Investigador no encontrado');
         }
     
         // Obtener los datos necesarios para el formulario de edición
@@ -108,7 +109,7 @@ class InvestigadorController extends Controller
         $municipios = Municipio::all();
         $capacitaciones = Capacitacion::all();
     
-        // Obtener los datos de la persona asociada al investigador
+        // También obtener los datos de la persona asociada al investigador
         $persona = $investigador->personasInvestigadores;
     
         // Devolver la vista de edición con los datos del investigador, la persona y las opciones para los campos
@@ -131,10 +132,32 @@ class InvestigadorController extends Controller
         // Buscar el investigador por su ID
         $investigador = Investigador::find($id);
     
-        // Verificar si el investigador existe
+        // Verificar si se encontró el investigador
         if (!$investigador) {
-            return redirect()->route('investigadores.index')->with('error', 'Investigador no encontrado');
+            // Manejar el caso en que el investigador no existe
+            abort(404, 'Investigador no encontrado');
         }
+    
+        // Buscar la persona asociada al investigador
+        $persona = $investigador->personasInvestigadores;
+    
+        // Verificar si se encontró la persona
+        if (!$persona) {
+            // Manejar el caso en que la persona asociada no existe
+            abort(404, 'Persona asociada no encontrada');
+        }
+    
+        // Actualizar los datos de la persona
+        $persona->nombre_persona = $request->input('nombre_persona');
+        $persona->apellido_persona = $request->input('apellido_persona');
+        $persona->telefono_persona = $request->input('telefono_persona');
+        $persona->correo_persona = $request->input('correo_persona');
+        $persona->genero_persona = $request->input('genero_persona');
+        $persona->direccion_persona = $request->input('direccion_persona');
+        $persona->id_pais = $request->input('id_pais');
+    
+        // Guardar los cambios en la persona
+        $persona->save();
     
         // Actualizar los datos del investigador
         $investigador->acronimo = $request->input('acronimo');
@@ -143,20 +166,39 @@ class InvestigadorController extends Controller
         $investigador->id_unidad = $request->input('id_unidad');
         $investigador->id_unidad_rrhh = $request->input('id_unidad_rrhh');
         $investigador->id_cap = $request->input('id_cap');
+    
+        // Guardar los cambios en el investigador
         $investigador->save();
     
-        // Redireccionar a la vista de investigadores con un mensaje de éxito
-        return redirect()->route('investigadores.index')->with('success', 'Investigador actualizado correctamente');
+        // Redireccionar a la vista de investigadores
+        return redirect('investigadores')->with('success', 'Investigador actualizado correctamente');
     }
     
-
     public function destroy($id)
     {
         // Encontrar el investigador a eliminar
         $investigador = Investigador::find($id);
+        
+        // Verificar si se encontró el investigador
+        if (!$investigador) {
+            // Manejar el caso en que el investigador no existe
+            abort(404, 'Investigador no encontrado');
+        }
+    
+        // Obtener el ID de la persona asociada al investigador
+        $id_persona = $investigador->id_persona;
+    
         // Eliminar al investigador de la base de datos
         $investigador->delete();
+    
+        // Verificar si se encontró el ID de la persona
+        if ($id_persona) {
+            // Buscar y eliminar la persona asociada si existe
+            Persona::destroy($id_persona);
+        }
+    
         // Redireccionar a la vista de investigadores
-        return redirect('investigadores');
+        return redirect('investigadores')->with('success', 'Investigador eliminado correctamente');
     }
+    
 }

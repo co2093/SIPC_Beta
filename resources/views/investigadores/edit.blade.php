@@ -28,7 +28,7 @@
       <input type="text" class="form-control w-75" tabindex="3" name="telefono_persona" id="teleforno_persona" value="{{$investigador->personasInvestigadores->telefono_persona}}">
     </div>
     <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-      <label for="" class="form-label me-3" style="margin-right: 10px;">Direcci&oacute;</label>
+      <label for="" class="form-label me-3" style="margin-right: 10px;">Direcci&oacute;n</label>
       <input type="text" class="form-control w-75" tabindex="3" name="direccion_persona" id="direccion_persona" value="{{$investigador->personasInvestigadores->direccion_persona}}">
     </div>
     <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
