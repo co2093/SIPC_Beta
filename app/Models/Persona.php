@@ -18,7 +18,8 @@ class Persona extends Model
         'telefono_persona',
         'correo_persona',
         'genero_persona',
-        'direccion_persona'
+        'direccion_persona',
+        'edad_persona'
     ];
 
     // Accesor para el campo genero_persona

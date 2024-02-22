@@ -63,6 +63,7 @@ class InvestigadorController extends Controller
         $persona->correo_persona = $request->input('correo_persona');
         $persona->genero_persona = $request->input('genero_persona');
         $persona->direccion_persona = $request->input('direccion_persona');
+        $persona->edad_persona = $request->input('edad_persona');
         $persona->id_pais = $request->input('id_pais');
         // Guardar la persona en la base de datos
         $persona->save();
