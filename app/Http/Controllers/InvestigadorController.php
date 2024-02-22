@@ -129,6 +129,7 @@ class InvestigadorController extends Controller
     
     public function update(Request $request, $id)
     {
+
         // Buscar el investigador por su ID
         $investigador = Investigador::find($id);
     
