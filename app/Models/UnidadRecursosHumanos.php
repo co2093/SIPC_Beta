@@ -10,6 +10,7 @@ class UnidadRecursosHumanos extends Model
     use HasFactory;
     protected $table = 'unidades_rrhh';
     protected $primaryKey = 'id_unidad';
+    public $incrementing = true;
     protected $fillable = ['nombre_unidad'];
     public function investigadoresUnidadRRHH()
     {

@@ -10,15 +10,23 @@ class Persona extends Model
     use HasFactory;
     protected $table = 'personas';
     public $timestamps = false;
-    protected $primaryKey = 'id_personas';
+    protected $primaryKey = 'id_persona';
+    public $incrementing = true;
     protected $fillable = [
         'nombre_persona',
         'apellido_persona',
         'telefono_persona',
         'correo_persona',
-        'genero',
+        'genero_persona',
         'direccion_persona'
     ];
+
+    // Accesor para el campo genero_persona
+    public function getGeneroPersonaAttribute($value)
+    {
+        return $value ? 'Masculino' : 'Femenino';
+    }
+
     public function investigadoresPersonas()
     {
         return $this->hasMany(
@@ -26,6 +34,7 @@ class Persona extends Model
             'id_invest'
         );
     }
+
     public function paisesPersonas()
     {
         return $this->belongsTo(

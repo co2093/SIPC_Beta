@@ -10,6 +10,7 @@ class Capacitacion extends Model
     use HasFactory;
     protected $table = 'capacitaciones';
     protected $primaryKey = 'id_cap';
+    public $incrementing = true;
     protected $fillable = [
         'cod_capacitacion',
         'nombre_capacitacion',

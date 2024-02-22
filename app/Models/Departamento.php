@@ -10,6 +10,7 @@ class Departamento extends Model
     use HasFactory;
     protected $table ='departamentos';
     protected $primaryKey = 'id_departamento';
+    public $incrementing = true;
     protected $fillable= ['cod_depto','nombre_depto'];
     public function paisDepartamentos()
     {

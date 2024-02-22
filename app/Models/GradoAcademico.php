@@ -10,6 +10,7 @@ class GradoAcademico extends Model
     use HasFactory;
     protected $table = 'grados_academicos';
     protected $primaryKey = 'id_g_acad';
+    public $incrementing = true;
     public $timestamps = false;
     protected $fillable = [
         'titulo_g_acad',

@@ -10,6 +10,7 @@ class Municipio extends Model
     use HasFactory;
     protected $table='municipios';
     protected $primaryKey = 'id_municipio';
+    public $incrementing = true;
     protected $fillable = ['cod_municipio','nombre_municipio'];
     public function departamentosMunicipios()
     {

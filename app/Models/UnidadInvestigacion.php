@@ -10,6 +10,7 @@ class UnidadInvestigacion extends Model
     use HasFactory;
     protected $table = 'unidades_de_investigacion';
     protected $primaryKey = 'id_unidad';
+    public $incrementing = true;
     protected $fillable = ['nombre_unidad'];
     public $timestamps = false;
     public function investigadoresUnidadInvest()

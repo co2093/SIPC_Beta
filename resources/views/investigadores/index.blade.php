@@ -33,18 +33,18 @@
                 <td>{{$investigador->personasInvestigadores->apellido_persona}}</td>
                 <td>{{$investigador->personasInvestigadores->correo_persona}}</td>
                 <td>{{$investigador->personasInvestigadores->telefono_persona}}</td>   
-                <td>{{$investigador->personasInvestigadores->genero}}</td>
+                <td>{{$investigador->personasInvestigadores->genero_persona}}</td>
                 <td>{{$investigador->personasInvestigadores->direccion_persona}}</td>
                 <td>{{$investigador->gradosAcadInvestigadores->titulo_g_acad}}</td>
-                <td>{{$investigador->carrerasIvvestigadores->nombre_carrera}}</td>
+                <td>{{$investigador->carrerasInvestigadores->nombre_carrera}}</td>
                 <td>{{$investigador->acronimo}}</td>
                 <td>
-                    <form action="" method="POST">
-                        <a class="btn btn-warning" href="investigadores/edit"><i class="bi bi-pencil-square"></i></a>
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger" type="submit"><i class="bi bi-trash"> </i></button>
-                    </form>
+                <form action="{{route('investigadores.destroy',$investigador->id_invest)}}" method="POST">
+                    <a class="btn btn-warning" href="investigadores/{{$investigador->id_invest}}/edit"><i class="bi bi-pencil-square"></i></a>
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" type="submit"><i class="bi bi-trash"> </i></button>
+                </form>
                 </td>
             </tr>
             @endforeach

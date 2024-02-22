@@ -10,15 +10,18 @@ class Investigador extends Model
     use HasFactory;
     protected $table = 'investigadores';
     protected $primaryKey = 'id_invest';
+    public $incrementing = true;
     protected $fillable = ['acronimo'];
     public $timestamps = false;
-    public function carrerasIvvestigadores()
+
+    public function carrerasInvestigadores()
     {
         return $this->belongsTo(
             Carrera::class,
             'id_carrera'
         );
     }
+
     public function personasInvestigadores()
     {
         return $this->belongsTo(
@@ -26,6 +29,7 @@ class Investigador extends Model
             'id_persona'
         );
     }
+
     public function unidadRRHHInvestigadores()
     {
         return $this->belongsTo(
@@ -33,6 +37,7 @@ class Investigador extends Model
             'id_unidad_rrhh'
         );
     }
+
     public function gradosAcadInvestigadores()
     {
         return $this->belongsTo(
@@ -40,11 +45,20 @@ class Investigador extends Model
             'id_g_acad'
         );
     }
+
     public function unidadesInvestigadores()
     {
         return $this->belongsTo(
             UnidadInvestigacion::class,
             'id_unidad'
+        );
+    }
+
+    public function capacitacionesInvestigadores()
+    {
+        return $this->belongsTo(
+            Capacitacion::class,
+            'id_cap'
         );
     }
 }

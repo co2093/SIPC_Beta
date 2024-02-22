@@ -11,6 +11,7 @@ class Carrera extends Model
     protected $table = 'carreras';
     public $timestamps = false;
     protected $primaryKey = 'id_carrera';
+    public $incrementing = true;
     protected $fillable=['cod_carrera','nombre_carrera','descrip_carrera'];
     public function facultadesCarreras()
     {

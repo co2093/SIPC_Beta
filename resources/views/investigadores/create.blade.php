@@ -35,20 +35,30 @@
        id="direccion_persona" placeholder="Ingrese lugar de residencia del Investigador">
     </div>
     <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-      <label for="genero" class="form-label me-3" style="margin-right: 10px;">G&eacute;nero</label>
-      <div class="form-check">
-        <input class="form-check-input me-3" type="radio" name="genero" id="genero" value="masculino">
-        <label class="form-check-label" for="" style="margin-right: 10px;">Masculino</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input me-3" type="radio" name="genero" id="genero" value="femenino">
-        <label class="form-check-label" for="">Femenino</label>
-      </div>
+      <label for="" class="form-label me-3" style="margin-right: 10px;">Pais</label>
+      <select class="form-control w-75" tabindex="4" name="id_pais" id="id_pais">
+        <option selected>Seleccione Pais</option>
+        @foreach ( $paises as $pais)
+        <option value="{{$pais->id_pais}}">{{$pais->nombre_pais}}</option>
+        @endforeach
+      </select>
     </div>
+    <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
+  <label for="genero_persona" class="form-label me-3" style="margin-right: 10px;">G&eacute;nero</label>
+  <div class="form-check">
+    <input class="form-check-input me-3" type="radio" name="genero_persona" id="genero_masculino" value="true">
+    <label class="form-check-label" for="genero_masculino" style="margin-right: 10px;">Masculino</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input me-3" type="radio" name="genero_persona" id="genero_femenino" value="false">
+    <label class="form-check-label" for="genero_femenino">Femenino</label>
+  </div>
+</div>
+
 
     <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
       <label for="" class="form-label me-3" style="margin-right: 10px;">M&aacute;ximo Grado Acad&eacute;mico</label>
-      <select class="form-control w-75" tabindex="4" name="titulo_g_acad" id="titulo_g_acad">
+      <select class="form-control w-75" tabindex="4" name="id_g_acad" id="id_g_acad">
         <option selected>Grado Acad&eacute;mico</option>
         @foreach ( $grados_academicos as $grado_academico)
         <option value="{{$grado_academico->id_g_acad}}">{{$grado_academico->titulo_g_acad}}</option>
@@ -58,7 +68,7 @@
 
     <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
       <label for="" class="form-label me-3" style="margin-right: 10px;">Carrera seg&uacute;n T&iacute;tulo</label>
-      <select class="form-control w-75" tabindex="5" name="carrera" id="carrera">
+      <select class="form-control w-75" tabindex="5" name="id_carrera" id="id_carrera">
         <option selected>Seleccione una</option>
         @foreach ($carreras as $carrera)
         <option value="{{$carrera->id_carrera}}">{{$carrera->nombre_carrera}}</option>
@@ -67,7 +77,7 @@
     </div>
     <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
       <label for="" class="form-label me-3" style="margin-right: 10px;">Unidad a la que pertenece</label>
-      <select class="form-control w-75" tabindex="5" name="unidad" id="unidad">
+      <select class="form-control w-75" tabindex="5" name="id_unidad" id="id_unidad">
         <option selected>Seleccione una</option>
         @foreach ($unidades as $unidad)
         <option value="{{$unidad->id_unidad}}">{{$unidad->nombre_unidad}}</option>
@@ -76,10 +86,19 @@
     </div>
     <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
       <label for="" class="form-label me-3" style="margin-right: 10px;">Unidad de RRHH</label>
-      <select class="form-control w-75" tabindex="5" name="rh" id="rh">
+      <select class="form-control w-75" tabindex="5" name="id_unidad_rrhh" id="id_unidad_rrhh">
         <option selected>Seleccione una</option>
         @foreach ($rrhh as $rh)
         <option value="{{$rh->id_unidad_rrhh}}">{{$rh->nombre_unidad_rrhh}}</option>
+        @endforeach
+      </select>
+    </div>
+    <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
+      <label for="" class="form-label me-3" style="margin-right: 10px;">Capacitaciones</label>
+      <select class="form-control w-75" tabindex="5" name="id_cap" id="id_cap">
+        <option selected>Seleccione una</option>
+        @foreach ($capacitaciones as $capacitacion)
+        <option value="{{$capacitacion->id_cap}}">{{$capacitacion->nombre_capacitacion}}</option>
         @endforeach
       </select>
     </div>
