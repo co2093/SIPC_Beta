@@ -39,16 +39,15 @@
                 <td>{{$investigador->carrerasInvestigadores->nombre_carrera}}</td>
                 <td>{{$investigador->acronimo}}</td>
                 <td>
-                <form action="{{route('investigadores.destroy',$investigador->id_invest)}}" method="POST">
                     <a class="btn btn-warning" href="investigadores/{{$investigador->id_invest}}/edit"><i class="bi bi-pencil-square"></i></a>
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger" type="submit"><i class="bi bi-trash"> </i></button>
-                </form>
+                    <button class="btn btn-danger delete-button" data-action="{{route('investigadores.destroy',$investigador->id_invest)}}"><i class="bi bi-trash"> </i></button>
                 </td>
             </tr>
             @endforeach
         </tbody>
+<!-- JS de Bootstrap y dependencias -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
     </table>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
@@ -83,6 +82,46 @@
                 }
             }
         });
+
+        // Mostrar modal al hacer clic en el botón de eliminar
+        $('#investigadores').on('click', '.delete-button', function() {
+            var action = $(this).data('action');
+            $('#deleteForm').attr('action', action);
+            $('#confirmDeleteModal').modal('show');
+        });
     </script>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas eliminar este investigador?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form id="deleteForm" action="#" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script para cerrar el modal -->
+<script>
+    // Selecciona el botón "Cancelar" y le agrega un evento de clic para cerrar el modal
+    document.querySelector('#confirmDeleteModal .btn-secondary').addEventListener('click', function() {
+        var modal = document.getElementById('confirmDeleteModal');
+        var modalInstance = bootstrap.Modal.getInstance(modal);
+        modalInstance.hide();
+    });
+</script>
+
 @endsection
