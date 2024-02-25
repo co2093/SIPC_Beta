@@ -55,6 +55,50 @@ class InvestigadorController extends Controller
 
     public function store(Request $request)
     {
+        //definiendo los mensajes de error
+        $messages = [
+            'nombre_persona.required' => 'El :attribute es obligatorio.',
+            'apellido_persona.required' => 'El :attribute es obligatorio.',
+            'telefono_persona.required' => 'El :attribute es requerido',
+            'telefono_persona.max' => 'El :attribure no debe ser mayor a :max numeros',
+            'correo_persona.required'=> 'El :attribute es requerido',
+            'correo_persona.email' => 'El :attribute debe ser un correo valido',
+            'genero_persona.required' => 'El :attribute es requerido',
+            'direccion_persona.required' => 'El :attribute es requerido',
+            'edad_persona.required' => 'El :attribute es requerido',
+            'id_pais.required' => 'El :attribute es requerido',
+            'acronimo.required'=>'El :attribute es requerido'
+        ];        // Reemplazar :attribute con el nombre real del campo en el mensaje de error
+        $attributes = [
+            'nombre_persona' => 'nombre(s)',
+            'apellido_persona' => 'apellido(s)',
+            'telefono_persona' => 'teléfono',
+            'correo_persona' => 'correo electrónico',
+            'genero_persona' => 'género',
+            'direccion_persona' => 'dirección',
+            'edad_persona' => 'edad',
+            'id_pais' => 'país',
+            'acronimo'=>'acrónimo'
+        ];
+
+        // Personalizar los mensajes de error con los nombres reales de los campos
+        foreach ($messages as $key => $message) {
+            $messages[$key] = str_replace(':attribute', $attributes[explode('.', $key)[0]], $message);
+        }
+        //validacion de datos
+        $request->validate([
+            'nombre_persona' => 'required|string|min:5|max:150',
+            'apellido_persona' => 'required|string|min:5|max:150',
+            'telefono_persona' => 'required',
+            'telefono_persona' => 'max:10',
+            'correo_persona' => 'required|email',
+            'genero_persona' => 'required',
+            'direccion_persona' => 'required',
+            'edad_persona' => 'required|numeric|min:18|max:120', // Ejemplo: edad debe ser mayor o igual a 18 y menor o igual a 120
+            'id_pais' => 'required',
+            'acronimo' => 'required',
+        ]);
+        
         // Crear una nueva persona
         $persona = new Persona();
         $persona->nombre_persona = $request->input('nombre_persona');
@@ -93,13 +137,13 @@ class InvestigadorController extends Controller
     {
         // Buscar el investigador por su ID
         $investigador = Investigador::find($id);
-    
+
         // Verificar si se encontró el investigador
         if (!$investigador) {
             // Manejar el caso en que el investigador no existe
             abort(404, 'Investigador no encontrado');
         }
-    
+
         // Obtener los datos necesarios para el formulario de edición
         $grados_academicos = GradoAcademico::all();
         $carreras = Carrera::all();
@@ -109,10 +153,10 @@ class InvestigadorController extends Controller
         $departamentos = Departamento::all();
         $municipios = Municipio::all();
         $capacitaciones = Capacitacion::all();
-    
+
         // También obtener los datos de la persona asociada al investigador
         $persona = $investigador->personasInvestigadores;
-    
+
         // Devolver la vista de edición con los datos del investigador, la persona y las opciones para los campos
         return view('investigadores.edit', compact(
             'investigador',
@@ -127,28 +171,28 @@ class InvestigadorController extends Controller
             'capacitaciones'
         ));
     }
-    
+
     public function update(Request $request, $id)
     {
 
         // Buscar el investigador por su ID
         $investigador = Investigador::find($id);
-    
+
         // Verificar si se encontró el investigador
         if (!$investigador) {
             // Manejar el caso en que el investigador no existe
             abort(404, 'Investigador no encontrado');
         }
-    
+
         // Buscar la persona asociada al investigador
         $persona = $investigador->personasInvestigadores;
-    
+
         // Verificar si se encontró la persona
         if (!$persona) {
             // Manejar el caso en que la persona asociada no existe
             abort(404, 'Persona asociada no encontrada');
         }
-    
+
         // Actualizar los datos de la persona
         $persona->nombre_persona = $request->input('nombre_persona');
         $persona->apellido_persona = $request->input('apellido_persona');
@@ -157,10 +201,10 @@ class InvestigadorController extends Controller
         $persona->genero_persona = $request->input('genero_persona');
         $persona->direccion_persona = $request->input('direccion_persona');
         $persona->id_pais = $request->input('id_pais');
-    
+
         // Guardar los cambios en la persona
         $persona->save();
-    
+
         // Actualizar los datos del investigador
         $investigador->acronimo = $request->input('acronimo');
         $investigador->id_carrera = $request->input('id_carrera');
@@ -168,39 +212,38 @@ class InvestigadorController extends Controller
         $investigador->id_unidad = $request->input('id_unidad');
         $investigador->id_unidad_rrhh = $request->input('id_unidad_rrhh');
         $investigador->id_cap = $request->input('id_cap');
-    
+
         // Guardar los cambios en el investigador
         $investigador->save();
-    
+
         // Redireccionar a la vista de investigadores
         return redirect('investigadores')->with('success', 'Investigador actualizado correctamente');
     }
-    
+
     public function destroy($id)
     {
         // Encontrar el investigador a eliminar
         $investigador = Investigador::find($id);
-        
+
         // Verificar si se encontró el investigador
         if (!$investigador) {
             // Manejar el caso en que el investigador no existe
             abort(404, 'Investigador no encontrado');
         }
-    
+
         // Obtener el ID de la persona asociada al investigador
         $id_persona = $investigador->id_persona;
-    
+
         // Eliminar al investigador de la base de datos
         $investigador->delete();
-    
+
         // Verificar si se encontró el ID de la persona
         if ($id_persona) {
             // Buscar y eliminar la persona asociada si existe
             Persona::destroy($id_persona);
         }
-    
+
         // Redireccionar a la vista de investigadores
         return redirect('investigadores')->with('success', 'Investigador eliminado correctamente');
     }
-    
 }
