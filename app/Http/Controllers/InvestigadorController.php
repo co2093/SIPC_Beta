@@ -62,10 +62,9 @@ class InvestigadorController extends Controller
             'telefono_persona.required' => 'El :attribute es requerido',
             'telefono_persona.max' => 'El :attribure no debe ser mayor a :max numeros',
             'correo_persona.required'=> 'El :attribute es requerido',
-            'correo_persona.email' => 'El :attribute debe ser un correo valido',
             'genero_persona.required' => 'El :attribute es requerido',
-            'direccion_persona.required' => 'El :attribute es requerido',
-            'edad_persona.required' => 'El :attribute es requerido',
+            'direccion_persona.required' => 'La :attribute es requerido',
+            'edad_persona.required' => 'La :attribute es requerido',
             'id_pais.required' => 'El :attribute es requerido',
             'acronimo.required'=>'El :attribute es requerido'
         ];        // Reemplazar :attribute con el nombre real del campo en el mensaje de error
@@ -89,9 +88,8 @@ class InvestigadorController extends Controller
         $request->validate([
             'nombre_persona' => 'required|string|min:5|max:150',
             'apellido_persona' => 'required|string|min:5|max:150',
-            'telefono_persona' => 'required',
-            'telefono_persona' => 'max:10',
-            'correo_persona' => 'required|email',
+            'telefono_persona' => 'required|max:8',
+            'correo_persona' => 'required',
             'genero_persona' => 'required',
             'direccion_persona' => 'required',
             'edad_persona' => 'required|numeric|min:18|max:120', // Ejemplo: edad debe ser mayor o igual a 18 y menor o igual a 120

@@ -13,7 +13,65 @@
       font-size: .875rem;
       color: #dc3545;
     }
+
+    /* Estilos del tooltip */
+    .tooltip-text {
+      visibility: hidden;
+      width: auto;
+      max-width: 200px;
+      /* Ancho máximo del tooltip */
+      background-color: rgba(0, 0, 0, 0.8);
+      /* Color de fondo con transparencia */
+      color: #fff;
+      /* Color del texto */
+      text-align: center;
+      border-radius: 8px;
+      /* Bordes blueondeados */
+      padding: 8px 12px;
+      /* Espaciado interno */
+      position: absolute;
+      z-index: 1;
+      bottom: calc(100% + 8px);
+      /* Posiciona el tooltip debajo del ícono */
+      left: 50%;
+      transform: translateX(-50%);
+      /* Centra el tooltip horizontalmente */
+      opacity: 0;
+      transition: opacity 0.3s, visibility 0.3s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      /* Sombra suave */
+    }
+
+    /* Estilos del ícono de pregunta */
+    .tooltip-icon {
+      cursor: help;
+      /* Cambia el cursor al pasar el mouse sobre el tooltip */
+    }
+
+    /* Muestra el tooltip cuando el mouse está sobre el ícono */
+    .tooltip-wrapper:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
   </style>
+  <script>
+    // Obtener todos los elementos con el atributo data-tooltip
+    var tooltips = document.querySelectorAll('[data-tooltip]');
+
+    // Iterar sobre cada elemento y agregar eventos de mouse
+    tooltips.forEach(function(tooltip) {
+      // Obtener el contenido del tooltip
+      var tooltipText = tooltip.getAttribute('data-tooltip');
+
+      // Crear el elemento del tooltip
+      var tooltipElement = document.createElement('span');
+      tooltipElement.classList.add('tooltiptext');
+      tooltipElement.textContent = tooltipText;
+
+      // Adjuntar el tooltip al elemento padre
+      tooltip.appendChild(tooltipElement);
+    });
+  </script>
   @csrf
   <div class="form-container d-flex flex-column ">
     <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
@@ -108,8 +166,8 @@
     <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
       <label for="id_unidad" class="form-label me-3 mr-2 ">Unidad a la que pertenece</label>
       <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad investiativa a la que pertenece el Investigador">
-          <i class="bi bi-info-circle text-info"></i>
-        </span>
+        <i class="bi bi-info-circle text-info"></i>
+      </span>
       <select class="form-control  ml-3 @error('id_unidad') is-invalid @enderror" tabindex="5" name="id_unidad" id="id_unidad">
         <option selected>Seleccione una</option>
         @foreach ($unidades as $unidad)
@@ -118,8 +176,8 @@
       </select>
       <label for="id_unidad_rrhh" class="form-label me-3 ml-5">Unidad de RRHH</label>
       <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad de recursos humanos a la que pertenece el Investigador">
-          <i class="bi bi-info-circle text-info"></i>
-        </span>
+        <i class="bi bi-info-circle text-info"></i>
+      </span>
       <select class="form-control ml-5 @error('id_unidad_rrhh') is-invalid @enderror" tabindex="5" name="id_unidad_rrhh" id="id_unidad_rrhh">
         <option selected>Seleccione una</option>
         @foreach ($rrhh as $rh)
@@ -129,9 +187,9 @@
     </div>
     <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
       <label for="id_cap" class="form-label me-3 ">Capacitaciones</label>
-      <span  data-bs-toggle="tooltip" title="Debe seleccionar el tipo de capacitacion ">
-          <i class="bi bi-info-circle text-info"></i>
-        </span>
+      <span data-bs-toggle="tooltip" title="Debe seleccionar el tipo de capacitacion ">
+        <i class="bi bi-info-circle text-info"></i>
+      </span>
       <select class="form-control ml-3 @error('id_cap') is-invalid @enderror" tabindex="5" name="id_cap" id="id_cap">
         <option selected>Seleccione una</option>
         @foreach ($capacitaciones as $capacitacion)
@@ -140,8 +198,8 @@
       </select>
       <label for="acronimo" class="form-label me-3 ml-3">Acr&oacute;nimo</label>
       <span class="ml-2" data-bs-toggle="tooltip" title="El acronimo segun el maximo grado academico y carrera del investigador">
-          <i class="bi bi-info-circle text-info"></i>
-        </span>
+        <i class="bi bi-info-circle text-info"></i>
+      </span>
       <input type="text" class="form-control  ml-3 @error('acronimo') is-invalid @enderror" tabindex="6" id="acronimo" name="acronimo" placeholder="{{ $errors->has('acronimo') ? $errors->first('acronimo') : 'Acronimo' }}" value="{{ old('acronimo') }}">
     </div>
 
