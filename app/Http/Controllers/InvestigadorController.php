@@ -15,7 +15,11 @@ use App\Models\Departamento;
 use App\Models\Municipio;
 use App\Models\Pais;
 use App\Models\Acronimo;
-
+use App\Models\CierreFormulario;
+use App\Models\ConsolidadoFormulario;
+use App\Models\EstadoFormulario;
+use App\Models\Formulario;
+use App\Models\TipoFormulario;
 
 
 class InvestigadorController extends Controller
@@ -43,6 +47,9 @@ class InvestigadorController extends Controller
         $municipios = Municipio::all();
         $capacitaciones = Capacitacion::all();
         $acronimos = Acronimo::all();
+        $formularios =Formulario::all();
+        $t_formularios=TipoFormulario::all();
+        $cierres=CierreFormulario::all();
         return view(
             'investigadores.create',
             compact(
