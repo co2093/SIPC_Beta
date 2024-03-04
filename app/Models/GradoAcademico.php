@@ -23,4 +23,11 @@ class GradoAcademico extends Model
             'id_invest'
         );
     }
+    public function acronimosGAcademico()
+    {
+        return $this->belongsTo(
+            Acronimo::class,
+            'id_acronimo'
+        );
+    }
 }

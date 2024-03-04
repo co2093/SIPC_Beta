@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UnidadInvestigacion extends Model
 {
     use HasFactory;
-    protected $table = 'unidades_de_investigacion';
+    protected $table = 'uu_de_invest';
     protected $primaryKey = 'id_unidad';
     public $incrementing = true;
     protected $fillable = ['nombre_unidad'];

@@ -38,6 +38,7 @@ class InvestigadorController extends Controller
         $departamentos = Departamento::all();
         $municipios = Municipio::all();
         $capacitaciones = Capacitacion::all();
+        $acronimos = Acronimo::all();
         return view(
             'investigadores.create',
             compact(

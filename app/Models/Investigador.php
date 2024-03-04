@@ -11,7 +11,6 @@ class Investigador extends Model
     protected $table = 'investigadores';
     protected $primaryKey = 'id_invest';
     public $incrementing = true;
-    protected $fillable = ['acronimo'];
     public $timestamps = false;
 
     public function carrerasInvestigadores()
@@ -61,4 +60,5 @@ class Investigador extends Model
             'id_cap'
         );
     }
+ 
 }

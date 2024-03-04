@@ -27,4 +27,11 @@ class Carrera extends Model
             'id_invest'
         );
     }
+    public function acronimosCarreras()
+    {
+        return $this->belongsTo(
+            Acronimo::class,
+            'id_acronimo'
+        );
+    }
 }
