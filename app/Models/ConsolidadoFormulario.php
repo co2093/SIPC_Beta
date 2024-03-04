@@ -30,4 +30,11 @@ class ConsolidadoFormulario extends Model
             'id_facultad'
         );
     }
+    public function consolidacionEstadosFormularios()
+    {
+        return $this->hasMany(
+            EstadoFormulario::class,
+            'id_e_form'
+        );
+    }
 }

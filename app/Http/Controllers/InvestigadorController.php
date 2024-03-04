@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//modelos a utilizar
 use App\Models\Investigador;
 use App\Models\Capacitacion;
 use App\Models\Carrera;
@@ -13,6 +14,9 @@ use App\Models\UnidadRecursosHumanos;
 use App\Models\Departamento;
 use App\Models\Municipio;
 use App\Models\Pais;
+use App\Models\Acronimo;
+
+
 
 class InvestigadorController extends Controller
 {
