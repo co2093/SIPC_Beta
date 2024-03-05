@@ -82,12 +82,13 @@
       <button class="nav-link" id="academic-tab" data-bs-toggle="tab" data-bs-target="#academic" type="button" role="tab" aria-controls="academic" aria-selected="false">Datos Academicos</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="adminstrative-tab" data-bs-toggle="tab" data-bs-target="#administrative" type="button" role="tab" aria-controls="administrative" aria-selected="false">Datos Aministrativos</button>
+      <button class="nav-link" id="adminstrative-tab" data-bs-toggle="tab" data-bs-target="#administrative" type="button" role="tab" aria-controls="administrative" aria-selected="false">Datos Adicionales</button>
     </li>
   </ul>
 
   <div class="form-container d-flex flex-column ">
     <div class="tab-content" id="myTabContent">
+      <!--Datos Personales-->
       <div class="tab-pane fade show active mt-5" id="personal" role="tabpanel" aria-labelledby="personal-tab">
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
           <label for="nombre_persona" class="form-label me-3 mr-3">Nombres</label>
@@ -140,7 +141,7 @@
           </select>
 
         </div>
-        <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
+        <div class="d-flex justify-content-between" style="margin-bottom: 25px;">
           <label for="genero_persona" class="form-label me-3">G&eacute;nero <span class="ml-3" data-bs-toggle="tooltip" title="Debe seleccionar genero del Investigador">
               <i class="bi bi-info-circle text-info"></i>
             </span></label>
@@ -154,6 +155,7 @@
           </div>
         </div>
       </div>
+      <!--Datos Academicos-->
       <div class="tab-pane fade mt-5" id="academic" role="tabpanel" aria-labelledby="academic-tab">
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
           <label for="id_g_acad" class="form-label me-3 ">M&aacute;ximo Grado Acad&eacute;mico
@@ -162,13 +164,24 @@
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <select class="form-control  ml-4 @error('id_g_acad') is-invalid @enderror" tabindex="4" name="id_g_acad" id="id_g_acad">
-            <option selected>Grado Acad&eacute;mico</option>
+            <option selected>Seleccione un Grado Acad&eacute;mico</option>
             @foreach ( $grados_academicos as $grado_academico)
             <option value="{{$grado_academico->id_g_acad}}">{{$grado_academico->titulo_g_acad}}</option>
             @endforeach
           </select>
-
-          <label for="id_carrera" class="form-label me-3 ml-5 ">Carrera seg&uacute;n T&iacute;tulo</label>
+          <label for="id_acronimo" class="form-label me-3 ml-2">Acr&oacute;nimo Grado Acad&eacute;mico</label>
+          <span  data-bs-toggle="tooltip" title="El acronimo segun el maximo grado academico  del investigador">
+            <i class="bi bi-info-circle text-info"></i>
+          </span>
+          <select class="form-control  ml-3 @error('id_acronimo') is-invalid @enderror" tabindex="5" name="id_acronimo" id="id_acronimo">
+            <option selected>Seleccione el Acr&oacute;nimo</option>
+            @foreach ($grados_academicos as $grado_academico)
+            <option value="{{$grado_academico->id_acronimo}}">{{$grado_academico->acronimosGAcademico->codigo_acronimo}}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
+        <label for="id_carrera" class="form-label me-3">Carrera seg&uacute;n T&iacute;tulo</label>
           <span class="ml-3" data-bs-toggle="tooltip" title="Debe seleccionar la carrera segun el titulo del Investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
@@ -178,33 +191,83 @@
             <option value="{{$carrera->id_carrera}}">{{$carrera->nombre_carrera}}</option>
             @endforeach
           </select>
-        </div>
-        <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="id_cap" class="form-label me-3 ">Capacitaciones</label>
-          <span data-bs-toggle="tooltip" title="Debe seleccionar el tipo de capacitacion ">
+          <label for="car_id_acronimo" class="form-label me-3 ml-2">Acr&oacute;nimo Carrera</label>
+          <span class="ml-2" data-bs-toggle="tooltip" title="El acronimo segun la carrera del investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
-          <select class="form-control ml-3 @error('id_cap') is-invalid @enderror" tabindex="5" name="id_cap" id="id_cap">
+          <select class="form-control ml-3 @error('car_id_acronimo') is-invalid @enderror" tabindex="5" name="car_id_acronimo" id="car_id_acronimo">
+            <option selected>Seleccione el Acr&oacute;nimo</option>
+            @foreach ($carreras as $carrera)
+            <option value="{{$carrera->id_acronimo}}">{{$carrera->acronimosCarreras->codigo_acronimo}}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="d-flex justify-content-between" style="margin-bottom: 25px;">
+        <label for="id_cap" class="form-label me-3 mr-2">Capacitaciones</label>
+          <span  data-bs-toggle="tooltip" title="Debe seleccionar el tipo de capacitacion ">
+            <i class="bi bi-info-circle text-info"></i>
+          </span>
+          <select class="form-control ml-2 @error('id_cap') is-invalid @enderror" tabindex="5" name="id_cap" id="id_cap">
             <option selected>Seleccione una</option>
             @foreach ($capacitaciones as $capacitacion)
             <option value="{{$capacitacion->id_cap}}">{{$capacitacion->nombre_capacitacion}}</option>
             @endforeach
           </select>
-          <label for="acronimo" class="form-label me-3 ml-3">Acr&oacute;nimo</label>
-          <span class="ml-2" data-bs-toggle="tooltip" title="El acronimo segun el maximo grado academico y carrera del investigador">
-            <i class="bi bi-info-circle text-info"></i>
-          </span>
-          <input type="text" class="form-control  ml-3 @error('acronimo') is-invalid @enderror" tabindex="6" id="acronimo" name="acronimo" placeholder="{{ $errors->has('acronimo') ? $errors->first('acronimo') : 'Acronimo' }}" value="{{ old('acronimo') }}">
         </div>
       </div>
+      <!--Datos Administrativos-->
       <div class="tab-pane fade mt-5" id="administrative" role="tabpanel" aria-labelledby="adminstrative-tab">
+      <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
+          <label for="id_unidad" class="form-label me-3 mr-2 ">Formulario</label>
+          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad investiativa a la que pertenece el Investigador">
+            <i class="bi bi-info-circle text-info"></i>
+          </span>
+          <select class="form-control  ml-3 @error('id_unidad') is-invalid @enderror" tabindex="5" name="id_unidad" id="id_unidad">
+            <option selected>Seleccione la Unidad</option>
+            @foreach ($unidades as $unidad)
+            <option value="{{$unidad->id_unidad}}">{{$unidad->nombre_unidad}}</option>
+            @endforeach
+          </select>
+          <label for="id_unidad_rrhh" class="form-label me-3 ml-5">Tipo Formulario</label>
+          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad de recursos humanos a la que pertenece el Investigador">
+            <i class="bi bi-info-circle text-info"></i>
+          </span>
+          <select class="form-control ml-5 @error('id_unidad_rrhh') is-invalid @enderror" tabindex="5" name="id_unidad_rrhh" id="id_unidad_rrhh">
+            <option selected>Seleccione la Unidad</option>
+            @foreach ($rrhh as $rh)
+            <option value="{{$rh->id_unidad_rrhh}}">{{$rh->nombre_unidad_rrhh}}</option>
+            @endforeach
+          </select>
+        </div>  
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
+          <label for="id_unidad" class="form-label me-3 mr-2 ">Cierre</label>
+          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad investiativa a la que pertenece el Investigador">
+            <i class="bi bi-info-circle text-info"></i>
+          </span>
+          <select class="form-control  ml-3 @error('id_unidad') is-invalid @enderror" tabindex="5" name="id_unidad" id="id_unidad">
+            <option selected>Seleccione la Unidad</option>
+            @foreach ($unidades as $unidad)
+            <option value="{{$unidad->id_unidad}}">{{$unidad->nombre_unidad}}</option>
+            @endforeach
+          </select>
+          <label for="id_unidad_rrhh" class="form-label me-3 ml-5">Consolidacion</label>
+          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad de recursos humanos a la que pertenece el Investigador">
+            <i class="bi bi-info-circle text-info"></i>
+          </span>
+          <select class="form-control ml-5 @error('id_unidad_rrhh') is-invalid @enderror" tabindex="5" name="id_unidad_rrhh" id="id_unidad_rrhh">
+            <option selected>Seleccione la Unidad</option>
+            @foreach ($rrhh as $rh)
+            <option value="{{$rh->id_unidad_rrhh}}">{{$rh->nombre_unidad_rrhh}}</option>
+            @endforeach
+          </select>
+        </div>
+      <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
           <label for="id_unidad" class="form-label me-3 mr-2 ">Unidad a la que pertenece</label>
           <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad investiativa a la que pertenece el Investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <select class="form-control  ml-3 @error('id_unidad') is-invalid @enderror" tabindex="5" name="id_unidad" id="id_unidad">
-            <option selected>Seleccione una</option>
+            <option selected>Seleccione la Unidad</option>
             @foreach ($unidades as $unidad)
             <option value="{{$unidad->id_unidad}}">{{$unidad->nombre_unidad}}</option>
             @endforeach
@@ -214,7 +277,7 @@
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <select class="form-control ml-5 @error('id_unidad_rrhh') is-invalid @enderror" tabindex="5" name="id_unidad_rrhh" id="id_unidad_rrhh">
-            <option selected>Seleccione una</option>
+            <option selected>Seleccione la Unidad</option>
             @foreach ($rrhh as $rh)
             <option value="{{$rh->id_unidad_rrhh}}">{{$rh->nombre_unidad_rrhh}}</option>
             @endforeach

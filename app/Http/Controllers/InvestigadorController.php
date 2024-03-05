@@ -46,10 +46,12 @@ class InvestigadorController extends Controller
         $departamentos = Departamento::all();
         $municipios = Municipio::all();
         $capacitaciones = Capacitacion::all();
+        //campos adicionales de las nuevas entidades agregadas
         $acronimos = Acronimo::all();
         $formularios =Formulario::all();
         $t_formularios=TipoFormulario::all();
         $cierres=CierreFormulario::all();
+        $consolidados=ConsolidadoFormulario::all();
         return view(
             'investigadores.create',
             compact(
@@ -60,7 +62,13 @@ class InvestigadorController extends Controller
                 'paises',
                 'departamentos',
                 'municipios',
-                'capacitaciones'
+                'capacitaciones',
+                //datos extra
+                'acronimos',
+                'formularios',
+                't_formularios',
+                'cierres',
+                'consolidados'
             )
         );
     }
@@ -78,7 +86,6 @@ class InvestigadorController extends Controller
             'direccion_persona.required' => 'La :attribute es requerido',
             'edad_persona.required' => 'La :attribute es requerido',
             'id_pais.required' => 'El :attribute es requerido',
-            'acronimo.required'=>'El :attribute es requerido'
         ];        // Reemplazar :attribute con el nombre real del campo en el mensaje de error
         $attributes = [
             'nombre_persona' => 'nombre(s)',
@@ -89,7 +96,6 @@ class InvestigadorController extends Controller
             'direccion_persona' => 'dirección',
             'edad_persona' => 'edad',
             'id_pais' => 'país',
-            'acronimo'=>'acrónimo'
         ];
 
         // Personalizar los mensajes de error con los nombres reales de los campos
@@ -106,7 +112,6 @@ class InvestigadorController extends Controller
             'direccion_persona' => 'required',
             'edad_persona' => 'required|numeric|min:18|max:120', // Ejemplo: edad debe ser mayor o igual a 18 y menor o igual a 120
             'id_pais' => 'required',
-            'acronimo' => 'required',
         ]);
         
         // Crear una nueva persona
@@ -124,13 +129,20 @@ class InvestigadorController extends Controller
 
         // Crear un nuevo investigador y asociarlo a la persona guardada
         $investigador = new Investigador();
-        $investigador->acronimo = $request->input('acronimo');
         $investigador->id_persona = $persona->id_persona; // Asociar el ID de la persona creada
         $investigador->id_carrera = $request->input('id_carrera');
         $investigador->id_g_acad = $request->input('id_g_acad');
         $investigador->id_unidad = $request->input('id_unidad');
         $investigador->id_unidad_rrhh = $request->input('id_unidad_rrhh');
         $investigador->id_cap = $request->input('id_cap');
+        //datos adicionales de los acronimos de carrera y grado academico
+        $investigador->car_id_acronimo=$request->input('car_id_acronimo');
+        $investigador->id_acronimo->$request->input('id_acronimo');
+        //informacion de la cabecera del formulario
+        $investigador->id_form= $request->input('id_form');
+        $investigador->id_t_form=$request->input('id_t_form');
+        $investigador->id_consolidacion=$request->input('id_consolidacion');
+        $investigador->id_cierre_periodo_=$request->input('id_cierre_periodo_');
         // Guardar el investigador en la base de datos
         $investigador->save();
 
