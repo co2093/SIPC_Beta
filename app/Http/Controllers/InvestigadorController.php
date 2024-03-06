@@ -48,10 +48,10 @@ class InvestigadorController extends Controller
         $capacitaciones = Capacitacion::all();
         //campos adicionales de las nuevas entidades agregadas
         $acronimos = Acronimo::all();
-        $formularios =Formulario::all();
-        $t_formularios=TipoFormulario::all();
-        $cierres=CierreFormulario::all();
-        $consolidados=ConsolidadoFormulario::all();
+        $formularios = Formulario::all();
+        $t_formularios = TipoFormulario::all();
+        $cierres = CierreFormulario::all();
+        $consolidados = ConsolidadoFormulario::all();
         return view(
             'investigadores.create',
             compact(
@@ -81,7 +81,7 @@ class InvestigadorController extends Controller
             'apellido_persona.required' => 'El :attribute es obligatorio.',
             'telefono_persona.required' => 'El :attribute es requerido',
             'telefono_persona.max' => 'El :attribure no debe ser mayor a :max numeros',
-            'correo_persona.required'=> 'El :attribute es requerido',
+            'correo_persona.required' => 'El :attribute es requerido',
             'genero_persona.required' => 'El :attribute es requerido',
             'direccion_persona.required' => 'La :attribute es requerido',
             'edad_persona.required' => 'La :attribute es requerido',
@@ -113,7 +113,7 @@ class InvestigadorController extends Controller
             'edad_persona' => 'required|numeric|min:18|max:120', // Ejemplo: edad debe ser mayor o igual a 18 y menor o igual a 120
             'id_pais' => 'required',
         ]);
-        
+
         // Crear una nueva persona
         $persona = new Persona();
         $persona->nombre_persona = $request->input('nombre_persona');
@@ -136,13 +136,13 @@ class InvestigadorController extends Controller
         $investigador->id_unidad_rrhh = $request->input('id_unidad_rrhh');
         $investigador->id_cap = $request->input('id_cap');
         //datos adicionales de los acronimos de carrera y grado academico
-        $investigador->car_id_acronimo=$request->input('car_id_acronimo');
-        $investigador->id_acronimo=$request->input('id_acronimo');
+        $investigador->car_id_acronimo = $request->input('car_id_acronimo');
+        $investigador->id_acronimo = $request->input('id_acronimo');
         //informacion de la cabecera del formulario
-        $investigador->id_form= $request->input('id_form');
-        $investigador->id_t_form=$request->input('id_t_form');
-        $investigador->id_consolidacion=$request->input('id_consolidacion');
-        $investigador->id_cierre_periodo_=$request->input('id_cierre_periodo_');
+        $investigador->id_form = $request->input('id_form');
+        $investigador->id_t_form = $request->input('id_t_form');
+        $investigador->id_consolidacion = $request->input('id_consolidacion');
+        $investigador->id_cierre_periodo_ = $request->input('id_cierre_periodo_');
         // Guardar el investigador en la base de datos
         $investigador->save();
 
@@ -175,7 +175,12 @@ class InvestigadorController extends Controller
         $departamentos = Departamento::all();
         $municipios = Municipio::all();
         $capacitaciones = Capacitacion::all();
-
+        //datos adicionales
+        $acronimos = Acronimo::all();
+        $formularios = Formulario::all();
+        $t_formularios = TipoFormulario::all();
+        $cierres = CierreFormulario::all();
+        $consolidados = ConsolidadoFormulario::all();
         // También obtener los datos de la persona asociada al investigador
         $persona = $investigador->personasInvestigadores;
 
@@ -190,7 +195,13 @@ class InvestigadorController extends Controller
             'paises',
             'departamentos',
             'municipios',
-            'capacitaciones'
+            'capacitaciones',
+            //datos extra
+            'acronimos',
+            'formularios',
+            't_formularios',
+            'cierres',
+            'consolidados'
         ));
     }
 
@@ -234,7 +245,14 @@ class InvestigadorController extends Controller
         $investigador->id_unidad = $request->input('id_unidad');
         $investigador->id_unidad_rrhh = $request->input('id_unidad_rrhh');
         $investigador->id_cap = $request->input('id_cap');
-
+        //datos adicionales de los acronimos de carrera y grado academico
+        $investigador->car_id_acronimo = $request->input('car_id_acronimo');
+        $investigador->id_acronimo = $request->input('id_acronimo');
+        //informacion de la cabecera del formulario
+        $investigador->id_form = $request->input('id_form');
+        $investigador->id_t_form = $request->input('id_t_form');
+        $investigador->id_consolidacion = $request->input('id_consolidacion');
+        $investigador->id_cierre_periodo_ = $request->input('id_cierre_periodo_');
         // Guardar los cambios en el investigador
         $investigador->save();
 
