@@ -137,7 +137,7 @@ class InvestigadorController extends Controller
         $investigador->id_cap = $request->input('id_cap');
         //datos adicionales de los acronimos de carrera y grado academico
         $investigador->car_id_acronimo=$request->input('car_id_acronimo');
-        $investigador->id_acronimo->$request->input('id_acronimo');
+        $investigador->id_acronimo=$request->input('id_acronimo');
         //informacion de la cabecera del formulario
         $investigador->id_form= $request->input('id_form');
         $investigador->id_t_form=$request->input('id_t_form');

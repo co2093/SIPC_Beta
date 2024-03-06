@@ -218,62 +218,62 @@
       <!--Datos Administrativos-->
       <div class="tab-pane fade mt-5" id="administrative" role="tabpanel" aria-labelledby="adminstrative-tab">
       <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="id_unidad" class="form-label me-3 mr-2 ">Formulario</label>
-          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad investiativa a la que pertenece el Investigador">
+          <label for="id_form" class="form-label me-3 mr-2 ">Formulario</label>
+          <span class="ml-3" data-bs-toggle="tooltip" title="Debe seleccionar el formulario">
             <i class="bi bi-info-circle text-info"></i>
           </span>
-          <select class="form-control  ml-3 @error('id_unidad') is-invalid @enderror" tabindex="5" name="id_unidad" id="id_unidad">
-            <option selected>Seleccione la Unidad</option>
-            @foreach ($unidades as $unidad)
-            <option value="{{$unidad->id_unidad}}">{{$unidad->nombre_unidad}}</option>
+          <select class="form-control  ml-3 @error('id_form') is-invalid @enderror" tabindex="5" name="id_form" id="id_form">
+            <option selected>Seleccione El codigo de formulario</option>
+            @foreach ($formularios as $formulario)
+            <option value="{{$formulario->id_form}}">{{$formulario->codigo_form}}</option>
             @endforeach
           </select>
-          <label for="id_unidad_rrhh" class="form-label me-3 ml-5">Tipo Formulario</label>
-          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad de recursos humanos a la que pertenece el Investigador">
+          <label for="id_t_form" class="form-label me-3 ml-4">Tipo Formulario</label>
+          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar el tipo de formulario">
             <i class="bi bi-info-circle text-info"></i>
           </span>
-          <select class="form-control ml-5 @error('id_unidad_rrhh') is-invalid @enderror" tabindex="5" name="id_unidad_rrhh" id="id_unidad_rrhh">
-            <option selected>Seleccione la Unidad</option>
-            @foreach ($rrhh as $rh)
-            <option value="{{$rh->id_unidad_rrhh}}">{{$rh->nombre_unidad_rrhh}}</option>
+          <select class="form-control ml-5 @error('id_t_form') is-invalid @enderror" tabindex="5" name="id_t_form" id="id_t_form">
+            <option selected>Selecione tipo</option>
+            @foreach ($formularios as $formulario)
+            <option value="{{$formulario->id_t_form}}">{{$formulario->formulariosTipos->nombre_t_form}}</option>
             @endforeach
           </select>
         </div>  
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="id_unidad" class="form-label me-3 mr-2 ">Cierre</label>
-          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad investiativa a la que pertenece el Investigador">
+          <label for="id_cierre_periodo_" class="form-label me-3 mr-2 ">Cierre</label>
+          <span class="ml-5" data-bs-toggle="tooltip" title="Debe seleccionar el cierre">
             <i class="bi bi-info-circle text-info"></i>
           </span>
-          <select class="form-control  ml-3 @error('id_unidad') is-invalid @enderror" tabindex="5" name="id_unidad" id="id_unidad">
-            <option selected>Seleccione la Unidad</option>
-            @foreach ($unidades as $unidad)
-            <option value="{{$unidad->id_unidad}}">{{$unidad->nombre_unidad}}</option>
+          <select class="form-control  ml-4 @error('id_cierre_periodo_') is-invalid @enderror" tabindex="5" name="id_cierre_periodo_" id="id_cierre_periodo_">
+            <option selected>Seleccione una fecha de cierre</option>
+            @foreach ($formularios as $formulario)
+            <option value="{{$formulario->id_cierre_periodo}}">{{$formulario->formulariosCierres->fecha_periodo_}}</option>
             @endforeach
           </select>
-          <label for="id_unidad_rrhh" class="form-label me-3 ml-5">Consolidacion</label>
-          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad de recursos humanos a la que pertenece el Investigador">
+          <label for="id_consolidacion" class="form-label me-3 ml-3">Consolidacion</label>
+          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar el estado de consolidacion del formulario">
             <i class="bi bi-info-circle text-info"></i>
           </span>
-          <select class="form-control ml-5 @error('id_unidad_rrhh') is-invalid @enderror" tabindex="5" name="id_unidad_rrhh" id="id_unidad_rrhh">
+          <select class="form-control ml-4 @error('id_consolidacion') is-invalid @enderror" tabindex="5" name="id_consolidacion" id="id_consolidacion">
             <option selected>Seleccione la Unidad</option>
-            @foreach ($rrhh as $rh)
-            <option value="{{$rh->id_unidad_rrhh}}">{{$rh->nombre_unidad_rrhh}}</option>
+            @foreach ($formularios as $formulario)
+            <option value="{{$formulario->id_consolidacion}}">{{$formulario->formulariosConsolidaciones->estado_consolidacion}}</option>
             @endforeach
           </select>
         </div>
       <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
           <label for="id_unidad" class="form-label me-3 mr-2 ">Unidad a la que pertenece</label>
-          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad investiativa a la que pertenece el Investigador">
+          <span class="ml-3" data-bs-toggle="tooltip" title="Debe seleccionar la unidad investiativa a la que pertenece el Investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
-          <select class="form-control  ml-3 @error('id_unidad') is-invalid @enderror" tabindex="5" name="id_unidad" id="id_unidad">
+          <select class="form-control  ml-4 @error('id_unidad') is-invalid @enderror" tabindex="5" name="id_unidad" id="id_unidad">
             <option selected>Seleccione la Unidad</option>
             @foreach ($unidades as $unidad)
             <option value="{{$unidad->id_unidad}}">{{$unidad->nombre_unidad}}</option>
             @endforeach
           </select>
-          <label for="id_unidad_rrhh" class="form-label me-3 ml-5">Unidad de RRHH</label>
-          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar la unidad de recursos humanos a la que pertenece el Investigador">
+          <label for="id_unidad_rrhh" class="form-label me-3 ml-4">Unidad de RRHH</label>
+          <span class="ml-5" data-bs-toggle="tooltip" title="Debe seleccionar la unidad de recursos humanos a la que pertenece el Investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <select class="form-control ml-5 @error('id_unidad_rrhh') is-invalid @enderror" tabindex="5" name="id_unidad_rrhh" id="id_unidad_rrhh">
