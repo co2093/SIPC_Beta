@@ -81,9 +81,6 @@
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="academic-tab" data-bs-toggle="tab" data-bs-target="#academic" type="button" role="tab" aria-controls="academic" aria-selected="false">Datos Academicos</button>
     </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="adminstrative-tab" data-bs-toggle="tab" data-bs-target="#administrative" type="button" role="tab" aria-controls="administrative" aria-selected="false">Datos Adicionales</button>
-    </li>
   </ul>
   <div class="form-container d-flex flex-column ">
     <div class="tab-content" id="myTabContent">
@@ -168,18 +165,6 @@
             <option value="{{$grado_academico->id_g_acad}}">{{$grado_academico->titulo_g_acad}}</option>
             @endforeach
           </select>
-          <label for="id_acronimo" class="form-label me-3 ml-2">Acr&oacute;nimo Grado Acad&eacute;mico</label>
-          <span data-bs-toggle="tooltip" title="El acronimo segun el maximo grado academico  del investigador">
-            <i class="bi bi-info-circle text-info"></i>
-          </span>
-          <select class="form-control  ml-3 @error('id_acronimo') is-invalid @enderror" tabindex="5" name="id_acronimo" id="id_acronimo">
-            <option selected>Seleccione el Acr&oacute;nimo</option>
-            @foreach ($grados_academicos as $grado_academico)
-            <option value="{{$grado_academico->id_acronimo}}">{{$grado_academico->acronimosGAcademico->codigo_acronimo}}</option>
-            @endforeach
-          </select>
-        </div>
-        <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
           <label for="id_carrera" class="form-label me-3">Carrera seg&uacute;n T&iacute;tulo</label>
           <span class="ml-3" data-bs-toggle="tooltip" title="Debe seleccionar la carrera segun el titulo del Investigador">
             <i class="bi bi-info-circle text-info"></i>
@@ -188,16 +173,6 @@
             <option selected>Seleccione una Carrera</option>
             @foreach ($carreras as $carrera)
             <option value="{{$carrera->id_carrera}}">{{$carrera->nombre_carrera}}</option>
-            @endforeach
-          </select>
-          <label for="car_id_acronimo" class="form-label me-3 ml-2">Acr&oacute;nimo Carrera</label>
-          <span class="ml-2" data-bs-toggle="tooltip" title="El acronimo segun la carrera del investigador">
-            <i class="bi bi-info-circle text-info"></i>
-          </span>
-          <select class="form-control ml-3 @error('car_id_acronimo') is-invalid @enderror" tabindex="5" name="car_id_acronimo" id="car_id_acronimo">
-            <option selected>Seleccione el Acr&oacute;nimo</option>
-            @foreach ($carreras as $carrera)
-            <option value="{{$carrera->id_acronimo}}">{{$carrera->acronimosCarreras->codigo_acronimo}}</option>
             @endforeach
           </select>
         </div>
@@ -210,53 +185,6 @@
             <option selected>Seleccione una</option>
             @foreach ($capacitaciones as $capacitacion)
             <option value="{{$capacitacion->id_cap}}">{{$capacitacion->nombre_capacitacion}}</option>
-            @endforeach
-          </select>
-        </div>
-      </div>
-      <!--Datos Administrativos-->
-      <div class="tab-pane fade mt-5" id="administrative" role="tabpanel" aria-labelledby="adminstrative-tab">
-        <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="id_form" class="form-label me-3 mr-2 ">Formulario</label>
-          <span class="ml-3" data-bs-toggle="tooltip" title="Debe seleccionar el formulario">
-            <i class="bi bi-info-circle text-info"></i>
-          </span>
-          <select class="form-control  ml-3 @error('id_form') is-invalid @enderror" tabindex="5" name="id_form" id="id_form">
-            <option selected>Seleccione El codigo de formulario</option>
-            @foreach ($formularios as $formulario)
-            <option value="{{$formulario->id_form}}">{{$formulario->codigo_form}}</option>
-            @endforeach
-          </select>
-          <label for="id_t_form" class="form-label me-3 ml-4">Tipo Formulario</label>
-          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar el tipo de formulario">
-            <i class="bi bi-info-circle text-info"></i>
-          </span>
-          <select class="form-control ml-5 @error('id_t_form') is-invalid @enderror" tabindex="5" name="id_t_form" id="id_t_form">
-            <option selected>Selecione tipo</option>
-            @foreach ($formularios as $formulario)
-            <option value="{{$formulario->id_t_form}}">{{$formulario->formulariosTipos->nombre_t_form}}</option>
-            @endforeach
-          </select>
-        </div>
-        <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="id_cierre_periodo_" class="form-label me-3 mr-2 ">Cierre</label>
-          <span class="ml-5" data-bs-toggle="tooltip" title="Debe seleccionar el cierre">
-            <i class="bi bi-info-circle text-info"></i>
-          </span>
-          <select class="form-control  ml-4 @error('id_cierre_periodo_') is-invalid @enderror" tabindex="5" name="id_cierre_periodo_" id="id_cierre_periodo_">
-            <option selected>Seleccione una fecha de cierre</option>
-            @foreach ($formularios as $formulario)
-            <option value="{{$formulario->id_cierre_periodo}}">{{$formulario->formulariosCierres->fecha_periodo_}}</option>
-            @endforeach
-          </select>
-          <label for="id_consolidacion" class="form-label me-3 ml-3">Consolidacion</label>
-          <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar el estado de consolidacion del formulario">
-            <i class="bi bi-info-circle text-info"></i>
-          </span>
-          <select class="form-control ml-4 @error('id_consolidacion') is-invalid @enderror" tabindex="5" name="id_consolidacion" id="id_consolidacion">
-            <option selected>Seleccione la Unidad</option>
-            @foreach ($formularios as $formulario)
-            <option value="{{$formulario->id_consolidacion}}">{{$formulario->formulariosConsolidaciones->estado_consolidacion}}</option>
             @endforeach
           </select>
         </div>

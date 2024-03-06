@@ -15,11 +15,6 @@ use App\Models\Departamento;
 use App\Models\Municipio;
 use App\Models\Pais;
 use App\Models\Acronimo;
-use App\Models\CierreFormulario;
-use App\Models\ConsolidadoFormulario;
-use App\Models\EstadoFormulario;
-use App\Models\Formulario;
-use App\Models\TipoFormulario;
 
 
 class InvestigadorController extends Controller
@@ -46,12 +41,6 @@ class InvestigadorController extends Controller
         $departamentos = Departamento::all();
         $municipios = Municipio::all();
         $capacitaciones = Capacitacion::all();
-        //campos adicionales de las nuevas entidades agregadas
-        $acronimos = Acronimo::all();
-        $formularios = Formulario::all();
-        $t_formularios = TipoFormulario::all();
-        $cierres = CierreFormulario::all();
-        $consolidados = ConsolidadoFormulario::all();
         return view(
             'investigadores.create',
             compact(
@@ -63,12 +52,6 @@ class InvestigadorController extends Controller
                 'departamentos',
                 'municipios',
                 'capacitaciones',
-                //datos extra
-                'acronimos',
-                'formularios',
-                't_formularios',
-                'cierres',
-                'consolidados'
             )
         );
     }
@@ -135,14 +118,6 @@ class InvestigadorController extends Controller
         $investigador->id_unidad = $request->input('id_unidad');
         $investigador->id_unidad_rrhh = $request->input('id_unidad_rrhh');
         $investigador->id_cap = $request->input('id_cap');
-        //datos adicionales de los acronimos de carrera y grado academico
-        $investigador->car_id_acronimo = $request->input('car_id_acronimo');
-        $investigador->id_acronimo = $request->input('id_acronimo');
-        //informacion de la cabecera del formulario
-        $investigador->id_form = $request->input('id_form');
-        $investigador->id_t_form = $request->input('id_t_form');
-        $investigador->id_consolidacion = $request->input('id_consolidacion');
-        $investigador->id_cierre_periodo_ = $request->input('id_cierre_periodo_');
         // Guardar el investigador en la base de datos
         $investigador->save();
 
@@ -175,12 +150,6 @@ class InvestigadorController extends Controller
         $departamentos = Departamento::all();
         $municipios = Municipio::all();
         $capacitaciones = Capacitacion::all();
-        //datos adicionales
-        $acronimos = Acronimo::all();
-        $formularios = Formulario::all();
-        $t_formularios = TipoFormulario::all();
-        $cierres = CierreFormulario::all();
-        $consolidados = ConsolidadoFormulario::all();
         // También obtener los datos de la persona asociada al investigador
         $persona = $investigador->personasInvestigadores;
 
@@ -196,12 +165,6 @@ class InvestigadorController extends Controller
             'departamentos',
             'municipios',
             'capacitaciones',
-            //datos extra
-            'acronimos',
-            'formularios',
-            't_formularios',
-            'cierres',
-            'consolidados'
         ));
     }
 
@@ -239,20 +202,11 @@ class InvestigadorController extends Controller
         $persona->save();
 
         // Actualizar los datos del investigador
-        $investigador->acronimo = $request->input('acronimo');
         $investigador->id_carrera = $request->input('id_carrera');
         $investigador->id_g_acad = $request->input('id_g_acad');
         $investigador->id_unidad = $request->input('id_unidad');
         $investigador->id_unidad_rrhh = $request->input('id_unidad_rrhh');
         $investigador->id_cap = $request->input('id_cap');
-        //datos adicionales de los acronimos de carrera y grado academico
-        $investigador->car_id_acronimo = $request->input('car_id_acronimo');
-        $investigador->id_acronimo = $request->input('id_acronimo');
-        //informacion de la cabecera del formulario
-        $investigador->id_form = $request->input('id_form');
-        $investigador->id_t_form = $request->input('id_t_form');
-        $investigador->id_consolidacion = $request->input('id_consolidacion');
-        $investigador->id_cierre_periodo_ = $request->input('id_cierre_periodo_');
         // Guardar los cambios en el investigador
         $investigador->save();
 
