@@ -88,7 +88,7 @@
       <div class="tab-pane fade show active mt-5" id="personal" role="tabpanel" aria-labelledby="personal-tab">
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
           <label for="nombre_persona" class="form-label me-3 mr-3">Nombres</label>
-          <span class="mr-5" data-bs-toggle="tooltip" title="Debe ingresarse el nombre del Investigador">
+          <span class="mr-5" data-bs-toggle="tooltip"  title="Debe ingresarse el nombre del Investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <input type="text" class="form-control  @error('nombre_persona') is-invalid @enderror" tabindex="1" id="nombre_persona" name="nombre_persona" placeholder="{{ $errors->has('nombre_persona') ? $errors->first('nombre_persona') : 'Ingrese el nombre' }}" value="{{$investigador->personasInvestigadores->nombre_persona}}">
