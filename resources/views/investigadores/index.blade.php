@@ -14,6 +14,7 @@
     <table id="investigadores" style="width:100%" class="table table-striped table-bordered shadow-lg mt-4">
         <thead class="bg-dark">
             <tr>
+                <th scope="col">Id</th>
                 <th scope="col">Nombres</th>
                 <th scope="col">Apellidos</th>
                 <!--<th scope="col">Correo</th>-->
@@ -30,6 +31,7 @@
         <tbody>
             @foreach ($investigadores as $investigador)
             <tr>
+                <td>{{$investigador->personasInvestigadores->id_persona}}</td>
                 <td>{{$investigador->personasInvestigadores->nombre_persona}}</td>
                 <td>{{$investigador->personasInvestigadores->apellido_persona}}</td>
                 <!--<td>{{$investigador->personasInvestigadores->correo_persona}}</td>-->
