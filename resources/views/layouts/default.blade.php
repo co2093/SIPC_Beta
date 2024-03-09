@@ -66,9 +66,11 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Perfil:</h6>
-                        <a class="collapse-item" href="#">Experiencia cientifica</a>
-                        <a class="collapse-item" href="#">Otros</a>
+                        <h6 class="collapse-header">Curriculum:</h6>
+                        <a class="collapse-item" href="{{ route('formacionAcademica') }}">Formación Academica</a>
+                        <a class="collapse-item" href="{{ route('experienciaLaboral') }}">Experiencia Laboral</a>
+                        <a class="collapse-item" href="{{ route('experienciaCientifica') }}">Experiencia Cientifica</a>
+                        <a class="collapse-item" href="{{ route('publicaciones') }}">Publicaciones</a>
                     </div>
                 </div>
             </li>
