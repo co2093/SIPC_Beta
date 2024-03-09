@@ -83,18 +83,26 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestionar proyectos</h6>
-                        <a class="collapse-item" href="{{route('projects.crear')}}">Registrar</a>
-                        <a class="collapse-item" href="{{route('projects.show')}}">Consultar</a>
-                        <a class="collapse-item" href="#">Otros</a>
+                        <h6 class="collapse-header">Detalles</h6>
+                       <!-- <a class="collapse-item" href="{{route('projects.crear')}}">Registrar</a> -->
+                        <a class="collapse-item" href="{{route('projects.show')}}">Titulo</a>
+                        <a class="collapse-item" href="{{route('objetivos.show')}}">Objetivos</a>
+                        <a class="collapse-item" href="{{route('actividades.show')}}">Actividades</a>
                     </div>
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Objetivos</h6>
-                        <a class="collapse-item" href="{{route('objetivos.crear')}}">Registrar</a>
-                        <a class="collapse-item" href="{{route('objetivos.show')}}">Consultar</a>
-                        <a class="collapse-item" href="#">Otros</a>
-                    </div>
+                        <h6 class="collapse-header">Presupuesto</h6>
+                        <a class="collapse-item" href="{{route('fuentes.show')}}">Fuentes de financiamiento</a>
+                        <a class="collapse-item" href="{{route('presupuesto.show')}}">Presupuesto</a>
+                        <a class="collapse-item" href="{{route('recursos.show')}}">Recursos</a>
+                        <a class="collapse-item" href="{{route('personal.show')}}">Personal</a>
+                        <a class="collapse-item" href="{{route('materiales.show')}}">Materiales</a>
+                        <a class="collapse-item" href="{{route('viaticos.show')}}">Viaticos Nacionales</a>
+                        <a class="collapse-item" href="{{route('viaticos.int.show')}}">Viaticos Internacionales</a>
+                        <a class="collapse-item" href="{{route('publicaciones.show')}}">Publicaciones</a>
 
+                        <a class="collapse-item" href="#"></a>
+                    </div>
+<!--
                    <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Actividades</h6>
                         <a class="collapse-item" href="{{route('actividades.crear')}}">Registrar</a>
@@ -118,6 +126,8 @@
                         <a class="collapse-item" href="{{route('actividades.show')}}">Consultar</a>
                         <a class="collapse-item" href="#">Otros</a>
                     </div>
+
+                -->
 
                 </div>
             </li>

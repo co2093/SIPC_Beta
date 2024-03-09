@@ -45,3 +45,55 @@ Route::get('/actividades/show', [App\Http\Controllers\ActividadesController::cla
 //Fuentes
 Route::get('/fuentes', [App\Http\Controllers\FuentesController::class, 'index'])->name('fuentes.crear');
 Route::get('/fuentes/show', [App\Http\Controllers\FuentesController::class, 'show'])->name('fuentes.show');
+
+
+
+//Fuentes
+Route::get('/fuentes', [App\Http\Controllers\FuentesController::class, 'index'])->name('fuentes.crear');
+Route::get('/fuentes/show', [App\Http\Controllers\FuentesController::class, 'show'])->name('fuentes.show');
+
+
+
+//Fuentes
+Route::get('/presupuesto', [App\Http\Controllers\FuentesController::class, 'index'])->name('presupuesto.crear');
+Route::get('/presupuesto/show', [App\Http\Controllers\FuentesController::class, 'show'])->name('presupuesto.show');
+
+
+
+
+//Fuentes
+Route::get('/recursos', [App\Http\Controllers\RecursosController::class, 'index'])->name('recursos.crear');
+Route::get('/recursos/show', [App\Http\Controllers\RecursosController::class, 'show'])->name('recursos.show');
+
+
+
+
+//Fuentes
+Route::get('/personal', [App\Http\Controllers\PersonalController::class, 'index'])->name('personal.crear');
+Route::get('/personal/show', [App\Http\Controllers\PersonalController::class, 'show'])->name('personal.show');
+
+
+
+
+//Fuentes
+Route::get('/materiales', [App\Http\Controllers\MaterialesController::class, 'index'])->name('materiales.crear');
+Route::get('/materiales/show', [App\Http\Controllers\MaterialesController::class, 'show'])->name('materiales.show');
+
+
+
+
+//Fuentes
+Route::get('/viaticos', [App\Http\Controllers\ViaticosController::class, 'index'])->name('viaticos.crear');
+Route::get('/viaticos/show', [App\Http\Controllers\ViaticosController::class, 'show'])->name('viaticos.show');
+
+
+//Fuentes
+Route::get('/viaticos/internacionales', [App\Http\Controllers\ViaticosController::class, 'indexInt'])->name('viaticos.int.crear');
+Route::get('/viaticos/internacionales/show', [App\Http\Controllers\ViaticosController::class, 'showInt'])->name('viaticos.int.show');
+
+
+
+
+//Fuentes
+Route::get('/publicaciones', [App\Http\Controllers\PublicacionesController::class, 'index'])->name('publicaciones.crear');
+Route::get('/publicaciones/show', [App\Http\Controllers\PublicacionesController::class, 'show'])->name('publicaciones.show');

@@ -23,6 +23,7 @@
 
                     <div class="card-body">
 
+                        <a  class="btn btn-success float-right" href="{{route('actividades.crear')}}">Agregar</a>
 
 
                     </div>
