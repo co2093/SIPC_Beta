@@ -120,14 +120,14 @@
           ],
 
           'attributes' => [
-            'nombre_persona' => 'nombre(s)',
-            'apellido_persona' => 'apellido(s)',
-            'telefono_persona' => 'teléfono',
-            'correo_persona' => 'correo electrónico',
-            'genero_persona' => 'género',
-            'direccion_persona' => 'dirección',
-            'edad_persona' => 'edad',
-            'id_pais' => 'país',
+            'nombre_persona' => 'Nombre(s)',
+            'apellido_persona' => 'Apellido(s)',
+            'telefono_persona' => 'Teléfono',
+            'correo_persona' => 'Correo Electrónico',
+            'genero_persona' => 'Género',
+            'direccion_persona' => 'Dirección',
+            'edad_persona' => 'Edad',
+            'id_pais' => 'País',
           ],
 
         ];
