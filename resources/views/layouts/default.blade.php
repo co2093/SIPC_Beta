@@ -134,6 +134,20 @@
                     <span>Tables</span></a>
             </li>
 
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('unidadesDeInvestigacion.index') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Unidades de Investigacion</span></a>
+            </li>
+            
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('dependenciaJerarquica.index') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Dependencias Jerarquicas</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
