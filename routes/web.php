@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UnidadDeInvestigacionController;
+use App\Http\Controllers\DependenciaJerarquicaController;
+use App\Models\UnidadDeInvestigacion;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::resource('investigadores','App\Http\Controllers\InvestigadorController');
+Route::resource('investigadores', 'App\Http\Controllers\InvestigadorController');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -40,4 +43,21 @@ Route::post('/storeCatInfraestructuras', [App\Http\Controllers\catInfraestructur
 Route::get('/edtCatInfraestructura/{id}', [App\Http\Controllers\catInfraestructurasController::class, 'edit'])->name('editCatInfraestructura');
 Route::put('/updateCatIntraestructura/{id}', [App\Http\Controllers\catInfraestructurasController::class, 'update'])->name('upCatInfraestructura');
 Route::get('/deleteCatinfraestructura/{id}', [App\Http\Controllers\catInfraestructurasController::class, 'show'])->name('delCatInfraestructura');
-Route::delete('/destroyCatinfraestructura/{id}',[App\Http\Controllers\catInfraestructurasController::class, 'destroy'])->name('desCatInfraestructura');
+Route::delete('/destroyCatinfraestructura/{id}', [App\Http\Controllers\catInfraestructurasController::class, 'destroy'])->name('desCatInfraestructura');
+Route::resource('/unidadesDeInvestigacion', UnidadDeInvestigacionController::class);
+
+Route::resource('/dependenciaJerarquica', DependenciaJerarquicaController::class);
+
+// Listar todas las unidades de investigación
+//Route::get('/unidades', [UnidadDeInvestigacionController::class, 'index'])->name('unidadesDeInvestigacion.index');
+
+
+/*
+Route::group(['prefix' => 'unidadesDeInvestigacion', 'as' => 'unidadesDeInvestigacion.'], function () {
+    Route::get('/', [UnidadDeInvestigacion::class, 'index'])->name('index');
+    Route::get('create', [UnidadDeInvestigacion::class, 'create'])->name('create');
+    Route::post('post', [UnidadDeInvestigacion::class, 'store'])->name('store');
+    Route::get('{unidadDeInvestigacion}/edit', [UnidadDeInvestigacion::class, 'edit'])->name('edit');
+    Route::put('{unidadDeInvestigacion}', [UnidadDeInvestigacion::class, 'update'])->name('update');
+    Route::delete('{unidadDeInvestigacion}/eliminar', [UnidadDeInvestigacion::class, 'destroy'])->name('destroy');
+});*/
