@@ -25,7 +25,10 @@
       <div class="col-md-9">
       <label for="area_construida">Nombre infraestructura</label>
       <input type="text" class="form-control" id="nombre" name="nombre" value="{{$packEdit->nombre_t_infra}}">
-      </div>
+      @error('nombre')
+        <small style="color:red">{{$message}}</small>
+      @enderror  
+    </div>
     </div>
   </div>
   <div class="form-group">
@@ -33,6 +36,9 @@
       <div class="col-md-9">
         <label for="area_construida">Descripcion</label>
         <textarea type="text" class="form-control" id="descripcion" name="descripcion" value="">{{$packEdit->descrip_t_infra}}</textarea>
+        @error('descripcion')
+          <small style="color:red">{{$message}}</small>
+        @enderror
       </div>
     </div>
   </div>
@@ -46,7 +52,7 @@
     </div>
 
     <div class="col-md-3">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Actualizar</button>
     </div>
 
   </div>
