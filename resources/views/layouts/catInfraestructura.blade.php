@@ -10,8 +10,10 @@
       @endif
     </div>
   </div>
+
     <form action="{{route('saveCatInfra')}}" method="POST">
       @csrf
+      @method("POST")
   <div class="form-group">
     <div class="row">
       <div class="col-md-9">
@@ -23,15 +25,22 @@
     <div class="row">
       <div class="col-md-9">
       <label for="area_construida">Nombre infraestructura</label>
-      <input type="text" class="form-control" id="nombre" name="nombre">
+      <input type="text" class="form-control" id="nombre" name="nombre" value="{{old('nombre')}}">
+      @error('nombre')
+        <small style="color:red">{{$message}}</small>
+      @enderror
       </div>
     </div>
   </div>
+  <br>
   <div class="form-group">
     <div class="row">
       <div class="col-md-9">
         <label for="area_construida">Descripcion</label>
-        <textarea type="text" class="form-control" id="descripcion" name="descripcion"></textarea>
+        <textarea type="text" class="form-control" id="descripcion" name="descripcion" >{{old('descripcion')}} </textarea>
+        @error('descripcion')
+        <small style="color:red">{{$message}}</small>
+      @enderror
       </div>
     </div>
   </div>
@@ -41,11 +50,12 @@
       <button type="reset" class="btn btn-secondary">Cancelar</button>
     </div>
     <div class="col-md-3">
-    <button type="button" class="btn btn-primary">Anterior</button>
+    <a href="{{route('homeInfraestructura')}}" class="btn  btn-info">
+            <span class="fas fa-undo-alt"></span> Regresar</a>
     </div>
 
     <div class="col-md-3">
-      <button type="submit" class="btn btn-primary">Actualizar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 
   </div>

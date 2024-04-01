@@ -6,6 +6,7 @@ use App\Models\Locaciones_de_unidades;
 use App\Models\T_infraestructuras;
 use Illuminate\Http\Request;
 
+
 class Locaciones_de_unidadesController extends Controller
 {
     private $infraestructuraModel;
@@ -22,13 +23,21 @@ class Locaciones_de_unidadesController extends Controller
     }
     public function store(Request $request){
         //guardar el registro en la BD
-        //var_dump($_POST);
-        $locaciones=new Locaciones_de_unidades();
-        $locaciones->id_proyecto=$request->post('proyecto');
-        $locaciones->area_locacion=$request->post('area_construida');
-        $locaciones->id_t_infra=$request->post('tipo_infraestructura');
-        $locaciones->save();
-        return redirect()->route("homeInfraestructura")->with("success","Registro agregado con exito");
+        $validated=$request->validate([
+            "proyecto"=>["required"],
+            "tipo_infraestructura"=>["required"],
+            "area_construida"=>["required"],
+        ]);
+        if($validated)
+        {
+            $locaciones=new Locaciones_de_unidades();
+            $locaciones->id_proyecto=$request->post('proyecto');
+            $locaciones->area_locacion=$request->post('area_construida');
+            $locaciones->id_t_infra=$request->post('tipo_infraestructura');
+            $locaciones->save();
+        }
+            
+            return redirect()->route("homeInfraestructura")->with("success","Registro agregado con exito");
     }
     public function show($id){
         $proyectosArray=Locaciones_de_unidades::findByIdCustom($id);
@@ -51,12 +60,21 @@ class Locaciones_de_unidadesController extends Controller
 
     public function update(Request $request,$id){
         //guardar cambio de registro en la BD
+
+        $validated=$request->validate([
+            "proyecto"=>["required"],
+            "tipo_infraestructura"=>["required"],
+            "area_construida"=>["required"],
+        ]);
+       // var_dump($request->post('area_construida'));
+       
         $locaciones=Locaciones_de_unidades::find($id);
         $locaciones->id_proyecto=$request->post('proyecto');
         $locaciones->area_locacion=$request->post('area_construida');
         $locaciones->id_t_infra=$request->post('tipo_infraestructura');
         $locaciones->save();
-        return redirect()->route("homeInfraestructura")->with("success","Registro modificado con exito");
+
+      return redirect()->route('homeInfraestructura')->with("success","Registro modificado con exito");
     }
     public function destroy( $id,Request $request){
         Locaciones_de_unidades::find($id)->delete();

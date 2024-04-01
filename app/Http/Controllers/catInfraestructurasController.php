@@ -18,6 +18,11 @@ public function create(){
 public function store(Request $request){
     //guardar el registro en la BD
 
+   $validated= $request->validate([
+        'nombre'=>['required'],
+        'descripcion'=>['required']
+    ]);
+  
     $infraestructura=new T_infraestructuras();
     $infraestructura->nombre_t_infra=$request->post('nombre');
     $infraestructura->descrip_t_infra=$request->post('descripcion');
@@ -38,6 +43,10 @@ public function edit($id){
 }
 
 public function update(Request $request,$id){
+    $validated= $request->validate([
+        'nombre'=>['required'],
+        'descripcion'=>['required']
+    ]);
     //guardar cambio de registro en la BD
     $infraestructura=T_infraestructuras::find($id);
     $infraestructura->nombre_t_infra=$request->post('nombre');

@@ -10,7 +10,7 @@
       @endif
     </div>
   </div>
-    <form action="{{route('upCatInfraestructura',$packEdit->id_t_infra)}}" method="POST">
+    <form action="{{route('upInfraestructura',$packEdit->id_t_infra)}}" method="POST">
       @csrf
       @method("PUT")
   <div class="form-group">
@@ -25,7 +25,7 @@
     <div class="row">
       <div class="col-md-9">
         <select class="custom-select" id="tipo_infraestructura" name="tipo_infraestructura">
-          <option>Seleccione un tipo de infraestructura</option>
+          <option value="">Seleccione un tipo de infraestructura</option>
           @foreach($infraestructuras as $infr)
             @if($infr->id_t_infra==$infraestructuraSelectd[0]->id_t_infra)
                 <option selected value="{{$infraestructuraSelectd[0]->id_t_infra}}">{{$infraestructuraSelectd[0]->nombre_t_infra}}</option>
@@ -34,6 +34,9 @@
             @endif
           @endforeach
         </select>
+        @error('tipo_infraestructura')
+            <small style="color:red">{{$message}}</small>
+          @enderror
       </div>
     </div>
   </div>
@@ -41,7 +44,7 @@
     <div class="row">
       <div class="col-md-9">
         <select class="custom-select" id="proyecto" name ="proyecto">
-          <option>Seleccione un tipo de proyecto asociado</option>
+          <option value="">Seleccione un tipo de proyecto asociado</option>
           @foreach($packProyectos as $project)
             @if($project->id_proyecto==$packEdit->id_proyecto)
                 <option selected value="{{$project->id_proyecto}}">{{$project->nombre_proyecto}}</option>
@@ -50,6 +53,9 @@
             @endif
           @endforeach
         </select>
+        @error('proyecto')
+            <small style="color:red">{{$message}}</small>
+          @enderror
       </div>
     </div>
   </div>
@@ -59,6 +65,9 @@
       <div class="col-md-9">
         <label for="area_construida">Area Construida</label>
         <input type="number" class="form-control" id="area_construida" name="area_construida" value="{{$packEdit->area_locacion}}">
+        @error('area_construida')
+            <small style="color:red">{{$message}}</small>
+          @enderror
       </div>
     </div>
   </div>
