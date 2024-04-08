@@ -72,26 +72,17 @@
             <td>{{ $aa_de_uu->personasAa_de_uu->telefono_persona }}</td>
             <td>{{ $aa_de_uu->personasAa_de_uu->correo_persona }}</td>
             <td>
-              <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></div>
+              <!--<div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></div>-->
+              {{$aa_de_uu->autoridad_superior}}
             </td>
             <td>
 
-              <form action="{{ route("responsables/responsable.edit", $item->id) }} " method="GET">
+              <form action="responsables/{{$aa_de_uu->id_autoridad_unidad}}/edit" method="GET">
                 <a href="{{ route("responsable.edit")}}" class="btn btn-warning btn-sm">
                   <span class="fas fa-user-edit"></span></a>
-                <button class="btn btn-warning btn-sm">
-                  <span class="fas fa-user-edit"></span>
-                </button>
               </form>
-            </td>
-            <td>
               <a href="{{ route("responsable.show")}}" class="btn btn-danger btn-sm">
                 <span class="fas fa-user-times"></span></a>
-              <form action="">
-                <button class="btn btn-danger btn-sm">
-                  <span class="fas fa-user-times"></span>
-                </button>
-              </form>
             </td>
           </tr>
           @endforeach

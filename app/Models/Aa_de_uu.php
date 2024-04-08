@@ -15,53 +15,59 @@ class Aa_de_uu extends Model
     public $timestamps = false;
 
 
-    /* public static function getPersona($nombre){
-        $personas_collection=DB::table('personas')
+    public static function getPersona($nombre)
+    {
+        $personas_collection = DB::table('personas')
             ->select('id_persona', 'nombre_persona', 'apellido_persona', 'telefono_persona', 'correo_persona')->where('nombre_persona', '=', $nombre)
             ->get();
         return $personas_collection;
     }
 
 
-    public static function getCargo($id){
-        $colaboradores_collection=DB::table('cargos')
+    public static function getCargo($id)
+    {
+        $colaboradores_collection = DB::table('cargos')
             ->select('id_carrera', 'id_g_acad')->where('id_persona', '=', $id)
             ->get();
         return $colaboradores_collection;
     }
 
 
-    public static function getGradoAcademico($id){
-        $colaboradores_collection=DB::table('grados_academicos')
+    public static function getGradoAcademico($id)
+    {
+        $colaboradores_collection = DB::table('grados_academicos')
             ->select('id_carrera', 'id_g_acad')->where('id_persona', '=', $id)
             ->get();
         return $colaboradores_collection;
     }
 
 
-    public static function getColaborador($id){
-        $colaboradores_collection=DB::table('colaboradores')
+    public static function getColaborador($id)
+    {
+        $colaboradores_collection = DB::table('colaboradores')
             ->select('id_carrera', 'id_g_acad')->where('id_persona', '=', $id)
             ->get();
         return $colaboradores_collection;
     }
 
 
-    public static function getDocente($id){
-        $docentes_collection=DB::table('docentes')
-        ->select('id_carrera', 'id_g_acad')->where('id_persona', '=', $id)
+    public static function getDocente($id)
+    {
+        $docentes_collection = DB::table('docentes')
+            ->select('id_carrera', 'id_g_acad')->where('id_persona', '=', $id)
             ->get();
         return $docentes_collection;
     }
 
 
-    public static function getInvestigador($id){
-        $investigadores_collection=DB::table('investigadores')
-        ->select('id_carrera', 'id_g_acad')->where('id_persona', '=', $id)
+    public static function getInvestigador($id)
+    {
+        $investigadores_collection = DB::table('investigadores')
+            ->select('id_carrera', 'id_g_acad')->where('id_persona', '=', $id)
             ->get();
         return $investigadores_collection;
     }
- */
+
 
     public function personasAa_de_uu()
     {
@@ -78,7 +84,7 @@ class Aa_de_uu extends Model
             'id_g_acad'
         );
     }
-    
+
     public function carrerasAa_de_uu()
     {
         return $this->belongsTo(
@@ -87,13 +93,11 @@ class Aa_de_uu extends Model
         );
     }
 
-     public function cargosAa_de_uu()
+    public function cargosAa_de_uu()
     {
         return $this->belongsTo(
             Cargo::class,
             'id_cargo'
         );
     }
-
-
 }
