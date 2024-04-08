@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ class UnidadDeInvestigacionController extends Controller
 {
     public function index()
     {
-        $unidadesDeInvestigacion = UnidadDeInvestigacion::with('unidadesRRFF','dependenciaJerarquica')->get();
+        $unidadesDeInvestigacion = UnidadDeInvestigacion::with('unidadesRRFF', 'dependenciaJerarquica')->get();
         return view('CapacidadesInstitucionales.UnidadDeInvestigacion.index', compact('unidadesDeInvestigacion'));
     }
 
@@ -21,19 +22,20 @@ class UnidadDeInvestigacionController extends Controller
         $unidades_rrffs = UnidadesRRFF::all();
         $deps_jerarquicas = DependenciaJerarquica::all();
 
-        return view('CapacidadesInstitucionales.UnidadDeInvestigacion.create',compact('unidades_rrffs','deps_jerarquicas'));
+        return view('CapacidadesInstitucionales.UnidadDeInvestigacion.create', compact('unidades_rrffs', 'deps_jerarquicas'));
     }
 
     public function store(Request $request)
     {
-
+        //VALIDACION DE LOS ATRIBUTOS DE LA TABLA DE UU_DE_INVESTIGACION.
         $validator = Validator::make($request->all(), [
             'nombre_unidad' => 'required|string|max:300',
             'fecha_fundacion' => 'required|date|before_or_equal:' . now()->toDateString(),
             'telefono_unidad' => 'required|string|max:8'
         ]);
-
+        //VERIFICAR SI APLICA O NO LA VALIDACION
         if ($validator->fails()) {
+            //SI ES CIERTO PERMITA REDIRECCIONAR A LA VISTA DE CREATE
             return redirect()->route('unidadesDeInvestigacion.create')
                 ->withErrors($validator)
                 ->withInput();
@@ -46,7 +48,7 @@ class UnidadDeInvestigacionController extends Controller
         UnidadDeInvestigacion::create($data);
         //UnidadDeInvestigacion::create($request->all());
 
-        return redirect()->route('unidadesDeInvestigacion.index')->with('success','Nueva tarea creada exitosametne');
+        return redirect()->route('unidadesDeInvestigacion.index')->with('success', 'Nueva tarea creada exitosametne');
     }
     /*
     public function show($id)
@@ -55,11 +57,11 @@ class UnidadDeInvestigacionController extends Controller
     }*/
 
     public function edit($id)
-    {  
+    {
         $unidad = UnidadDeInvestigacion::find($id);
         $unidades_rrffs = UnidadesRRFF::all();
         $deps_jerarquicas = DependenciaJerarquica::all();
-        return view('CapacidadesInstitucionales.UnidadDeInvestigacion.edit',compact('unidad','unidades_rrffs','deps_jerarquicas'));
+        return view('CapacidadesInstitucionales.UnidadDeInvestigacion.edit', compact('unidad', 'unidades_rrffs', 'deps_jerarquicas'));
     }
 
     public function update(Request $request, $id)
@@ -83,9 +85,8 @@ class UnidadDeInvestigacionController extends Controller
             return redirect()->route('unidadesDeInvestigacion.index')->with('error', 'Unidad de investigación no encontrada');
         } else {
             $unidad->update($request->all());
-            return redirect()->route('unidadesDeInvestigacion.index')->with('success','Nueva tarea editada exitosametne');
+            return redirect()->route('unidadesDeInvestigacion.index')->with('success', 'Nueva tarea editada exitosametne');
         }
-
     }
 
     public function destroy($id)
