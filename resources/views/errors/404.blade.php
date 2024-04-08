@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - 404</title>
+    <title>SIPC - 404</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -32,9 +32,9 @@
                     <!-- 404 Error Text -->
                     <div class="text-center">
                         <div class="error mx-auto" data-text="404">404</div>
-                        <p class="lead text-gray-800 mb-5">Page Not Found</p>
-                        <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
-                        <a href="{{route('home')}}">&larr; Back to Dashboard</a>
+                        <p class="lead text-gray-800 mb-5">SITIO WEB EN CONSTRUCCIÓN</p>
+                        <p class="text-gray-500 mb-0">Próximamente estará disponible...</p>
+                        <a href="{{route('home')}}">&larr; Volver al Inicio</a>
                     </div>
 
                 </div>
@@ -47,7 +47,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Secretaria de Investigaciones Científicas de la Universidad de El Salvador</span>
                     </div>
                 </div>
             </footer>

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Register</title>
+    <title>SIPC - Register</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -34,7 +34,7 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4">¡Crea una cuenta!</h1>
                             </div>
 
 
@@ -43,7 +43,7 @@
                                 @csrf
                                 <div class="form-group">                                    
                                         <input type="text" class="form-control form-control-user" id="name"
-                                            placeholder="Name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                            placeholder="Ingresa Nombre Completo" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -55,7 +55,7 @@
 
 
                                     <input type="email" class="form-control form-control-user" id="email"
-                                        placeholder="Email Address" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                        placeholder="Ingresa Correo Electrónico" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -69,7 +69,7 @@
 
 
                                         <input type="password" class="form-control form-control-user"
-                                            id="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                            id="password" placeholder="Ingresa Contraseña" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -81,12 +81,12 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            id="password-confirm" placeholder="Repeat Password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                            id="password-confirm" placeholder="Repite la Contraseña" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                     </div>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    {{ __('Register') }}
+                                    {{ __('Registrar') }}
                                 </button>
 
                                 <hr>
@@ -95,10 +95,10 @@
 
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
+                                <a class="small" href="{{ route('password.request') }}">¿Has olvidado tu contraseña?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>
+                                <a class="small" href="{{ route('login') }}">¿Ya tienes una cuenta? ¡Acceso!</a>
                             </div>
                         </div>
                     </div>

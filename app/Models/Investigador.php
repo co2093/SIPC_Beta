@@ -60,5 +60,4 @@ class Investigador extends Model
             'id_cap'
         );
     }
- 
 }

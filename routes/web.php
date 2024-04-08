@@ -48,16 +48,11 @@ Route::resource('/unidadesDeInvestigacion', UnidadDeInvestigacionController::cla
 
 Route::resource('/dependenciaJerarquica', DependenciaJerarquicaController::class);
 
-// Listar todas las unidades de investigación
-//Route::get('/unidades', [UnidadDeInvestigacionController::class, 'index'])->name('unidadesDeInvestigacion.index');
-
-
-/*
-Route::group(['prefix' => 'unidadesDeInvestigacion', 'as' => 'unidadesDeInvestigacion.'], function () {
-    Route::get('/', [UnidadDeInvestigacion::class, 'index'])->name('index');
-    Route::get('create', [UnidadDeInvestigacion::class, 'create'])->name('create');
-    Route::post('post', [UnidadDeInvestigacion::class, 'store'])->name('store');
-    Route::get('{unidadDeInvestigacion}/edit', [UnidadDeInvestigacion::class, 'edit'])->name('edit');
-    Route::put('{unidadDeInvestigacion}', [UnidadDeInvestigacion::class, 'update'])->name('update');
-    Route::delete('{unidadDeInvestigacion}/eliminar', [UnidadDeInvestigacion::class, 'destroy'])->name('destroy');
-});*/
+//RUTA DE RESPONSABLES
+Route::get('/responsables', [App\Http\Controllers\ResponsableController::class, 'index'])->name('responsable.index');
+Route::get('/create', [App\Http\Controllers\ResponsableController::class, 'create'])->name('responsable.create');
+Route::get('/buscarResponsable', [App\Http\Controllers\ResponsableController::class, 'buscar'])->name('responsable.buscar');
+Route::post('/store', [App\Http\Controllers\ResponsableController::class, 'store'])->name('responsable.store');
+Route::get('/edit', [App\Http\Controllers\ResponsableController::class, 'edit'])->name('responsable.edit');
+Route::get('/show', [App\Http\Controllers\ResponsableController::class, 'show'])->name('responsable.show');
+Route::put('/buscarPersona', [App\Http\Controllers\ResponsableController::class, 'buscarpersona'])->name('responsable.buscarpersona');

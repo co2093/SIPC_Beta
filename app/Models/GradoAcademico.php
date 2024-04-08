@@ -30,4 +30,11 @@ class GradoAcademico extends Model
             'id_acronimo'
         );
     }
+    public function aa_de_uuGradosAcademicos()
+    {
+        return $this->hasMany(
+            Aa_de_uu::class,
+            'id_autoridad_unidad'
+        );
+    }
 }

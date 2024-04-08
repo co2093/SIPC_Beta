@@ -35,12 +35,32 @@ class Persona extends Model
             'id_invest'
         );
     }
-
     public function paisesPersonas()
     {
         return $this->belongsTo(
             Pais::class,
             'id_pais'
+        );
+    }
+    public function aa_de_uuPersonas()
+    {
+        return $this->hasMany(
+            Aa_de_uu::class,
+            'id_autoridad_unidad'
+        );
+    }
+    public function colaboradoresPersonas()
+    {
+        return $this->belongsTo(
+            Colaborador::class,
+            'id_colaborador'
+        );
+    }
+    public function docentesPersonas()
+    {
+        return $this->belongsTo(
+            Docente::class,
+            'id_docente'
         );
     }
 }

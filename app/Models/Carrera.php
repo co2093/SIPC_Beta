@@ -12,7 +12,7 @@ class Carrera extends Model
     public $timestamps = false;
     protected $primaryKey = 'id_carrera';
     public $incrementing = true;
-    protected $fillable=['cod_carrera','nombre_carrera','descrip_carrera'];
+    protected $fillable = ['cod_carrera', 'nombre_carrera', 'descrip_carrera'];
     public function facultadesCarreras()
     {
         return $this->belongsTo(
@@ -32,6 +32,13 @@ class Carrera extends Model
         return $this->belongsTo(
             Acronimo::class,
             'id_acronimo'
+        );
+    }
+    public function aa_de_uuCarreras()
+    {
+        return $this->hasMany(
+            Aa_de_uu::class,
+            'id_autoridad_unidad'
         );
     }
 }
