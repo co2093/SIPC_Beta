@@ -11,10 +11,17 @@ class Aa_de_uu extends Model
     use HasFactory;
     protected $table = 'aa_de_uu';
     protected $primaryKey = 'id_autoridad_unidad';
-    public $incrementing = true;
+    protected $fillable = [
+        'autoridad_superior'
+    ];
     public $timestamps = false;
+    public $incrementing = true;
 
-
+    // Accesor para el campo responsable
+    public function getResponsableAttribute($value)
+    {
+        return $value = 'Superior';
+    }
     public static function getPersona($nombre)
     {
         $personas_collection = DB::table('personas')

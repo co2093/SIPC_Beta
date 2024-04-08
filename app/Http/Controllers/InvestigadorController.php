@@ -58,33 +58,6 @@ class InvestigadorController extends Controller
 
     public function store(Request $request)
     {
-        //definiendo los mensajes de error
-       /** $messages = [
-            'nombre_persona.required' => 'El :attribute es obligatorio.',
-            'apellido_persona.required' => 'El :attribute es obligatorio.',
-            'telefono_persona.required' => 'El :attribute es requerido',
-            'telefono_persona.max' => 'El :attribure no debe ser mayor a :max numeros',
-            'correo_persona.required' => 'El :attribute es requerido',
-            'genero_persona.required' => 'El :attribute es requerido',
-            'direccion_persona.required' => 'La :attribute es requerido',
-            'edad_persona.required' => 'La :attribute es requerido',
-            'id_pais.required' => 'El :attribute es requerido',
-        ];        // Reemplazar :attribute con el nombre real del campo en el mensaje de error
-        $attributes = [
-            'nombre_persona' => 'nombre(s)',
-            'apellido_persona' => 'apellido(s)',
-            'telefono_persona' => 'teléfono',
-            'correo_persona' => 'correo electrónico',
-            'genero_persona' => 'género',
-            'direccion_persona' => 'dirección',
-            'edad_persona' => 'edad',
-            'id_pais' => 'país',
-        ];
-
-        // Personalizar los mensajes de error con los nombres reales de los campos
-        foreach ($messages as $key => $message) {
-            $messages[$key] = str_replace(':attribute', $attributes[explode('.', $key)[0]], $message);
-        }*/ 
         //validacion de datos
         $request->validate([
             'nombre_persona' => 'required|string|min:5|max:150',
