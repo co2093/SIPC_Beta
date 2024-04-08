@@ -55,7 +55,7 @@
     <div class="form-group">
       <div class="row">
         <div class="col-md-9">
-          <label for="area_construida">Area Construida</label>
+          <label for="area_construida">Area Construida (m<sup>2</sup>)</label>
           <input type="number" class="form-control" id="area_construida" name="area_construida" value="{{old('area_construida')}}">
           @error('area_construida')
           <small style="color:red">{{$message}}</small>

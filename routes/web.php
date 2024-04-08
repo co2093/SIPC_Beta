@@ -32,7 +32,7 @@ Auth::routes();
 
 /*Rutas infraestructuras - Proyecto */
 Route::get('/infraestructura', [App\Http\Controllers\Locaciones_de_unidadesController::class, 'index'])->name('homeInfraestructura');
-Route::post('/store', [App\Http\Controllers\Locaciones_de_unidadesController::class, 'store'])->name('setInfraestructura');
+Route::post('/setInfraestructura', [App\Http\Controllers\Locaciones_de_unidadesController::class, 'store'])->name('setInfraestructura');
 Route::get('/edit/{id_locacion}', [App\Http\Controllers\Locaciones_de_unidadesController::class, 'edit'])->name('editInfraestructura');
 Route::put('/update/{id}', [App\Http\Controllers\Locaciones_de_unidadesController::class, 'update'])->name('upInfraestructura');
 Route::get('/delLocacioninfraestructura/{id}', [App\Http\Controllers\Locaciones_de_unidadesController::class, 'show'])->name('deleteLocacion');
