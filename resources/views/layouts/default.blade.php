@@ -76,12 +76,19 @@
                     </div>
                 </div>
             </li>
-
-            <!-- Nav Item - Charts -->
+            <!--Catalogo de Actividades de proyectos de capacidades institucionales-->
+            <hr class="sidebar-divider">
             <li class="nav-item">
                 <a class="nav-link" href="investigadores">
                     <i class="bi bi-person-lines-fill"></i>
                     <span>Investigadores</span></a>
+            </li>
+            <!-- Nav Item - Charts -->
+            <hr class="sidebar-divider">
+            <li class="nav-item">
+                <a class="nav-link" href="actividadesProyectos">
+                    <i class="bi bi-person-lines-fill"></i>
+                    <span>Proyectos</span></a>
             </li>
 
             <li class="nav-item">

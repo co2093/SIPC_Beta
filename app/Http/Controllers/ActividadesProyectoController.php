@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AreaDeConocimiento;
+use App\Models\Investigador;
+use App\Models\Proyecto;
+use App\Models\LineaDeInvestigacion;
+use App\Models\ActividadDeProyecto;
 use Illuminate\Http\Request;
 
 class ActividadesProyectoController extends Controller
@@ -14,6 +19,12 @@ class ActividadesProyectoController extends Controller
     public function index()
     {
         //
+        $actividadesProyectos = Proyecto::all();
+        return view('actividadesProyectos.index')
+            ->with(
+                'actividadesProyectos',
+                $actividadesProyectos
+            );
     }
 
     /**
@@ -23,7 +34,18 @@ class ActividadesProyectoController extends Controller
      */
     public function create()
     {
-        //
+        //definicion de los modelos a usar
+        $investigadores = Investigador::all();
+        $areas = AreaDeConocimiento::all();
+        $lineas = LineaDeInvestigacion::all();
+        return view(
+            'actividadesProyectos.create',
+            compact(
+                'investigadores',
+                'areas',
+                'lineas',
+            )
+        );
     }
 
     /**

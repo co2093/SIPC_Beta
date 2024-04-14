@@ -19,7 +19,11 @@ use App\Models\UnidadDeInvestigacion;
 Route::get('/', function () {
     return view('auth.login');
 });
+//Ruta de Investigadores
 Route::resource('investigadores', 'App\Http\Controllers\InvestigadorController');
+//Ruta de actividades de capacidades institucionales
+Route::resource('actividadesProyectos', 'App\Http\Controllers\ActividadesProyectoController');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
