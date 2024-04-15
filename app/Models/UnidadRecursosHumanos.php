@@ -9,7 +9,7 @@ class UnidadRecursosHumanos extends Model
 {
     use HasFactory;
     protected $table = 'unidades_rrhh';
-    protected $primaryKey = 'id_unidad';
+    protected $primaryKey = 'id_unidad_rrhh';
     public $incrementing = true;
     protected $fillable = ['nombre_unidad'];
     public function investigadoresUnidadRRHH()
@@ -17,6 +17,13 @@ class UnidadRecursosHumanos extends Model
         return $this->hasMany(
             Investigador::class,
             'id_invest'
+        );
+    }
+    public function proyectosUnidadRRHH()
+    {
+        return $this->hasMany(
+            Proyecto::class,
+            'id_proyecto'
         );
     }
 }

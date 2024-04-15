@@ -20,6 +20,7 @@ class UnidadInvestigacion extends Model
             'id_invest'
         );
     }
+
     public function formulariosUnidadInvest()
     {
         return $this->belongsTo(

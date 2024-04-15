@@ -87,7 +87,7 @@
             <hr class="sidebar-divider">
             <li class="nav-item">
                 <a class="nav-link" href="actividadesProyectos">
-                    <i class="bi bi-person-lines-fill"></i>
+                    <i class="bi bi-kanban"></i>
                     <span>Proyectos</span></a>
             </li>
 

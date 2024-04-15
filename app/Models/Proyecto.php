@@ -20,4 +20,36 @@ class Proyecto extends Model
         'fecha_inicio_proyecto',
         'fecha_fin_proyecto'
     ];
+    public function proyectosAreasConocimiento()
+    {
+        return $this->belongsTo(
+            AreaDeConocimiento::class,
+            'id_area_conocimiento'
+        );
+    }
+    public function proyectosUnidadesRRHH()
+    {
+        return $this->belongsTo(
+            UnidadRecursosHumanos::class,
+            'id_unidad_rrhh'
+        );
+    }
+    public function proyectosUnidadesInvest()
+    {
+        return $this->belongsTo(
+            UnidadInvestigacion::class,
+            'id_unidad'
+        );
+    }
+    public function proyectosLineasInvest()
+    {
+        return $this->belongsTo(
+            LineaDeInvestigacion::class,
+            'id_l_de_invest'
+        );
+    }
+    public function proyectosInvest()
+    {
+        return $this->belongsTo(Investigador::class, 'id_invest');
+    }
 }

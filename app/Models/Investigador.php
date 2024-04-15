@@ -20,6 +20,10 @@ class Investigador extends Model
             'id_carrera'
         );
     }
+    public function investigadoresProyecto()
+    {
+        return $this->hasMany(Proyecto::class, 'id_proyecto');
+    }
 
     public function personasInvestigadores()
     {

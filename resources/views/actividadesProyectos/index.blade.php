@@ -8,43 +8,33 @@
 
 <div style="text-align: center;">
   <h1>Listado de Proyectos</h1>
-  <a href="investigadores/create" class="btn btn-success mb-4"><i class="bi bi-plus-lg"> </i> Agregar</a>
+  <a href="actividadesProyectos/create" class="btn btn-success mb-4"><i class="bi bi-plus-lg"> </i> Agregar</a>
 </div>
 <div class="card-body">
-  <table id="investigadores" style="width:100%" class="table table-striped table-bordered shadow-lg mt-4">
+  <table id="actividadesProyectos" style="width:100%" class="table table-striped table-bordered shadow-lg mt-4">
     <thead class="bg-dark">
       <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Nombres</th>
-        <th scope="col">Apellidos</th>
-        <!--<th scope="col">Correo</th>-->
-        <!--<th scope="col">Telefono</th>-->
-        <!--<th scope="col">G&eacute;nero</th>
-                <th scope="col">Direccion</th>-->
-        <th scope="col">M&aacute;ximo Grado Acad&eacute;mico</th>
-        <th scope="col">Acr&oacute;nimo G. Acad&eacute;mico</th>
-        <th scope="col">Carrera seg&uacute;n T&iacute;tulo</th>
-        <th scope="col">Acr&oacute;nimo Carrera</th>
-        <th scope="col">ACCIONES</th>
+        <th scope="col">Nombre del Proyecto</th>
+        <th scope="col">&Aacute;rea de Ciencia y Tecnolog&iacute;a</th>
+        <th scope="col">L&iacute;nea de Investigaci&oacute;n</th>
+        <th scope="col">Investigador(es)</th>
+        <th scope="col">Fecha inicio</th>
+        <th scope="col">Fecha inicio</th>
+        <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody>
       @foreach ($actividadesProyectos as $actividadesProyecto)
       <tr>
-        <td>{{$actividadesProyecto->personasInvestigadores->id_persona}}</td>
-        <td>{{$actividadesProyecto->personasInvestigadores->nombre_persona}}</td>
-        <td>{{$actividadesProyecto->personasInvestigadores->apellido_persona}}</td>
-        <!--<td>{{$actividadesProyecto->personasInvestigadores->correo_persona}}</td>-->
-        <!-- <td>{{$actividadesProyecto->personasInvestigadores->telefono_persona}}</td>   -->
-        <!--<td>{{$actividadesProyecto->personasInvestigadores->genero_persona}}</td>
-                <td>{{$actividadesProyecto->personasInvestigadores->direccion_persona}}</td>-->
-        <td>{{$actividadesProyecto->gradosAcadInvestigadores->titulo_g_acad}}</td>
-        <td>{{$actividadesProyecto->gradosAcadInvestigadores->acronimosGAcademico->codigo_acronimo}}</td>
-        <td>{{$actividadesProyecto->carrerasInvestigadores->nombre_carrera}}</td>
-        <td>{{$actividadesProyecto->carrerasInvestigadores->acronimosCarreras->codigo_acronimo}}</td>
+        <td>{{$actividadesProyecto->nombre_proyecto}}</td>
+        <td>{{$actividadesProyecto->proyectosAreasConocimiento->nombre_area_conocimiento}}</td>
+        <td>{{$actividadesProyecto->proyectosLineasInvest->nombre_l_invest}}</td>
+        <td>{{$actividadesProyecto->proyectosInvest->personasInvestigadores->nombre_persona}}</td>
+        <td>{{$actividadesProyecto->fecha_inicio_proyecto}}</td>
+        <td>{{$actividadesProyecto->fecha_fin_proyecto}}</td>
         <td>
-          <a class="btn btn-warning" href="investigadores/{{$actividadesProyecto->id_invest}}/edit"><i class="bi bi-pencil-square"></i></a>
-          <button class="btn btn-danger delete-button" data-action="{{route('investigadores.destroy',$actividadesProyecto->id_invest)}}"><i class="bi bi-trash"> </i></button>
+          <a class="btn btn-warning" href="actividadesProyectos/{{$actividadesProyecto->id_proyecto}}/edit"><i class="bi bi-pencil-square"></i></a>
+          <button class="btn btn-danger delete-button" data-action="{{route('actividadesProyectos.destroy',$actividadesProyecto->id_proyecto)}}"><i class="bi bi-trash"> </i></button>
         </td>
       </tr>
       @endforeach
@@ -58,7 +48,7 @@
   <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
   <script>
-    new DataTable('#investigadores', {
+    new DataTable('#actividadesProyectos', {
       lengthMenu: [
         [3, 6, 9, 27, -1],
         [3, 6, 9, 27, 'All']
@@ -88,7 +78,7 @@
     });
 
     // Mostrar modal al hacer clic en el botón de eliminar
-    $('#investigadores').on('click', '.delete-button', function() {
+    $('#actividadesProyectos').on('click', '.delete-button', function() {
       var action = $(this).data('action');
       $('#deleteForm').attr('action', action);
       $('#confirmDeleteModal').modal('show');

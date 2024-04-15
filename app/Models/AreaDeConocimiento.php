@@ -17,4 +17,8 @@ class AreaDeConocimiento extends Model
         'nombre_area_conocimiento',
         'descripcion_area_conocimiento',
     ];
+    public function areasProyecto()
+    {
+        return $this->hasMany(Proyecto::class, 'i_proyecto');
+    }
 }
