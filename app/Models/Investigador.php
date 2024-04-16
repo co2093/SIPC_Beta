@@ -64,4 +64,12 @@ class Investigador extends Model
             'id_cap'
         );
     }
+    public function investigadoresProyectos()
+    {
+        return $this->hasManyThrough(
+
+            Investigador::class,
+            Persona::class
+        );
+    }
 }

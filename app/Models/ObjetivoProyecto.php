@@ -16,4 +16,8 @@ class ObjetivoProyecto extends Model
         'titulo_objetivo',
         'descripcion_objetivo',
     ];
+    public function objetivosProyectos()
+    {
+        return $this->hasMany(Proyecto::class, 'id_proyecto');
+    }
 }

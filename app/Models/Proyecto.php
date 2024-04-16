@@ -41,6 +41,10 @@ class Proyecto extends Model
             'id_unidad'
         );
     }
+    public function proyectosObjetivos()
+    {
+        return $this->belongsTo(ObjetivoProyecto::class, 'id_ojetivo');
+    }
     public function proyectosLineasInvest()
     {
         return $this->belongsTo(
@@ -50,6 +54,16 @@ class Proyecto extends Model
     }
     public function proyectosInvest()
     {
-        return $this->belongsTo(Investigador::class, 'id_invest');
+        return $this->hasOneThrough(
+            Persona::class,
+            Investigador::class
+        );
+    }
+    public function proyectosFacultades()
+    {
+        return $this->belongsTo(
+            Facultad::class,
+            'id_facultad'
+        );
     }
 }
