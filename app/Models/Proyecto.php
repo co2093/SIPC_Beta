@@ -54,9 +54,9 @@ class Proyecto extends Model
     }
     public function proyectosInvest()
     {
-        return $this->hasOneThrough(
-            Persona::class,
-            Investigador::class
+        return $this->hasOne(
+            Investigador::class,
+            'id_proyecto' // Clave externa en la tabla investigadores
         );
     }
     public function proyectosFacultades()
@@ -65,5 +65,9 @@ class Proyecto extends Model
             Facultad::class,
             'id_facultad'
         );
+    }
+    public function investigador()
+    {
+        return $this->belongsTo(Investigador::class, 'id_invest');
     }
 }

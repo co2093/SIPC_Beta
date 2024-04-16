@@ -1,7 +1,13 @@
 @extends('layouts.default')
 @section('content')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
 <h1 style="text-align: center;">Registro de Proyectos</h1>
 
 <form action="/actividadesProyectos" method="post" style="margin: 25px;">
@@ -72,19 +78,20 @@
   <div class="form-container d-flex flex-column ">
     <div class="tab-content" id="myTabContent">
       <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-        <label for="id_invest" class="form-label me-3 ">Nombre del Investigador
-        </label>
-        <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar una linea de investigacion">
+        <label for="id_invest" class="form-label me-3 ">Nombre del Investigador</label>
+        <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar un investigador">
           <i class="bi bi-info-circle text-info"></i>
         </span>
         <select class="form-control ml-4 @error('id_invest') is-invalid @enderror" tabindex="6" name="id_invest" id="id_invest">
           <option selected>Seleccione un Investigador</option>
           @foreach ($investigadores as $investigador)
-          <option value="{{$investigador->id_invest}}">{{$investigador->personasInvestigadores->nombre_persona}}
-            {{$investigador->personasInvestigadores->apellido_persona}}
-          </option>
+          <option value="{{$investigador->id_invest}}">{{$investigador->personasInvestigadores->nombre_persona}} {{$investigador->personasInvestigadores->apellido_persona}}</option>
           @endforeach
         </select>
+        <!-- Mostrar errores de validación -->
+        @error('id_invest')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
         <label for="id_facultad" class="form-label me-3 ml-3">Facultad a la que pertenece</label>
         <span class="ml-2" data-bs-toggle="tooltip" title="Debe seleccionar un area">
           <i class="bi bi-info-circle text-info"></i>

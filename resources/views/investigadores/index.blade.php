@@ -31,7 +31,7 @@
         <tbody>
             @foreach ($investigadores as $investigador)
             <tr>
-                <td>{{$investigador->personasInvestigadores->id_persona}}</td>
+                <td>{{$investigador->id_invest}}</td>
                 <td>{{$investigador->personasInvestigadores->nombre_persona}}</td>
                 <td>{{$investigador->personasInvestigadores->apellido_persona}}</td>
                 <!--<td>{{$investigador->personasInvestigadores->correo_persona}}</td>-->

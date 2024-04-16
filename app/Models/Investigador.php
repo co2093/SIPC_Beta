@@ -66,10 +66,9 @@ class Investigador extends Model
     }
     public function investigadoresProyectos()
     {
-        return $this->hasManyThrough(
-
-            Investigador::class,
-            Persona::class
+        return $this->belongsTo(
+            Proyecto::class,
+            'id_invest'
         );
     }
 }

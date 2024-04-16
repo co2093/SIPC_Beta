@@ -29,7 +29,9 @@
         <td>{{$actividadesProyecto->nombre_proyecto}}</td>
         <td>{{$actividadesProyecto->proyectosAreasConocimiento->nombre_area_conocimiento}}</td>
         <td>{{$actividadesProyecto->proyectosLineasInvest->nombre_l_invest}}</td>
-        <td>{{$actividadesProyecto->proyectosInvest->nombre_persona}}</td>
+        <td>{{ $actividadesProyecto->investigador->first()->personasInvestigadores->nombre_persona }}
+          {{ $actividadesProyecto->investigador->first()->personasInvestigadores->apellido_persona }}
+        </td>
         <td>{{$actividadesProyecto->fecha_inicio_proyecto}}</td>
         <td>{{$actividadesProyecto->fecha_fin_proyecto}}</td>
         <td>
