@@ -31,12 +31,7 @@
         <td>{{$actividadesProyecto->nombre_proyecto}}</td>
         <td>{{$actividadesProyecto->proyectosAreasConocimiento->nombre_area_conocimiento}}</td>
         <td>{{$actividadesProyecto->proyectosLineasInvest->nombre_l_invest}}</td>
-        @if ($actividadesProyecto->personasInvestigadores)
-        <td>{{ $actividadesProyecto->personasInvestigadores->nombre_persona }} {{ $actividadesProyecto->personasInvestigadores->apellido_persona }}</td>
-        @else
-        <td>No hay investigador asociado</td>
-        @endif
-
+        <td>{{ $actividadesProyecto->id_invest }}</td>
         <td>{{$actividadesProyecto->fecha_inicio_proyecto}}</td>
         <td>{{$actividadesProyecto->fecha_fin_proyecto}}</td>
         <td>

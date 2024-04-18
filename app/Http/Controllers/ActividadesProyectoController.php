@@ -17,18 +17,24 @@ class ActividadesProyectoController extends Controller
     public function index()
     {
         $actividadesProyectos = Proyecto::all();
-        return view('actividadesProyectos.index', compact('actividadesProyectos'));
+        return view(
+            'actividadesProyectos.index'
+        )->with(
+            'actividadesProyectos',
+            $actividadesProyectos
+
+        );
     }
     public function create()
     {
-        // Obtener todos los proyectoes, áreas, líneas y facultades
-        $proyectoes = proyecto::all();
+        // Obtener todos los investigadores, áreas, líneas y facultades
+        $investigadores = Investigador::all();
         $areas = AreaDeConocimiento::all();
         $lineas = LineaDeInvestigacion::all();
         $facultades = Facultad::all();
 
         // Retornar la vista de creación con los datos necesarios
-        return view('actividadesProyectos.create', compact('proyectoes', 'areas', 'lineas', 'facultades'));
+        return view('actividadesProyectos.create', compact('investigadores', 'areas', 'lineas', 'facultades'));
     }
     public function store(Request $request)
     {
@@ -64,7 +70,7 @@ class ActividadesProyectoController extends Controller
         $proyecto->id_l_de_invest = $request->input('id_l_de_invest');
         $proyecto->id_facultad = $request->input('id_facultad');
         $proyecto->id_invest = $request->input('id_invest');
-        dd($request->id_invest);
+        //dd($request->id_invest);
         $proyecto->save();
         // Redireccionar a la vista de proyectos
         return redirect('actividadesProyectos');
