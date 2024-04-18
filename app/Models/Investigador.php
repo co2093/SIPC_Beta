@@ -64,13 +64,6 @@ class Investigador extends Model
             'id_cap'
         );
     }
-    public function investigadoresProyectos()
-    {
-        return $this->belongsTo(
-            Proyecto::class,
-            'id_invest'
-        );
-    }
     //uso de tabla intermedia
     public function proyectos()
     {

@@ -21,14 +21,14 @@ class ActividadesProyectoController extends Controller
     }
     public function create()
     {
-        // Obtener todos los investigadores, áreas, líneas y facultades
-        $investigadores = Investigador::all();
+        // Obtener todos los proyectoes, áreas, líneas y facultades
+        $proyectoes = proyecto::all();
         $areas = AreaDeConocimiento::all();
         $lineas = LineaDeInvestigacion::all();
         $facultades = Facultad::all();
 
         // Retornar la vista de creación con los datos necesarios
-        return view('actividadesProyectos.create', compact('investigadores', 'areas', 'lineas', 'facultades'));
+        return view('actividadesProyectos.create', compact('proyectoes', 'areas', 'lineas', 'facultades'));
     }
     public function store(Request $request)
     {
@@ -63,7 +63,7 @@ class ActividadesProyectoController extends Controller
         $proyecto->id_area_conocimiento = $request->input('id_area_conocimiento');
         $proyecto->id_l_de_invest = $request->input('id_l_de_invest');
         $proyecto->id_facultad = $request->input('id_facultad');
-        $proyecto->nombre_proyecto = $request->input('id_invest');
+        $proyecto->id_invest = $request->input('id_invest');
         dd($request->id_invest);
         $proyecto->save();
         // Redireccionar a la vista de proyectos
@@ -87,6 +87,19 @@ class ActividadesProyectoController extends Controller
 
     public function destroy($id)
     {
-        //
+        // Encontrar el proyecto a eliminar
+        $proyecto = Proyecto::find($id);
+
+        // Verificar si se encontró el proyecto
+        if (!$proyecto) {
+            // Manejar el caso en que el proyecto no existe
+            abort(404, 'proyecto no encontrado');
+        }
+
+        // Eliminar al proyecto de la base de datos
+        $proyecto->delete();
+
+        // Redireccionar a la vista de proyectoes
+        return redirect('actividadesProyectos')->with('success', 'proyecto eliminado correctamente');
     }
 }
