@@ -71,4 +71,14 @@ class Investigador extends Model
             'id_invest'
         );
     }
+    //uso de tabla intermedia
+    public function proyectos()
+    {
+        return $this->belongsToMany(
+            Proyecto::class,
+            'invest_proyectos',
+            'id_invest',
+            'id_proyecto'
+        );
+    }
 }

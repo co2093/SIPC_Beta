@@ -83,11 +83,15 @@
           <i class="bi bi-info-circle text-info"></i>
         </span>
         <select class="form-control ml-4 @error('id_invest') is-invalid @enderror" tabindex="6" name="id_invest" id="id_invest">
-          <option selected>Seleccione un Investigador</option>
+          <option value="">Seleccione un Investigador</option>
           @foreach ($investigadores as $investigador)
           <option value="{{$investigador->id_invest}}">{{$investigador->personasInvestigadores->nombre_persona}} {{$investigador->personasInvestigadores->apellido_persona}}</option>
           @endforeach
         </select>
+        <!-- Mostrar errores de validación -->
+        @error('id_invest')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
         <!-- Mostrar errores de validación -->
         @error('id_invest')
         <div class="invalid-feedback">{{ $message }}</div>
@@ -108,18 +112,13 @@
   <div class="form-container d-flex flex-column ">
     <div class="tab-content" id="myTabContent">
       <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-        <label for="fecha_inicio_proyecto" class="form-label me-3 w-25">Fecha de Inicio del Proyecto
-        </label>
-        <span class="ml-2" data-bs-toggle="tooltip" title="Debe seleccionar una fecha de inicio">
-          <i class="bi bi-info-circle text-info"></i>
-        </span>
+        <label for="fecha_inicio_proyecto" class="form-label me-3 w-25">Fecha de Inicio del Proyecto</label>
         <input type="date" name="fecha_inicio_proyecto" id="fecha_inicio_proyecto" class="form-control ml-3 w-75 @error('fecha_inicio_proyecto') is-invalid @enderror">
         @error('fecha_inicio_proyecto')
         <div class="invalid-feedback">{{ $message }}</div>
-        @enderror <label for="id_facultad" class="form-label me-3 ml-3 w-25">Fecha de Finalizaci&oacute;n del proyecto</label>
-        <span class="ml-2" data-bs-toggle="tooltip" title="Debe seleccionar una fecha de cierre">
-          <i class="bi bi-info-circle text-info"></i>
-        </span>
+        @enderror
+
+        <label for="fecha_fin_proyecto" class="form-label me-3 ml-3 w-25">Fecha de Finalización del Proyecto</label>
         <input type="date" name="fecha_fin_proyecto" id="fecha_fin_proyecto" class="form-control ml-3 w-75 @error('fecha_fin_proyecto') is-invalid @enderror">
         @error('fecha_fin_proyecto')
         <div class="invalid-feedback">{{ $message }}</div>
@@ -142,7 +141,7 @@
     <span data-bs-toggle="tooltip" title="Debe ingresar la descripcion del objetivo del proyecto">
       <i class="bi bi-info-circle text-info"></i>
     </span>
-    <input type="text" class="form-control @error('descripicion_objetivo') is-invalid @enderror" tabindex="1" id="descripicion_objetivo" name="descripicion_objetivo" placeholder="{{ $errors->has('descripicion_objetivo') ? $errors->first('descripicion_objetivo') : 'Ingrese la descripcion del objetivo' }}" value="{{ old('titulo_objetivo') }}">
+    <input type="text" class="form-control @error('descripcion_objetivo') is-invalid @enderror" tabindex="1" id="descripcion_objetivo" name="descripcion_objetivo" placeholder="{{ $errors->has('descripcion_objetivo') ? $errors->first('descripcion_objetivo') : 'Ingrese la descripción del objetivo' }}" value="{{ old('descripcion_objetivo') }}">
   </div>
   <div class="d-flex justify-content-between mb-2">
     <button type="submit" class="btn btn-success"><i class="bi bi-plus-lg"></i> Registrar</button>

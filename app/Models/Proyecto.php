@@ -66,8 +66,8 @@ class Proyecto extends Model
             'id_facultad'
         );
     }
-    public function investigador()
+    public function investigadores()
     {
-        return $this->belongsTo(Investigador::class, 'id_invest');
+        return $this->belongsToMany(Investigador::class, 'invest_proyectos', 'id_proyecto', 'id_invest');
     }
 }

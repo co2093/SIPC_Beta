@@ -14,6 +14,7 @@
   <table id="actividadesProyectos" style="width:100%" class="table table-striped table-bordered shadow-lg mt-4">
     <thead class="bg-dark">
       <tr>
+        <th scope="col">Id</th>
         <th scope="col">Nombre del Proyecto</th>
         <th scope="col">&Aacute;rea de Ciencia y Tecnolog&iacute;a</th>
         <th scope="col">L&iacute;nea de Investigaci&oacute;n</th>
@@ -26,12 +27,16 @@
     <tbody>
       @foreach ($actividadesProyectos as $actividadesProyecto)
       <tr>
+        <td>{{$actividadesProyecto->id_proyecto}}</td>
         <td>{{$actividadesProyecto->nombre_proyecto}}</td>
         <td>{{$actividadesProyecto->proyectosAreasConocimiento->nombre_area_conocimiento}}</td>
         <td>{{$actividadesProyecto->proyectosLineasInvest->nombre_l_invest}}</td>
-        <td>{{ $actividadesProyecto->investigador->first()->personasInvestigadores->nombre_persona }}
-          {{ $actividadesProyecto->investigador->first()->personasInvestigadores->apellido_persona }}
-        </td>
+        @if ($actividadesProyecto->personasInvestigadores)
+        <td>{{ $actividadesProyecto->personasInvestigadores->nombre_persona }} {{ $actividadesProyecto->personasInvestigadores->apellido_persona }}</td>
+        @else
+        <td>No hay investigador asociado</td>
+        @endif
+
         <td>{{$actividadesProyecto->fecha_inicio_proyecto}}</td>
         <td>{{$actividadesProyecto->fecha_fin_proyecto}}</td>
         <td>
