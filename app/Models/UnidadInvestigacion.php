@@ -11,8 +11,17 @@ class UnidadInvestigacion extends Model
     protected $table = 'uu_de_invest';
     protected $primaryKey = 'id_unidad';
     public $incrementing = true;
-    protected $fillable = ['nombre_unidad'];
+    protected $fillable = [
+        'nombre_unidad',
+        'direccion_unidad',
+        'fecha_fundacion',
+        'telefono_unidad',
+        'id_unidad_rrff',
+        'id_dep_jerar',
+        'id_form'
+    ];
     public $timestamps = false;
+    //relaciones
     public function investigadoresUnidadInvest()
     {
         return $this->hasMany(
@@ -27,5 +36,15 @@ class UnidadInvestigacion extends Model
             Formulario::class,
             'id_form'
         );
+    }
+    // responsablesCargos
+    public function dependenciaJerarquica()
+    {
+        return $this->belongsTo(DependenciaJerarquica::class, 'id_dep_jerar');
+    }
+
+    public function unidadesRRFF()
+    {
+        return $this->belongsTo(UnidadesRRFF::class, 'id_unidad_rrff');
     }
 }
