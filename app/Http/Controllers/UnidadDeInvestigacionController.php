@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
-use App\Models\UnidadDeInvestigacion;
+use App\Models\UnidadInvestigacion;
 use App\Models\DependenciaJerarquica;
 use App\Models\UnidadesRRFF;
 
@@ -13,7 +13,7 @@ class UnidadDeInvestigacionController extends Controller
 {
     public function index()
     {
-        $unidadesDeInvestigacion = UnidadDeInvestigacion::with('unidadesRRFF', 'dependenciaJerarquica')->get();
+        $unidadesDeInvestigacion = UnidadInvestigacion::with('unidadesRRFF', 'dependenciaJerarquica')->get();
         return view('CapacidadesInstitucionales.UnidadDeInvestigacion.index', compact('unidadesDeInvestigacion'));
     }
 
@@ -45,7 +45,7 @@ class UnidadDeInvestigacionController extends Controller
         $data['id_form'] = "1";
 
         //dd($data); // Muestra los datos para verificar
-        UnidadDeInvestigacion::create($data);
+        UnidadInvestigacion::create($data);
         //UnidadDeInvestigacion::create($request->all());
 
         return redirect()->route('unidadesDeInvestigacion.index')->with('success', 'Nueva tarea creada exitosametne');
@@ -58,7 +58,7 @@ class UnidadDeInvestigacionController extends Controller
 
     public function edit($id)
     {
-        $unidad = UnidadDeInvestigacion::find($id);
+        $unidad = UnidadInvestigacion::find($id);
         $unidades_rrffs = UnidadesRRFF::all();
         $deps_jerarquicas = DependenciaJerarquica::all();
         return view('CapacidadesInstitucionales.UnidadDeInvestigacion.edit', compact('unidad', 'unidades_rrffs', 'deps_jerarquicas'));
@@ -66,7 +66,7 @@ class UnidadDeInvestigacionController extends Controller
 
     public function update(Request $request, $id)
     {
-        $unidad = UnidadDeInvestigacion::find($id);
+        $unidad = UnidadInvestigacion::find($id);
 
         $validator = Validator::make($request->all(), [
             'nombre_unidad' => 'required|string|max:300',
@@ -91,7 +91,7 @@ class UnidadDeInvestigacionController extends Controller
 
     public function destroy($id)
     {
-        $unidad = UnidadDeInvestigacion::find($id);
+        $unidad = UnidadInvestigacion::find($id);
 
         if (!$unidad) {
             return redirect()->route('unidadesDeInvestigacion.index')->with('error', 'La unidad de investigación no existe.');
