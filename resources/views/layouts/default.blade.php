@@ -79,14 +79,14 @@
             <!--Catalogo de Actividades de proyectos de capacidades institucionales-->
             <hr class="sidebar-divider">
             <li class="nav-item">
-                <a class="nav-link" href="investigadores">
+                <a class="nav-link" href="{{route('investHome')}}">
                     <i class="bi bi-person-lines-fill"></i>
                     <span>Investigadores</span></a>
             </li>
             <!-- Nav Item - Charts -->
             <hr class="sidebar-divider">
             <li class="nav-item">
-                <a class="nav-link" href="actividadesProyectos">
+                <a class="nav-link" href="{{route('actProHome')}}">
                     <i class="bi bi-kanban"></i>
                     <span>Proyectos</span></a>
             </li>

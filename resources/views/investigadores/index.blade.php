@@ -44,7 +44,7 @@
                 <td>{{$investigador->carrerasInvestigadores->acronimosCarreras->codigo_acronimo}}</td>
                 <td>
                     <a class="btn btn-warning" href="investigadores/{{$investigador->id_invest}}/edit"><i class="bi bi-pencil-square"></i></a>
-                    <button class="btn btn-danger delete-button" data-action="{{route('investigadores.destroy',$investigador->id_invest)}}"><i class="bi bi-trash"> </i></button>
+                    <button class="btn btn-danger delete-button" data-action="{{route('investDestroy',$investigador->id_invest)}}"><i class="bi bi-trash"> </i></button>
                 </td>
             </tr>
             @endforeach

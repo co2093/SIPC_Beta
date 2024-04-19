@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UnidadDeInvestigacionController;
 use App\Http\Controllers\DependenciaJerarquicaController;
 use App\Models\UnidadDeInvestigacion;
+use App\Http\Controllers\ActividadesProyectoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +20,6 @@ use App\Models\UnidadDeInvestigacion;
 Route::get('/', function () {
     return view('auth.login');
 });
-//Ruta de Investigadores
-Route::resource('investigadores', 'App\Http\Controllers\InvestigadorController');
-//Ruta de actividades de capacidades institucionales
-Route::resource('actividadesProyectos', 'App\Http\Controllers\ActividadesProyectoController');
 
 Auth::routes();
 
@@ -51,21 +48,6 @@ Route::delete('/destroyCatinfraestructura/{id}', [App\Http\Controllers\catInfrae
 Route::resource('/unidadesDeInvestigacion', UnidadDeInvestigacionController::class);
 
 Route::resource('/dependenciaJerarquica', DependenciaJerarquicaController::class);
-
-// Listar todas las unidades de investigación
-//Route::get('/unidades', [UnidadDeInvestigacionController::class, 'index'])->name('unidadesDeInvestigacion.index');
-
-
-/*
-Route::group(['prefix' => 'unidadesDeInvestigacion', 'as' => 'unidadesDeInvestigacion.'], function () {
-    Route::get('/', [UnidadDeInvestigacion::class, 'index'])->name('index');
-    Route::get('create', [UnidadDeInvestigacion::class, 'create'])->name('create');
-    Route::post('post', [UnidadDeInvestigacion::class, 'store'])->name('store');
-    Route::get('{unidadDeInvestigacion}/edit', [UnidadDeInvestigacion::class, 'edit'])->name('edit');
-    Route::put('{unidadDeInvestigacion}', [UnidadDeInvestigacion::class, 'update'])->name('update');
-    Route::delete('{unidadDeInvestigacion}/eliminar', [UnidadDeInvestigacion::class, 'destroy'])->name('destroy');
-});*/
-
 //RUTA DE RESPONSABLES
 Route::get('/responsables', [App\Http\Controllers\ResponsableController::class, 'index'])->name('responsable.index');
 Route::get('/create', [App\Http\Controllers\ResponsableController::class, 'create'])->name('responsable.create');
@@ -74,3 +56,21 @@ Route::post('/store', [App\Http\Controllers\ResponsableController::class, 'store
 Route::get('/edit', [App\Http\Controllers\ResponsableController::class, 'edit'])->name('responsable.edit');
 Route::get('/show', [App\Http\Controllers\ResponsableController::class, 'show'])->name('responsable.show');
 Route::put('/buscarPersona', [App\Http\Controllers\ResponsableController::class, 'buscarpersona'])->name('responsable.buscarpersona');
+//Ruta de Investigadores
+// Listar todos los investigadores
+Route::get('/investigadores', 'App\Http\Controllers\InvestigadorController@index')->name('investHome');
+Route::get('/investigadores/create', 'App\Http\Controllers\InvestigadorController@create')->name('investCreate');
+Route::post('/investigadores', 'App\Http\Controllers\InvestigadorController@store')->name('investStore');
+Route::get('/investigadores/{investigador}', 'App\Http\Controllers\InvestigadorController@show')->name('investShow');
+Route::get('/investigadores/{investigador}/edit', 'App\Http\Controllers\InvestigadorController@edit')->name('investEdit');
+Route::put('/investigadores/{investigador}', 'App\Http\Controllers\InvestigadorController@update')->name('investUpdate');
+Route::delete('/investigadores/{investigador}', 'App\Http\Controllers\InvestigadorController@destroy')->name('investDestroy');
+//Ruta de actividades de capacidades institucionales
+// Ruta para mostrar el formulario de creación
+Route::get('/actividadesProyectos/create', [ActividadesProyectoController::class, 'create'])->name('actProCreate');
+Route::post('/actividadesProyectos', [ActividadesProyectoController::class, 'store'])->name('actProStore');
+Route::get('/actividadesProyectos/{id}', [ActividadesProyectoController::class, 'show'])->name('actProShow');
+Route::get('/actividadesProyectos/{id}/edit', [ActividadesProyectoController::class, 'edit'])->name('actProEdit');
+Route::put('/actividadesProyectos/{id}', [ActividadesProyectoController::class, 'update'])->name('actProUpdate');
+Route::delete('/actividadesProyectos/{id}', [ActividadesProyectoController::class, 'destroy'])->name('actProDestroy');
+Route::get('/actividadesProyectos', [ActividadesProyectoController::class, 'index'])->name('actProHome');

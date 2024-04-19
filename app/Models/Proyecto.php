@@ -43,7 +43,7 @@ class Proyecto extends Model
     }
     public function proyectosObjetivos()
     {
-        return $this->belongsTo(ObjetivoProyecto::class, 'id_ojetivo');
+        return $this->belongsTo(ObjetivoProyecto::class, 'id_objetivo');
     }
     public function proyectosLineasInvest()
     {

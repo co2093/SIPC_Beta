@@ -25,20 +25,20 @@
       </tr>
     </thead>
     <tbody>
-      @foreach ($actividadesProyectos as $actividadesProyecto)
+      @foreach ($actividadesProyectos as $actividadProyecto)
       <tr>
-        <td>{{$actividadesProyecto->id_proyecto}}</td>
-        <td>{{$actividadesProyecto->nombre_proyecto}}</td>
-        <td>{{$actividadesProyecto->proyectosAreasConocimiento->nombre_area_conocimiento}}</td>
-        <td>{{$actividadesProyecto->proyectosLineasInvest->nombre_l_invest}}</td>
-        <td>{{ $actividadesProyecto->proyectosInvest->personasInvestigadores->nombre_persona}}
-          {{ $actividadesProyecto->proyectosInvest->personasInvestigadores->apellido_persona}}
+        <td>{{$actividadProyecto->id_proyecto}}</td>
+        <td>{{$actividadProyecto->nombre_proyecto}}</td>
+        <td>{{$actividadProyecto->proyectosAreasConocimiento->nombre_area_conocimiento}}</td>
+        <td>{{$actividadProyecto->proyectosLineasInvest->nombre_l_invest}}</td>
+        <td>{{$actividadProyecto->proyectosInvest->personasInvestigadores->nombre_persona}}
+          {{$actividadProyecto->proyectosInvest->personasInvestigadores->apellido_persona}}
         </td>
-        <td>{{$actividadesProyecto->fecha_inicio_proyecto}}</td>
-        <td>{{$actividadesProyecto->fecha_fin_proyecto}}</td>
+        <td>{{$actividadProyecto->fecha_inicio_proyecto}}</td>
+        <td>{{$actividadProyecto->fecha_fin_proyecto}}</td>
         <td>
-          <a class="btn btn-warning" href="actividadesProyectos/{{$actividadesProyecto->id_proyecto}}/edit"><i class="bi bi-pencil-square"></i></a>
-          <button class="btn btn-danger delete-button" data-action="{{route('actividadesProyectos.destroy',$actividadesProyecto->id_proyecto)}}"><i class="bi bi-trash"> </i></button>
+          <a class="btn btn-warning" href="{{ route('actProUpdate', $actividadProyecto->id_proyecto) }}/edit"><i class="bi bi-pencil-square"></i></a>
+          <button class="btn btn-danger delete-button" data-action="{{route('actProDestroy',$actividadProyecto->id_proyecto)}}"><i class="bi bi-trash"> </i></button>
         </td>
       </tr>
       @endforeach

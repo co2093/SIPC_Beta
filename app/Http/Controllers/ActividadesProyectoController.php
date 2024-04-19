@@ -18,16 +18,6 @@ class ActividadesProyectoController extends Controller
     {
         //$actividadesProyectos = Proyecto::all();
         $actividadesProyectos = Proyecto::with('proyectosInvest.personasInvestigadores')->get();
-        /**
-         * 
-         return view(
-            'actividadesProyectos.index'
-        )->with(
-            'actividadesProyectos',
-            $actividadesProyectos
-
-        );
-         */
         return view('actividadesProyectos.index', compact('actividadesProyectos'));
     }
     public function create()
@@ -62,21 +52,21 @@ class ActividadesProyectoController extends Controller
         $objetivo->save();
 
         // Crear un nuevo proyecto
-        $proyecto = new Proyecto();
-        $proyecto->nombre_proyecto = $request->input('nombre_proyecto');
-        $proyecto->descripcion_proyecto = $request->input('descripcion_proyecto');
-        $proyecto->codigo_proyecto_sicues = $request->input('codigo_proyecto_sicues');
-        $proyecto->codigo_proyecto_facultad = $request->input('codigo_proyecto_facultad');
-        $proyecto->fecha_inicio_proyecto = $request->input('fecha_inicio_proyecto');
-        $proyecto->fecha_fin_proyecto = $request->input('fecha_fin_proyecto');
+        $actividadProyecto = new Proyecto();
+        $actividadProyecto->nombre_proyecto = $request->input('nombre_proyecto');
+        $actividadProyecto->descripcion_proyecto = $request->input('descripcion_proyecto');
+        $actividadProyecto->codigo_proyecto_sicues = $request->input('codigo_proyecto_sicues');
+        $actividadProyecto->codigo_proyecto_facultad = $request->input('codigo_proyecto_facultad');
+        $actividadProyecto->fecha_inicio_proyecto = $request->input('fecha_inicio_proyecto');
+        $actividadProyecto->fecha_fin_proyecto = $request->input('fecha_fin_proyecto');
         // Asignar el id del objetivo al proyecto
-        $proyecto->id_objetivo = $objetivo->id_objetivo;
-        $proyecto->id_area_conocimiento = $request->input('id_area_conocimiento');
-        $proyecto->id_l_de_invest = $request->input('id_l_de_invest');
-        $proyecto->id_facultad = $request->input('id_facultad');
-        $proyecto->id_invest = $request->input('id_invest');
+        $actividadProyecto->id_objetivo = $objetivo->id_objetivo;
+        $actividadProyecto->id_area_conocimiento = $request->input('id_area_conocimiento');
+        $actividadProyecto->id_l_de_invest = $request->input('id_l_de_invest');
+        $actividadProyecto->id_facultad = $request->input('id_facultad');
+        $actividadProyecto->id_invest = $request->input('id_invest');
         //dd($request->id_invest);
-        $proyecto->save();
+        $actividadProyecto->save();
         // Redireccionar a la vista de proyectos
         return redirect('actividadesProyectos');
     }
@@ -85,30 +75,94 @@ class ActividadesProyectoController extends Controller
     {
         //
     }
-
     public function edit($id)
     {
-        //
+        // Buscar el proyecto por su ID
+        $actividadProyecto = Proyecto::find($id);
+
+        // Verificar si se encontró el proyecto
+        if (!$actividadProyecto) {
+            // Manejar el caso en que el proyecto no existe
+            abort(404, 'Proyecto no encontrado');
+        }
+
+        // Obtener el objetivo asociado al proyecto, si existe
+        $objetivo = $actividadProyecto->proyectosObjetivos;
+
+        // Obtener todos los investigadores, áreas, líneas y facultades
+        $investigadores = Investigador::all();
+        $areas = AreaDeConocimiento::all();
+        $lineas = LineaDeInvestigacion::all();
+        $facultades = Facultad::all();
+
+        // Retornar la vista de edición con los datos necesarios
+        return view('actividadesProyectos.edit', compact(
+            'actividadProyecto',
+            'objetivo',
+            'investigadores',
+            'areas',
+            'lineas',
+            'facultades'
+        ));
     }
 
     public function update(Request $request, $id)
     {
-        //
+        // Buscar el proyecto por su ID
+        $actividadProyecto = Proyecto::find($id);
+
+        // Verificar si se encontró el proyecto
+        if (!$actividadProyecto) {
+            // Manejar el caso en que el proyecto no existe
+            abort(404, 'Proyecto no encontrado');
+        }
+
+        // Obtener el objetivo asociado al proyecto, si existe
+        $objetivo = $actividadProyecto->proyectosObjetivos;
+
+        // Verificar si existe el objetivo
+        if (!$objetivo) {
+            // Manejar el caso en que el objetivo no existe
+            abort(404, 'Objetivo no encontrado');
+        }
+
+        // Actualizar las propiedades del objetivo
+        $objetivo->titulo_objetivo = $request->input('titulo_objetivo');
+        $objetivo->descripcion_objetivo = $request->input('descripcion_objetivo');
+        $objetivo->save();
+
+        // Actualizar las propiedades del proyecto
+        $actividadProyecto->nombre_proyecto = $request->input('nombre_proyecto');
+        $actividadProyecto->descripcion_proyecto = $request->input('descripcion_proyecto');
+        $actividadProyecto->codigo_proyecto_sicues = $request->input('codigo_proyecto_sicues');
+        $actividadProyecto->codigo_proyecto_facultad = $request->input('codigo_proyecto_facultad');
+        $actividadProyecto->fecha_inicio_proyecto = $request->input('fecha_inicio_proyecto');
+        $actividadProyecto->fecha_fin_proyecto = $request->input('fecha_fin_proyecto');
+        $actividadProyecto->id_area_conocimiento = $request->input('id_area_conocimiento');
+        $actividadProyecto->id_l_de_invest = $request->input('id_l_de_invest');
+        $actividadProyecto->id_facultad = $request->input('id_facultad');
+        $actividadProyecto->id_invest = $request->input('id_invest');
+
+        // Guardar los cambios en el proyecto
+        $actividadProyecto->save();
+
+        // Redireccionar a la vista de proyectos
+        return redirect()->route('actProHome')->with('success', 'Proyecto actualizado correctamente.');
     }
 
     public function destroy($id)
     {
         // Encontrar el proyecto a eliminar
-        $proyecto = Proyecto::find($id);
+        $actividadProyecto = Proyecto::find($id);
 
         // Verificar si se encontró el proyecto
-        if (!$proyecto) {
+        if (!$actividadProyecto) {
             // Manejar el caso en que el proyecto no existe
             abort(404, 'proyecto no encontrado');
         }
 
         // Eliminar al proyecto de la base de datos
-        $proyecto->delete();
+        $actividadProyecto->delete();
 
         // Redireccionar a la vista de proyectoes
         return redirect('actividadesProyectos')->with('success', 'proyecto eliminado correctamente');
