@@ -16,14 +16,19 @@ class ActividadesProyectoController extends Controller
 
     public function index()
     {
-        $actividadesProyectos = Proyecto::all();
-        return view(
+        //$actividadesProyectos = Proyecto::all();
+        $actividadesProyectos = Proyecto::with('proyectosInvest.personasInvestigadores')->get();
+        /**
+         * 
+         return view(
             'actividadesProyectos.index'
         )->with(
             'actividadesProyectos',
             $actividadesProyectos
 
         );
+         */
+        return view('actividadesProyectos.index', compact('actividadesProyectos'));
     }
     public function create()
     {
