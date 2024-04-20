@@ -62,18 +62,66 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Investigador</span>
+                    <span>Perfil</span>
                 </a>
+                
+                @can('propuesta')
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Candidato:</h6>
+                        <a class="collapse-item" href="{{ route('formacionAcademica') }}">Propuesta</a>
+                    </div>
+                </div>
+                @endcan
+
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Curriculum:</h6>
+                        @can('formacionAcademica')
                         <a class="collapse-item" href="{{ route('formacionAcademica') }}">Formación Academica</a>
-                        <a class="collapse-item" href="{{ route('experienciaLaboral') }}">Experiencia Laboral</a>
+                        @endcan
+                       <!-- <a class="collapse-item" href=" route('experienciaLaboral') ">Experiencia Laboral</a> -->
+                       @can('experienciaCientifica')
                         <a class="collapse-item" href="{{ route('experienciaCientifica') }}">Experiencia Cientifica</a>
-                        <a class="collapse-item" href="{{ route('publicaciones') }}">Publicaciones</a>
+                        @endcan
+                        @can('redInvestigador')
+                        <a class="collapse-item" href="{{ route('redInvestigador') }}">Red de Investigadores</a>
+                        @endcan
+                        @can('proyectos')
+                        <a class="collapse-item" href="{{ route('proyectoInvestigacion') }}">Proyectos de Investigacion</a>
+                        @endcan
+                        @can('otrasCompetencias')
+                        <a class="collapse-item" href="{{ route('otrasCompetencias') }}">Otras Competencias</a>
+                        @endcan
+                    </div>
+                </div>
+                
+            </li>
+
+
+            <!-- Heading -->
+            @can('usuario')
+            <div class="sidebar-heading">
+                Usuarios
+            </div>
+            @endcan
+            <!-- Nav Item - Pages Collapse Menu -->
+            @can('role')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRol"
+                    aria-expanded="true" aria-controls="collapseRol">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Roles</span>
+                </a>
+                <div id="collapseRol" class="collapse" aria-labelledby="headingRol" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        
+                        <a class="collapse-item" href="{{ route('roles.index') }}">Roles</a>
+                        <a class="collapse-item" href="{{ route('formacionAcademica') }}">Permisos</a>
                     </div>
                 </div>
             </li>
+            @endcan
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
@@ -193,7 +241,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Auth::user()->name }}</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>

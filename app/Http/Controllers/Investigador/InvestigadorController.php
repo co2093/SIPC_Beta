@@ -29,8 +29,14 @@ class InvestigadorController extends Controller
     {
         return view('Investigador.experienciaCientifica');
     }
-    public function publicaciones()
+    public function otrasCompetencias()
     {
-        return view('Investigador.publicaciones');
+        return view('Investigador.otrasCompetencias');
+    }
+    public function redInvestigador(){
+        return view('Investigador.redInvestigador');
+    }
+    public function proyectoInvestigacion(){
+        return view('Investigador.proyectosDeInvestigacion');
     }
 }

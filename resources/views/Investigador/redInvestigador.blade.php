@@ -2,16 +2,16 @@
 @section('content')
 <!-- Sección 1 -->
     <section class="border">
-        <h2>Formación Academica</h2>
+        <h2>Red de Investigadores</h2>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formacionModal">
-        <i class="fas fa-plus"></i> Agregar Formación
+        <i class="fas fa-plus"></i> Agregar Red
     </button>
 
     <div class="modal fade" id="formacionModal" tabindex="-1" role="dialog" aria-labelledby="formacionModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title ml-auto" id="formacionModalLabel">Agregar Formación Academica</h5>
+                    <h5 class="modal-title ml-auto" id="formacionModalLabel">Agregar Red</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -19,36 +19,31 @@
                 <div class="modal-body">
                     <!-- Aquí colocarías tu formulario -->
                     <form>
+                        <div class="form-group">
+                            <label for="nombreRed">Nombre de la Red</label>
+                            <input type="text" class="form-control" id="nombreRed">
+                        </div>
                     	 <div class="form-group">
                             <label for="nombreInstitucion">Nombre de la Institución</label>
                             <input type="text" class="form-control" id="nombreInstitucion">
                         </div>
 
                         <div class="form-group">
-                            <label for="tituloObtenido">Titulo Obtenido</label>
-                            <input type="text" class="form-control" id="tituloObtenido">
+                            <label for="tituloProyecto">Titulo de Proyecto</label>
+                            <input type="text" class="form-control" id="tituloProyecto">
                         </div>
 
                         <div class="form-group">
-                            <div class="col-12">
-                                <label for="acronimo" class="col-3">Acronimo</label>
-                                <input type="text" class="col-2" id="acronimo">
-                            
-                                <label for="max" class="col-5">Mayor Nivel Obtenido</label>
-                                <input type="checkbox" class="col-1" id="max" name="checkMax">
-                            </div>
-                        </div>
-                        
-
-                        <div class="form-group">
-                            <label for="fechaTitulacion">Fecha de Titulación</label>
-                            <input type="Date" class="form-control" id="fechaTitulacion">
+                            <label for="fechaInicio">Fecha de Incio</label>
+                            <input type="Date" class="form-control" id="fechaInicio">
                         </div>
 
                         <div class="form-group">
-                            <label for="tipoFormacion">Tipo de Formación</label>
-                            <input type="text" class="form-control" id="tipoFormacion">
+                            <label for="fechaFin">Fecha de Finalización</label>
+                            <input type="Date" class="form-control" id="fechaFin">
                         </div>
+
+                       
 
                     </form>
                 </div>
@@ -62,23 +57,21 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Nombre de Red</th>
                     <th>Nombre de la Institución</th>
-                    <th>Titulo Obtenido</th>
-                    <th>Acronimo</th>
-                    <th>Nivel Max?</th>
-                    <th>Fecha de Titulación</th>
-                    <th>Tipo de Formación</th>
+                    <th>Titulo Proyecto</th>
+                    <th>Fecha de Inicio</th>
+                    <th>Fecha de Finalización</th>
                     <th>Editar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Dato 1</td>
+                    <td>Dato 4</td>
                     <td>Dato 2</td>
                     <td>Dr</td>
-                    <td><input type="checkbox" id="checkMayor" name="opcion" value="opcion" disabled></td>
                     <td>Dato 3</td>
-                    <td>Dato 7</td>
                     <td>
                     	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarModal">
 			            <i class="fas fa-pencil-alt"></i> Editar
@@ -87,11 +80,10 @@
                 </tr>
                 <tr>
                     <td>Dato 4</td>
+                    <td>Dato 12</td>
                     <td>Dato 5</td>
                     <td>Ing</td>
-                    <td><input type="checkbox" id="checkMayor" name="opcion" value="opcion1" disabled checked ></td>
                     <td>Dato 6</td>
-                    <td>Dato 8</td>
                     <td>
                     	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarModal">
 			            <i class="fas fa-pencil-alt"></i> Editar
