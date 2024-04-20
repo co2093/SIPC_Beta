@@ -90,11 +90,17 @@
                     <i class="bi bi-kanban"></i>
                     <span>Proyectos</span></a>
             </li>
-
+            <hr class="sidebar-divider">
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('actProIDHome')}}">
+                    <i class="bi bi-activity"></i>
+                    <span>Actividades de Proyectos</span></a>
+            </li>
+            <hr class="sidebar-divider">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('unidadesDeInvestigacion.index') }}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Unidades de Investigacion</span></a>
+                    <span>Unidades de Investigaci&oacute;n</span></a>
             </li>
 
             <!-- Nav Item - Tables -->

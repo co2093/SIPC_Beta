@@ -18,4 +18,9 @@ class ActividadDeProyecto extends Model
         'fecha_inicio_actividad',
         'fecha_fin_actividad'
     ];
+    public function actividadesIMasDProyecto(){
+        return $this->belongsTo(
+        Proyecto::class,
+        'id_proyecto');
+    }
 }

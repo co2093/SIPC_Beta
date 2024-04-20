@@ -70,4 +70,7 @@ class Proyecto extends Model
     {
         return $this->belongsToMany(Investigador::class, 'invest_proyectos', 'id_proyecto', 'id_invest');
     }
+    public function proyectoActividadesIMasD(){
+        return $this->hasMany(ActividadDeProyecto::class,'id_actividad');
+    }
 }
