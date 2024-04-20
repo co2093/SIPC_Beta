@@ -17,15 +17,10 @@
                 <th scope="col">Id</th>
                 <th scope="col">Nombres</th>
                 <th scope="col">Apellidos</th>
-                <!--<th scope="col">Correo</th>-->
-                <!--<th scope="col">Telefono</th>-->
-                <!--<th scope="col">G&eacute;nero</th>
-                <th scope="col">Direccion</th>-->
+                <th scope="col">Correo</th>
                 <th scope="col">M&aacute;ximo Grado Acad&eacute;mico</th>
-                <th scope="col">Acr&oacute;nimo G. Acad&eacute;mico</th>
                 <th scope="col">Carrera seg&uacute;n T&iacute;tulo</th>
-                <th scope="col">Acr&oacute;nimo Carrera</th>
-                <th scope="col">ACCIONES</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -34,14 +29,9 @@
                 <td>{{$investigador->id_invest}}</td>
                 <td>{{$investigador->personasInvestigadores->nombre_persona}}</td>
                 <td>{{$investigador->personasInvestigadores->apellido_persona}}</td>
-                <!--<td>{{$investigador->personasInvestigadores->correo_persona}}</td>-->
-                <!-- <td>{{$investigador->personasInvestigadores->telefono_persona}}</td>   -->
-                <!--<td>{{$investigador->personasInvestigadores->genero_persona}}</td>
-                <td>{{$investigador->personasInvestigadores->direccion_persona}}</td>-->
+                <td>{{$investigador->personasInvestigadores->correo_persona}}</td>
                 <td>{{$investigador->gradosAcadInvestigadores->titulo_g_acad}}</td>
-                <td>{{$investigador->gradosAcadInvestigadores->acronimosGAcademico->codigo_acronimo}}</td>
                 <td>{{$investigador->carrerasInvestigadores->nombre_carrera}}</td>
-                <td>{{$investigador->carrerasInvestigadores->acronimosCarreras->codigo_acronimo}}</td>
                 <td>
                     <a class="btn btn-warning" href="investigadores/{{$investigador->id_invest}}/edit"><i class="bi bi-pencil-square"></i></a>
                     <button class="btn btn-danger delete-button" data-action="{{route('investDestroy',$investigador->id_invest)}}"><i class="bi bi-trash"> </i></button>

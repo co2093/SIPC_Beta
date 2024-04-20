@@ -35,14 +35,14 @@ class ActividadesProyectoController extends Controller
     {
         // Validar los datos del formulario
         $request->validate([
-            'nombre_proyecto' => 'required|string|max:150',
+            'nombre_proyecto' => 'required|string|unique:proyectos,nombre_proyecto|max:150',
             'descripcion_proyecto' => 'required|string|max:150',
-            'codigo_proyecto_sicues' => 'required|string|min:10|max:25',
-            'codigo_proyecto_facultad' => 'required|string|min:10|max:25',
+            'codigo_proyecto_sicues' => 'required|unique:proyectos,codigo_proyecto_sicues|string|min:10|max:25',
+            'codigo_proyecto_facultad' => 'required|unique:proyectos,codigo_proyecto_facultad|string|min:10|max:25',
             'fecha_inicio_proyecto' => 'required|date',
             'fecha_fin_proyecto' => 'required|date|after_or_equal:fecha_inicio_proyecto',
-            'titulo_objetivo' => 'required|string|min:25|max:150',
-            'descripcion_objetivo' => 'required|string|min:25|max:300'
+            'titulo_objetivo' => 'required|string|unique:objetivos_de_proyecto,titulo_objetivo|min:25|max:150',
+            'descripcion_objetivo' => 'required|unique:objetivos_de_proyecto,descripcion_objetivo|string|min:25|max:300',
         ]);
 
         // Crear un nuevo objetivo de proyecto
