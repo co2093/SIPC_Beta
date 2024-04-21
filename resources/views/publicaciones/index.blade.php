@@ -29,11 +29,12 @@
 
 
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Tipo de indexacion</label>
+                        <label for="exampleFormControlSelect1">Tipo de publicacion</label>
                         <select class="form-control" id="exampleFormControlSelect1">
-                          <option>Tipo 1</option>
-                          <option>Tipo 2</option>
-                          <option>Tipo 3</option>
+                          <option>Articulo cientifico</option>
+                          <option>Libro</option>
+                          <option>Informe tecnico</option>
+                          <option>Manual</option>
                         </select>
                     </div>
 
@@ -52,8 +53,22 @@
                         </select>
                       </div>
 
-                      <div class="form-group">
-                        <label for="exampleFormControlInput1">Monto de publicacion</label>
+                     <div class="form-group">
+                        <label for="exampleFormControlInput1">Cantidad</label>
+                        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0">
+                      </div>
+
+
+
+                     <div class="form-group">
+                        <label for="exampleFormControlInput1">Costo unitario</label>
+                        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
+                      </div>
+
+
+
+                     <div class="form-group">
+                        <label for="exampleFormControlInput1">Subtotal</label>
                         <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
                       </div>
 

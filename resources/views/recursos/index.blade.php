@@ -34,9 +34,11 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Tipo de recurso</label>
 					    <select class="form-control" id="exampleFormControlSelect1">
-					      <option>Tipo 1</option>
-					      <option>Tipo 2</option>
-					      <option>Tipo 3</option>
+					      <option>Materiales</option>
+					      <option>Suministros</option>
+					      <option>Equipo informatico</option>
+					      <option>Equipo de laboratorio</option>
+					      <option>Reactivos</option>
 					    </select>
 					  </div>
 
@@ -79,7 +81,7 @@
 
 
   					<div class="form-group">
-					    <label for="exampleFormControlInput1">Precio</label>
+					    <label for="exampleFormControlInput1">Costo unitario</label>
 					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
 					  </div>
 

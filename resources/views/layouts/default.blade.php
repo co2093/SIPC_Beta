@@ -73,6 +73,7 @@
                 </div>
             </li>
 
+
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -95,7 +96,8 @@
                         <a class="collapse-item" href="{{route('presupuesto.show')}}">Presupuesto</a>
                         <a class="collapse-item" href="{{route('recursos.show')}}">Recursos</a>
                         <a class="collapse-item" href="{{route('personal.show')}}">Personal</a>
-                        <a class="collapse-item" href="{{route('materiales.show')}}">Materiales</a>
+
+                        <a class="collapse-item" href="{{route('colaboradores.show')}}">Colaboradores</a>
                         <a class="collapse-item" href="{{route('viaticos.show')}}">Viaticos Nacionales</a>
                         <a class="collapse-item" href="{{route('viaticos.int.show')}}">Viaticos Internacionales</a>
                         <a class="collapse-item" href="{{route('publicaciones.show')}}">Publicaciones</a>
@@ -132,12 +134,16 @@
                 </div>
             </li>
 
+
+
+
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Seguimiento
+                Convocatorias
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -145,14 +151,14 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Prueba</span>
+                    <span>2024</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Seguimiento:</h6>
-                        <a class="collapse-item" href="#">404</a>
-                        <a class="collapse-item" href="#">404</a>
-                        <a class="collapse-item" href="#">404</a>
+                        <h6 class="collapse-header">Administrar:</h6>
+                        <a class="collapse-item" href="{{route('convocatoria.crear')}}">Crear</a>
+                        <a class="collapse-item" href="{{route('convocatoria.show')}}">Gestionar convocatoria</a>
+                        <a class="collapse-item" href="#">Notificar</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Otros:</h6>
                         <a class="collapse-item" href="#">404</a>

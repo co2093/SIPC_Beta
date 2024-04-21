@@ -32,14 +32,9 @@
 					  </div>
 
 
-					  <div class="form-group">
-					    <label for="exampleFormControlTextarea1">Funciones</label>
-					    <textarea class="form-control" id="Descripcion corta" rows="3"></textarea>
-					  </div>
-
 
 					  <div class="form-group">
-					    <label for="exampleFormControlSelect1">Tipo de personal</label>
+					    <label for="exampleFormControlSelect1">Contratacion</label>
 					    <select class="form-control" id="exampleFormControlSelect1">
 					      <option>Tipo 1</option>
 					      <option>Tipo 2</option>
@@ -75,15 +70,6 @@
 					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
 					  </div>
 
-
-					  <div class="form-group">
-					    <label for="exampleFormControlSelect1">Ad Honorem</label>
-					    <select class="form-control" id="exampleFormControlSelect1">
-					      <option>Si</option>
-					      <option>No</option>
-	
-					    </select>
-					  </div>
 
 
 

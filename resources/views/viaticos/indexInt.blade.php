@@ -28,7 +28,7 @@
                     <form>
 
  					<div class="form-group">
-					    <label for="exampleFormControlSelect1">Destino</label>
+					    <label for="exampleFormControlSelect1">Ciudad</label>
 					    <select class="form-control" id="exampleFormControlSelect1">
 					      <option>Des 1</option>
 					      <option>Des 2</option>
@@ -48,16 +48,7 @@
 					  </div>
 
 
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Objetivo asociado</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                          <option>Objetivo 1</option>
-                          <option>Objetivo 2</option>
-                          <option>Objetivo 3</option>
-                          <option>Objetivo 4</option>
-                          <option>Objetivo 5</option>
-                        </select>
-                      </div>
+       
 
 
 					  <div class="form-group">
@@ -69,11 +60,7 @@
 					    </select>
 					  </div>
 
-					  <div class="form-group">
-					    <label for="exampleFormControlInput1">Gasto terminal</label>
-					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
-					  </div>
-
+					 
 
 					  <div class="form-group">
 					    <label for="exampleFormControlInput1">Gasto de viaje</label>
@@ -97,21 +84,6 @@
 
 
 					  <div class="form-group">
-					    <label for="exampleFormControlInput1">Numero de personas</label>
-					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
-					  </div>
-
-
-
-					  <div class="form-group">
-					    <label for="exampleFormControlInput1">Gasto de estadia en el exterior</label>
-					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
-					  </div>
-
-
-
-
-					  <div class="form-group">
 					    <label for="exampleFormControlInput1">Inscripcion del evento</label>
 					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
 					  </div>
@@ -123,11 +95,6 @@
 					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
 					  </div>
 
-
-					  <div class="form-group">
-					    <label for="exampleFormControlInput1">Total</label>
-					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
-					  </div>
 
 
 

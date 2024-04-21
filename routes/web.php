@@ -97,3 +97,15 @@ Route::get('/viaticos/internacionales/show', [App\Http\Controllers\ViaticosContr
 //Fuentes
 Route::get('/publicaciones', [App\Http\Controllers\PublicacionesController::class, 'index'])->name('publicaciones.crear');
 Route::get('/publicaciones/show', [App\Http\Controllers\PublicacionesController::class, 'show'])->name('publicaciones.show');
+
+
+
+//Convocatoria
+Route::get('/convocatoria', [App\Http\Controllers\ConvocatoriaController::class, 'index'])->name('convocatoria.crear');
+Route::get('/convocatoria/show', [App\Http\Controllers\ConvocatoriaController::class, 'show'])->name('convocatoria.show');
+
+
+
+//Colaboradores
+Route::get('/colaboradores', [App\Http\Controllers\ColaboradoresController::class, 'index'])->name('colaboradores.crear');
+Route::get('/colaboradores/show', [App\Http\Controllers\ColaboradoresController::class, 'show'])->name('colaboradores.show');
