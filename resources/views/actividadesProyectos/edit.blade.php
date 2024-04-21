@@ -3,7 +3,72 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#id_invest').on('input', function() {
+        var searchText = $(this).val().toLowerCase();
+        var results = $('#search_results');
+        results.empty(); // Limpiar resultados anteriores
 
+        // Realizar búsqueda en los nombres de los investigadores
+        @foreach ($investigadores as $investigador)
+            var nombreCompleto = '{{$investigador->personasInvestigadores->nombre_persona}} {{$investigador->personasInvestigadores->apellido_persona}}';
+            if (nombreCompleto.toLowerCase().includes(searchText)) {
+                var idInvest = '{{$investigador->id_invest}}';
+                var option = $('<div class="result-item" data-id="' + idInvest + '">' + nombreCompleto + '</div>');
+                option.on('click', function() {
+                    var idInvest = $(this).data('id');
+                    var nombreInvestigador = $(this).text();
+                    $('#id_invest').val(nombreInvestigador); // Mostrar el nombre del investigador en el campo de entrada (opcional)
+                    $('#id_invest_hidden').val(idInvest); // Asignar el id_invest al campo oculto
+                    results.empty(); // Limpiar resultados después de seleccionar
+                });
+                results.append(option);
+            }
+        @endforeach
+    });
+
+    // Permitir selección haciendo clic fuera del campo de entrada y de los resultados
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#search_results').length && !$(event.target).is('#id_invest')) {
+            $('#search_results').empty(); // Limpiar resultados si se hace clic fuera del campo de búsqueda
+        }
+    });
+
+    // Enviar el formulario con el valor del campo oculto id_invest_hidden al hacer clic en el botón de registro
+    $('form').submit(function() {
+        // Obtener el valor del campo oculto id_invest_hidden
+        var idInvestHidden = $('#id_invest_hidden').val();
+        // Asignar el valor del campo oculto al campo visible (opcional, para visualización)
+        $('#id_invest').val(idInvestHidden);
+        // Continuar con el envío del formulario
+        return true;
+    });
+});
+</script>
+<style>
+   #search_results {
+    position: absolute;
+    width: calc(25% - 8px); /* Ancho igual al ancho del campo de búsqueda */
+    z-index: 1000;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-top: none;
+    max-height: 200px; /* Establece una altura máxima para los resultados */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si los resultados son demasiado largos */
+    margin-top: 38px; /* Espacio entre el campo de búsqueda y los resultados */
+    margin-left: 160px;
+  }
+  .result-item {
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  .result-item:hover {
+    background-color: #f0f0f0;
+  }
+</style>
 <!-- DataTables -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
@@ -79,20 +144,13 @@
   <div class="form-container d-flex flex-column ">
     <div class="tab-content" id="myTabContent">
       <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-        <label for="id_invest" class="form-label me-3 ">Nombre del Investigador</label>
-        <span class="ml-4" data-bs-toggle="tooltip" title="Debe seleccionar un investigador">
+      <label for="id_invest" class="form-label me-3">Nombre del Investigador</label>
+        <span class="ml-4" data-bs-toggle="tooltip" title="Debe ingresar el nombre del investigador">
           <i class="bi bi-info-circle text-info"></i>
         </span>
-        <select class="form-control ml-4 @error('id_invest') is-invalid @enderror" tabindex="6" name="id_invest" id="id_invest">
-          <option value="">Seleccione un Investigador</option>
-          @foreach ($investigadores as $investigador)
-          <option value="{{$investigador->id_invest}}">{{$investigador->personasInvestigadores->nombre_persona}} {{$investigador->personasInvestigadores->apellido_persona}}</option>
-          @endforeach
-        </select>
-        <!-- Mostrar errores de validación -->
-        @error('id_invest')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+        <input type="hidden" id="id_invest_hidden" name="id_invest" value="">
+        <input type="text" class="form-control ml-4" tabindex="6" name="id_invest" id="id_invest" placeholder="Ingrese el nombre del investigador">
+        <div id="search_results"></div> <!-- Aquí se mostrarán los resultados de la búsqueda -->
         <!-- Mostrar errores de validación -->
         @error('id_invest')
         <div class="invalid-feedback">{{ $message }}</div>

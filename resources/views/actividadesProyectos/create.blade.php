@@ -50,9 +50,7 @@ $(document).ready(function() {
         return true;
     });
 });
-
 </script>
-
 <style>
    #search_results {
     position: absolute;
@@ -75,8 +73,6 @@ $(document).ready(function() {
     background-color: #f0f0f0;
   }
 </style>
-
-
 <h1 style="text-align: center;">Registro de Proyectos</h1>
 
 <form action="/actividadesProyectos" method="post" style="margin: 25px;">
