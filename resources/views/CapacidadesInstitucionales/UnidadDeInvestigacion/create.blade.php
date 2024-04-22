@@ -28,14 +28,14 @@
     <div class="form-section">
         <label for="">Nombre de la Unidad:</label>
         <input type="text" class="form-control mb-3" name="nombre_unidad" value="{{ old('nombre_unidad') }}" required>
-        <label for="">Direccion</label>
+        <label for="">Direcci&oacute;n</label>
         <input type="text" class="form-control mb-3" name="direccion_unidad" value="{{ old('direccion_unidad') }}" required>
     </div>
     <div class="form-section">
-        <label for="">Fecha Fundacion</label>
+        <label for="">Fecha Fundaci&oacute;n</label>
         <input type="date" class="form-control mb-3" name="fecha_fundacion" value="{{ old('fecha_fundacion') }}" required>
         
-        <label for="">Telefono:</label>
+        <label for="">Tel&eacute;fono Institucional</label>
         <input type="tel" class="form-control mb-3 {{ $errors->has('telefono_unidad') ? 'is-invalid' : '' }}" name="telefono_unidad" placeholder="Ej. XXXXXXXX" value="{{ old('telefono_unidad') }}"  required>
         @if ($errors->has('telefono_unidad'))
             <div class="invalid-feedback">
@@ -44,7 +44,7 @@
         @endif
     </div>
     <div class="form-section">
-        <label for="id_dep_jerar">Dependencia Jerarquica</label>
+        <label for="id_dep_jerar">Dependencia Jer&aacute;rquica</label>
         <select name="id_dep_jerar" class="form-control" required>
             @foreach ($deps_jerarquicas as $deps)
                 <option value="{{ $deps->id_dep_jerar }}">{{ $deps->nombre_dep_jerar }}</option>

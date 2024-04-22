@@ -87,14 +87,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('unidadesDeInvestigacion.index') }}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Unidades de Investigacion</span></a>
+                    <span>Unidades de Investigaci&oacute;n</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dependenciaJerarquica.index') }}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Dependencias Jerarquicas</span></a>
+                    <span>Dependencias Jer&aacute;rquicas</span></a>
             </li>
 
 

@@ -22,20 +22,20 @@
     </div>
     @endif
 
-    <h2>Lista de Unidades de Investigacions</h2>
+    <h2>Lista de Unidades de Investigaciones</h2>
 
-    <a href="{{ route('unidadesDeInvestigacion.create') }}" class="btn btn-primary mb-3">Agregar Unidad de Investigacion</a>
+    <a href="{{ route('unidadesDeInvestigacion.create') }}" class="btn btn-primary mb-3">Agregar Unidad de Investigaci&oacute;n</a>
 
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Dirección</th>
-                <th>Fecha de Fundación</th>
-                <th>Teléfono</th>
+                <th>Direcci&oacute;n</th>
+                <th>Fecha de Fundaci&oacute;n</th>
+                <th>Tel&eacute;fono Institucional</th>
                 <th>Unidad RRFF</th>
-                <th>Dependencia Jerarquica</th>
+                <th>Dependencia Jer&aacute;rquica</th>
                 <th>Acciones</th>
             </tr>
         </thead>

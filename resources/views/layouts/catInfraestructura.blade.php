@@ -17,14 +17,14 @@
   <div class="form-group">
     <div class="row">
       <div class="col-md-9">
-        <h1>Catalogo de infraestructuras</h1>
+        <h1>Cat&aacute;logo de Infraestructuras</h1>
       </div>
     </div>
   </div>
   <div class="form-group">
     <div class="row">
       <div class="col-md-9">
-      <label for="area_construida">Nombre infraestructura</label>
+      <label for="area_construida">Nombre Infraestructura</label>
       <input type="text" class="form-control" id="nombre" name="nombre" value="{{old('nombre')}}">
       @error('nombre')
         <small style="color:red">{{$message}}</small>
@@ -36,7 +36,7 @@
   <div class="form-group">
     <div class="row">
       <div class="col-md-9">
-        <label for="area_construida">Descripcion</label>
+        <label for="area_construida">Descripci&oacute;n</label>
         <textarea type="text" class="form-control" id="descripcion" name="descripcion" >{{old('descripcion')}} </textarea>
         @error('descripcion')
         <small style="color:red">{{$message}}</small>
@@ -67,9 +67,9 @@
         <thead class="thead-light">
           <tr>
             <th>ID</th>
-            <th>infraestructura</th>
-            <th>Descripcion</th>
-            <th>acciones</th>
+            <th>Infraestructura</th>
+            <th>Descripci&oacute;n</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>

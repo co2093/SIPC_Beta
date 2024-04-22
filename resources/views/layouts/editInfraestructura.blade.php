@@ -25,7 +25,7 @@
       <div class="row">
         <div class="col-md-9">
           <select class="custom-select" id="tipo_infraestructura" name="tipo_infraestructura">
-            <option value="">Seleccione un tipo de infraestructura</option>
+            <option value="">Seleccione Tipo de Infraestructura</option>
             @foreach($infraestructuras as $infr)
             @if($infr->id_t_infra==$infraestructuraSelectd[0]->id_t_infra)
             <option selected value="{{$infraestructuraSelectd[0]->id_t_infra}}">{{$infraestructuraSelectd[0]->nombre_t_infra}}</option>
@@ -44,7 +44,7 @@
       <div class="row">
         <div class="col-md-9">
           <select class="custom-select" id="proyecto" name="proyecto">
-            <option value="">Seleccione un tipo de proyecto asociado</option>
+            <option value="">Seleccione Tipo de Proyecto Asociado</option>
             @foreach($packProyectos as $project)
             @if($project->id_proyecto==$packEdit->id_proyecto)
             <option selected value="{{$project->id_proyecto}}">{{$project->nombre_proyecto}}</option>
@@ -63,7 +63,7 @@
     <div class="form-group">
       <div class="row">
         <div class="col-md-9">
-          <label for="area_construida">Area Construida (m<sup>2</sup>)</label>
+          <label for="area_construida">&Aacute;rea Construida (m<sup>2</sup>)</label>
           <input type="number" class="form-control" id="area_construida" name="area_construida" value="{{$packEdit->area_locacion}}">
           @error('area_construida')
           <small style="color:red">{{$message}}</small>

@@ -22,7 +22,7 @@
                       <label for="">Apellido</label>
                       <input type="text" name='apellido_persona' class="form-control" required>
                        
-                      <label for="">Grado Academico</label>
+                      <label for="">Grado Acad&eacute;mico</label>
                       <input type="text" name='titulo_g_acad' class="form-control" required>
 
                       <label for="">Carrera</label>
@@ -32,7 +32,7 @@
                       <input type="text" name='nombre_cargo' class="form-control" required>
                       
                       
-                      <label for="">Telefono</label>
+                      <label for="">Tel&eacute;fono</label>
                       <input type="text" name='telefono_persona' class="form-control" required>
                       
                       <label for="">Correo</label>

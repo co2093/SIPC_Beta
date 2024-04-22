@@ -25,7 +25,7 @@
                 <th scope="col">Acr&oacute;nimo G. Acad&eacute;mico</th>
                 <th scope="col">Carrera seg&uacute;n T&iacute;tulo</th>
                 <th scope="col">Acr&oacute;nimo Carrera</th>
-                <th scope="col">ACCIONES</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>

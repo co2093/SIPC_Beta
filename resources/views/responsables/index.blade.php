@@ -23,7 +23,7 @@
     </div>
 
 
-    <h5 class="card-title text-center">Listado de personas ingresados</h5>
+    <h5 class="card-title text-center">Listado de Personas Ingresadas</h5>
 
 
 
@@ -52,10 +52,10 @@
         <thead>
           <th>Nombre</th>
           <th>Apellido</th>
-          <th>Grado Academico</th>
+          <th>Grado Acad&eacute;mico</th>
           <th>Carrera</th>
           <th>Cargo</th>
-          <th>Telefono</th>
+          <th>Tel&eacute;fono</th>
           <th>Correo</th>
           <th>Responsable</th>
           <th>Acciones</th>

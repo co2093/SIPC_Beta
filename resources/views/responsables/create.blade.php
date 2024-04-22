@@ -14,12 +14,12 @@
       <input type="text" name='apellido_persona' class="form-control" required>
 
       <br>
-      <label for="personas">Grado Academico</label>
+      <label for="personas">Grado Acad&eacute;mico</label>
       <div class="form-floating">
         <select class="form-select" id="" aria-label="">
           {{-- <input type="text" name='titulo_g_acad' class="form-control" required> --}}
         </select>
-        <label for="floatingSelect">Seleccione el Grado Academico</label>
+        <label for="floatingSelect">Seleccione el Grado Acad&eacute;mico</label>
       </div>
       <br>
       <label for="personas">Carrera</label>
@@ -44,7 +44,7 @@
         <label for="floatingSelect">Seleccione el Cargo</label>
       </div>
       <br>
-      <label for="">Telefono</label>
+      <label for="">Tel&eacute;fono</label>
       <input type="text" name='telefono_persona' class="form-control" required>
       <label for="">Correo</label>
       <input type="text" name='correo_persona' class="form-control" required>

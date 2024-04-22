@@ -139,7 +139,7 @@
 
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 25px;">
-          <label for="genero_persona" class="form-label me-3">G&eacute;nero <span class="ml-3" data-bs-toggle="tooltip" title="Debe seleccionar genero del Investigador">
+          <label for="genero_persona" class="form-label me-3">Sexo <span class="ml-3" data-bs-toggle="tooltip" title="Debe seleccionar genero del Investigador">
               <i class="bi bi-info-circle text-info"></i>
             </span></label>
           <div class="form-check">
