@@ -107,7 +107,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dependenciaJerarquica.index') }}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Dependencias Jerarquicas</span></a>
+                    <span>Dependencias Jer&aacute;rquicas</span></a>
             </li>
 
 

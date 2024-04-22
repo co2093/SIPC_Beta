@@ -16,14 +16,14 @@
   <div class="form-group">
     <div class="row">
       <div class="col-md-9">
-        <h5>Modifiar infraestructura</h5>
+        <h5>Modificar Infraestructura</h5>
       </div> 
     </div>
   </div>
   <div class="form-group">
     <div class="row">
       <div class="col-md-9">
-      <label for="area_construida">Nombre infraestructura</label>
+      <label for="area_construida">Nombre Infraestructura</label>
       <input type="text" class="form-control" id="nombre" name="nombre" value="{{$packEdit->nombre_t_infra}}">
       @error('nombre')
         <small style="color:red">{{$message}}</small>
@@ -34,7 +34,7 @@
   <div class="form-group">
     <div class="row">
       <div class="col-md-9">
-        <label for="area_construida">Descripcion</label>
+        <label for="area_construida">Descripci&oacute;n</label>
         <textarea type="text" class="form-control" id="descripcion" name="descripcion" value="">{{$packEdit->descrip_t_infra}}</textarea>
         @error('descripcion')
           <small style="color:red">{{$message}}</small>
