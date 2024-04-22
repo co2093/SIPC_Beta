@@ -14,20 +14,18 @@
   <table id="actividadesProyectos" style="width:100%" class="table table-striped table-bordered shadow-lg mt-4">
     <thead class="bg-dark">
       <tr>
-        <th scope="col">Id</th>
         <th scope="col">Nombre del Proyecto</th>
         <th scope="col">&Aacute;rea de Ciencia y Tecnolog&iacute;a</th>
         <th scope="col">L&iacute;nea de Investigaci&oacute;n</th>
         <th scope="col">Investigador(es)</th>
         <th scope="col">Fecha inicio</th>
-        <th scope="col">Fecha inicio</th>
+        <th scope="col">Fecha Fin</th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody>
       @foreach ($actividadesProyectos as $actividadProyecto)
       <tr>
-        <td>{{$actividadProyecto->id_proyecto}}</td>
         <td>{{$actividadProyecto->nombre_proyecto}}</td>
         <td>{{$actividadProyecto->proyectosAreasConocimiento->nombre_area_conocimiento}}</td>
         <td>{{$actividadProyecto->proyectosLineasInvest->nombre_l_invest}}</td>
