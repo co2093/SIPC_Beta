@@ -79,7 +79,7 @@
       <button class="nav-link active" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal" type="button" role="tab" aria-controls="personal" aria-selected="true">Datos Personales</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="academic-tab" data-bs-toggle="tab" data-bs-target="#academic" type="button" role="tab" aria-controls="academic" aria-selected="false">Datos Academicos</button>
+      <button class="nav-link" id="academic-tab" data-bs-toggle="tab" data-bs-target="#academic" type="button" role="tab" aria-controls="academic" aria-selected="false">Datos Acad&eacute;micos</button>
     </li>
   </ul>
 
@@ -107,7 +107,7 @@
           <input type="email" class="form-control  @error('correo_persona') is-invalid @enderror" tabindex="3" name="correo_persona" id="correo_persona" placeholder="{{ $errors->has('correo_persona') ? $errors->first('correo_persona') : 'Ingrese el Correo Electrónico' }}" value="{{ old('correo_persona') }}">
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="telefono_persona" class="form-label">Telefono</label>
+          <label for="telefono_persona" class="form-label">Tel&eacute;fono</label>
           <span class="ml-3 mr-5" data-bs-toggle="tooltip" title="Debe ingresarse el número de teléfono del Investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
