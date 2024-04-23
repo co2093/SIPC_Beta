@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -21,7 +22,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('roles.create');
+        $permissionItems = Permission::pluck('name');
+        return view('roles.create', compact('permissionItems'));
     }
 
     /**
@@ -33,13 +35,17 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:roles,name|max:255',
+            'name' => 'required|unique:roles,name'
         ]);
 
-        Role::create(['name' => $request->name]);
+        $role = Role::create($request->only('name'));
+        $permissions = $request->input('permissions');
 
-        return redirect()->route('roles.index')
-                         ->with('success', 'Role created successfully');
+        if (!empty($request->has('permissions'))) {
+            $role->givePermissionTo($permissions);
+        }
+
+        return redirect()->route('roles.index')->with('success', 'Rol creado exitosamente.');
     }
 
     /**
@@ -63,7 +69,8 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::findOrFail($id);
-        return view('roles.edit', compact('role'));
+        $permissionItems = Permission::pluck('name');
+        return view('roles.edit', compact('role', 'permissionItems'));
     }
 
     /**

@@ -69,15 +69,7 @@ class DatabaseSeeder extends Seeder
         $unidadDeInvestigacion->givePermissionTo('proyectosInvestigacion');
         $administrador->givePermissionTo('usuario');
         $administrador->givePermissionTo('role');
-		
-        //Seleciono usuario
-		//$user = User::find(135);
-        $user1 = User::find(1236);
-        $user2 = User::find(1237);
-        //Asigno rol a usuario
-		$user1->assignRole('candidato');
-        $user2->assignRole('investigador');
-
+        
     }
 }
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Investigador\InvestigadorController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RolController;
 use Spatie\Permission\Middlewares\RoleMiddleware;
 
 /*
@@ -42,3 +43,6 @@ Route::get('/proyectoInvestigacion', [InvestigadorController::class, 'proyectoIn
 //Route::get('/roles', [RolController::class, 'index'])->name('roles');
 
 Route::resource('roles', RoleController::class);
+Route::get('/userRol', [RolController::class, 'userRol'])->middleware('role:administrador')->name('userRol');
+Route::get('/userRolCU', [RolController::class, 'userRolCU'])->middleware('role:administrador')->name('userRolCU');
+Route::post('/userRolAsig', [RolController::class, 'userRolAsig'])->middleware('role:administrador')->name('userRolAsig');

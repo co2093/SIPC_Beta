@@ -4,102 +4,46 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Models\User;
 use App\Http\Requests\CreateRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use Illuminate\Support\Facades\DB;
 
 class RolController extends Controller
 {
-    public function index()
+    public function userRol()
     {
         $roles = Role::all();
-        return view('roles.index', compact('roles'));
+        $usuarios = User::all();
+        $usuario = User::leftJoin('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')->select('users.id', 'users.name as name_user', 'users.email', 'roles.name as name_rol')->get();
+        return view('roles.userRol', compact(['usuario']));
     }
-
-    /**
-     * Show the form for creating a new role.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function userRolCU(Request $request)
     {
-        return view('roles.create');
-    }
+        $id = $request-> id;
+        $usuario = User::find($id);       
+        $roles = Role::all();
 
-    /**
-     * Store a newly created role in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+        return view('roles.userRolCU', compact(['usuario','roles']));
+    }
+    public function userRolAsig(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:roles,name|max:255',
-        ]);
+        $rol = $request-> rol;
+        $id = $request-> id;
+        $usuario = User::find($id);
 
-        Role::create(['name' => $request->name]);
+        $existe = DB::table('model_has_roles')->select('model_id')->where('model_id', $id)->first();
 
-        return redirect()->route('roles.index')
-                         ->with('success', 'Role created successfully');
+        if($existe){
+            DB::table('model_has_roles')->where('model_id', $id)->update(['model_id' => $usuario->id, 'model_type'=>'App\Models\User', 'role_id'=> $rol]);
+        }
+        else{
+            DB::table('model_has_roles')->insert(['model_id' => $usuario->id, 'model_type'=>'App\Models\User', 'role_id'=> $rol]);
+        }
+
+        
+
+        return $this->userRol();
     }
 
-    /**
-     * Display the specified role.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $role = Role::findOrFail($id);
-        return view('roles.show', compact('role'));
-    }
-
-    /**
-     * Show the form for editing the specified role.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $role = Role::findOrFail($id);
-        return view('roles.edit', compact('role'));
-    }
-
-    /**
-     * Update the specified role in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|max:255',
-        ]);
-
-        $role = Role::findOrFail($id);
-        $role->name = $request->name;
-        $role->save();
-
-        return redirect()->route('roles.index')
-                         ->with('success', 'Role updated successfully');
-    }
-
-    /**
-     * Remove the specified role from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $role = Role::findOrFail($id);
-        $role->delete();
-
-        return redirect()->route('roles.index')
-                         ->with('success', 'Role deleted successfully');
-    }
 }

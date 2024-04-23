@@ -115,7 +115,7 @@
                 </a>
                 <div id="collapseRol" class="collapse" aria-labelledby="headingRol" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        
+                        <a class="collapse-item" href="{{ route('userRol') }}">Usuarios</a>
                         <a class="collapse-item" href="{{ route('roles.index') }}">Roles</a>
                         <a class="collapse-item" href="{{ route('formacionAcademica') }}">Permisos</a>
                     </div>
@@ -339,6 +339,9 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
+
+    <!-- Abrir modales de investigaador y roles scripts -->
+    <script src="{{ asset('js/modals.js') }}"></script>
 
 </body>
 
