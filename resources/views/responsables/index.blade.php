@@ -1,51 +1,28 @@
 @extends('layouts.default')
 @section('content')
-
-
-
 <div class="card">
   <h5 class="card-header">Seleccionar Responsable</h5>
   <div class="card-body">
-
-
     <div class="row">
       <div class="col-sm-12">
-
         @if ($mensaje = Session::get('success'))
         <div class="alert alert-success" role="alert">
           {{ $mensaje }}
         </div>
         @endif
-
-
-
       </div>
     </div>
-
-
     <h5 class="card-title text-center">Listado de Personas Ingresadas</h5>
-
-
-
     <p>
       <a href="{{ route("responsable.buscar")}}" class="btn btn-primary">
         <span class="fas fa-user-plus"></span> Seleccionar Responsable</a>
-
-
     </p>
-
-
-
     <hr>
-
     <form class="d-flex">
       <input class="form-control me-4" type="search" placeholder="Buscar Persona" aria-label="Search">
       <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
-
     <hr>
-
-
     <p class="card-text">
     <div class="table table-responsive">
       <table class="table table-sm table-bordered">
