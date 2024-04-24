@@ -112,4 +112,12 @@ class Aa_de_uu extends Model
             'id_cargo'
         );
     }
+
+    public function unidadAa_de_uu()
+    {
+        return $this->belongsTo(
+            UnidadInvestigacion::class,
+            'id_unidad'
+        );
+    }
 }

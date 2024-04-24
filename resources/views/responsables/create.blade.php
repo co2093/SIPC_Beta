@@ -27,9 +27,10 @@
       <form action="{{ route ('responsable.store') }}" method="POST">
         {{-- Token de laravel de Seguridad para la parte de formularios --}}
         @csrf
+        <input type="hidden" name="id_unidad" value="{{ $id_unidad }}">
         @if (isset($persona))
           <input type="hidden" name="id_persona" value="{{ $persona->id_persona }}">
-          <input type="hidden" name="id_unidad" value="{{ $id_unidad }}">
+          
           <div class="form-section">
             <label for="personas">Nombre</label>
             <input type="text" name='nombre_persona' value="{{ $persona->nombre_persona }}" class="form-control" readonly required>

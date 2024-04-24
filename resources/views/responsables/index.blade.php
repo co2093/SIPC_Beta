@@ -23,7 +23,7 @@
     </div>
 
 
-    <h5 class="card-title text-center">Listado de personas ingresados</h5>
+    <h5 class="card-title text-center">Listado de Responsables</h5>
 
 
  <!--{{--
@@ -70,7 +70,7 @@
           <th>Cargo</th>
           <th>Telefono</th>
           <th>Correo</th>
-          <th>Responsable</th>
+          <th>Unidad de Investigacion</th>
           <th>Acciones</th>
         </thead>
         <tbody>
@@ -83,10 +83,10 @@
 
             <td>{{ $aa_de_uu->cargosAa_de_uu->nombre_cargo }}</td>
             <td>{{ $aa_de_uu->personasAa_de_uu->telefono_persona }}</td>
-            <td>{{ $aa_de_uu->personasAa_de_uu->correo_persona }}</td>
+            <td>{{ $aa_de_uu->personasAa_de_uu->correo_persona }}</td> 
             <td>
               <!--<div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></div>-->
-              {{$aa_de_uu->autoridad_superior}}
+              {{$aa_de_uu->unidadAa_de_uu->nombre_unidad}}
             </td>
             <td>
 

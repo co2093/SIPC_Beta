@@ -47,7 +47,7 @@ class UnidadDeInvestigacionController extends Controller
         //dd($data); // Muestra los datos para verificar
         //UnidadDeInvestigacion::create($data);
         //UnidadDeInvestigacion::create($request->all());
-        $nuevaUnidad = UnidadDeInvestigacion::create($data);
+        $nuevaUnidad = UnidadInvestigacion::create($data);
 
         if($nuevaUnidad) {
             return redirect()->route('responsable.create',['id_unidad'=>$nuevaUnidad->id_unidad]);
