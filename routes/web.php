@@ -64,9 +64,10 @@ Route::group(['prefix' => 'unidadesDeInvestigacion', 'as' => 'unidadesDeInvestig
 
 //RUTA DE RESPONSABLES
 Route::get('/responsables', [App\Http\Controllers\ResponsableController::class, 'index'])->name('responsable.index');
-Route::get('/create', [App\Http\Controllers\ResponsableController::class, 'create'])->name('responsable.create');
-Route::get('/buscarResponsable', [App\Http\Controllers\ResponsableController::class, 'buscar'])->name('responsable.buscar');
-Route::post('/store', [App\Http\Controllers\ResponsableController::class, 'store'])->name('responsable.store');
-Route::get('/edit', [App\Http\Controllers\ResponsableController::class, 'edit'])->name('responsable.edit');
-Route::get('/show', [App\Http\Controllers\ResponsableController::class, 'show'])->name('responsable.show');
-Route::put('/buscarPersona', [App\Http\Controllers\ResponsableController::class, 'buscarpersona'])->name('responsable.buscarpersona');
+Route::get('/responsables/create/{id_unidad}', [App\Http\Controllers\ResponsableController::class, 'create'])->name('responsable.create');
+Route::get('/responsables/buscarResponsable/{id_unidad}', [App\Http\Controllers\ResponsableController::class, 'buscar'])->name('responsable.buscar');
+Route::post('/responsables/seleccionarResponsable', [App\Http\Controllers\ResponsableController::class, 'seleccionarPersona'])->name('responsable.seleccionarResponsable');
+Route::post('/responsables/store', [App\Http\Controllers\ResponsableController::class, 'store'])->name('responsable.store');
+Route::get('/responsables/edit', [App\Http\Controllers\ResponsableController::class, 'edit'])->name('responsable.edit');
+Route::get('/responsables/show', [App\Http\Controllers\ResponsableController::class, 'show'])->name('responsable.show');
+Route::put('/responsables/buscarPersona', [App\Http\Controllers\ResponsableController::class, 'buscarpersona'])->name('responsable.buscarpersona');

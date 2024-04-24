@@ -45,10 +45,16 @@ class UnidadDeInvestigacionController extends Controller
         $data['id_form'] = "1";
 
         //dd($data); // Muestra los datos para verificar
-        UnidadDeInvestigacion::create($data);
+        //UnidadDeInvestigacion::create($data);
         //UnidadDeInvestigacion::create($request->all());
+        $nuevaUnidad = UnidadDeInvestigacion::create($data);
 
-        return redirect()->route('unidadesDeInvestigacion.index')->with('success', 'Nueva tarea creada exitosametne');
+        if($nuevaUnidad) {
+            return redirect()->route('responsable.create',['id_unidad'=>$nuevaUnidad->id_unidad]);
+        } else {
+            return redirect()->route('unidadesDeInvestigacion.create')->with('error', 'No se pudo crear la Unidad de Investigacion.');
+        }
+        
     }
     /*
     public function show($id)

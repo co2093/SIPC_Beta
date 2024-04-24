@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 //Modelos a utilizar
 use App\Models\Aa_de_uu;
@@ -13,6 +14,7 @@ use App\Models\GradoAcademico;
 use App\Models\Carrera;
 use App\Models\Cargo;
 use App\Models\Pais;
+use App\Models\UnidadDeInvestigacion;
 
 
 class ResponsableController extends Controller
@@ -30,10 +32,10 @@ class ResponsableController extends Controller
     }
 
 
-    public function buscar()
+    public function buscar($id_unidad)
     {                
-        
-        return view ('responsables.buscar');      
+        $personas = Persona::all();
+        return view ('responsables.buscar',compact('personas','id_unidad'));      
     }
 
 
@@ -44,21 +46,44 @@ class ResponsableController extends Controller
         var_dump($DatosInvestigador);
     }
 
+    public function seleccionarPersona(Request $request){
+        $carreras = Carrera::all();
+        $cargos = Cargo::all();
+        $grados_academicos = GradoAcademico::all();
+
+        $personaId = $request->input('persona_id_param');
+        $id_unidad = $request->input('id_unidad_param');
+        
+        $persona = Persona::find($personaId);
+        //dd($id_unidad);
+        
+        return view('responsables.create',
+            compact(
+                    'id_unidad',
+                    'persona',
+                    'carreras',
+                    'cargos',
+                    'grados_academicos'                    
+                ));
+    }
+
     //Formulario donde nosotros agregamos datos
-    public function create()
+    public function create($id_unidad)
     {
 
         $personas = Persona::all();
         $carreras = Carrera::all();
         $cargos = Cargo::all();
         $grados_academicos = GradoAcademico::all();
+        //$unidad = UnidadDeInvestigacion::find($id_unidad);
             
         return view ('responsables.create', 
            compact(
                'personas',
                'carreras',
                'cargos',
-               'grados_academicos'
+               'grados_academicos',
+               'id_unidad'
             )
         );
     }
@@ -70,44 +95,40 @@ class ResponsableController extends Controller
     {
         
         //validacion de datos
-        $request->validate([
-            'nombre_persona' => 'required|string|min:5|max:150',
-            'apellido_persona' => 'required|string|min:5|max:150',
-            'telefono_persona' => 'required|max:8',
-            'correo_persona' => 'required',
+        $validator = Validator::make($request->all(), [
+            'id_g_acad' => 'required',
+            'id_carrera' => 'required',
+            'id_cargo' => 'required',
+            'id_persona' => 'required',
+            'id_unidad' => 'required'
         ]);
 
+        $id_unidad = $request->input('id_unidad');
+        //dd($id_unidad);
+
+        //VERIFICAR SI APLICA O NO LA VALIDACION
+        if ($validator->fails()) {
+            //SI ES CIERTO PERMITA REDIRECCIONAR A LA VISTA DE CREATE
+            return redirect()->route('responsable.create',['id_unidad'=>$id_unidad])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = $request->all();
+        // aca se debera enviar la asociacion de la unidad de investigacion
+        //$data['id_unidad'] = "1";
+
+        // Muestra los datos para verificar
+        //dd($data); 
+        $nuevoResponsable = Aa_de_uu::create($data);
+
+        if($nuevoResponsable) {
+            return redirect()->route("responsable.index")->with("success", "Agregado con exito!");
+        } else {
+            return redirect()->route('responsable.create',['id_unidad'=>$id_unidad]);
+        }
         
-        // Crear una nueva persona ---metodo <find>
         
-       /*  $persona = new Persona();
-        $persona->nombre_persona = $request->input('nombre_persona');
-        $persona->apellido_persona = $request->input('apellido_persona');
-        $persona->telefono_persona = $request->input('telefono_persona');
-        $persona->correo_persona = $request->input('correo_persona');
-
-        // Guardar la persona en la base de datos
-        $persona->save(); */
-
-     
-        // Crear un nuevo investigador y asociarlo a la persona guardada
-
-      //Buscar persona si existe
-      
- 
-      
-        $responsable = new Aa_de_uu();
-        /* $responsable-> id_persona = $persona->id_persona; //Asociar el ID de la persona creada */
-        $responsable->id_persona = $request->input('id_persona');
-        $responsable->id_g_acad = $request->input('id_g_acad');
-        $responsable->id_carrera = $request->input('id_carrera');
-        $responsable->id_carrera = $request->input('id_cargo');
-        // Guardar el responsable en la base de datos
-        $responsable->save();
-
-        return redirect()->route("responsables.index")->with("success", "Agregado con exito!");
-        
-  
     }
 
 

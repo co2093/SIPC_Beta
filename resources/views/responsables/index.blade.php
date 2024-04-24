@@ -26,25 +26,38 @@
     <h5 class="card-title text-center">Listado de personas ingresados</h5>
 
 
-
+ <!--{{--
     <p>
-      <a href="{{ route("responsable.buscar")}}" class="btn btn-primary">
-        <span class="fas fa-user-plus"></span> Seleccionar Responsable</a>
+      <a href="{{ route("responsable.create")}}" class="btn btn-primary">
+        <span class="fas fa-user-plus"></span> Agregar</a>
 
 
     </p>
 
-
-
+--}}
+-->
+ <!--{{--
     <hr>
-
-    <form class="d-flex">
+    <form action="{{route('responsable.store')}}"  method="POST" class="responsables-form">
+      @csrf 
+      <div class="form-section">
+        <label for="">Correo</label>
+        <input type="email" class="form-control mb-3" name="fecha_fundacion" value="{{ old('fecha_fundacion') }}" required>
+        
+        <label for="">Telefono:</label>
+        <input type="tel" class="form-control mb-3 {{ $errors->has('telefono_unidad') ? 'is-invalid' : '' }}" name="telefono_unidad" placeholder="Ej. XXXXXXXX" value="{{ old('telefono_unidad') }}"  required>
+        @if ($errors->has('telefono_unidad'))
+            <div class="invalid-feedback">
+                {{ $errors->first('telefono_unidad') }}
+            </div>
+        @endif
+    </div>
       <input class="form-control me-4" type="search" placeholder="Buscar Persona" aria-label="Search">
       <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
 
-    <hr>
-
+    <hr>--}}
+-->
 
     <p class="card-text">
     <div class="table table-responsive">

@@ -12,7 +12,12 @@ class Aa_de_uu extends Model
     protected $table = 'aa_de_uu';
     protected $primaryKey = 'id_autoridad_unidad';
     protected $fillable = [
-        'autoridad_superior'
+        'autoridad_superior',
+        'id_cargo',
+        'id_carrera',
+        'id_g_acad',
+        'id_persona',
+        'id_unidad'
     ];
     public $timestamps = false;
     public $incrementing = true;
