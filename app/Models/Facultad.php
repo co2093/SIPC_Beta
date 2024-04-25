@@ -24,4 +24,11 @@ class Facultad extends Model
             'id_carrera'
         );
     }
+    public function facultadesProyectos()
+    {
+        return $this->hasMany(
+            Proyecto::class,
+            'id_proyecto'
+        );
+    }
 }

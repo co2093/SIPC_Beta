@@ -35,12 +35,12 @@
             <label for="fecha_fundacion">Fecha Fundación:</label>
             <input type="date" class="form-control mb-3" name="fecha_fundacion" value="{{ $unidad->fecha_fundacion }}" required>
             
-            <label for="telefono_unidad">Teléfono:</label>
+            <label for="telefono_unidad">Teléfono Intitucional</label>
             <input type="tel" class="form-control mb-3" name="telefono_unidad" value="{{ $unidad->telefono_unidad }}" required>
         </div>
 
         <div class="form-section">
-            <label for="id_dep_jerar">Dependencia Jerarquica:</label>
+            <label for="id_dep_jerar">Dependencia Jer&aacute;rquica:</label>
             <select name="id_dep_jerar" class="form-control" required>
                 @foreach ($deps_jerarquicas as $dep)
                     <option value="{{ $dep->id_dep_jerar }}" @if($dep->id_dep_jerar === $unidad->id_dep_jerar ) selected @endif>{{ $dep->nombre_dep_jerar }}</option>

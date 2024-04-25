@@ -10,10 +10,10 @@
                 <thead>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>Grado Academico</th>
+                    <th>Grado Acad&eacute;mico</th>
                     <th>Carrera</th>
                     <th>Cargo</th>
-                    <th>Telefono</th>
+                    <th>Tel&eacute;fono</th>
                     <th>Correo</th>
                     <th>Responsable</th>
                 </thead>

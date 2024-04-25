@@ -15,7 +15,7 @@
     <div class="form-group">
       <div class="row">
         <div class="col-md-9">
-          <h1>Infraestructuras/Proyecto</h1>
+          <h2>Seleccione Infraestructura/Proyecto</h2>
         </div>
       </div>
     </div>
@@ -23,7 +23,7 @@
       <div class="row">
         <div class="col-md-9">
           <select class="custom-select" id="tipo_infraestructura" name="tipo_infraestructura" data-oldinfra="{{old('tipo_infraestructura')}}">
-            <option value="" selected>Seleccione un tipo de infraestructura</option>
+            <option value="" selected>Seleccione Tipo de Infraestructura</option>
             @foreach($infraestructuras as $infraestructura)
             <option value="{{$infraestructura->id_t_infra}}">{{$infraestructura->nombre_t_infra}}</option>
             @endforeach
@@ -38,7 +38,7 @@
       <div class="row">
         <div class="col-md-9">
           <select class="custom-select" id="proyecto" name="proyecto" data-oldproject="{{old('proyecto')}}">
-            <option value="" selected>Seleccione un tipo de proyecto asociado</option>
+            <option value="" selected>Seleccione Tipo de Proyecto Asociado</option>
             @foreach($proyectosArray as $project)
             <option value="{{$project->id_proyecto}}">{{$project->nombre_proyecto}}</option>
             @endforeach
@@ -55,7 +55,7 @@
     <div class="form-group">
       <div class="row">
         <div class="col-md-9">
-          <label for="area_construida">Area Construida (m<sup>2</sup>)</label>
+          <label for="area_construida">&Aacute;rea Construida (m<sup>2</sup>)</label>
           <input type="number" class="form-control" id="area_construida" name="area_construida" value="{{old('area_construida')}}">
           @error('area_construida')
           <small style="color:red">{{$message}}</small>
@@ -85,10 +85,10 @@
         <thead class="thead-light">
           <tr>
             <th>ID</th>
-            <th>infraestructura</th>
+            <th>Infraestructura</th>
             <th>Proyecto</th>
-            <th>Area construida</th>
-            <th>acciones</th>
+            <th>&Aacute;rea construida</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>

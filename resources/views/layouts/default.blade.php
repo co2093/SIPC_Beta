@@ -76,25 +76,38 @@
                     </div>
                 </div>
             </li>
-
-            <!-- Nav Item - Charts -->
+            <!--Catalogo de Actividades de proyectos de capacidades institucionales-->
+            <hr class="sidebar-divider">
             <li class="nav-item">
-                <a class="nav-link" href="investigadores">
+                <a class="nav-link" href="{{route('investHome')}}">
                     <i class="bi bi-person-lines-fill"></i>
                     <span>Investigadores</span></a>
             </li>
-
+            <!-- Nav Item - Charts -->
+            <hr class="sidebar-divider">
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('actProHome')}}">
+                    <i class="bi bi-kanban"></i>
+                    <span>Proyectos</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('actProIDHome')}}">
+                    <i class="bi bi-activity"></i>
+                    <span>Actividades de Proyectos</span></a>
+            </li>
+            <hr class="sidebar-divider">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('unidadesDeInvestigacion.index') }}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Unidades de Investigacion</span></a>
+                    <span>Unidades de Investigaci&oacute;n</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dependenciaJerarquica.index') }}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Dependencias Jerarquicas</span></a>
+                    <span>Dependencias Jer&aacute;rquicas</span></a>
             </li>
 
 
@@ -153,7 +166,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            <img class="img-profile rounded-circle" src="{{ asset('img/undraw_profile.svg') }}">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

@@ -1,24 +1,15 @@
 @extends('layouts.default')
 @section('content')
-
-
-
 <div class="card">
   <h5 class="card-header">Seleccionar Responsable</h5>
   <div class="card-body">
-
-
     <div class="row">
       <div class="col-sm-12">
-
         @if ($mensaje = Session::get('success'))
         <div class="alert alert-success" role="alert">
           {{ $mensaje }}
         </div>
         @endif
-
-
-
       </div>
     </div>
 
@@ -26,7 +17,7 @@
     <h5 class="card-title text-center">Listado de Responsables</h5>
 
 
- <!--{{--
+    <!--{{--
     <p>
       <a href="{{ route("responsable.create")}}" class="btn btn-primary">
         <span class="fas fa-user-plus"></span> Agregar</a>
@@ -36,7 +27,7 @@
 
 --}}
 -->
- <!--{{--
+    <!--{{--
     <hr>
     <form action="{{route('responsable.store')}}"  method="POST" class="responsables-form">
       @csrf 
@@ -65,10 +56,10 @@
         <thead>
           <th>Nombre</th>
           <th>Apellido</th>
-          <th>Grado Academico</th>
+          <th>Grado Acad&eacute;mico</th>
           <th>Carrera</th>
           <th>Cargo</th>
-          <th>Telefono</th>
+          <th>Tel&eacute;fono</th>
           <th>Correo</th>
           <th>Unidad de Investigacion</th>
           <th>Acciones</th>
@@ -83,7 +74,7 @@
 
             <td>{{ $aa_de_uu->cargosAa_de_uu->nombre_cargo }}</td>
             <td>{{ $aa_de_uu->personasAa_de_uu->telefono_persona }}</td>
-            <td>{{ $aa_de_uu->personasAa_de_uu->correo_persona }}</td> 
+            <td>{{ $aa_de_uu->personasAa_de_uu->correo_persona }}</td>
             <td>
               <!--<div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></div>-->
               {{$aa_de_uu->unidadAa_de_uu->nombre_unidad}}

@@ -30,9 +30,9 @@ class Persona extends Model
 
     public function investigadoresPersonas()
     {
-        return $this->hasMany(
+        return $this->hasOne(
             Investigador::class,
-            'id_invest'
+            'id_persona'
         );
     }
     public function paisesPersonas()

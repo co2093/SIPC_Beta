@@ -22,16 +22,16 @@
     </div>
     @endif
 
-    <h2>Lista de Dependencias Jerarquicas</h2>
+    <h2>Lista de Dependencias Jer&aacute;rquicas</h2>
 
-    <a href="{{ route('dependenciaJerarquica.create') }}" class="btn btn-primary mb-3">Agregar Dependencia Jerarquica</a>
+    <a href="{{ route('dependenciaJerarquica.create') }}" class="btn btn-primary mb-3">Agregar Dependencia Jer&aacute;rquica</a>
 
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Descripcion</th>
+                <th>Descripci&oacute;n</th>
                 <th>Acciones</th>
             </tr>
         </thead>

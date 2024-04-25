@@ -20,6 +20,10 @@ class Investigador extends Model
             'id_carrera'
         );
     }
+    public function investigadoresProyecto()
+    {
+        return $this->hasMany(Proyecto::class, 'id_proyecto');
+    }
 
     public function personasInvestigadores()
     {
@@ -58,6 +62,16 @@ class Investigador extends Model
         return $this->belongsTo(
             Capacitacion::class,
             'id_cap'
+        );
+    }
+    //uso de tabla intermedia
+    public function proyectos()
+    {
+        return $this->belongsToMany(
+            Proyecto::class,
+            'invest_proyectos',
+            'id_invest',
+            'id_proyecto'
         );
     }
 }
