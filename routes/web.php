@@ -109,3 +109,33 @@ Route::get('/convocatoria/show', [App\Http\Controllers\ConvocatoriaController::c
 //Colaboradores
 Route::get('/colaboradores', [App\Http\Controllers\ColaboradoresController::class, 'index'])->name('colaboradores.crear');
 Route::get('/colaboradores/show', [App\Http\Controllers\ColaboradoresController::class, 'show'])->name('colaboradores.show');
+
+
+
+//Catalogos
+Route::get('/catalogos/areas', [App\Http\Controllers\CatalogosController::class, 'indexAreas'])->name('areas.crear');
+Route::get('/catalogos/areas/show', [App\Http\Controllers\CatalogosController::class, 'showAreas'])->name('areas.show');
+
+//Catalogos
+Route::get('/catalogos/actividades', [App\Http\Controllers\CatalogosController::class, 'indexActividades'])->name('actividadesTipo.crear');
+Route::get('/catalogos/actividades/show', [App\Http\Controllers\CatalogosController::class, 'showActividades'])->name('actividadesTipo.show');
+
+//Catalogos
+Route::get('/catalogos/instituciones', [App\Http\Controllers\CatalogosController::class, 'indexInstituciones'])->name('instituciones.crear');
+Route::get('/catalogos/instituciones/show', [App\Http\Controllers\CatalogosController::class, 'showInstituciones'])->name('instituciones.show');
+
+//Catalogos
+Route::get('/catalogos/recursos', [App\Http\Controllers\CatalogosController::class, 'indexRecursos'])->name('recursos.crear');
+Route::get('/catalogos/recursos/show', [App\Http\Controllers\CatalogosController::class, 'showRecursos'])->name('recursos.show');
+
+//Catalogos
+Route::get('/catalogos/unidades', [App\Http\Controllers\CatalogosController::class, 'indexUnidades'])->name('unidades.crear');
+Route::get('/catalogos/unidades/show', [App\Http\Controllers\CatalogosController::class, 'showUnidades'])->name('unidades.show');
+
+//Catalogos
+Route::get('/catalogos/facultades', [App\Http\Controllers\CatalogosController::class, 'indexFacultades'])->name('facultades.crear');
+Route::get('/catalogos/facultades/show', [App\Http\Controllers\CatalogosController::class, 'showFacultades'])->name('facultades.show');
+
+//Catalogos
+Route::get('/catalogos/tipopublicaciones', [App\Http\Controllers\CatalogosController::class, 'indexTipopublicaciones'])->name('tipopublicaciones.crear');
+Route::get('/catalogos/tipopublicaciones/show', [App\Http\Controllers\CatalogosController::class, 'showTipopublicaciones'])->name('tipopublicaciones.show');

@@ -167,6 +167,36 @@
                 </div>
             </li>
 
+
+         <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages2"
+                    aria-expanded="true" aria-controls="collapsePages2">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Catálogos</span>
+                </a>
+                <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Principales:</h6>
+                        <a class="collapse-item" href="{{route('areas.show')}}">Areas de investigacion</a>
+                        <a class="collapse-item" href="{{route('actividadesTipo.show')}}">Tipo de actividad</a>
+                        <a class="collapse-item" href="{{route('instituciones.show')}}">Institucion</a>
+                        <a class="collapse-item" href="{{route('recursos.show')}}">Tipo de recurso</a>
+
+                        <a class="collapse-item" href="{{route('unidades.show')}}">Unidad de medida</a>
+
+                        <a class="collapse-item" href="{{route('facultades.show')}}">Facultad</a>
+
+                        <a class="collapse-item" href="{{route('tipopublicaciones.show')}}">Tipo de publicacion</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Otros:</h6>
+                        <a class="collapse-item" href="#">Pais</a>
+
+                        <a class="collapse-item" href="#">Ciudad</a>
+                        <a class="collapse-item" href="#">Departamento</a>
+                    </div>
+                </div>
+            </li>
+
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="#">
@@ -174,12 +204,7 @@
                     <span>Otros</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Otros</span></a>
-            </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
