@@ -90,7 +90,7 @@
       <!--Datos Personales-->
       <div class="tab-pane fade show active mt-5" id="personal" role="tabpanel" aria-labelledby="personal-tab">
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="nombre_persona" class="form-label me-3 mr-3">Nombres</label>
+          <label for="nombre_persona" class="form-label me-3 mr-3">Nombre(s)</label>
           <span class="mr-5" data-bs-toggle="tooltip" title="Debe ingresarse el(los) nombre(s) del investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
@@ -98,7 +98,7 @@
             id="nombre_persona" name="nombre_persona"
             placeholder="{{ $errors->has('nombre_persona') ? $errors->first('nombre_persona') : 'Ingrese el(los) nombre(s) del investigador' }}"
             value="{{ old('nombre_persona') }}">
-          <label for="apellido_persona" class="form-label me-3 ml-5">Apellidos</label>
+          <label for="apellido_persona" class="form-label me-3 ml-2">Apellido(s)</label>
           <span class="mr-5 ml-3" data-bs-toggle="tooltip"
             title="Debe ingresarse el(los) apellido(s)  del investigador">
             <i class="bi bi-info-circle text-info"></i>
@@ -110,46 +110,47 @@
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
           <label for="correo_persona" class="form-label me-3 ">Correo Electr&oacute;nico</label>
-          <span class="mr-3" data-bs-toggle="tooltip" title="Debe ingresarse el correo electrónico del Investigador">
+          <span class="mr-3" data-bs-toggle="tooltip" title="Debe ingresarse el correo electrónico del investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
-          <input type="email" class="form-control  @error('correo_persona') is-invalid @enderror" tabindex="3"
+          <input type="email" class="form-control  ml-3 @error('correo_persona') is-invalid @enderror" tabindex="3"
             name="correo_persona" id="correo_persona"
             placeholder="{{ $errors->has('correo_persona') ? $errors->first('correo_persona') : 'Ingrese el Correo Electrónico' }}"
             value="{{ old('correo_persona') }}">
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="telefono_persona" class="form-label">Tel&eacute;fono del Investigador</label>
+          <label for="telefono_persona" class="form-label">Tel&eacute;fono del investigador</label>
           <span class="ml-3 mr-5" data-bs-toggle="tooltip"
-            title="Debe ingresarse el número de teléfono del Investigador">
+            title="Debe ingresarse el número de teléfono del investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <input type="text" class="form-control  @error('telefono_persona') is-invalid @enderror" tabindex="4"
             id="telefono_persona" name="telefono_persona"
-            placeholder="{{ $errors->has('telefono_persona') ? $errors->first('telefono_persona') : 'Ingrese Telefono' }}"
+            placeholder="{{ $errors->has('telefono_persona') ? $errors->first('telefono_persona') : 'Ingrese el tefono del investigador' }}"
             value="{{ old('telefono_persona') }}">
-          <label for="edad_persona" class="form-label me-3 ml-5 ">Edad</label>
-          <span class="mr-5 ml-5" data-bs-toggle="tooltip" title="Debe ingresarse la edad del Investigador">
+          <label for="fecha_nacimiento" class="form-label me-3 ml-5 ">Fecha de Nacimiento</label>
+          <span class="mr-5 ml-5" data-bs-toggle="tooltip" title="Debe ingresarse la edad del investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
-          <input type="number" class="form-control @error('edad_persona') is-invalid @enderror" tabindex="5"
-            id="edad_persona" name="edad_persona"
-            placeholder="{{ $errors->has('edad_persona') ? $errors->first('edad_persona') : 'Ingrese la edad' }}"
-            value="{{ old('edad_persona') }}">
+          <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"
+            class="form-control ml-3 w-75 @error('fecha_nacimiento') is-invalid @enderror">
+          @error('fecha_nacimiento')
+          <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="direccion_persona" class="form-label mr-2">Direcci&oacute;n del Investigador</label>
-          <span class="mr-4 ml-4" data-bs-toggle="tooltip" title="Debe ingresarse la dirección del Investigador">
+          <label for="direccion_persona" class="form-label mr-2">Direcci&oacute;n del investigador</label>
+          <span class="mr-4 ml-4" data-bs-toggle="tooltip" title="Debe ingresarse la dirección del investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <input type="text" class="form-control  @error('direccion_persona') is-invalid @enderror" tabindex="6"
             name="direccion_persona" id="direccion_persona"
-            placeholder="{{ $errors->has('direccion_persona') ? $errors->first('direccion_persona') : 'Ingrese lugar de residencia del Investigador' }}"
+            placeholder="{{ $errors->has('direccion_persona') ? $errors->first('direccion_persona') : 'Ingrese lugar de residencia del investigador' }}"
             value="{{ old('direccion_persona') }}">
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
           <label for="id_pais" class="form-label me-3 mr-5">País de Residencia</label>
-          <span class="mr-4" data-bs-toggle="tooltip" title="Debe seleccionarse el país del Investigador">
+          <span class="mr-4" data-bs-toggle="tooltip" title="Debe seleccionarse el país del investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <select class="form-control  ml-4 @error('id_pais') is-invalid @enderror" tabindex="7" name="id_pais"
@@ -162,7 +163,7 @@
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 25px;">
           <label for="genero_persona" class="form-label me-3">Sexo al que pertenece<span class="ml-3"
-              data-bs-toggle="tooltip" title="Debe seleccionar genero del Investigador">
+              data-bs-toggle="tooltip" title="Debe seleccionar genero del investigador">
               <i class="bi bi-info-circle text-info"></i>
             </span></label>
           <div class="form-check">
@@ -178,10 +179,10 @@
       <!--Datos Academicos-->
       <div class="tab-pane fade mt-5" id="academic" role="tabpanel" aria-labelledby="academic-tab">
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="id_g_acad" class="form-label me-3 ">M&aacute;ximo Grado Acad&eacute;mico
+          <label for="id_g_acad" class="form-label me-3 mr-2">M&aacute;ximo Grado Acad&eacute;mico
           </label>
-          <span class="ml-3" data-bs-toggle="tooltip"
-            title="Debe seleccionar el maximo grado academico del Investigador">
+          <span class="ml-4" data-bs-toggle="tooltip"
+            title="Debe seleccionar el maximo grado academico del investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <select class="form-control  ml-4 @error('id_g_acad') is-invalid @enderror" tabindex="4" name="id_g_acad"
@@ -190,9 +191,9 @@
             <option value="{{$grado_academico->id_g_acad}}">{{$grado_academico->titulo_g_acad}}</option>
             @endforeach
           </select>
-          <label for="id_carrera" class="form-label me-3">Carrera seg&uacute;n T&iacute;tulo</label>
+          <label for="id_carrera" class="form-label me-3 ml-3">Carrera seg&uacute;n T&iacute;tulo</label>
           <span class="ml-3" data-bs-toggle="tooltip"
-            title="Debe seleccionar la carrera segun el titulo del Investigador">
+            title="Debe seleccionar la carrera segun el titulo del investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <select class="form-control  ml-5 @error('id_carrera') is-invalid @enderror" tabindex="5" name="id_carrera"
@@ -203,7 +204,7 @@
           </select>
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 25px;">
-          <label for="id_cap" class="form-label me-3 mr-2">Capacitaci&oacute;an(es)</label>
+          <label for="id_cap" class="form-label me-3 mr-2">Capacitaci&oacute;n(es)</label>
           <span data-bs-toggle="tooltip" title="Debe seleccionar el tipo de capacitacion ">
             <i class="bi bi-info-circle text-info"></i>
           </span>
@@ -217,7 +218,7 @@
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
           <label for="id_unidad" class="form-label me-3 mr-2 ">Unidad a la que pertenece</label>
           <span class="ml-3" data-bs-toggle="tooltip"
-            title="Debe seleccionar la unidad investiativa a la que pertenece el Investigador">
+            title="Debe seleccionar la unidad investiativa a la que pertenece el investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <select class="form-control  ml-4 @error('id_unidad') is-invalid @enderror" tabindex="5" name="id_unidad"
@@ -228,7 +229,7 @@
           </select>
           <label for="id_unidad_rrhh" class="form-label me-3 ml-4">Unidad de RRHH</label>
           <span class="ml-5" data-bs-toggle="tooltip"
-            title="Debe seleccionar la unidad de recursos humanos a la que pertenece el Investigador">
+            title="Debe seleccionar la unidad de recursos humanos a la que pertenece el investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <select class="form-control ml-5 @error('id_unidad_rrhh') is-invalid @enderror" tabindex="5"

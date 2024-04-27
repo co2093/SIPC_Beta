@@ -66,7 +66,8 @@ class InvestigadorController extends Controller
             'correo_persona' => 'required',
             'genero_persona' => 'required',
             'direccion_persona' => 'required',
-            'edad_persona' => 'required|numeric|min:18|max:120', // Ejemplo: edad debe ser mayor o igual a 18 y menor o igual a 120
+            'fecha_nacimiento' => 'required|date',
+            //'fecha_nacimiento' => 'required|numeric|min:18|max:120', // Ejemplo: edad debe ser mayor o igual a 18 y menor o igual a 120
             'id_pais' => 'required',
         ]);
 
@@ -78,7 +79,7 @@ class InvestigadorController extends Controller
         $persona->correo_persona = $request->input('correo_persona');
         $persona->genero_persona = $request->input('genero_persona');
         $persona->direccion_persona = $request->input('direccion_persona');
-        $persona->edad_persona = $request->input('edad_persona');
+        $persona->fecha_nacimiento = $request->input('fecha_nacimiento');
         $persona->id_pais = $request->input('id_pais');
         // Guardar la persona en la base de datos
         $persona->save();

@@ -74,4 +74,5 @@ class Investigador extends Model
             'id_proyecto'
         );
     }
+    
 }

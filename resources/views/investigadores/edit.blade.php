@@ -126,14 +126,15 @@
             id="telefono_persona" name="telefono_persona"
             placeholder="{{ $errors->has('telefono_persona') ? $errors->first('telefono_persona') : 'Ingrese Telefono' }}"
             value="{{$investigador->personasInvestigadores->telefono_persona}}">
-          <label for="edad_persona" class="form-label me-3 ml-5 ">Edad</label>
-          <span class="mr-5 ml-5" data-bs-toggle="tooltip" title="Debe ingresarse la edad del Investigador">
+          <label for="fecha_nacimiento" class="form-label me-3 ml-5 ">Fecha de Nacimiento</label>
+          <span class="mr-5 ml-5" data-bs-toggle="tooltip" title="Debe ingresarse la edad del investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
-          <input type="number" class="form-control @error('edad_persona') is-invalid @enderror" tabindex="5"
-            id="edad_persona" name="edad_persona"
-            placeholder="{{ $errors->has('edad_persona') ? $errors->first('edad_persona') : 'Ingrese la edad' }}"
-            value="{{$investigador->personasInvestigadores->edad_persona}}">
+          <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"
+            class="form-control ml-3 w-75 @error('fecha_nacimiento') is-invalid @enderror">
+          @error('fecha_nacimiento')
+          <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
           <label for="direccion_persona" class="form-label mr-2">Direcci&oacute;n</label>

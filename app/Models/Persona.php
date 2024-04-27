@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 class Persona extends Model
 {
     use HasFactory;
@@ -19,7 +19,8 @@ class Persona extends Model
         'correo_persona',
         'genero_persona',
         'direccion_persona',
-        'edad_persona'
+        'edad_persona',
+        'fecha_nacimiento'
     ];
 
     // Accesor para el campo genero_persona
@@ -27,7 +28,18 @@ class Persona extends Model
     {
         return $value ? 'Masculino' : 'Femenino';
     }
+    // Mutador para calcular y asignar la edad
+    public function setFechaNacimientoAttribute($value)
+    {
+        $this->attributes['fecha_nacimiento'] = $value;
+        $this->attributes['edad_persona'] = $this->calcularEdad($value);
+    }
 
+    // Método para calcular la edad
+    private function calcularEdad($fechaNacimiento)
+    {
+        return Carbon::parse($fechaNacimiento)->age;
+    }
     public function investigadoresPersonas()
     {
         return $this->hasOne(

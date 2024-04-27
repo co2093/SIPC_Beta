@@ -98,12 +98,12 @@ $(document).ready(function() {
           value="{{ old('nombre_proyecto') }}">
         <label for="descripcion_proyecto" class="form-label me-3 ml-3 mr-4">Descripci&oacute;n del proyecto
         </label>
-        <span class="mr-2" data-bs-toggle="tooltip" title="Debe ingresar el nombre del proyecto">
+        <span class="mr-2" data-bs-toggle="tooltip" title="Debe ingresar una descripcion del proyecto">
           <i class="bi bi-info-circle text-info"></i>
         </span>
         <input type="text" class="form-control  @error('descripcion_proyecto') is-invalid @enderror" tabindex="1"
           id="descripcion_proyecto" name="descripcion_proyecto"
-          placeholder="{{ $errors->has('descripcion_proyecto') ? $errors->first('descripcion_proyecto') : 'Ingrese el nombre del proyecto' }}"
+          placeholder="{{ $errors->has('descripcion_proyecto') ? $errors->first('descripcion_proyecto') : 'Ingrese una descripcion del proyecto' }}"
           value="{{ old('descripcion_proyecto') }}">
       </div>
     </div>
