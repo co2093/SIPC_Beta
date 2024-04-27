@@ -91,20 +91,21 @@
       <div class="tab-pane fade show active mt-5" id="personal" role="tabpanel" aria-labelledby="personal-tab">
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
           <label for="nombre_persona" class="form-label me-3 mr-3">Nombres</label>
-          <span class="mr-5" data-bs-toggle="tooltip" title="Debe ingresarse el nombre del Investigador">
+          <span class="mr-5" data-bs-toggle="tooltip" title="Debe ingresarse el(los) nombre(s) del investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <input type="text" class="form-control  @error('nombre_persona') is-invalid @enderror" tabindex="1"
             id="nombre_persona" name="nombre_persona"
-            placeholder="{{ $errors->has('nombre_persona') ? $errors->first('nombre_persona') : 'Ingrese el nombre' }}"
+            placeholder="{{ $errors->has('nombre_persona') ? $errors->first('nombre_persona') : 'Ingrese el(los) nombre(s) del investigador' }}"
             value="{{ old('nombre_persona') }}">
           <label for="apellido_persona" class="form-label me-3 ml-5">Apellidos</label>
-          <span class="mr-5 ml-3" data-bs-toggle="tooltip" title="Debe ingresarse el apellido del Investigador">
+          <span class="mr-5 ml-3" data-bs-toggle="tooltip"
+            title="Debe ingresarse el(los) apellido(s)  del investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
           <input type="text" class="form-control  @error('apellido_persona') is-invalid @enderror" tabindex="2"
             id="apellido_persona" name="apellido_persona"
-            placeholder="{{ $errors->has('apellido_persona') ? $errors->first('apellido_persona') : 'Ingrese Apellidos' }}"
+            placeholder="{{ $errors->has('apellido_persona') ? $errors->first('apellido_persona') : 'Ingrese el(los) apellido(s) del investigador' }}"
             value="{{ old('apellido_persona') }}">
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
@@ -118,7 +119,7 @@
             value="{{ old('correo_persona') }}">
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="telefono_persona" class="form-label">Tel&eacute;fono</label>
+          <label for="telefono_persona" class="form-label">Tel&eacute;fono del Investigador</label>
           <span class="ml-3 mr-5" data-bs-toggle="tooltip"
             title="Debe ingresarse el número de teléfono del Investigador">
             <i class="bi bi-info-circle text-info"></i>
@@ -137,7 +138,7 @@
             value="{{ old('edad_persona') }}">
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="direccion_persona" class="form-label mr-2">Direcci&oacute;n</label>
+          <label for="direccion_persona" class="form-label mr-2">Direcci&oacute;n del Investigador</label>
           <span class="mr-4 ml-4" data-bs-toggle="tooltip" title="Debe ingresarse la dirección del Investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
@@ -147,7 +148,7 @@
             value="{{ old('direccion_persona') }}">
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 10px;">
-          <label for="id_pais" class="form-label me-3 mr-5">País</label>
+          <label for="id_pais" class="form-label me-3 mr-5">País de Residencia</label>
           <span class="mr-4" data-bs-toggle="tooltip" title="Debe seleccionarse el país del Investigador">
             <i class="bi bi-info-circle text-info"></i>
           </span>
@@ -160,8 +161,8 @@
 
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 25px;">
-          <label for="genero_persona" class="form-label me-3">Sexo <span class="ml-3" data-bs-toggle="tooltip"
-              title="Debe seleccionar genero del Investigador">
+          <label for="genero_persona" class="form-label me-3">Sexo al que pertenece<span class="ml-3"
+              data-bs-toggle="tooltip" title="Debe seleccionar genero del Investigador">
               <i class="bi bi-info-circle text-info"></i>
             </span></label>
           <div class="form-check">
@@ -202,7 +203,7 @@
           </select>
         </div>
         <div class="d-flex justify-content-between" style="margin-bottom: 25px;">
-          <label for="id_cap" class="form-label me-3 mr-2">Capacitaciones</label>
+          <label for="id_cap" class="form-label me-3 mr-2">Capacitaci&oacute;an(es)</label>
           <span data-bs-toggle="tooltip" title="Debe seleccionar el tipo de capacitacion ">
             <i class="bi bi-info-circle text-info"></i>
           </span>

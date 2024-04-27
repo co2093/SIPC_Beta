@@ -60,7 +60,8 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="responsables">Cat&aacute;logo de Responsables</a>
+            <a class="collapse-item" href="{{ route('responsable.index') }}">Cat&aacute;logo de
+              Responsables</a>
           </div>
         </div>
       </li>

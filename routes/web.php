@@ -46,7 +46,7 @@ Route::put('/updateCatIntraestructura/{id}', [App\Http\Controllers\catInfraestru
 Route::get('/deleteCatinfraestructura/{id}', [App\Http\Controllers\catInfraestructurasController::class, 'show'])->name('delCatInfraestructura');
 Route::delete('/destroyCatinfraestructura/{id}', [App\Http\Controllers\catInfraestructurasController::class, 'destroy'])->name('desCatInfraestructura');
 Route::resource('/unidadesDeInvestigacion', UnidadDeInvestigacionController::class);
-
+//Ruta(s) para Dependencia Jerarquica
 Route::resource('/dependenciaJerarquica', DependenciaJerarquicaController::class);
 //RUTA DE RESPONSABLES
 Route::get('/responsables', [App\Http\Controllers\ResponsableController::class, 'index'])->name('responsable.index');

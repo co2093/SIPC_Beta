@@ -15,9 +15,9 @@
     <thead class="bg-dark">
       <tr>
         <th scope="col">Id</th>
-        <th scope="col">Nombres</th>
-        <th scope="col">Apellidos</th>
-        <th scope="col">Correo</th>
+        <th scope="col">Nombre(s)</th>
+        <th scope="col">Apellido(s)</th>
+        <th scope="col">Correo Electr&oacute;nico</th>
         <th scope="col">M&aacute;ximo Grado Acad&eacute;mico</th>
         <th scope="col">Carrera seg&uacute;n T&iacute;tulo</th>
         <th scope="col">Acciones</th>
