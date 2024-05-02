@@ -236,7 +236,7 @@ $(document).ready(function() {
   @endif
 
   <div class="d-flex justify-content-between mb-2">
-    <button tabindex="6" type="submit" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Actualizar</button>
+    <button tabindex="6" type="submit" class="btn btn-warning"><i class="fas fa-pen"></i> Actualizar</button>
     <a href="/actividadesProyectos" class="btn btn-danger"><i class="bi bi-arrow-left"></i> Cancelar</a>
   </div>
 </form>

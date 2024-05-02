@@ -34,9 +34,9 @@
         <td>{{$investigador->carrerasInvestigadores->nombre_carrera}}</td>
         <td>
           <a class="btn btn-warning" href="investigadores/{{$investigador->id_invest}}/edit"><i
-              class="bi bi-pencil-square"></i></a>
+              class="fas fa-pen"></i></a>
           <button class="btn btn-danger delete-button"
-            data-action="{{route('investDestroy',$investigador->id_invest)}}"><i class="bi bi-trash"> </i></button>
+            data-action="{{route('investDestroy',$investigador->id_invest)}}"><i class="fas fa-trash-alt"> </i></button>
         </td>
       </tr>
       @endforeach
@@ -71,10 +71,10 @@
       "search": "Buscar:",
       "zeroRecords": "Sin resultados encontrados",
       "paginate": {
-        "first": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-double-left"></i></a>',
-        "last": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-double-right"></i></a>',
-        "next": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-right"></i></a>',
-        "previous": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-left"></i></a>'
+        "first": '<a class="btn btn-outline-secondary"><i class="fas fa-angle-double-left"></i></a>',
+        "last": '<a class="btn btn-outline-secondary"><i class="fas fa-angle-double-right"></i></a>',
+        "next": '<a class="btn btn-outline-secondary"><i class="fas fa-chevron-right"></i></a>',
+        "previous": '<a class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>'
       }
     }
   });

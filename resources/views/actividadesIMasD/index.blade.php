@@ -29,8 +29,11 @@
         <td>{{$actividadIMasD->fecha_inicio_actividad}}</td>
         <td>{{$actividadIMasD->fecha_fin_actividad}}</td>
         <td>
-          <a class="btn btn-warning" href="actividadesIMasD/{{$actividadIMasD->id_actividad}}/edit"><i class="bi bi-pencil-square"></i></a>
-          <button class="btn btn-danger delete-button" data-action="{{route('actProIDDestroy',$actividadIMasD->id_actividad)}}"><i class="bi bi-trash"> </i></button>
+          <a class="btn btn-warning" href="actividadesIMasD/{{$actividadIMasD->id_actividad}}/edit"><i
+              class="fas fa-pen"></i></a>
+          <button class="btn btn-danger delete-button"
+            data-action="{{route('actProIDDestroy',$actividadIMasD->id_actividad)}}"><i class="fas fa-trash-alt">
+            </i></button>
         </td>
       </tr>
       @endforeach
@@ -44,45 +47,46 @@
   <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
   <script>
-    new DataTable('#actividadesIMasD', {
-      lengthMenu: [
-        [3, 6, 9, 27, -1],
-        [3, 6, 9, 27, 'All']
-      ],
-      paging: true, // Habilitar paginación
-      pageLength: 3, // Número de registros por página
-      language: {
-        "decimal": "",
-        "emptyTable": "No hay información",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-        "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
-        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ Entradas",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "Buscar:",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
-          "first": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-double-left"></i></a>',
-          "last": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-double-right"></i></a>',
-          "next": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-right"></i></a>',
-          "previous": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-left"></i></a>'
-        }
+  new DataTable('#actividadesIMasD', {
+    lengthMenu: [
+      [3, 6, 9, 27, -1],
+      [3, 6, 9, 27, 'All']
+    ],
+    paging: true, // Habilitar paginación
+    pageLength: 3, // Número de registros por página
+    language: {
+      "decimal": "",
+      "emptyTable": "No hay información",
+      "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+      "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+      "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+      "infoPostFix": "",
+      "thousands": ",",
+      "lengthMenu": "Mostrar _MENU_ Entradas",
+      "loadingRecords": "Cargando...",
+      "processing": "Procesando...",
+      "search": "Buscar:",
+      "zeroRecords": "Sin resultados encontrados",
+      "paginate": {
+        "first": '<a class="btn btn-outline-secondary"><i class="fas fa-angle-double-left"></i></a>',
+        "last": '<a class="btn btn-outline-secondary"><i class="fas fa-angle-double-right"></i></a>',
+        "next": '<a class="btn btn-outline-secondary"><i class="fas fa-chevron-right"></i></a>',
+        "previous": '<a class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>'
       }
-    });
+    }
+  });
 
-    // Mostrar modal al hacer clic en el botón de eliminar
-    $('#actividadesIMasD').on('click', '.delete-button', function() {
-      var action = $(this).data('action');
-      $('#deleteForm').attr('action', action);
-      $('#confirmDeleteModal').modal('show');
-    });
+  // Mostrar modal al hacer clic en el botón de eliminar
+  $('#actividadesIMasD').on('click', '.delete-button', function() {
+    var action = $(this).data('action');
+    $('#deleteForm').attr('action', action);
+    $('#confirmDeleteModal').modal('show');
+  });
   </script>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -106,12 +110,12 @@
 
 <!-- Script para cerrar el modal -->
 <script>
-  // Selecciona el botón "Cancelar" y le agrega un evento de clic para cerrar el modal
-  document.querySelector('#confirmDeleteModal .btn-secondary').addEventListener('click', function() {
-    var modal = document.getElementById('confirmDeleteModal');
-    var modalInstance = bootstrap.Modal.getInstance(modal);
-    modalInstance.hide();
-  });
+// Selecciona el botón "Cancelar" y le agrega un evento de clic para cerrar el modal
+document.querySelector('#confirmDeleteModal .btn-secondary').addEventListener('click', function() {
+  var modal = document.getElementById('confirmDeleteModal');
+  var modalInstance = bootstrap.Modal.getInstance(modal);
+  modalInstance.hide();
+});
 </script>
 
 @endsection

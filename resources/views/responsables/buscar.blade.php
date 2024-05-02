@@ -71,10 +71,10 @@
                 "search": "Buscar:",
                 "zeroRecords": "Sin resultados encontrados",
                 "paginate": {
-                    "first": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-double-left"></i></a>',
-                    "last": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-double-right"></i></a>',
-                    "next": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-right"></i></a>',
-                    "previous": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-left"></i></a>'
+                    "first": '<a class="btn btn-outline-secondary"><i class="fas fa-angle-double-left"></i></a>',
+                    "last": '<a class="btn btn-outline-secondary"><i class="fas fa-angle-double-right"></i></a>',
+                    "next": '<a class="btn btn-outline-secondary"><i class="fas fa-chevron-right"></i></a>',
+                    "previous": '<a class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>'
                 }
             }
         });

@@ -36,9 +36,9 @@
         <td>{{$actividadProyecto->fecha_fin_proyecto}}</td>
         <td>
           <a class="btn btn-warning" href="{{ route('actProUpdate', $actividadProyecto->id_proyecto) }}/edit"><i
-              class="bi bi-pencil-square"></i></a>
+              class="fas fa-pen"></i></a>
           <button class="btn btn-danger delete-button"
-            data-action="{{route('actProDestroy',$actividadProyecto->id_proyecto)}}"><i class="bi bi-trash">
+            data-action="{{route('actProDestroy',$actividadProyecto->id_proyecto)}}"><i class="fas fa-trash-alt">
             </i></button>
         </td>
       </tr>
@@ -74,10 +74,10 @@
       "search": "Buscar:",
       "zeroRecords": "Sin resultados encontrados",
       "paginate": {
-        "first": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-double-left"></i></a>',
-        "last": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-double-right"></i></a>',
-        "next": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-right"></i></a>',
-        "previous": '<a class="btn btn-outline-secondary"><i class="bi bi-chevron-left"></i></a>'
+        "first": '<a class="btn btn-outline-secondary"><i class="fas fa-angle-double-left"></i></a>',
+        "last": '<a class="btn btn-outline-secondary"><i class="fas fa-angle-double-right"></i></a>',
+        "next": '<a class="btn btn-outline-secondary"><i class="fas fa-chevron-right"></i></a>',
+        "previous": '<a class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>'
       }
     }
   });

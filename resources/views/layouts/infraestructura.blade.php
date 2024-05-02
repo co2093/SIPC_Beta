@@ -22,7 +22,8 @@
     <div class="form-group">
       <div class="row">
         <div class="col-md-9">
-          <select class="custom-select" id="tipo_infraestructura" name="tipo_infraestructura" data-oldinfra="{{old('tipo_infraestructura')}}">
+          <select class="custom-select" id="tipo_infraestructura" name="tipo_infraestructura"
+            data-oldinfra="{{old('tipo_infraestructura')}}">
             <option value="" selected>Seleccione Tipo de Infraestructura</option>
             @foreach($infraestructuras as $infraestructura)
             <option value="{{$infraestructura->id_t_infra}}">{{$infraestructura->nombre_t_infra}}</option>
@@ -56,7 +57,8 @@
       <div class="row">
         <div class="col-md-9">
           <label for="area_construida">&Aacute;rea Construida (m<sup>2</sup>)</label>
-          <input type="number" class="form-control" id="area_construida" name="area_construida" value="{{old('area_construida')}}">
+          <input type="number" class="form-control" id="area_construida" name="area_construida"
+            value="{{old('area_construida')}}">
           @error('area_construida')
           <small style="color:red">{{$message}}</small>
           @enderror
@@ -103,7 +105,10 @@
             @endforeach
             <td>{{$infraestructura->id_proyecto}}</td>
             <td>{{$infraestructura->area_locacion}}</td>
-            <td> <a href="{{route('deleteLocacion',$infraestructura->id_locacion)}}" class="btn btn-danger"><span class="fas fa-trash-alt"> </a></span> <a href="{{route('editInfraestructura',$infraestructura->id_locacion)}}" class="btn btn-success"><span class="fas fa-pen"></a></span></td>
+            <td> <a href="{{route('deleteLocacion',$infraestructura->id_locacion)}}" class="btn btn-danger"><span
+                  class="fas fa-trash-alt"> </a></span> <a
+                href="{{route('editInfraestructura',$infraestructura->id_locacion)}}" class="btn btn-success"><span
+                  class="fas fa-pen"></a></span></td>
           </tr>
           @endforeach
         </tbody>
