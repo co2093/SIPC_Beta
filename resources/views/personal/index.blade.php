@@ -20,24 +20,33 @@
   	        <div class="card shadow mb-4">
 
   	        	    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-dark">Registrar personal de investigación</h6>
+                        <h6 class="m-0 font-weight-bold text-dark">Registrar contratacion de personal de investigación</h6>
                     </div>
 
                     <div class="card-body">
                 
                     <form>
-  					<div class="form-group">
-					    <label for="exampleFormControlInput1">Perfil</label>
-					    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Perfil del personal">
-					  </div>
+
+					
+					<div class="form-group">
+					    <label for="exampleFormControlSelect1">Actividad asociada</label>
+					    <select class="form-control" id="exampleFormControlSelect1">
+					      <option>Actividad 1</option>
+					      <option>Actividad 2</option>
+					      <option>Actividad 3</option>
+					    </select>
+					</div>
+
+
+  		
 
 
 
 					  <div class="form-group">
-					    <label for="exampleFormControlSelect1">Contratacion</label>
+					    <label for="exampleFormControlSelect1">Tipo de personal</label>
 					    <select class="form-control" id="exampleFormControlSelect1">
-					      <option>Tipo 1</option>
-					      <option>Tipo 2</option>
+					      <option>Estudiante</option>
+					      <option>Graduado</option>
 					      <option>Tipo 3</option>
 					    </select>
 					  </div>
@@ -48,41 +57,10 @@
 					  </div>
 
 
-
-
-					  <div class="form-group">
-					    <label for="exampleFormControlSelect1">Fuente de financiamiento</label>
-					    <select class="form-control" id="exampleFormControlSelect1">
-					      <option>Fuente 1</option>
-					      <option>Fuente 2</option>
-					      <option>Fuente 3</option>
-					    </select>
-					  </div>
-
-					  <div class="form-group">
-					    <label for="exampleFormControlInput1">Horas laborales</label>
-					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
-					  </div>
-
-
 					  <div class="form-group">
 					    <label for="exampleFormControlInput1">Dias laborales</label>
 					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
 					  </div>
-
-
-
-
-					  <div class="form-group">
-					    <label for="exampleFormControlSelect1">Actividad asociada</label>
-					    <select class="form-control" id="exampleFormControlSelect1">
-					      <option>Actividad 1</option>
-					      <option>Actividad 2</option>
-					      <option>Actividad 3</option>
-					    </select>
-					  </div>
-
-
 
 
 					 <div class="form-group">

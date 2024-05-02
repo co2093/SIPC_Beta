@@ -27,6 +27,18 @@
                 
                     <form>
 
+
+
+					  	<div class="form-group">
+					    <label for="exampleFormControlSelect1">Actividad asociada</label>
+					    <select class="form-control" id="exampleFormControlSelect1">
+					      <option>Actividad 1</option>
+					      <option>Actividad 2</option>
+					      <option>Actividad 3</option>
+					    </select>
+					  </div>
+
+
  					<div class="form-group">
 					    <label for="exampleFormControlSelect1">Ciudad</label>
 					    <select class="form-control" id="exampleFormControlSelect1">
@@ -48,29 +60,13 @@
 					  </div>
 
 
-       
-
-
 					  <div class="form-group">
-					    <label for="exampleFormControlSelect1">Fuente de financiamiento</label>
-					    <select class="form-control" id="exampleFormControlSelect1">
-					      <option>Fuente 1</option>
-					      <option>Fuente 2</option>
-					      <option>Fuente 3</option>
-					    </select>
-					  </div>
-
-					 
-
-					  <div class="form-group">
-					    <label for="exampleFormControlInput1">Gasto de viaje</label>
+					    <label for="exampleFormControlInput1">Costo del boleto aereo</label>
 					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
 					  </div>
 
-
-
 					  <div class="form-group">
-					    <label for="exampleFormControlInput1">Costo del boleto</label>
+					    <label for="exampleFormControlInput1">Costo de la inscripcion</label>
 					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
 					  </div>
 
@@ -78,14 +74,7 @@
 
 					  <div class="form-group">
 					    <label for="exampleFormControlInput1">Numero de dias</label>
-					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
-					  </div>
-
-
-
-					  <div class="form-group">
-					    <label for="exampleFormControlInput1">Inscripcion del evento</label>
-					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0.0">
+					    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0">
 					  </div>
 
 
@@ -96,16 +85,6 @@
 					  </div>
 
 
-
-
-					  	<div class="form-group">
-					    <label for="exampleFormControlSelect1">Actividad asociada</label>
-					    <select class="form-control" id="exampleFormControlSelect1">
-					      <option>Actividad 1</option>
-					      <option>Actividad 2</option>
-					      <option>Actividad 3</option>
-					    </select>
-					  </div>
 
 
 

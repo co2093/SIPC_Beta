@@ -92,7 +92,7 @@
                     </div>
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Presupuesto</h6>
-                        <a class="collapse-item" href="{{route('fuentes.show')}}">Fuentes de financiamiento</a>
+                        <a class="collapse-item" href="{{route('fuentes.show')}}">Financiamientos</a>
                         <a class="collapse-item" href="{{route('presupuesto.show')}}">Presupuesto</a>
                         <a class="collapse-item" href="{{route('recursos.show')}}">Recursos</a>
                         <a class="collapse-item" href="{{route('personal.show')}}">Personal</a>
@@ -180,7 +180,7 @@
                         <a class="collapse-item" href="{{route('areas.show')}}">Areas de investigacion</a>
                         <a class="collapse-item" href="{{route('actividadesTipo.show')}}">Tipo de actividad</a>
                         <a class="collapse-item" href="{{route('instituciones.show')}}">Institucion</a>
-                        <a class="collapse-item" href="{{route('recursos.show')}}">Tipo de recurso</a>
+                        <a class="collapse-item" href="{{route('recursos.catalogos.show')}}">Tipo de recurso</a>
 
                         <a class="collapse-item" href="{{route('unidades.show')}}">Unidad de medida</a>
 

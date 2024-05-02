@@ -22,7 +22,7 @@
 
                     <div class="card-body">
 
-                        <a  class="btn btn-success float-right" href="{{route('recursos.crear')}}">Agregar</a>
+                        <a  class="btn btn-success float-right" href="{{route('recursos.catalogos.crear')}}">Agregar</a>
 
                     </div>
             </div>

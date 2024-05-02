@@ -28,36 +28,18 @@
                     <form>
 
 
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Tipo de publicacion</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                          <option>Articulo cientifico</option>
-                          <option>Libro</option>
-                          <option>Informe tecnico</option>
-                          <option>Manual</option>
-                        </select>
-                    </div>
+ 
+                     <div class="form-group">
+                        <label for="exampleFormControlInput1">Tipo de publicacion</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Libro, revista">
+                      </div>
+
 
 
                       <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Detalle</label>
+                        <label for="exampleFormControlTextarea1">Especificaciones tecnicas</label>
                         <textarea class="form-control" id="Descripcion corta" rows="3"></textarea>
                       </div>
-
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Fuente de financiamiento</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                          <option>Fuente 1</option>
-                          <option>Fuente 2</option>
-                          <option>Fuente 3</option>
-                        </select>
-                      </div>
-
-                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Cantidad</label>
-                        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="0">
-                      </div>
-
 
 
                      <div class="form-group">

@@ -9,7 +9,7 @@
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
 	    <li class="breadcrumb-item"><a href="{{ route('login') }}">Inicio</a></li>
-	    <li class="breadcrumb-item"><a href="{{ route('recursos.show') }}">Ver recursos</a></li>
+	    <li class="breadcrumb-item"><a href="{{ route('recursos.catalogos.show') }}">Ver recursos</a></li>
 	    <li class="breadcrumb-item active" aria-current="page">Registrar recurso</li>
 	  </ol>
 	</nav>

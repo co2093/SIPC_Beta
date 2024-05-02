@@ -27,52 +27,37 @@
                 
                     <form>
 
-
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Tipo de actividad</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                          <option>Tipo 1</option>
-                          <option>Tipo 2</option>
-                          <option>Tipo 3</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Actividad</label>
-                        <textarea class="form-control" id="Descripcion corta" rows="3"></textarea>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Objetivo asociado</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <label for="exampleFormControlSelect1">Objetivo específico asociado</label>
+                        <select class="form-control" id="objetivo">
                           <option>Objetivo 1</option>
                           <option>Objetivo 2</option>
                           <option>Objetivo 3</option>
                           <option>Objetivo 4</option>
                           <option>Objetivo 5</option>
                         </select>
-                      </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Nombre de la actividad</label>
+                        <input type="text" class="form-control" id="actividad" >
+                    </div>
+
+
 
 
 
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Fecha de inicio</label>
-                        <input type="date" class="form-control" id="exampleFormControlInput1" >
+                        <input type="date" class="form-control" id="inicio" >
                     </div>
 
                   <div class="form-group">
                         <label for="exampleFormControlInput1">Fecha de finalización</label>
-                        <input type="date" class="form-control" id="exampleFormControlInput1" >
+                        <input type="date" class="form-control" id="final" >
                     </div>
-
-
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Resultados esperados</label>
-                        <textarea class="form-control" id="Descripcion corta" rows="3"></textarea>
-                    </div>
-
-
 
 
                       <button type="submit" class="btn btn-danger">Submit</button>

@@ -27,30 +27,36 @@
                 
                     <form>
   					<div class="form-group">
-					    <label for="exampleFormControlInput1">Titulo del proyecto</label>
-					    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Titulo">
+					    <label for="exampleFormControlInput1">Título del proyecto</label>
+					    <input type="text" class="form-control" id="titulo" placeholder="Título" required>
 					  </div>
 
-					 <div class="form-group">
-					    <label for="exampleFormControlInput1">Investigador asociado</label>
-					    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nombre completo">
-					 </div>
 
 					  <div class="form-group">
-					    <label for="exampleFormControlSelect1">Area de investigación</label>
-					    <select class="form-control" id="exampleFormControlSelect1">
-					      <option>Area 1</option>
-					      <option>Area 2</option>
-					      <option>Area 3</option>
-					      <option>Area 4</option>
-					      <option>Area 5</option>
+					    <label for="exampleFormControlSelect1">Área de conocimiento</label>
+					    <select class="form-control" id="area" required>
+					      <option>Área 1</option>
+					      <option>Área 2</option>
+					      <option>Área 3</option>
+					      <option>Área 4</option>
+					      <option>Área 5</option>
 					    </select>
 					  </div>
 
 					  <div class="form-group">
-					    <label for="exampleFormControlTextarea1">Descripción</label>
-					    <textarea class="form-control" id="Descripcion corta" rows="3"></textarea>
+					    <label for="exampleFormControlSelect1">Tipo de proyecto</label>
+					    <select class="form-control" id="tipo" required>
+					      <option>Consultoria</option>
+					      <option>Investigación básica</option>
+					      <option>Otro</option>
+					    </select>
 					  </div>
+
+					  <div class="form-group">
+					    <label for="exampleFormControlInput1">Tiempo dedicado a la investigación</label>
+					    <input type="number" class="form-control" id="tiempo" placeholder="0" required>
+					  </div>
+
 
 					  <button type="submit" class="btn btn-danger">Submit</button>
 
