@@ -28,4 +28,10 @@ class ProjectsController extends Controller
         return view('projects.objetivos');
     }
 
+
+    public function prueba()
+    {
+        return view('projects.prueba');
+    }
+
 }

@@ -89,6 +89,8 @@
                         <a class="collapse-item" href="{{route('projects.show')}}">Titulo</a>
                         <a class="collapse-item" href="{{route('objetivos.show')}}">Objetivos</a>
                         <a class="collapse-item" href="{{route('actividades.show')}}">Actividades</a>
+                        <a class="collapse-item" href="{{route('projects.prueba')}}">Prueba</a>
+
                     </div>
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Presupuesto</h6>
@@ -293,9 +295,10 @@
                 <!-- End of Topbar -->
 
                 <div class="container-fluid">
+                    <div class="container mt-5">
 
                        @yield('content')
-
+                   </div>
                 </div>
 
             </div>
@@ -365,6 +368,8 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
+
+   <script src="{{ asset('js/custom.js') }}"></script>
 
 </body>
 

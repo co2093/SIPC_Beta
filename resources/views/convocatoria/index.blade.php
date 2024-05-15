@@ -10,7 +10,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('login') }}">Inicio</a></li>
         <li class="breadcrumb-item"><a href="{{ route('actividades.show') }}">Ver convocatorias</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Iniciar convocatoria</li>
+        <li class="breadcrumb-item active" aria-current="page">Crear convocatoria</li>
       </ol>
     </nav>
 
@@ -20,7 +20,7 @@
             <div class="card shadow mb-4">
 
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-dark">Definir detalles:</h6>
+                        <h6 class="m-0 font-weight-bold text-dark">Detalles:</h6>
                     </div>
 
                     <div class="card-body">
@@ -29,7 +29,7 @@
 
 
                 <div class="form-group">
-                        <label for="exampleFormControlInput1">Titulo</label>
+                        <label for="exampleFormControlInput1">Codigo de la convocatoria</label>
                         <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Titulo">
                       </div>
 
@@ -43,6 +43,11 @@
                   <div class="form-group">
                         <label for="exampleFormControlInput1">Fecha de finalización</label>
                         <input type="date" class="form-control" id="exampleFormControlInput1" >
+                    </div>
+
+                  <div class="form-group">
+                        <label for="exampleFormControlInput1">Presupuesto aprobado</label>
+                        <input type="number" class="form-control" id="exampleFormControlInput1" >
                     </div>
 
 
