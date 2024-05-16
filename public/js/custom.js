@@ -17,3 +17,30 @@ $(document).ready(function(){
         });
     });
 });
+
+
+
+/**
+$(document).ready(function(){
+    $('.nav-link').click(function (e) {
+        var $this = $(this);
+        if ($this.hasClass('disabled')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    function toggleSteps(index) {
+        $('.nav-link').each(function (i) {
+            if (i <= index) {
+                $(this).removeClass('disabled');
+            } else {
+                $(this).addClass('disabled');
+            }
+        });
+    }
+
+    toggleSteps(0); // Initially enable only the first step
+});
+
+**/

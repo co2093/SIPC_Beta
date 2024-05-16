@@ -54,3 +54,37 @@ background-color: #9a1115;
 .btn i {
     font-size: 0.9rem; /* Adjust icon size */
 }
+
+
+.step-number {
+    margin: 20px 0;
+}
+
+.step-number p {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.completed-step .fa {
+    color: green;
+}
+
+.current-step .fa {
+    color: blue;
+}
+
+.pending-step .fa {
+    color: grey;
+}
+
+.step-number a {
+    text-decoration: none; /* Removes underline from all links */
+    color: inherit; /* Inherits text color from parent */
+}
+
+/* Adjust hover effects */
+.step-number a:hover {
+    text-decoration: none; /* Keeps links without underline on hover */
+    opacity: 0.8; /* Adds a slight interaction effect */
+}
+
