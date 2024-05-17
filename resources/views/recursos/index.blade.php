@@ -8,9 +8,11 @@
 
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
-	    <li class="breadcrumb-item"><a href="{{ route('login') }}">Inicio</a></li>
-	    <li class="breadcrumb-item"><a href="{{ route('recursos.show') }}">Ver recursos</a></li>
-	    <li class="breadcrumb-item active" aria-current="page">Registrar recurso</li>
+        <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
+        <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
+        <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show')}}">Presupuesto</a></li>
+        <li class="breadcrumb-item"><a href="{{route('recursos.show')}}">Recursos</a></li>
+	    <li class="breadcrumb-item active" aria-current="page">Crear recurso</li>
 	  </ol>
 	</nav>
 
@@ -20,7 +22,7 @@
   	        <div class="card shadow mb-4">
 
   	        	    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-dark">Crear recursos de investigación</h6>
+                        <h6 class="m-0 font-weight-bold text-dark">Solicitar recurso</h6>
                     </div>
 
                     <div class="card-body">
@@ -82,6 +84,8 @@
 
 
 					  <button type="submit" class="btn btn-danger">Submit</button>
+					  <a  class="btn btn-secondary float-right" href="{{route('recursos.show')}}">Regresar</a>
+
 
 					</form>
 

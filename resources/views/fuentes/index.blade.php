@@ -1,16 +1,13 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Otros financiamientos del Proyecto de investigación</h1>
-    </div>
-
-
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
-	    <li class="breadcrumb-item"><a href="{{ route('login') }}">Inicio</a></li>
-	    <li class="breadcrumb-item"><a href="{{ route('fuentes.show') }}">Ver financiamientos</a></li>
-	    <li class="breadcrumb-item active" aria-current="page">Registrar financiamientos</li>
+        <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
+        <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
+        <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show')}}">Presupuesto</a></li>
+	    <li class="breadcrumb-item"><a href="{{ route('fuentes.show') }}">Financiamientos</a></li>
+	    <li class="breadcrumb-item active" aria-current="page">Crear financiamiento</li>
 	  </ol>
 	</nav>
 
@@ -47,6 +44,8 @@
 					 </div>
 
 					  <button type="submit" class="btn btn-danger">Submit</button>
+					   <a  class="btn btn-secondary float-right" href="{{route('fuentes.show')}}">Regresar</a>
+
 
 					</form>
 

@@ -9,9 +9,11 @@
 
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('login') }}">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('objetivos.show') }}">Ver objetivos</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Registrar objetivo</li>
+        <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
+
+        <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('objetivos.show') }}">Objetivos</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Crear objetivo</li>
       </ol>
     </nav>
 
@@ -72,6 +74,8 @@
 
 
                       <button type="submit" class="btn btn-danger">Submit</button>
+                    <a  class="btn btn-secondary float-right" href="{{route('objetivos.show')}}">Regresar</a>
+
 
                     </form>
 

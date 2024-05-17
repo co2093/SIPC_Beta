@@ -140,3 +140,9 @@ Route::get('/catalogos/facultades/show', [App\Http\Controllers\CatalogosControll
 //Catalogos
 Route::get('/catalogos/tipopublicaciones', [App\Http\Controllers\CatalogosController::class, 'indexTipopublicaciones'])->name('tipopublicaciones.crear');
 Route::get('/catalogos/tipopublicaciones/show', [App\Http\Controllers\CatalogosController::class, 'showTipopublicaciones'])->name('tipopublicaciones.show');
+
+
+
+
+//Presupuesto
+Route::get('/presupuesto', [App\Http\Controllers\PresupuestoController::class, 'showPresupuesto'])->name('presupuesto.menu.show');

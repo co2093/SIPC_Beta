@@ -8,9 +8,9 @@
 
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('login') }}">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('actividades.show') }}">Ver actividades</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Registrar actividad</li>
+        <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('actividades.show') }}">Actividades</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Crear actividad</li>
       </ol>
     </nav>
 
@@ -61,6 +61,7 @@
 
 
                       <button type="submit" class="btn btn-danger">Submit</button>
+                    <a  class="btn btn-secondary float-right" href="{{route('actividades.show')}}">Regresar</a>
 
                     </form>
 

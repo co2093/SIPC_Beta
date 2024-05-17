@@ -4,7 +4,8 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Registro</li>
+        <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Presupuesto</li>
       </ol>
     </nav>
 
@@ -15,7 +16,7 @@
 
 
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-dark">Registrar proyecto de investigacion</h6>
+                        <h6 class="m-0 font-weight-bold text-dark">Gestion del presupuesto del proyecto de investigacion</h6>
                     </div>
         <div class="card-body">
 
@@ -42,18 +43,18 @@
                 <div class="row">
                     <!-- Step 1 -->
                     <div class="col text-center">
-                        <a href="{{route('projects.crear')}}" class="step-number completed-step">
+                        <a href="{{route('fuentes.show')}}" class="step-number completed-step">
                             <span class="fa fa-check-circle fa-2x"></span>
-                            <p>Titulo</p>
+                            <p>Financiamientos</p>
                         </a>
                     </div>
 
                     
                     <!-- Step 2 -->
                     <div class="col text-center">
-                        <a href="{{route('objetivos.show')}}" class="step-number completed-step">
+                        <a href="{{route('recursos.show')}}" class="step-number completed-step">
                             <span class="fa fa-check-circle fa-2x"></span>
-                            <p>Objetivos</p>
+                            <p>Recursos</p>
                         </a>
                     </div>
 
@@ -61,7 +62,7 @@
                     <div class="col text-center">
                         <a href="{{route('actividades.show')}}" class="step-number current-step">
                             <span class="fa fa-edit fa-2x"></span>
-                            <p>Actividades</p>
+                            <p>Paso 3</p>
                         </a>
                     </div>
                     
@@ -69,7 +70,7 @@
                     <div class="col text-center">
                         <a href="{{route('presupuesto.menu.show')}}" class="step-number pending-step">
                             <span class="fa fa-clock fa-2x"></span>
-                            <p>Presupuesto</p>
+                            <p>Paso 4</p>
                         </a>
                     </div>
 
@@ -113,31 +114,36 @@
             <div class="card shadow mb-4">
 
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-dark">Proyecto actual</h6>
+                        <h6 class="m-0 font-weight-bold text-dark">Presupuesto actual del proyecto</h6>
                     </div>
 
                     <div class="card-body">
 
-                          <table class="table">
+                            <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Codigo</th>
-                                    <th scope="col">Titulo</th>
-                                    <th scope="col">Convocatoria</th>
-                                   
+                                    <th scope="col">Financiamiento</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Disponible</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">AE2024</th>
-                                    <td>Proyecto</td>
-                                    <td>Ejemplo</td>
-
+                                    <th scope="row">UES</th>
+                                    <td>$10000</td>
+                                    <td>$7000</td>
                                 </tr>
-
+                                <tr>
+                                    <th scope="row">SIPC</th>
+                                    <td>$5000</td>
+                                    <td>$1500</td>
+                                </tr>
                                 <!-- More rows as needed -->
                             </tbody>
                         </table>
+
+                     <a  class="btn btn-secondary float-right" href="{{route('projects.prueba')}}">Regresar</a>
+
 
                 </div>
             </div>

@@ -18,4 +18,10 @@ class PresupuestoController extends Controller
     {
         return view('presupuesto.show');
     }
+
+
+    public function showPresupuesto()
+    {
+        return view('recursos.presupuesto');
+    }
 }
