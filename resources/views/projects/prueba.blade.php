@@ -77,23 +77,23 @@
                     <div class="col text-center">
                         <a href="{{route('colaboradores.show')}}" class="step-number pending-step">
                             <span class="fa fa-clock fa-2x"></span>
-                            <p>Paso 5</p>
+                            <p>Colaboradores</p>
                         </a>
                     </div>
 
                     <!-- Step 6 -->
                     <div class="col text-center">
-                        <a href="#step6" class="step-number pending-step">
+                        <a href="{{route('projects.protocolo')}}" class="step-number pending-step">
                             <span class="fa fa-clock fa-2x"></span>
-                            <p>Paso 6</p>
+                            <p>Protocolo</p>
                         </a>
                     </div>
 
                     <!-- Step 7 -->
                     <div class="col text-center">
-                        <a href="#step7" class="step-number pending-step">
+                        <a href="{{route('projects.enviar')}}" class="step-number pending-step">
                             <span class="fa fa-clock fa-2x"></span>
-                            <p>Paso 7</p>
+                            <p>Enviar</p>
                         </a>
                     </div>
                 </div>

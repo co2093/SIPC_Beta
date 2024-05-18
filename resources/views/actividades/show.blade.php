@@ -3,6 +3,8 @@
 
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
+
         <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
         <li class="breadcrumb-item active" aria-current="page">Actividades</li>
       </ol>

@@ -44,7 +44,7 @@
                     <!-- Step 1 -->
                     <div class="col text-center">
                         <a href="{{route('fuentes.show')}}" class="step-number completed-step">
-                            <span class="fa fa-check-circle fa-2x"></span>
+                            <span class="fa fa-university fa-2x"></span>
                             <p>Financiamientos</p>
                         </a>
                     </div>
@@ -53,50 +53,53 @@
                     <!-- Step 2 -->
                     <div class="col text-center">
                         <a href="{{route('recursos.show')}}" class="step-number completed-step">
-                            <span class="fa fa-check-circle fa-2x"></span>
+                            <span class="fa fa-laptop fa-2x"></span>
                             <p>Recursos</p>
                         </a>
                     </div>
 
                     <!-- Step 3 -->
                     <div class="col text-center">
-                        <a href="{{route('actividades.show')}}" class="step-number current-step">
-                            <span class="fa fa-edit fa-2x"></span>
-                            <p>Paso 3</p>
+                        <a href="{{route('personal.show')}}" class="step-number current-step">
+                            <span class="fa fa-user-circle fa-2x"></span>
+                            <p>Contrataciones</p>
                         </a>
                     </div>
                     
                     <!-- Step 4 -->
                     <div class="col text-center">
-                        <a href="{{route('presupuesto.menu.show')}}" class="step-number pending-step">
-                            <span class="fa fa-clock fa-2x"></span>
-                            <p>Paso 4</p>
+                        <a href="{{route('viaticos.show')}}" class="step-number pending-step">
+                            <span class="fa fa-car fa-2x"></span>
+                            <p>Viaticos Nacionales</p>
                         </a>
                     </div>
 
                     <!-- Step 5 -->
                     <div class="col text-center">
-                        <a href="{{route('colaboradores.show')}}" class="step-number pending-step">
-                            <span class="fa fa-clock fa-2x"></span>
-                            <p>Paso 5</p>
+                        <a href="{{route('viaticos.int.show')}}" class="step-number pending-step">
+                            <span class="fa fa-plane fa-2x"></span>
+                            <p>Viaticos Internacionales</p>
                         </a>
                     </div>
 
                     <!-- Step 6 -->
                     <div class="col text-center">
-                        <a href="#step6" class="step-number pending-step">
-                            <span class="fa fa-clock fa-2x"></span>
-                            <p>Paso 6</p>
+                        <a href="{{route('publicaciones.show')}}" class="step-number pending-step">
+                            <span class="fa fa-book fa-2x"></span>
+                            <p>Publicaciones</p>
                         </a>
                     </div>
 
-                    <!-- Step 7 -->
+                    <!-- Step 7 
                     <div class="col text-center">
                         <a href="#step7" class="step-number pending-step">
                             <span class="fa fa-clock fa-2x"></span>
                             <p>Paso 7</p>
                         </a>
                     </div>
+                    -->
+
+
                 </div>
             </div>
 

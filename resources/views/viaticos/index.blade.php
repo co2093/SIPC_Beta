@@ -1,16 +1,13 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Viaticos del Proyecto de investigación</h1>
-    </div>
-
-
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
-	    <li class="breadcrumb-item"><a href="{{ route('login') }}">Inicio</a></li>
-	    <li class="breadcrumb-item"><a href="{{ route('viaticos.show') }}">Ver viajes locales</a></li>
-	    <li class="breadcrumb-item active" aria-current="page">Registrar viajes locales</li>
+        <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
+        <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
+        <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show')}}">Presupuesto</a></li>
+        <li class="breadcrumb-item"><a href="{{route('viaticos.show')}}">Viaticos Nacionales</a></li>
+	    <li class="breadcrumb-item active" aria-current="page">Registrar viatico</li>
 	  </ol>
 	</nav>
 
@@ -96,6 +93,8 @@
 					  </div>
 
 					  <button type="submit" class="btn btn-danger">Submit</button>
+					   <a  class="btn btn-secondary float-right" href="{{route('viaticos.show')}}">Regresar</a>
+
 
 					</form>
 

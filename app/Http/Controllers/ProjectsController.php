@@ -34,4 +34,14 @@ class ProjectsController extends Controller
         return view('projects.prueba');
     }
 
+    public function protocolo()
+    {
+        return view('projects.protocolo');
+    }
+
+    public function enviar()
+    {
+        return view('projects.enviar');
+    }
+
 }

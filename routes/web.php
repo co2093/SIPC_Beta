@@ -30,6 +30,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/projects', [App\Http\Controllers\ProjectsController::class, 'index'])->name('projects.crear');
 Route::get('/projects/show', [App\Http\Controllers\ProjectsController::class, 'show'])->name('projects.show');
 Route::get('/projects/prueba', [App\Http\Controllers\ProjectsController::class, 'prueba'])->name('projects.prueba');
+Route::get('/projects/protocolo', [App\Http\Controllers\ProjectsController::class, 'protocolo'])->name('projects.protocolo');
+Route::get('/projects/enviar', [App\Http\Controllers\ProjectsController::class, 'enviar'])->name('projects.enviar');
+
 
 
 

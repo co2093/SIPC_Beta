@@ -84,12 +84,10 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Detalles</h6>
+                        <h6 class="collapse-header">#</h6>
                        <!-- <a class="collapse-item" href="{{route('projects.crear')}}">Registrar</a> -->
                         <a class="collapse-item" href="{{route('projects.show')}}">Mis proyectos</a>
-                        <a class="collapse-item" href="{{route('objetivos.show')}}">Objetivos</a>
-                        <a class="collapse-item" href="{{route('actividades.show')}}">Actividades</a>
-                        <a class="collapse-item" href="{{route('projects.prueba')}}">Prueba</a>
+<!--
 
                     </div>
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -106,6 +104,7 @@
 
                         <a class="collapse-item" href="#"></a>
                     </div>
+                -->
 <!--
                    <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Actividades</h6>
