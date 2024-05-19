@@ -33,6 +33,9 @@ Route::get('/projects/prueba', [App\Http\Controllers\ProjectsController::class, 
 Route::get('/projects/protocolo', [App\Http\Controllers\ProjectsController::class, 'protocolo'])->name('projects.protocolo');
 Route::get('/projects/enviar', [App\Http\Controllers\ProjectsController::class, 'enviar'])->name('projects.enviar');
 
+Route::get('/projects/archivados', [App\Http\Controllers\ProjectsController::class, 'archivadosindex'])->name('archivados.crear');
+Route::get('/projects/archivados/show', [App\Http\Controllers\ProjectsController::class, 'archivadosshow'])->name('archivados.show');
+
 
 
 
@@ -149,3 +152,8 @@ Route::get('/catalogos/tipopublicaciones/show', [App\Http\Controllers\CatalogosC
 
 //Presupuesto
 Route::get('/presupuesto', [App\Http\Controllers\PresupuestoController::class, 'showPresupuesto'])->name('presupuesto.menu.show');
+
+
+//Inventario
+Route::get('/inventario', [App\Http\Controllers\InventarioController::class, 'index'])->name('inventario.crear');
+Route::get('/inventario/show', [App\Http\Controllers\InventarioController::class, 'show'])->name('inventario.show');

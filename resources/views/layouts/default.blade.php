@@ -84,27 +84,19 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">#</h6>
+                        <h6 class="collapse-header">Convocatoria actual</h6>
                        <!-- <a class="collapse-item" href="{{route('projects.crear')}}">Registrar</a> -->
                         <a class="collapse-item" href="{{route('projects.show')}}">Mis proyectos</a>
-<!--
+
 
                     </div>
+                  
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Presupuesto</h6>
-                        <a class="collapse-item" href="{{route('fuentes.show')}}">Financiamientos</a>
-                        <a class="collapse-item" href="{{route('presupuesto.show')}}">Presupuesto</a>
-                        <a class="collapse-item" href="{{route('recursos.show')}}">Recursos</a>
-                        <a class="collapse-item" href="{{route('personal.show')}}">Personal</a>
-
-                        <a class="collapse-item" href="{{route('colaboradores.show')}}">Colaboradores</a>
-                        <a class="collapse-item" href="{{route('viaticos.show')}}">Viaticos Nacionales</a>
-                        <a class="collapse-item" href="{{route('viaticos.int.show')}}">Viaticos Internacionales</a>
-                        <a class="collapse-item" href="{{route('publicaciones.show')}}">Publicaciones</a>
-
-                        <a class="collapse-item" href="#"></a>
+                        <h6 class="collapse-header">Antiguos</h6>
+                        <a class="collapse-item" href="{{route('archivados.show')}}">Archivados</a>
+                       
                     </div>
-                -->
+               
 <!--
                    <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Actividades</h6>
@@ -200,9 +192,9 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('inventario.show')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Otros</span></a>
+                    <span>Inventario</span></a>
             </li>
 
 

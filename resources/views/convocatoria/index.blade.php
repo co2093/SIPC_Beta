@@ -30,7 +30,7 @@
 
                 <div class="form-group">
                         <label for="exampleFormControlInput1">Codigo de la convocatoria</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Titulo">
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
                       </div>
 
 

@@ -44,4 +44,17 @@ class ProjectsController extends Controller
         return view('projects.enviar');
     }
 
+
+
+
+    public function archivadosshow()
+    {
+        return view('projects.archivadosshow');
+    }
+
+    public function archivadosindex()
+    {
+        return view('projects.archivadosindex');
+    }
+
 }
