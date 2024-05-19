@@ -40,88 +40,208 @@
         </div>
         <div class="sidebar-brand-text mx-3">SIPC <sup>UES</sup></div>
       </a>
-
-      <!-- Divider -->
       <hr class="sidebar-divider my-0">
-
-
+      <hr class="sidebar-divider">
+    <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          <span>Inicio</span></a>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
 
       <!-- Heading -->
-      <!--  <div class="sidebar-heading">
-                Interface
-            </div>-->
+      <div class="sidebar-heading">
+        Perfil y Proyectos
+      </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
           aria-controls="collapseTwo">
-          <i class="bi bi-person-fill-gear"></i>
-          <span>Responsables</span>
+          <i class="fas fa-fw fa-user"></i>
+          <span>Perfil</span>
         </a>
+
+        @can('propuesta')
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ route('responsable.index') }}">Cat&aacute;logo de
-              Responsables</a>
+            <h6 class="collapse-header">Candidato:</h6>
+            <a class="collapse-item" href="{{ route('formacionAcademica') }}">Propuesta</a>
+          </div>
+        </div>
+        @endcan
+
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Curriculum:</h6>
+            @can('formacionAcademica')
+            <a class="collapse-item" href="{{ route('formacionAcademica') }}">Formación Academica</a>
+            @endcan
+            <!-- <a class="collapse-item" href=" route('experienciaLaboral') ">Experiencia Laboral</a> -->
+            @can('experienciaCientifica')
+            <a class="collapse-item" href="{{ route('experienciaCientifica') }}">Experiencia Cientifica</a>
+            @endcan
+            @can('redInvestigador')
+            <a class="collapse-item" href="{{ route('redInvestigador') }}">Red de Investigadores</a>
+            @endcan
+            @can('proyectos')
+            <a class="collapse-item" href="{{ route('proyectoInvestigacion') }}">Proyectos de Investigacion</a>
+            @endcan
+            @can('otrasCompetencias')
+            <a class="collapse-item" href="{{ route('otrasCompetencias') }}">Otras Competencias</a>
+            @endcan
+          </div>
+        </div>
+
+      </li>
+
+
+      <!-- Heading -->
+      @can('usuario')
+      <div class="sidebar-heading">
+        Usuarios
+      </div>
+      @endcan
+      <!-- Nav Item - Pages Collapse Menu -->
+      @can('role')
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRol" aria-expanded="true"
+          aria-controls="collapseRol">
+          <i class="fas fa-fw fa-user"></i>
+          <span>Roles</span>
+        </a>
+        <div id="collapseRol" class="collapse" aria-labelledby="headingRol" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('userRol') }}">Usuarios</a>
+            <a class="collapse-item" href="{{ route('roles.index') }}">Roles</a>
+            <a class="collapse-item" href="{{ route('formacionAcademica') }}">Permisos</a>
+          </div>
+        </div>
+      </li>
+      @endcan
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+          aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>Proyectos</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Componentes:</h6>
+            <a class="collapse-item" href="#">Registrar</a>
+            <a class="collapse-item" href="#">Consultar</a>
+            <a class="collapse-item" href="#">Otros</a>
           </div>
         </div>
       </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+
+      <div class="sidebar-heading">
+        Seguimiento
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
           aria-controls="collapsePages">
-          <i class="bi bi-bricks"></i>
-          <span>Infraestructura</span>
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Prueba</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('homeInfraestructura')}}">Infraestructura</a>
-            <a class="collapse-item" href="{{route('tpInfra')}}">Cat&aacute;logo de Infraestructuras</a>
+            <h6 class="collapse-header">Seguimiento:</h6>
+            <a class="collapse-item" href="#">404</a>
+            <a class="collapse-item" href="#">404</a>
+            <a class="collapse-item" href="#">404</a>
+            <div class="collapse-divider"></div>
+            <h6 class="collapse-header">Otros:</h6>
+            <a class="collapse-item" href="#">404</a>
+            <a class="collapse-item" href="#">404</a>
           </div>
         </div>
       </li>
-      <!--Catalogo de Actividades de proyectos de capacidades institucionales-->
-      <hr class="sidebar-divider">
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('investHome')}}">
-          <i class="bi bi-person-lines-fill"></i>
-          <span>Investigadores</span></a>
-      </li>
+
       <!-- Nav Item - Charts -->
-      <hr class="sidebar-divider">
       <li class="nav-item">
-        <a class="nav-link" href="{{route('actProHome')}}">
-          <i class="bi bi-kanban"></i>
-          <span>Proyectos</span></a>
-      </li>
-      <hr class="sidebar-divider">
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('actProIDHome')}}">
-          <i class="bi bi-activity"></i>
-          <span>Actividades de Proyectos</span></a>
-      </li>
-      <hr class="sidebar-divider">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('unidadesDeInvestigacion.index') }}">
-          <i class="bi bi-table"></i>
-          <span>Unidades de Investigaci&oacute;n</span></a>
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Otros</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('dependenciaJerarquica.index') }}">
-          <i class="bi bi-journal-bookmark"></i>
-          <span>Dependencias Jer&aacute;rquicas</span></a>
-      </li>
-
-
-      <!-- Divider -->
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Otros</span></a>
+      </li>      
       <hr class="sidebar-divider d-none d-md-block">
+      <div class="sidebar-heading">
+        Formularios
+      </div>
 
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCapacidades" aria-expanded="true"
+          aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Capacidades Institucionales</span>
+        </a>
+        <div id="collapseCapacidades" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Indentificaci&oacute;n</h6>
+            <a class="collapse-item" href="{{ route('unidadesDeInvestigacion.index') }}">Unidad de Investigaci&oacute;n</a>
+            <a class="collapse-item" href="{{ route('dependenciaJerarquica.index') }}">Dependencia Jer&aacute;quica</a>
+            <a class="collapse-item" href="{{ route('responsable.index') }}">Cat&aacute;logo de Responsables</a>
+            <div class="collapse-divider"></div>
+            <h6 class="collapse-header">Tipo de Infraestructura</h6>
+            <a class="collapse-item" href="{{route('homeInfraestructura')}}">Infraestructura</a>
+            <a class="collapse-item" href="{{route('tpInfra')}}">Cat&aacute;logo de Infraestructura</a>
+            <div class="collapse-divider"></div>
+            <h6 class="collapse-header">Actividades de Proyectos</h6>
+            <a class="collapse-item" href="{{route('actProHome')}}">Cat&aacutelogo de Actividades</a>
+          </div>
+        </div>
+      </li>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInvest" aria-expanded="true"
+          aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Investigadores, Docentes y Colaboradores</span>
+        </a>
+        <div id="collapseInvest" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Investigadores</h6>
+            <a class="collapse-item" href="{{route('investHome')}}">Cat&aacute;logo de Investigadores</a>
+          </div>
+        </div>
+      </li>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseImasD" aria-expanded="true"
+          aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Investigaci&oacute;n m&aacute;s Desarrollo</span>
+        </a>
+        <div id="collapseImasD" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Seguimiento:</h6>
+            <a class="collapse-item" href="#">404</a>
+            <a class="collapse-item" href="#">404</a>
+            <a class="collapse-item" href="#">404</a>
+            <div class="collapse-divider"></div>
+            <h6 class="collapse-header">Otros:</h6>
+            <a class="collapse-item" href="#">404</a>
+            <a class="collapse-item" href="#">404</a>
+          </div>
+        </div>
+      </li>
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
