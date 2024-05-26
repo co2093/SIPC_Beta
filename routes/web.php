@@ -157,3 +157,13 @@ Route::get('/presupuesto', [App\Http\Controllers\PresupuestoController::class, '
 //Inventario
 Route::get('/inventario', [App\Http\Controllers\InventarioController::class, 'index'])->name('inventario.crear');
 Route::get('/inventario/show', [App\Http\Controllers\InventarioController::class, 'show'])->name('inventario.show');
+Route::post('/inventario/nuevo/producto', [App\Http\Controllers\InventarioController::class, 'store'])->name('inventario.store');
+Route::get('/inventario/confirm/{codinventario}',[App\Http\Controllers\InventarioController::class, 'destroyConfirm'])->name('inventario.confirm');
+Route::delete('/inventario/{codinventario}',[App\Http\Controllers\InventarioController::class, 'destroy'])->name('inventario.destroy');
+Route::get('/inventario/edit/{codinventario}',[App\Http\Controllers\InventarioController::class, 'edit'])->name('inventario.edit');
+Route::post('/inventario/update', [App\Http\Controllers\InventarioController::class, 'update'])->name('inventario.update');
+Route::get('/inventario/details/{codinventario}',[App\Http\Controllers\InventarioController::class, 'details'])->name('inventario.details');
+
+
+
+

@@ -6,7 +6,7 @@
         <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
         <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
         <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show')}}">Presupuesto</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Financiamientos</li>
+        <li class="breadcrumb-item active" aria-current="page">Fuentes de financiamiento</li>
       </ol>
     </nav>
 
@@ -16,7 +16,7 @@
   	        <div class="card shadow mb-4">
 
   	        	    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-dark">Ver financiamientos del proyecto
+                        <h6 class="m-0 font-weight-bold text-dark">Ver fuentes de financiamiento del proyecto
                             <a  class="btn btn-success float-right" href="{{route('fuentes.crear')}}">Agregar</a>
                         </h6>
                         
@@ -66,7 +66,7 @@
                                 <!-- More rows as needed -->
                             </tbody>
                         </table>
-                      <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show')}}">Regresar</a>
+                      <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show')}}">Finalizar registro</a>
 
 
                     </div>
