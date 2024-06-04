@@ -20,23 +20,23 @@
                     <!-- Aquí colocarías tu formulario -->
                     <form>
                         
-                    	 <div class="form-group">
-                            <label for="nombreInstitucion">Nombre de la Institución</label>
+                         <div class="form-group">
+                            <label for="nombreInstitucion">Nombre de la institución</label>
                             <input type="text" class="form-control" id="nombreInstitucion">
                         </div>
 
                         <div class="form-group">
-                            <label for="tituloProyecto">Titulo de Proyecto</label>
+                            <label for="tituloProyecto">Titulo de proyecto</label>
                             <input type="text" class="form-control" id="tituloProyecto">
                         </div>
 
                         <div class="form-group">
-                            <label for="areaConocimiento">Area de Conocimiento</label>
+                            <label for="areaConocimiento">Area de conocimiento</label>
                             <input type="text" class="form-control" id="areaConocimiento">
                         </div>
 
                         <div class="form-group">
-                            <label for="montoTotal">Monto Total</label>
+                            <label for="montoTotal">Monto total</label>
                             <input type="text" class="form-control" id="montoTotal">
                         </div>
 
@@ -47,12 +47,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="fechaTitulacion">Fecha de Titulación</label>
+                            <label for="fechaTitulacion">Fecha de titulación</label>
                             <input type="Date" class="form-control" id="fechaTitulacion">
                         </div>
 
                         <div class="form-group">
-                            <label for="tipoFormacion">Tipo de Formación</label>
+                            <label for="tipoFormacion">Tipo de formación</label>
                             <input type="text" class="form-control" id="tipoFormacion">
                         </div>
 
@@ -68,13 +68,13 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Nombre de la Institución</th>
-                    <th>Titulo Proyecto</th>
-                    <th>Area de Conocimiento</th>
-                    <th>Monto Total</th>
+                    <th>Facultad/Unidad</th>
+                    <th>Titulo proyecto</th>
+                    <th>Area de conocimiento</th>
+                    <th>Monto total</th>
                     <th>Estado</th>
-                    <th>Fecha de Inicio</th>
-                    <th>Fecha de Finalización</th>
+                    <th>Fecha de inicio</th>
+                    <th>Fecha de finalización</th>
                     <th>Editar</th>
                 </tr>
             </thead>
@@ -88,10 +88,10 @@
                     <td>Dr</td>
                     <td>Dato 3</td>
                     <td>
-                    	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarModal">
-			            <i class="fas fa-pencil-alt"></i> Editar
-				        </button>
-				    </td>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarModal">
+                        <i class="fas fa-pencil-alt"></i> Editar
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>Dato 4</td>
@@ -102,10 +102,10 @@
                     <td>Ing</td>
                     <td>Dato 6</td>
                     <td>
-                    	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarModal">
-			            <i class="fas fa-pencil-alt"></i> Editar
-				        </button>
-				    </td>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarModal">
+                        <i class="fas fa-pencil-alt"></i> Editar
+                        </button>
+                    </td>
                     
                 </tr>
                 
@@ -114,7 +114,7 @@
 
         <div>
             <section class="border">
-                <h2>Financiadores</h2>
+                <h2>Fuente de financiamiento</h2>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AgregarFinanciador">
                 <i class="fas fa-plus"></i> Agregar Financiador
             </button>
@@ -162,8 +162,14 @@
                         </div>
 
                          <div class="form-group">
-                            <label for="nombreInstitucion">Nombre de la Institución</label>
-                            <input type="text" class="form-control" id="nombreInstitucion">
+                            <label for="nombreInstitucion">Fuente de financiamiento</label><br>
+                            <label class="col-5">Interno: 
+                                <input type="radio" class="col-5" id="interno" name="fuente" value="interno">
+                            </label>
+                            <label class="col-5">Externo:
+                                <input type="radio" class="col-5" id="externo" name="fuente" value="externo">
+                            </label>
+                            <input type="text" class="form-control" id="fuenteFinanciamiento">
                         </div>
                         
 

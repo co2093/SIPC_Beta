@@ -39,4 +39,7 @@ class InvestigadorController extends Controller
     public function proyectoInvestigacion(){
         return view('Investigador.proyectosDeInvestigacion');
     }
+    public function datosPersonales(){
+        return view('Investigador.datosPersonales');
+    }
 }

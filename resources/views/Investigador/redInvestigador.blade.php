@@ -20,27 +20,22 @@
                     <!-- Aquí colocarías tu formulario -->
                     <form>
                         <div class="form-group">
-                            <label for="nombreRed">Nombre de la Red</label>
+                            <label for="nombreRed">Nombre de la red</label>
                             <input type="text" class="form-control" id="nombreRed">
                         </div>
-                    	 <div class="form-group">
-                            <label for="nombreInstitucion">Nombre de la Institución</label>
+                         <div class="form-group">
+                            <label for="nombreInstitucion">Nombre de la institución</label>
                             <input type="text" class="form-control" id="nombreInstitucion">
                         </div>
 
                         <div class="form-group">
-                            <label for="tituloProyecto">Titulo de Proyecto</label>
+                            <label for="tituloProyecto">Titulo de proyecto</label>
                             <input type="text" class="form-control" id="tituloProyecto">
                         </div>
 
                         <div class="form-group">
-                            <label for="fechaInicio">Fecha de Incio</label>
+                            <label for="fechaInicio">Año</label>
                             <input type="Date" class="form-control" id="fechaInicio">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="fechaFin">Fecha de Finalización</label>
-                            <input type="Date" class="form-control" id="fechaFin">
                         </div>
 
                        
@@ -57,11 +52,10 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Nombre de Red</th>
-                    <th>Nombre de la Institución</th>
-                    <th>Titulo Proyecto</th>
-                    <th>Fecha de Inicio</th>
-                    <th>Fecha de Finalización</th>
+                    <th>Nombre de red</th>
+                    <th>Nombre de la institución</th>
+                    <th>Titulo proyecto</th>
+                    <th>Año</th>
                     <th>Editar</th>
                 </tr>
             </thead>
@@ -71,24 +65,23 @@
                     <td>Dato 4</td>
                     <td>Dato 2</td>
                     <td>Dr</td>
-                    <td>Dato 3</td>
                     <td>
-                    	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarModal">
-			            <i class="fas fa-pencil-alt"></i> Editar
-				        </button>
-				    </td>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarModal">
+                        <i class="fas fa-pencil-alt"></i> Editar
+                        </button>
+                    </td>
                 </tr>
                 <tr>
                     <td>Dato 4</td>
                     <td>Dato 12</td>
                     <td>Dato 5</td>
                     <td>Ing</td>
-                    <td>Dato 6</td>
+
                     <td>
-                    	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarModal">
-			            <i class="fas fa-pencil-alt"></i> Editar
-				        </button>
-				    </td>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarModal">
+                        <i class="fas fa-pencil-alt"></i> Editar
+                        </button>
+                    </td>
                     
                 </tr>
                 

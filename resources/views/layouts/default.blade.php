@@ -77,6 +77,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Curriculum:</h6>
+                        <a class="collapse-item" href="{{ route('datosPersonales') }}">Datos personales</a>
                         @can('formacionAcademica')
                         <a class="collapse-item" href="{{ route('formacionAcademica') }}">Formación Academica</a>
                         @endcan
@@ -122,6 +123,7 @@
                 </div>
             </li>
             @endcan
+
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">

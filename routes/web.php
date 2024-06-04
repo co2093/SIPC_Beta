@@ -39,7 +39,7 @@ Route::get('/otrasCompetencias', [InvestigadorController::class, 'otrasCompetenc
 Route::get('/redInvestigador', [InvestigadorController::class, 'redInvestigador'])->middleware('role:investigador')->name('redInvestigador');
 Route::get('/proyectoInvestigacion', [InvestigadorController::class, 'proyectoInvestigacion'])->middleware('role:investigador')->name('proyectoInvestigacion');
 
-
+Route::get('/datosPersonales', [InvestigadorController::class, 'datosPersonales'])->middleware('role:investigador')->name('datosPersonales');
 //Route::get('/roles', [RolController::class, 'index'])->name('roles');
 
 Route::resource('roles', RoleController::class);
