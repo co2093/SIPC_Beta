@@ -8,7 +8,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
+  <title>SIPC UES</title>
   <title>SIPC UES</title>
 
   <!-- Custom fonts for this template-->
@@ -16,7 +22,15 @@
   <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
     rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="{{ asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
 
+  <!-- Custom styles for this template-->
+  <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
@@ -29,7 +43,11 @@
 
   <!-- Page Wrapper -->
   <div id="wrapper">
+  <!-- Page Wrapper -->
+  <div id="wrapper">
 
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -50,7 +68,13 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+      <!-- Divider -->
+      <hr class="sidebar-divider">
 
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Perfil y Proyectos
+      </div>
       <!-- Heading -->
       <div class="sidebar-heading">
         Perfil y Proyectos
@@ -72,7 +96,46 @@
           </div>
         </div>
         @endcan
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-user"></i>
+          <span>Perfil</span>
+        </a>
 
+        @can('propuesta')
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Candidato:</h6>
+            <a class="collapse-item" href="{{ route('formacionAcademica') }}">Propuesta</a>
+          </div>
+        </div>
+        @endcan
+
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Curriculum:</h6>
+            @can('formacionAcademica')
+            <a class="collapse-item" href="{{ route('formacionAcademica') }}">Formación Academica</a>
+            @endcan
+            <!-- <a class="collapse-item" href=" route('experienciaLaboral') ">Experiencia Laboral</a> -->
+            @can('experienciaCientifica')
+            <a class="collapse-item" href="{{ route('experienciaCientifica') }}">Experiencia Cientifica</a>
+            @endcan
+            @can('redInvestigador')
+            <a class="collapse-item" href="{{ route('redInvestigador') }}">Red de Investigadores</a>
+            @endcan
+            @can('proyectos')
+            <a class="collapse-item" href="{{ route('proyectoInvestigacion') }}">Proyectos de Investigacion</a>
+            @endcan
+            @can('otrasCompetencias')
+            <a class="collapse-item" href="{{ route('otrasCompetencias') }}">Otras Competencias</a>
+            @endcan
+          </div>
+        </div>
+
+      </li>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Curriculum:</h6>
@@ -121,6 +184,29 @@
         </div>
       </li>
       @endcan
+      <!-- Heading -->
+      @can('usuario')
+      <div class="sidebar-heading">
+        Usuarios
+      </div>
+      @endcan
+      <!-- Nav Item - Pages Collapse Menu -->
+      @can('role')
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRol" aria-expanded="true"
+          aria-controls="collapseRol">
+          <i class="fas fa-fw fa-user"></i>
+          <span>Roles</span>
+        </a>
+        <div id="collapseRol" class="collapse" aria-labelledby="headingRol" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('userRol') }}">Usuarios</a>
+            <a class="collapse-item" href="{{ route('roles.index') }}">Roles</a>
+            <a class="collapse-item" href="{{ route('formacionAcademica') }}">Permisos</a>
+          </div>
+        </div>
+      </li>
+      @endcan
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
@@ -138,7 +224,25 @@
           </div>
         </div>
       </li>
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+          aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>Proyectos</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Componentes:</h6>
+            <a class="collapse-item" href="#">Registrar</a>
+            <a class="collapse-item" href="#">Consultar</a>
+            <a class="collapse-item" href="#">Otros</a>
+          </div>
+        </div>
+      </li>
 
+      <!-- Divider -->
+      <hr class="sidebar-divider">
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -166,7 +270,33 @@
           </div>
         </div>
       </li>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+          aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Prueba</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Seguimiento:</h6>
+            <a class="collapse-item" href="#">404</a>
+            <a class="collapse-item" href="#">404</a>
+            <a class="collapse-item" href="#">404</a>
+            <div class="collapse-divider"></div>
+            <h6 class="collapse-header">Otros:</h6>
+            <a class="collapse-item" href="#">404</a>
+            <a class="collapse-item" href="#">404</a>
+          </div>
+        </div>
+      </li>
 
+      <!-- Nav Item - Charts -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Otros</span></a>
+      </li>
       <!-- Nav Item - Charts -->
       <li class="nav-item">
         <a class="nav-link" href="#">
@@ -251,13 +381,21 @@
 
     </ul>
     <!-- End of Sidebar -->
+    </ul>
+    <!-- End of Sidebar -->
 
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
       <div id="content">
+      <!-- Main Content -->
+      <div id="content">
 
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -287,7 +425,14 @@
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
               </a>
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
 
+              <div class="topbar-divider d-none d-sm-block"></div>
               <div class="topbar-divider d-none d-sm-block"></div>
 
             <li class="nav-item dropdown no-arrow">
@@ -314,14 +459,27 @@
                 </a>
               </div>
             </li>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Salir
+                </a>
+              </div>
+            </li>
 
+          </ul>
           </ul>
 
         </nav>
         <!-- End of Topbar -->
+        </nav>
+        <!-- End of Topbar -->
 
         @yield('content')
+        @yield('content')
 
+      </div>
+      <!-- End of Main Content -->
       </div>
       <!-- End of Main Content -->
 
@@ -337,10 +495,18 @@
 
     </div>
     <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->
+  </div>
+  <!-- End of Page Wrapper -->
 
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
@@ -373,17 +539,30 @@
       </div>
     </div>
   </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
   <!-- Core plugin JavaScript-->
   <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
   <!-- Custom scripts for all pages-->
   <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
+  <!-- Page level plugins -->
+  <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
   <!-- Page level plugins -->
   <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
 
