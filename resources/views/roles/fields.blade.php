@@ -5,11 +5,17 @@
 </div>
 
 <!-- Permissions Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('permissions', 'Permissions:') !!}
-    {!! Form::select('permissions', $permissionItems, null, ['multiple' => 'multiple', 'class' => 'form-control',
-    'name'=>'permissions[]' ]) !!}
-</div>
+<div class="form-group">
+            <label>Permissions:</label>
+            @foreach($permissionItems as $permission)
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $permission->id }}" id="permission-{{ $permission->id }}">
+                    <label class="form-check-label" for="permission-{{ $permission->id }}">
+                        {{ $permission->name }}
+                    </label>
+                </div>
+            @endforeach
+        </div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

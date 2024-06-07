@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Investigador;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('investigador.datosPersonales');
+
+        return redirect()->route('datosPersonales');
+        //return view('investigador.datosPersonales');
     }
 }

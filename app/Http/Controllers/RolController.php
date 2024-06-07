@@ -10,7 +10,7 @@ use App\Http\Requests\UpdateRoleRequest;
 use Illuminate\Support\Facades\DB;
 
 class RolController extends Controller
-{
+{//Controlador para asignar el rol al usuario
     public function userRol()
     {
         $roles = Role::all();
@@ -20,7 +20,7 @@ class RolController extends Controller
     }
     public function userRolCU(Request $request)
     {
-        $id = $request-> id;
+        $id = $request->id;
         $usuario = User::find($id);       
         $roles = Role::all();
 
@@ -28,8 +28,8 @@ class RolController extends Controller
     }
     public function userRolAsig(Request $request)
     {
-        $rol = $request-> rol;
-        $id = $request-> id;
+        $rol = $request->rol;
+        $id = $request->id;
         $usuario = User::find($id);
 
         $existe = DB::table('model_has_roles')->select('model_id')->where('model_id', $id)->first();

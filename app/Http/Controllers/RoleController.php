@@ -8,7 +8,7 @@ use App\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
-{
+{//Controlador para el CRUD  de rol y permiso
     public function index()
     {
         $roles = Role::all();
@@ -22,7 +22,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissionItems = Permission::pluck('name');
+        $permissionItems = Permission::all();
         return view('roles.create', compact('permissionItems'));
     }
 
@@ -41,11 +41,25 @@ class RoleController extends Controller
         $role = Role::create($request->only('name'));
         $permissions = $request->input('permissions');
 
-        if (!empty($request->has('permissions'))) {
-            $role->givePermissionTo($permissions);
+        if ($request->has('permissions')) {
+            $permissions = $request->input('permissions');
+            $role->syncPermissions($permissions);
         }
 
         return redirect()->route('roles.index')->with('success', 'Rol creado exitosamente.');
+    }
+    public function updatePermissions(Request $request)
+    {
+        // Encuentra el rol por su ID
+        $role = Role::findOrFail($request->only('name'));
+        $permissions = $request->input('permissions');
+        
+        // Actualiza los permisos del rol
+        DB::transaction(function () use ($role, $permissions) {
+            $role->permissions()->sync($permissions);
+        });
+        return redirect()->route('roles.index')->with('success', 'Rol creado exitosamente.');
+
     }
 
     /**
@@ -69,7 +83,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::findOrFail($id);
-        $permissionItems = Permission::pluck('name');
+        $permissionItems = Permission::all();
         return view('roles.edit', compact('role', 'permissionItems'));
     }
 
@@ -89,6 +103,10 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $role->name = $request->name;
         $role->save();
+
+        // Actualiza los permisos del rol
+        $permissions = $request->input('permissions');
+        $role->permissions()->sync($permissions);
 
         return redirect()->route('roles.index')
                          ->with('success', 'Role updated successfully');
