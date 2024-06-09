@@ -1,5 +1,11 @@
 @extends('layouts.default')
 @section('content')
+@section('content')
+@if (session('success'))
+        <div style="color: green; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+@endif
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Proyectos de investigación</h1>
@@ -10,7 +16,7 @@
 	  <ol class="breadcrumb">
 	    <li class="breadcrumb-item"><a href="{{ route('projects.show') }}">Proyectos</a></li>
 	   	<li class="breadcrumb-item"><a href="{{ route('projects.prueba') }}">Registro</a></li>
-	    <li class="breadcrumb-item active" aria-current="page">Titulo</li>
+	    <li class="breadcrumb-item active" aria-current="page">Título</li>
 	  </ol>
 	</nav>
 
@@ -25,41 +31,50 @@
 
                     <div class="card-body">
                 
-                    <form>
-  					<div class="form-group">
-					    <label for="exampleFormControlInput1">Título del proyecto</label>
-					    <input type="text" class="form-control" id="titulo" placeholder="Título" required>
-					  </div>
+            <form method="POST" action="{{ route('projects.store') }}" accept-charset="UTF-8" enctype="multipart/form-data">
+
+							@csrf
+
+
+  		
+  						<div class="form-group">
+							   
+							    <input type="hidden" value="{{Auth::user()->email}}" name="usuario" >
+						</div>
+
+                      <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Título del proyecto</label>
+                        <textarea class="form-control" name="titulo" rows="3"></textarea>
+                      </div>
 
 
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Área de conocimiento</label>
-					    <select class="form-control" id="area" required>
-					      <option>Área 1</option>
-					      <option>Área 2</option>
-					      <option>Área 3</option>
-					      <option>Área 4</option>
-					      <option>Área 5</option>
+					    <select class="form-control" name="area" required>
+					     @foreach($areas as $a)
+					     	<option value="{{$a->idareaconocimiento}}">{{$a->nombreareaconocimiento}}</option>
+					   	 @endforeach	
 					    </select>
 					  </div>
 
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Tipo de proyecto</label>
-					    <select class="form-control" id="tipo" required>
+					    <select class="form-control" name="tipo" required>
 					      <option>Consultoria</option>
 					      <option>Investigación básica</option>
 					      <option>Otro</option>
 					    </select>
 					  </div>
 
-					  <div class="form-group">
+
+  					<div class="form-group">
 					    <label for="exampleFormControlInput1">Tiempo dedicado a la investigación</label>
-					    <input type="number" class="form-control" id="tiempo" placeholder="0" required>
+					    <input type="number" class="form-control"  name="tiempo" placeholder="" min="1"                   
+					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
 					  </div>
 
-
-					  <button type="submit" class="btn btn-danger">Submit</button>
-				      <a  class="btn btn-secondary float-right" href="{{route('projects.prueba')}}">Regresar</a>
+					  <button type="submit" class="btn btn-danger">Finalizar</button>
+				      <a  class="btn btn-secondary float-right" href="{{route('projects.prueba')}}">Cancelar</a>
 
 
 

@@ -29,12 +29,20 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Proyectos
 Route::get('/projects', [App\Http\Controllers\ProjectsController::class, 'index'])->name('projects.crear');
 Route::get('/projects/show', [App\Http\Controllers\ProjectsController::class, 'show'])->name('projects.show');
-Route::get('/projects/prueba', [App\Http\Controllers\ProjectsController::class, 'prueba'])->name('projects.prueba');
+Route::get('/projects/registro/pasos', [App\Http\Controllers\ProjectsController::class, 'prueba'])->name('projects.prueba');
 Route::get('/projects/protocolo', [App\Http\Controllers\ProjectsController::class, 'protocolo'])->name('projects.protocolo');
 Route::get('/projects/enviar', [App\Http\Controllers\ProjectsController::class, 'enviar'])->name('projects.enviar');
 
 Route::get('/projects/archivados', [App\Http\Controllers\ProjectsController::class, 'archivadosindex'])->name('archivados.crear');
 Route::get('/projects/archivados/show', [App\Http\Controllers\ProjectsController::class, 'archivadosshow'])->name('archivados.show');
+Route::post('/projects/nuevo/project', [App\Http\Controllers\ProjectsController::class, 'store'])->name('projects.store');
+
+Route::get('/projects/confirm/{cod}',[App\Http\Controllers\ProjectsController::class, 'destroyConfirm'])->name('projects.confirm');
+Route::delete('/projects/{cod}',[App\Http\Controllers\ProjectsController::class, 'destroy'])->name('projects.destroy');
+Route::get('/projects/edit/{cod}',[App\Http\Controllers\ProjectsController::class, 'edit'])->name('projects.edit');
+Route::post('/projects/update', [App\Http\Controllers\ProjectsController::class, 'update'])->name('projects.update');
+Route::get('/projects/details/{cod}',[App\Http\Controllers\ProjectsController::class, 'details'])->name('projects.details');
+
 
 
 
@@ -110,6 +118,7 @@ Route::get('/publicaciones/show', [App\Http\Controllers\PublicacionesController:
 //Convocatoria
 Route::get('/convocatoria', [App\Http\Controllers\ConvocatoriaController::class, 'index'])->name('convocatoria.crear');
 Route::get('/convocatoria/show', [App\Http\Controllers\ConvocatoriaController::class, 'show'])->name('convocatoria.show');
+Route::post('/convocatoria/nuevo/store', [App\Http\Controllers\ConvocatoriaController::class, 'store'])->name('convocatoria.store');
 
 
 

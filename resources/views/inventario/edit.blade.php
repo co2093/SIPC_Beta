@@ -25,7 +25,7 @@
 
 							@csrf
 
-
+	
 						<div class="form-group">
 							    <label for="exampleFormControlInput1">Nombre del bien</label>
 							    <input type="text" class="form-control" value="{{$inv->descripcionbien}}" name="nombre" placeholder="" required>

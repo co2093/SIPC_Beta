@@ -37,6 +37,17 @@ class InventarioController extends Controller
 
         //dd($request);
 
+        $inv = DB::table('inventario')
+        ->where('codinventario', '=', $request->input('serie'))
+        ->first();
+
+        if($inv)
+        {
+            session()->flash('success', 'Ya existe un producto con el código: '.$request->input('serie'));
+            return redirect()->route('inventario.show');
+        }    
+        else{
+        
         DB::table('inventario')->insert([
 
             'codinventario' => $request->input('serie'),
@@ -51,33 +62,14 @@ class InventarioController extends Controller
 
         ]);
 
+        session()->flash('success', 'Se ha ingresado al inventario: '.$request->input('nombre'));
 
-        /**
-=> $request->input(''),
-
-        DB::table('plan_compras')->insert([
-            'cantidad' => $request->input('cantidad'),
-            'nombre_producto' => $request->input('nombre_producto'),
-            'especificaciones' => $request->input('especificaciones'),
-            'precio_unitario' => $p,
-            'cotizacion' => $nombreOriginal,
-            'proveedor'=>$request->input('proveedor'),
-            'user_id' => $request->input('user_id'),
-            'categoria' => $request->input('categoria'),
-            'fecha' => $fecha,
-            'estado' => 'Pendiente' 
-        ]);
+        return redirect()->route('inventario.show');
 
 
-
-        **/
-
+        }
 
 
-    //flash('Producto agregado al inventario exitosamente', 'success');
-    session()->flash('success', 'Se ha ingresado al inventario: '.$request->input('nombre'));
-
-    return redirect()->route('inventario.show');
 
     }    
 
@@ -96,13 +88,16 @@ class InventarioController extends Controller
 
     
         
-        return view('inventario.edit', compact('inv', 'facultades','estados'));
+        return view('inventario.edit', compact('inv', 'facultades','estados', 'codinventario'));
     }
 
     public function update(Request $request)
     {
+
+        
+        
         DB::table('inventario')
-        ->where('codinventario', $request->input('codinventario'))
+        ->where('codinventario', $request->input('serie'))
         ->update([
             'codinventario' => $request->input('serie'),
             'idcondicioninventario' => $request->input('estado'),

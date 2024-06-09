@@ -118,28 +118,52 @@
 
                     <div class="card-body">
 
-                          <table class="table">
+
+
+                        <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Codigo</th>
-                                    <th scope="col">Titulo</th>
+                                    <th scope="col">Código</th>
+                                    <th scope="col">Título</th>
                                     <th scope="col">Convocatoria</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Acciones</th>
                                    
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">AE2024</th>
-                                    <td>Proyecto</td>
-                                    <td>Ejemplo</td>
 
-                                </tr>
 
+                                @foreach($proyectos as $i)
+                                    <tr>
+                                        <td>{{$i->idproyecto}}</td>
+                                        <td>{{$i->tituloproyecto}}</td>
+                                        <td>{{$i->idconvocatoria}}</td>
+                                        @foreach($estados as $e)
+                                        @if($e->idestadoproyecto == $i->idestadoproyecto)
+                                        <td>{{$e->nombreestadoproyecto}}</td>
+                                        @endif
+                                        @endforeach
+                                        <td>
+                                    
+                                        <a  class="btn btn-primary btn-sm" href="#"><i class="fas fa-edit"></i></a>                                        
+                                        <a  class="btn btn-danger btn-sm" 
+                                        href="#"><i class="fas fa-trash"></i></a>
+
+
+                                        </td>
+                                    </tr>
+                               @endforeach
+
+                              
                                 <!-- More rows as needed -->
                             </tbody>
                         </table>
 
-                </div>
+
+                   
+
+                    </div>
             </div>
         </div>                    
     </div>
