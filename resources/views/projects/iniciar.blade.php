@@ -7,11 +7,8 @@
         </div>
 @endif
 
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Proyectos de investigación</h1>
-    </div>
 
-<!--
+
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
 	    <li class="breadcrumb-item"><a href="{{ route('projects.show') }}">Proyectos</a></li>
@@ -20,7 +17,7 @@
 	  </ol>
 	</nav>
 
--->
+
      <div class="row">
         <div class="col-lg-12">
   	        <div class="card shadow mb-4">
@@ -60,9 +57,10 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Tipo de proyecto</label>
 					    <select class="form-control" name="tipo" required>
-					      <option>Consultoria</option>
-					      <option>Investigación básica</option>
-					      <option>Otro</option>
+			    		 @foreach($tipo as $t)
+					     	<option value="{{$t->idtipoproyecto}}">{{$t->tipoproyecto}}</option>
+					   	 @endforeach		
+
 					    </select>
 					  </div>
 

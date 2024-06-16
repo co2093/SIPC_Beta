@@ -17,21 +17,36 @@ class ProjectsController extends Controller
     public function index($cod)
     {
 
-       //dd($cod);
         $areas = DB::table('area_conocimiento')->get();
+
+        $tipo = DB::table('tipo_proyecto')->get();
+
+
 
         $proyectos = DB::table('proyecto')
         ->where('idproyecto', '=', $cod)
         ->first();
 
-        return view('projects.index', compact('areas', 'cod','proyectos'));
+        $tp = DB::table('tipo_proyecto')
+        ->where('idtipoproyecto', '=', $proyectos->idtipoproyecto)
+        ->first();
+
+        $ar = DB::table('area_conocimiento')
+        ->where('idareaconocimiento', '=', $proyectos->idareaconocimiento)
+        ->first();
+
+        
+
+
+        return view('projects.index', compact('areas', 'cod','proyectos', 'tipo', 'tp', 'ar'));
     }
 
     public function iniciar()
     {
         $areas = DB::table('area_conocimiento')->get();
+        $tipo = DB::table('tipo_proyecto')->get();
 
-        return view('projects.iniciar', compact('areas'));
+        return view('projects.iniciar', compact('areas', 'tipo'));
     }
 
 
@@ -67,6 +82,7 @@ class ProjectsController extends Controller
             'idareaconocimiento' => $request->input('area'),
             'idconvocatoria' => $convocatoria->idconvocatoria,
             'idestadoproyecto' => 1,
+            'idtipoproyecto' => $request->input('tipo'),
           //  'codproyecto' => $convocatoria->anoconvocatoria,
             'tituloproyecto' => $request->input('titulo'),
             'antiguo' => false,
@@ -111,12 +127,13 @@ class ProjectsController extends Controller
         ->update([
             'tituloproyecto' => $request->input('titulo'),
             'idareaconocimiento' => $request->input('area'),
+            'idtipoproyecto' => $request->input('tipo'),
             'tiempo' => $request->input('tiempo')        ]);
 
 
                 
 
-        session()->flash('success', 'Producto actualizado exitosamente');
+        session()->flash('success', 'Proyecto actualizado exitosamente');
         return redirect()->to('/projects/registro/pasos/'.$request->input('idproyecto'));
 
     }

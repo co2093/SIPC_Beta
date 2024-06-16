@@ -61,11 +61,8 @@
                                         @endforeach
                                         <td>
                  
-                                        <a  class="btn btn-primary btn-sm" href="{{ route('projects.prueba', $i->idproyecto) }}"><i class="fas fa-edit"></i></a>                                        
-                                        <a  class="btn btn-danger btn-sm" 
-                                        href="#"><i class="fas fa-trash"></i></a>
-
-
+                                        <a  class="btn btn-primary btn-sm" href="{{ route('projects.prueba', $i->idproyecto) }}">Editar</a>                                        
+                                       
                                         </td>
                                     </tr>
                                @endforeach

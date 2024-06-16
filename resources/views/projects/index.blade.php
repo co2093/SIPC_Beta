@@ -49,18 +49,28 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Área de conocimiento</label>
 					    <select class="form-control" name="area" required>
+							<option value="{{$ar->idareaconocimiento}}">{{$ar->nombreareaconocimiento}}</option>
+
 					     @foreach($areas as $a)
+					     	@if($a->idareaconocimiento != $proyectos->idareaconocimiento)
 					     	<option value="{{$a->idareaconocimiento}}">{{$a->nombreareaconocimiento}}</option>
+					     	@endif
 					   	 @endforeach	
+
 					    </select>
 					  </div>
 
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Tipo de proyecto</label>
 					    <select class="form-control" name="tipo" required>
-					      <option>Consultoria</option>
-					      <option>Investigación básica</option>
-					      <option>Otro</option>
+					     	<option value="{{$tp->idtipoproyecto}}">{{$tp->tipoproyecto}}</option>
+
+					     @foreach($tipo as $t)
+					     	@if($t->idtipoproyecto != $proyectos->idtipoproyecto)
+					     	<option value="{{$t->idtipoproyecto}}">{{$t->tipoproyecto}}</option>
+					     	@endif
+					   	 @endforeach
+
 					    </select>
 					  </div>
 
