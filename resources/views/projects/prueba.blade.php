@@ -42,7 +42,7 @@
                 <div class="row">
                     <!-- Step 1 -->
                     <div class="col text-center">
-                        <a href="{{route('projects.crear')}}" class="step-number completed-step">
+                        <a href="{{route('projects.crear', $cod)}}" class="step-number completed-step">
                             <span class="fa fa-check-circle fa-2x"></span>
                             <p>Titulo</p>
                         </a>

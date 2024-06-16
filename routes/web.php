@@ -27,9 +27,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 //Proyectos
-Route::get('/projects', [App\Http\Controllers\ProjectsController::class, 'index'])->name('projects.crear');
+Route::get('/projects/crear/nuevo/{cod}', [App\Http\Controllers\ProjectsController::class, 'index'])->name('projects.crear');
+Route::get('/projects/iniciar', [App\Http\Controllers\ProjectsController::class, 'iniciar'])->name('projects.iniciar');
+
 Route::get('/projects/show', [App\Http\Controllers\ProjectsController::class, 'show'])->name('projects.show');
-Route::get('/projects/registro/pasos', [App\Http\Controllers\ProjectsController::class, 'prueba'])->name('projects.prueba');
+Route::get('/projects/registro/pasos/{cod}', [App\Http\Controllers\ProjectsController::class, 'prueba'])->name('projects.prueba');
 Route::get('/projects/protocolo', [App\Http\Controllers\ProjectsController::class, 'protocolo'])->name('projects.protocolo');
 Route::get('/projects/enviar', [App\Http\Controllers\ProjectsController::class, 'enviar'])->name('projects.enviar');
 

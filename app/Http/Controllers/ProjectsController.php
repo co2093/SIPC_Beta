@@ -14,11 +14,24 @@ class ProjectsController extends Controller
     //
 
 
-    public function index()
+    public function index($cod)
+    {
+
+       //dd($cod);
+        $areas = DB::table('area_conocimiento')->get();
+
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+
+        return view('projects.index', compact('areas', 'cod','proyectos'));
+    }
+
+    public function iniciar()
     {
         $areas = DB::table('area_conocimiento')->get();
 
-        return view('projects.index', compact('areas'));
+        return view('projects.iniciar', compact('areas'));
     }
 
 
@@ -92,27 +105,19 @@ class ProjectsController extends Controller
     public function update(Request $request)
     {
 
-        
-        
-        DB::table('inventario')
-        ->where('codinventario', $request->input('serie'))
+       // dd($request->input('idproyecto'));
+        DB::table('proyecto')
+        ->where('idproyecto', $request->input('idproyecto'))
         ->update([
-            'codinventario' => $request->input('serie'),
-            'idcondicioninventario' => $request->input('estado'),
-            'cantidad' => $request->input('cantidad'),
-            'descripcionbien' => $request->input('nombre'),
-            'ubicacion' => $request->input('ubicacion'),
-            'especificacion' => $request->input('especificaciones'),
-            'serie' => $request->input('serie'),
-            'valor' => $request->input('costo'),
-            'facultad' => $request->input('facultad')            
-        ]);
+            'tituloproyecto' => $request->input('titulo'),
+            'idareaconocimiento' => $request->input('area'),
+            'tiempo' => $request->input('tiempo')        ]);
 
 
                 
 
         session()->flash('success', 'Producto actualizado exitosamente');
-        return redirect()->route('inventario.show');
+        return redirect()->to('/projects/registro/pasos/'.$request->input('idproyecto'));
 
     }
 
@@ -172,7 +177,7 @@ class ProjectsController extends Controller
     }
 
 
-    public function prueba()
+    public function prueba($cod)
     {
 
         $convocatorias = DB::table('convocatoria')->get();
@@ -180,10 +185,11 @@ class ProjectsController extends Controller
         $estados = DB::table('estado_proyecto')->get();
 
         $proyectos = DB::table('proyecto')
-        ->where('usuario', '=', Auth::user()->email)
+        ->where('idproyecto', '=', $cod)
+
         ->get();
 
-        return view('projects.prueba', compact('proyectos', 'convocatorias', 'estados'));
+        return view('projects.prueba', compact('proyectos', 'convocatorias', 'estados', 'cod'));
 
     }
 

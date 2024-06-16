@@ -19,7 +19,7 @@
   	        	    <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-dark">Mis proyectos de investigación
 
-                        <a  class="btn btn-success float-right" href="{{route('projects.prueba')}}">Agregar</a>
+                        <a  class="btn btn-success float-right" href="{{route('projects.iniciar')}}">Agregar</a>
 
                     </h6>
 
@@ -60,8 +60,8 @@
                                         @endif
                                         @endforeach
                                         <td>
-                                        <a  class="btn btn-info btn-sm" href="{{ route('projects.details', $i->idproyecto) }}"><i class="fas fa-eye"></i></a>  
-                                        <a  class="btn btn-primary btn-sm" href="#"><i class="fas fa-edit"></i></a>                                        
+                 
+                                        <a  class="btn btn-primary btn-sm" href="{{ route('projects.prueba', $i->idproyecto) }}"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" 
                                         href="#"><i class="fas fa-trash"></i></a>
 
