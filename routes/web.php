@@ -50,8 +50,15 @@ Route::get('/projects/details/{cod}',[App\Http\Controllers\ProjectsController::c
 
 
 //Objetivos
-Route::get('/objetivos', [App\Http\Controllers\ObjetivosController::class, 'index'])->name('objetivos.crear');
-Route::get('/objetivos/show', [App\Http\Controllers\ObjetivosController::class, 'show'])->name('objetivos.show');
+Route::get('/objetivos/crear/{cod}', [App\Http\Controllers\ObjetivosController::class, 'index'])->name('objetivos.crear');
+Route::get('/objetivos/show/{cod}', [App\Http\Controllers\ObjetivosController::class, 'show'])->name('objetivos.show');
+Route::post('/objetivos/nuevo/obj', [App\Http\Controllers\ObjetivosController::class, 'store'])->name('objetivos.store');
+Route::get('/objetivos/confirm/{id}',[App\Http\Controllers\ObjetivosController::class, 'destroyConfirm'])->name('objetivos.confirm');
+Route::post('/objetivos/update', [App\Http\Controllers\ObjetivosController::class, 'update'])->name('objetivos.update');
+Route::delete('/objetivos/delete/{cod}',[App\Http\Controllers\ObjetivosController::class, 'destroy'])->name('objetivos.destroy');
+Route::get('/objetivos/edit/{cod}',[App\Http\Controllers\ObjetivosController::class, 'edit'])->name('objetivos.edit');
+
+
 
 
 //Actividades
@@ -170,7 +177,7 @@ Route::get('/inventario', [App\Http\Controllers\InventarioController::class, 'in
 Route::get('/inventario/show', [App\Http\Controllers\InventarioController::class, 'show'])->name('inventario.show');
 Route::post('/inventario/nuevo/producto', [App\Http\Controllers\InventarioController::class, 'store'])->name('inventario.store');
 Route::get('/inventario/confirm/{codinventario}',[App\Http\Controllers\InventarioController::class, 'destroyConfirm'])->name('inventario.confirm');
-Route::delete('/inventario/{codinventario}',[App\Http\Controllers\InventarioController::class, 'destroy'])->name('inventario.destroy');
+Route::delete('/inventario/delete/{codinventario}',[App\Http\Controllers\InventarioController::class, 'destroy'])->name('inventario.destroy');
 Route::get('/inventario/edit/{codinventario}',[App\Http\Controllers\InventarioController::class, 'edit'])->name('inventario.edit');
 Route::post('/inventario/update', [App\Http\Controllers\InventarioController::class, 'update'])->name('inventario.update');
 Route::get('/inventario/details/{codinventario}',[App\Http\Controllers\InventarioController::class, 'details'])->name('inventario.details');

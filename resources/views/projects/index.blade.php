@@ -63,8 +63,9 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Tipo de proyecto</label>
 					    <select class="form-control" name="tipo" required>
+					    @if($tp)	
 					     	<option value="{{$tp->idtipoproyecto}}">{{$tp->tipoproyecto}}</option>
-
+					    @endif 	
 					     @foreach($tipo as $t)
 					     	@if($t->idtipoproyecto != $proyectos->idtipoproyecto)
 					     	<option value="{{$t->idtipoproyecto}}">{{$t->tipoproyecto}}</option>

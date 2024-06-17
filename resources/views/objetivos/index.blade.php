@@ -1,18 +1,18 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Objetivos del Proyecto de investigación</h1>
-    </div>
-
-
+@if (session('success'))
+        <div style="color: green; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+@endif
 
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
 
-        <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('objetivos.show') }}">Objetivos</a></li>
+        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $cod)}}">Registro</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('objetivos.show', $cod) }}">Objetivos</a></li>
         <li class="breadcrumb-item active" aria-current="page">Crear objetivo</li>
       </ol>
     </nav>
@@ -28,53 +28,46 @@
 
                     <div class="card-body">
                 
-                    <form>
+                    <form method="POST" action="{{ route('objetivos.store') }}" accept-charset="UTF-8" enctype="multipart/form-data">
 
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Objetivo general</label>
-                        <textarea class="form-control" id="Descripcion corta" rows="3"></textarea>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Objetivo especifico 1</label>
-                        <textarea class="form-control" id="Descripcion corta" rows="3"></textarea>
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Objetivo especifico 2</label>
-                        <textarea class="form-control" id="Descripcion corta" rows="3"></textarea>
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Objetivo especifico 3</label>
-                        <textarea class="form-control" id="Descripcion corta" rows="3"></textarea>
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Objetivo especifico 4</label>
-                        <textarea class="form-control" id="Descripcion corta" rows="3"></textarea>
-                    </div>
+                            @csrf
 
 
 
 
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Objetivo especifico 5</label>
-                        <textarea class="form-control" id="Descripcion corta" rows="3"></textarea>
+                        <input type="hidden" value="{{$cod}}" name="cod" >
+                    </div>
+
+                    <div class="form-group">
+                        @if($obj)
+                        <label for="exampleFormControlTextarea1">Objetivo específico</label>
+
+                        @else
+                        <label for="exampleFormControlTextarea1">Objetivo</label>
+                        @endif
+                        <textarea class="form-control" id="Descripcion corta" rows="3" name="descripcion" required></textarea>
                     </div>
 
 
+                  @if($obj)
+                      <div class="form-group">
+                        <input type="hidden" value="2" name="tipo" >
+                    </div>
+                  @else  
+
+                  <div class="form-group">
+                        <label for="exampleFormControlSelect1">Tipo de objetivo</label>
+                        <select class="form-control" name="tipo" required>
+                            <option value="1">General</option>
+                            <option value="2">Específico</option>
+                        </select>
+                      </div>
+                  @endif    
 
 
-                      <button type="submit" class="btn btn-danger">Submit</button>
-                    <a  class="btn btn-secondary float-right" href="{{route('objetivos.show')}}">Regresar</a>
+                      <button type="submit" class="btn btn-danger">Guardar</button>
+                    <a  class="btn btn-secondary float-right" href="{{route('objetivos.show', $cod)}}">Regresar</a>
 
 
                     </form>

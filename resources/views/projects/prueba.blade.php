@@ -51,7 +51,7 @@
                     
                     <!-- Step 2 -->
                     <div class="col text-center">
-                        <a href="{{route('objetivos.show')}}" class="step-number completed-step">
+                        <a href="{{route('objetivos.show', $cod)}}" class="step-number completed-step">
                             <span class="fa fa-check-circle fa-2x"></span>
                             <p>Objetivos</p>
                         </a>
