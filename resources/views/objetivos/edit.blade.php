@@ -1,6 +1,10 @@
 @extends('layouts.default')
 @section('content')
-
+@if (session('success'))
+        <div style="color: green; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+@endif
 
 
     <nav aria-label="breadcrumb">

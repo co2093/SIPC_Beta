@@ -55,7 +55,7 @@
                                         @if($o->tipo == 1)
                                         General
                                         @else
-                                        Especifico
+                                        Específico
                                         @endif    
                                         </td>
                                         <td>

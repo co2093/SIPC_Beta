@@ -59,7 +59,7 @@
 
                     <!-- Step 3 -->
                     <div class="col text-center">
-                        <a href="{{route('actividades.show')}}" class="step-number current-step">
+                        <a href="{{route('actividades.show', $cod)}}" class="step-number current-step">
                             <span class="fa fa-edit fa-2x"></span>
                             <p>Actividades</p>
                         </a>

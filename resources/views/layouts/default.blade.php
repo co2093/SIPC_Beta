@@ -97,29 +97,9 @@
                     </div>
                
 <!--
-                   <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Actividades</h6>
-                        <a class="collapse-item" href="{{route('actividades.crear')}}">Registrar</a>
-                        <a class="collapse-item" href="{{route('actividades.show')}}">Consultar</a>
-                        <a class="collapse-item" href="#">Otros</a>
-                    </div>
+                   
 
 
-                   <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Fuentes de financiamiento</h6>
-                        <a class="collapse-item" href="{{route('fuentes.crear')}}">Registrar</a>
-                        <a class="collapse-item" href="{{route('fuentes.show')}}">Consultar</a>
-                        <a class="collapse-item" href="#">Otros</a>
-                    </div>
-
-
-
-                   <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Presupuesto</h6>
-                        <a class="collapse-item" href="{{route('actividades.crear')}}">Registrar</a>
-                        <a class="collapse-item" href="{{route('actividades.show')}}">Consultar</a>
-                        <a class="collapse-item" href="#">Otros</a>
-                    </div>
 
                 -->
 

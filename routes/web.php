@@ -62,8 +62,14 @@ Route::get('/objetivos/edit/{cod}',[App\Http\Controllers\ObjetivosController::cl
 
 
 //Actividades
-Route::get('/actividades', [App\Http\Controllers\ActividadesController::class, 'index'])->name('actividades.crear');
-Route::get('/actividades/show', [App\Http\Controllers\ActividadesController::class, 'show'])->name('actividades.show');
+Route::get('/actividades/crear/{cod}', [App\Http\Controllers\ActividadesController::class, 'index'])->name('actividades.crear');
+Route::get('/actividades/show/{cod}', [App\Http\Controllers\ActividadesController::class, 'show'])->name('actividades.show');
+Route::post('/actividades/nuevo/obj', [App\Http\Controllers\ActividadesController::class, 'store'])->name('actividades.store');
+Route::get('/actividades/confirm/{id}',[App\Http\Controllers\ActividadesController::class, 'destroyConfirm'])->name('actividades.confirm');
+Route::post('/actividades/update', [App\Http\Controllers\ActividadesController::class, 'update'])->name('actividades.update');
+Route::delete('/actividades/delete/{cod}',[App\Http\Controllers\ActividadesController::class, 'destroy'])->name('actividades.destroy');
+Route::get('/actividades/edit/{cod}',[App\Http\Controllers\ActividadesController::class, 'edit'])->name('actividades.edit');
+
 
 
 //Fuentes
