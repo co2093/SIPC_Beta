@@ -75,7 +75,7 @@
 
                     <!-- Step 5 -->
                     <div class="col text-center">
-                        <a href="{{route('colaboradores.show')}}" class="step-number pending-step">
+                        <a href="{{route('colaboradores.show', $cod)}}" class="step-number pending-step">
                             <span class="fa fa-clock fa-2x"></span>
                             <p>Colaboradores</p>
                         </a>

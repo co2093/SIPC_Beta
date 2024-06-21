@@ -138,9 +138,13 @@ Route::post('/convocatoria/nuevo/store', [App\Http\Controllers\ConvocatoriaContr
 
 
 //Colaboradores
-Route::get('/colaboradores', [App\Http\Controllers\ColaboradoresController::class, 'index'])->name('colaboradores.crear');
-Route::get('/colaboradores/show', [App\Http\Controllers\ColaboradoresController::class, 'show'])->name('colaboradores.show');
-
+Route::get('/colaboradores/crear/{cod}', [App\Http\Controllers\ColaboradoresController::class, 'index'])->name('colaboradores.crear');
+Route::get('/colaboradores/show/{cod}', [App\Http\Controllers\ColaboradoresController::class, 'show'])->name('colaboradores.show');
+Route::post('/colaboradores/nuevo/obj', [App\Http\Controllers\ColaboradoresController::class, 'store'])->name('colaboradores.store');
+Route::get('/colaboradores/confirm/{id}',[App\Http\Controllers\ColaboradoresController::class, 'destroyConfirm'])->name('colaboradores.confirm');
+Route::post('/colaboradores/update', [App\Http\Controllers\ColaboradoresController::class, 'update'])->name('colaboradores.update');
+Route::delete('/colaboradores/delete/{cod}',[App\Http\Controllers\ColaboradoresController::class, 'destroy'])->name('colaboradores.destroy');
+Route::get('/colaboradores/edit/{cod}',[App\Http\Controllers\ColaboradoresController::class, 'edit'])->name('colaboradores.edit');
 
 
 //Catalogos
