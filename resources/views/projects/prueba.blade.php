@@ -67,7 +67,7 @@
                     
                     <!-- Step 4 -->
                     <div class="col text-center">
-                        <a href="{{route('presupuesto.menu.show')}}" class="step-number pending-step">
+                        <a href="{{route('presupuesto.menu.show', $cod)}}" class="step-number pending-step">
                             <span class="fa fa-clock fa-2x"></span>
                             <p>Presupuesto</p>
                         </a>

@@ -179,7 +179,7 @@ Route::get('/catalogos/tipopublicaciones/show', [App\Http\Controllers\CatalogosC
 
 
 //Presupuesto
-Route::get('/presupuesto', [App\Http\Controllers\PresupuestoController::class, 'showPresupuesto'])->name('presupuesto.menu.show');
+Route::get('/presupuesto/show/menu/{cod}', [App\Http\Controllers\PresupuestoController::class, 'showPresupuesto'])->name('presupuesto.menu.show');
 
 
 //Inventario

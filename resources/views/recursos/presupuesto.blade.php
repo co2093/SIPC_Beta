@@ -1,10 +1,14 @@
 @extends('layouts.default')
 @section('content')
-
+@if (session('success'))
+        <div style="color: green; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+@endif
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
-        <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
+        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $cod)}}">Registro</a></li>
         <li class="breadcrumb-item active" aria-current="page">Presupuesto</li>
       </ol>
     </nav>
@@ -16,7 +20,7 @@
 
 
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-dark">Gestion del presupuesto del proyecto de investigacion</h6>
+                        <h6 class="m-0 font-weight-bold text-dark">Gestión del presupuesto del proyecto de investigación</h6>
                     </div>
         <div class="card-body">
 
@@ -125,27 +129,20 @@
                             <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Financiamiento</th>
                                     <th scope="col">Total</th>
                                     <th scope="col">Disponible</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">UES</th>
-                                    <td>$10000</td>
-                                    <td>$7000</td>
+                                    <td>${{$p->presupuestototal}}</td>
+                                    <td>${{$p->disponible}}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">SIPC</th>
-                                    <td>$5000</td>
-                                    <td>$1500</td>
-                                </tr>
-                                <!-- More rows as needed -->
+                                
                             </tbody>
                         </table>
 
-                     <a  class="btn btn-secondary float-right" href="{{route('projects.prueba')}}">Regresar</a>
+                     <a  class="btn btn-secondary float-right" href="{{route('projects.prueba', $cod)}}">Regresar</a>
 
 
                 </div>
