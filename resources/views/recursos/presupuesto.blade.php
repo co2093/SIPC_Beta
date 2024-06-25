@@ -47,7 +47,7 @@
                 <div class="row">
                     <!-- Step 1 -->
                     <div class="col text-center">
-                        <a href="{{route('fuentes.show')}}" class="step-number completed-step">
+                        <a href="{{route('fuentes.show', $cod)}}" class="step-number completed-step">
                             <span class="fa fa-university fa-2x"></span>
                             <p>Financiamientos</p>
                         </a>

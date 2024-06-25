@@ -73,21 +73,13 @@ Route::get('/actividades/edit/{cod}',[App\Http\Controllers\ActividadesController
 
 
 //Fuentes
-Route::get('/fuentes', [App\Http\Controllers\FuentesController::class, 'index'])->name('fuentes.crear');
-Route::get('/fuentes/show', [App\Http\Controllers\FuentesController::class, 'show'])->name('fuentes.show');
-
-
-
-//Fuentes
-Route::get('/fuentes', [App\Http\Controllers\FuentesController::class, 'index'])->name('fuentes.crear');
-Route::get('/fuentes/show', [App\Http\Controllers\FuentesController::class, 'show'])->name('fuentes.show');
-
-
-
-//Fuentes
-Route::get('/presupuesto', [App\Http\Controllers\FuentesController::class, 'index'])->name('presupuesto.crear');
-Route::get('/presupuesto/show', [App\Http\Controllers\FuentesController::class, 'show'])->name('presupuesto.show');
-
+Route::get('/fuentes/crear/nuevo/{cod}', [App\Http\Controllers\FuentesController::class, 'index'])->name('fuentes.crear');
+Route::get('/fuentes/show/{cod}', [App\Http\Controllers\FuentesController::class, 'show'])->name('fuentes.show');
+Route::post('/fuentes/nuevo/obj', [App\Http\Controllers\FuentesController::class, 'store'])->name('fuentes.store');
+Route::get('/fuentes/confirm/{id}',[App\Http\Controllers\FuentesController::class, 'destroyConfirm'])->name('fuentes.delete');
+Route::post('/fuentes/update', [App\Http\Controllers\FuentesController::class, 'update'])->name('fuentes.update');
+Route::delete('/fuentes/delete/{cod}',[App\Http\Controllers\FuentesController::class, 'destroy'])->name('fuentes.destroy');
+Route::get('/fuentes/edit/{cod}',[App\Http\Controllers\FuentesController::class, 'edit'])->name('fuentes.edit');
 
 
 
