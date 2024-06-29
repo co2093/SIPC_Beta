@@ -56,7 +56,7 @@
                     
                     <!-- Step 2 -->
                     <div class="col text-center">
-                        <a href="{{route('recursos.show')}}" class="step-number completed-step">
+                        <a href="{{route('recursos.show', $cod)}}" class="step-number completed-step">
                             <span class="fa fa-laptop fa-2x"></span>
                             <p>Recursos</p>
                         </a>

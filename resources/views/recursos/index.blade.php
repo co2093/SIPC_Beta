@@ -4,9 +4,9 @@
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
-        <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
-        <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show')}}">Presupuesto</a></li>
-        <li class="breadcrumb-item"><a href="{{route('recursos.show')}}">Recursos</a></li>
+        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $cod)}}">Registro</a></li>
+        <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show', $cod)}}">Presupuesto</a></li>
+        <li class="breadcrumb-item"><a href="{{route('recursos.show', $cod)}}">Recursos</a></li>
 	    <li class="breadcrumb-item active" aria-current="page">Crear recurso</li>
 	  </ol>
 	</nav>
@@ -22,15 +22,26 @@
 
                     <div class="card-body">
                 
-                    <form>
+             <form method="POST" action="{{ route('recursos.store') }}" accept-charset="UTF-8" enctype="multipart/form-data">
+
+                            @csrf
+
+
+
+                    	    <div class="form-group">
+                        <input type="hidden" value="{{$cod}}" name="cod" >
+                    </div>
+
 
 
 				  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Actividad asociada</label>
-					    <select class="form-control" id="actividad" required>
-					      <option>Actividad 1</option>
-					      <option>Actividad 2</option>
-					      <option>Actividad 3</option>
+					    <select class="form-control" name="idactividad" required>
+					
+					    	@foreach($actividades as $a)
+					    		<option value="{{$a->idactividad}}">{{$a->nombreactividad}}</option>
+					    	@endforeach
+
 					    </select>
 				  </div>
 
@@ -38,48 +49,73 @@
 
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Tipo de recurso</label>
-					    <select class="form-control" id="tipo" required>
-					      <option>Materiales</option>
-					      <option>Suministros</option>
-					      <option>Equipo informatico</option>
-					      <option>Equipo de laboratorio</option>
-					      <option>Reactivos controlados</option>
-					      <option>Reactivos no controlados</option>
+					    <select class="form-control" name="tiporecurso" required>
+						     @foreach($tipo as $t)
+						     	<option value="{{$t->idtiporecurso}}">{{$t->nombretiporecurso}}</option>
+						     @endforeach
+
 					    </select>
 					  </div>
 
 
+
+					  	  <div class="form-group">
+					    <label for="exampleFormControlSelect1">Unidad de medida</label>
+					    <select class="form-control" name="unidad" required>
+						    @foreach($unidades as $u)
+						    <option value="{{$u->idunidadmedida}}">{{$u->nombreunidadmedida}}</option>
+						    @endforeach
+					    </select>
+				  </div>
+
+
+
   					<div class="form-group">
 					    <label for="exampleFormControlInput1">Nombre</label>
-					    <input type="text" class="form-control" id="nombre" placeholder="Nombre del recurso" required>
+					    <input type="text" class="form-control" name="nombre" placeholder="Nombre del recurso" required>
 					  </div>
 
 					  <div class="form-group">
 					    <label for="exampleFormControlTextarea1">Especificaciones tecnicas del recurso</label>
-					    <textarea class="form-control" id="especificaciones" rows="3"></textarea>
+					    <textarea class="form-control" name="especificaciones" rows="3" required></textarea>
 					  </div>
+
+
+				 <div class="form-group">
+					    <label for="exampleFormControlSelect1">Fuente de financiamiento</label>
+					    <select class="form-control" name="idfuente" required>
+					   	
+					   	@foreach($fuentes as $f)
+					   	<option value="{{$f->idfuente}}">{{$f->descripcionfuente}}</option>
+					   	@endforeach
+
+					    </select>
+				  </div>
+
 
 					
   					<div class="form-group">
 					    <label for="exampleFormControlInput1">Costo unitario</label>
-					    <input type="number" class="form-control" id="costo" placeholder="0.0">
+					    <input type="number" class="form-control" name="costo" placeholder="" min="0.0"                   
+					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
 					  </div>
 
 					 <div class="form-group">
 					    <label for="exampleFormControlInput1">Cantidad</label>
-					    <input type="number" class="form-control" id="cantidad" placeholder="0.0">
+					    <input type="number" class="form-control" name="cantidad" placeholder="" min="0"                   
+					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
 					  </div>
 
 
 					 <div class="form-group">
 					    <label for="exampleFormControlInput1">Subtotal</label>
-					    <input type="number" class="form-control" id="subtotal" placeholder="0.0">
+					    <input type="number" class="form-control" name="subtotal" placeholder="0.0">
 					  </div>
 
 
 
 					  <button type="submit" class="btn btn-danger">Submit</button>
-					  <a  class="btn btn-secondary float-right" href="{{route('recursos.show')}}">Regresar</a>
+					  <a  class="btn btn-secondary float-right" href="{{route('recursos.show', $cod)}}">Regresar</a>
 
 
 					</form>

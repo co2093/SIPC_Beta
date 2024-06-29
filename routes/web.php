@@ -83,10 +83,14 @@ Route::get('/fuentes/edit/{cod}',[App\Http\Controllers\FuentesController::class,
 
 
 
-//Fuentes
-Route::get('/recursos', [App\Http\Controllers\RecursosController::class, 'index'])->name('recursos.crear');
-Route::get('/recursos/show', [App\Http\Controllers\RecursosController::class, 'show'])->name('recursos.show');
-
+//Recursos
+Route::get('/recursos/crear/nuevo/{cod}', [App\Http\Controllers\RecursosController::class, 'index'])->name('recursos.crear');
+Route::get('/recursos/show/{cod}', [App\Http\Controllers\RecursosController::class, 'show'])->name('recursos.show');
+Route::post('/recursos/nuevo/obj', [App\Http\Controllers\RecursosController::class, 'store'])->name('recursos.store');
+Route::get('/recursos/confirm/{id}',[App\Http\Controllers\RecursosController::class, 'destroyConfirm'])->name('recursos.delete');
+Route::post('/recursos/update', [App\Http\Controllers\RecursosController::class, 'update'])->name('recursos.update');
+Route::delete('/recursos/delete/{cod}',[App\Http\Controllers\RecursosController::class, 'destroy'])->name('recursos.destroy');
+Route::get('/recursos/edit/{cod}',[App\Http\Controllers\RecursosController::class, 'edit'])->name('recursos.edit');
 
 
 
