@@ -1,5 +1,10 @@
 @extends('layouts.default')
 @section('content')
+@if (session('success'))
+        <div style="color: green; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+@endif
 
 
     <nav aria-label="breadcrumb">
@@ -36,20 +41,26 @@
                                 <tr>
                                     <th scope="col">Tipo</th>
                                     <th scope="col">Nombre</th>
+                                    <th scope="col">Unidad</th>
                                     <th scope="col">Cantidad</th>
-                                     <th scope="col">Acciones</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 
                             @foreach($recursos as $r)
                                     <tr>
-                                        <td>{{$r->idtiporecurso}}</td>
+                                        <td>{{$r->nombretiporecurso}}</td>
                                         <td>{{$r->nombrerecurso}}</td>
+                                        <td>{{$r->nombreunidadmedida}}</td>
                                         <td>{{$r->cantidadrecurso}}</td>
+                                        <td>${{$r->preciorecurso}}</td>
+                                        <td>${{$r->subtotalrecurso}}</td>
                                         <td>
-                                        <a  class="btn btn-primary btn-sm" href="#"><i class="fas fa-edit"></i></a>                                        
-                                        <a  class="btn btn-danger btn-sm" href="#"><i class="fas fa-trash-alt"></i></a>
+                                        <a  class="btn btn-primary btn-sm" href="{{ route('recursos.edit', $r->idrecurso) }}"><i class="fas fa-edit"></i></a>                                        
+                                        <a  class="btn btn-danger btn-sm" href="{{ route('recursos.delete', $r->idrecurso) }}"><i class="fas fa-trash-alt"></i></a>
 
                                         </td>
                                     </tr>
