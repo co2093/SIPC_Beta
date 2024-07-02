@@ -95,8 +95,13 @@ Route::get('/recursos/edit/{cod}',[App\Http\Controllers\RecursosController::clas
 
 
 //Fuentes
-Route::get('/personal', [App\Http\Controllers\PersonalController::class, 'index'])->name('personal.crear');
-Route::get('/personal/show', [App\Http\Controllers\PersonalController::class, 'show'])->name('personal.show');
+Route::get('/personal/crear/nuevo/{cod}', [App\Http\Controllers\PersonalController::class, 'index'])->name('personal.crear');
+Route::get('/personal/show/{cod}', [App\Http\Controllers\PersonalController::class, 'show'])->name('personal.show');
+Route::post('/personal/nuevo/obj', [App\Http\Controllers\PersonalController::class, 'store'])->name('personal.store');
+Route::get('/personal/confirm/{id}',[App\Http\Controllers\PersonalController::class, 'destroyConfirm'])->name('personal.delete');
+Route::post('/personal/update', [App\Http\Controllers\PersonalController::class, 'update'])->name('personal.update');
+Route::delete('/personal/delete/{cod}',[App\Http\Controllers\PersonalController::class, 'destroy'])->name('personal.destroy');
+Route::get('/personal/edit/{cod}',[App\Http\Controllers\PersonalController::class, 'edit'])->name('personal.edit');
 
 
 

@@ -1,6 +1,13 @@
 @extends('layouts.default')
 @section('content')
 
+@if (session('success'))
+        <div style="color: green; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+@endif
+
+
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>

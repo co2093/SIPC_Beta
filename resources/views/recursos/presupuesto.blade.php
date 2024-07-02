@@ -64,7 +64,7 @@
 
                     <!-- Step 3 -->
                     <div class="col text-center">
-                        <a href="{{route('personal.show')}}" class="step-number current-step">
+                        <a href="{{route('personal.show', $cod)}}" class="step-number current-step">
                             <span class="fa fa-user-circle fa-2x"></span>
                             <p>Contrataciones</p>
                         </a>

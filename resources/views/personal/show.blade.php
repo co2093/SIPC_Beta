@@ -1,14 +1,18 @@
 @extends('layouts.default')
 @section('content')
-
+@if (session('success'))
+        <div style="color: green; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+@endif
 
 
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
-        <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
-        <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show')}}">Presupuesto</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Contratacion</li>
+        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $cod)}}">Registro</a></li>
+        <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show', $cod)}}">Presupuesto</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Contrataciones</li>
       </ol>
     </nav>
 
@@ -18,7 +22,7 @@
 
   	        	    <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-dark">Ver contrataciones del personal de investigación
-                         <a  class="btn btn-success float-right" href="{{route('personal.crear')}}">Agregar</a>
+                         <a  class="btn btn-success float-right" href="{{route('personal.crear', $cod)}}">Agregar</a>
                         </h6>
                     </div>
 
@@ -35,41 +39,33 @@
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">#</th>
                                     <th scope="col">Tipo</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Horas a laborar</th>
+                                    <th scope="col">Pago por Hora</th>
+                                    <th scope="col">Horas</th>
+                                    <th scope="col">Subtotal</th>
                                      <th scope="col">Acciones</th>
 
                                 </tr>
                             </thead>
                             <tbody>
+                                
+                                @foreach($personal as $p)
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Graduado</td>
-                                    <td>Jose Perez</td>
-                                    <td>40</td>
+                                    <td>{{$p->nombretipocontratacion}}</td>
+                                    <td>${{$p->pago}}</td>
+                                    <td>{{$p->dias}}</td>
+                                    <td>${{$p->total}}</td>
                                     <td>
-                                        <button class="btn btn-success btn-sm mr-2"><i class="fas fa-eye"></i></button>
-                                        <button class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                <a  class="btn btn-primary btn-sm" href="{{ route('personal.edit', $p->idcontratacion) }}"><i class="fas fa-edit"></i></a>                                        
+                                <a  class="btn btn-danger btn-sm" href="{{ route('personal.delete', $p->idcontratacion) }}"><i class="fas fa-trash-alt"></i></a>
+
                                     </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Graduado</td>
-                                    <td>Jose Lopez</td>
-                                    <td>25</td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm mr-2"><i class="fas fa-eye"></i></button>
-                                        <button class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- More rows as needed -->
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                         </table>
-                      <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show')}}">Regresar</a>
+                      <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>
 
                     </div>
             </div>
