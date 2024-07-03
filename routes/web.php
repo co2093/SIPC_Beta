@@ -106,16 +106,17 @@ Route::get('/personal/edit/{cod}',[App\Http\Controllers\PersonalController::clas
 
 
 
-//Fuentes
-Route::get('/materiales', [App\Http\Controllers\MaterialesController::class, 'index'])->name('materiales.crear');
-Route::get('/materiales/show', [App\Http\Controllers\MaterialesController::class, 'show'])->name('materiales.show');
-
-
 
 
 //Fuentes
-Route::get('/viaticos', [App\Http\Controllers\ViaticosController::class, 'index'])->name('viaticos.crear');
-Route::get('/viaticos/show', [App\Http\Controllers\ViaticosController::class, 'show'])->name('viaticos.show');
+Route::get('/viaticos/crear/nuevo/{cod}', [App\Http\Controllers\ViaticosController::class, 'index'])->name('viaticos.crear');
+Route::get('/viaticos/show/{cod}', [App\Http\Controllers\ViaticosController::class, 'show'])->name('viaticos.show');
+Route::post('/viaticos/nuevo/obj', [App\Http\Controllers\ViaticosController::class, 'store'])->name('viaticos.store');
+Route::get('/viaticos/confirm/{id}',[App\Http\Controllers\ViaticosController::class, 'destroyConfirm'])->name('viaticos.delete');
+Route::post('/viaticos/update', [App\Http\Controllers\ViaticosController::class, 'update'])->name('viaticos.update');
+Route::delete('/viaticos/delete/{cod}',[App\Http\Controllers\ViaticosController::class, 'destroy'])->name('viaticos.destroy');
+Route::get('/viaticos/edit/{cod}',[App\Http\Controllers\ViaticosController::class, 'edit'])->name('viaticos.edit');
+
 
 
 //Fuentes

@@ -72,9 +72,9 @@
                     
                     <!-- Step 4 -->
                     <div class="col text-center">
-                        <a href="{{route('viaticos.show')}}" class="step-number pending-step">
+                        <a href="{{route('viaticos.show', $cod)}}" class="step-number pending-step">
                             <span class="fa fa-car fa-2x"></span>
-                            <p>Viaticos Nacionales</p>
+                            <p>Viáticos Nacionales</p>
                         </a>
                     </div>
 
@@ -82,7 +82,7 @@
                     <div class="col text-center">
                         <a href="{{route('viaticos.int.show')}}" class="step-number pending-step">
                             <span class="fa fa-plane fa-2x"></span>
-                            <p>Viaticos Internacionales</p>
+                            <p>Viáticos Internacionales</p>
                         </a>
                     </div>
 

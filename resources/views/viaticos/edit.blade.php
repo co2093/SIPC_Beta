@@ -4,10 +4,10 @@
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
-        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $cod)}}">Registro</a></li>
-        <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show', $cod)}}">Presupuesto</a></li>
-        <li class="breadcrumb-item"><a href="{{route('viaticos.show', $cod)}}">Viáticos Nacionales</a></li>
-	    <li class="breadcrumb-item active" aria-current="page">Registrar viático</li>
+        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $viaje->idproyecto)}}">Registro</a></li>
+        <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show', $viaje->idproyecto)}}">Presupuesto</a></li>
+        <li class="breadcrumb-item"><a href="{{route('viaticos.show', $viaje->idproyecto)}}">Viáticos Nacionales</a></li>
+	    <li class="breadcrumb-item active" aria-current="page">Editar viático</li>
 	  </ol>
 	</nav>
 
@@ -22,14 +22,18 @@
 
                     <div class="card-body">
                 
-             <form method="POST" action="{{ route('viaticos.store') }}" accept-charset="UTF-8" enctype="multipart/form-data">
+             <form method="POST" action="{{ route('viaticos.update') }}" accept-charset="UTF-8" enctype="multipart/form-data">
 
                             @csrf
 
 
 
                     <div class="form-group">
-                        <input type="hidden" value="{{$cod}}" name="cod" >
+                        <input type="hidden" value="{{$viaje->idproyecto}}" name="cod" >
+                    </div>
+
+                    <div class="form-group">
+                        <input type="hidden" value="{{$viaje->idpreviajelocal}}" name="idpreviajelocal" >
                     </div>
 
 
@@ -81,7 +85,7 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlInput1">KM a recorrer (ida+regreso)</label>
 					    <input type="number" class="form-control" name="distancia" placeholder="0"
-					    min="1"  step="1"                 
+					    min="1"  step="1"  value="{{$viaje->kmsarecorrer}}"               
 					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required
 					    >
 					  </div>
@@ -90,14 +94,16 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlInput1">Cantidad de vales de combustible</label>
 					    <input type="number" class="form-control" name="vales" placeholder="0"
-					    min="0"   step="1"                
+					    min="0"   step="1"    value="{{$viaje->cantidadvalescombustible}}"            
 					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
 					  </div>
 
 
 				 <div class="form-group">
 					    <label for="exampleFormControlInput1">Hora de salida</label>
-					    <input type="time" class="form-control" name="salida"  required>
+					    <input type="time" class="form-control" name="salida"  
+					    value="{{$viaje->horasalida}}" 
+					    required>
 					  </div>
 
 
@@ -105,13 +111,16 @@
 
 				 <div class="form-group">
 					    <label for="exampleFormControlInput1">Hora de regreso</label>
-					    <input type="time" class="form-control" name="regreso" required>
+					    <input type="time" class="form-control" name="regreso" 
+					    value="{{$viaje->horallegada}}" 
+					    required>
 					  </div>
 
 
 				  		<div class="form-group">
 					    <label for="exampleFormControlInput1">Cantidad de días</label>
 					    <input type="number" class="form-control" name="dias" placeholder="0" min="1" step="1" 
+					    value="{{$viaje->cantidaddias}}" 
 					    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 					    required>
 					  </div>
@@ -119,6 +128,8 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlInput1">Cantidad de personas</label>
 					    <input type="number" class="form-control" name="personas" placeholder="0" min="1" step="1" 
+					    value="{{$viaje->cantidadpersonas}}" 
+
 					    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 					    required>
 					  </div>
@@ -128,14 +139,14 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlInput1">Total por persona</label>
 					    <input type="number" class="form-control" name="total" placeholder="$ 0.0" 
-					    step="0.5" min="0" 		required 
+					    step="0.5" min="0" 	value="{{$viaje->totalplanviaje}}" 	required 
 					    >
 					  </div>
 
 
 
 					  <button type="submit" class="btn btn-danger">Guardar</button>
-					   <a  class="btn btn-secondary float-right" href="{{route('viaticos.show', $cod)}}">Regresar</a>
+					   <a  class="btn btn-secondary float-right" href="{{route('viaticos.show', $viaje->idproyecto)}}">Regresar</a>
 
 
 					</form>
