@@ -1,12 +1,18 @@
 @extends('layouts.default')
 @section('content')
+@if (session('success'))
+        <div style="color: green; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+@endif
+
 
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
-        <li class="breadcrumb-item"><a href="{{route('projects.prueba')}}">Registro</a></li>
-        <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show')}}">Presupuesto</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Viaticos Internacionales</li>
+        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $cod)}}">Registro</a></li>
+        <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show', $cod)}}">Presupuesto</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Viáticos Internacionales</li>
       </ol>
     </nav>
 
@@ -15,8 +21,8 @@
             <div class="card shadow mb-4">
 
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-dark">Ver viaticos internacionales
-                        <a  class="btn btn-success float-right" href="{{route('viaticos.int.crear')}}">Agregar</a>
+                        <h6 class="m-0 font-weight-bold text-dark">Ver viáticos internacionales
+                        <a  class="btn btn-success float-right" href="{{route('viaticos.int.crear', $cod)}}">Agregar</a>
 
                         </h6>
                     </div>
@@ -33,40 +39,33 @@
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">#</th>
                                     <th scope="col">Actividad</th>
+                                    <th scope="col">País</th>
                                     <th scope="col">Destino</th>
-                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Personas</th>
+                                    <th scope="col">Días</th>
+                                     <th scope="col">Costo</th>
                                      <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Viaje A</td>
-                                    <td>Italia</td>
-                                    <td>2024-05-05</td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm mr-2"><i class="fas fa-eye"></i></button>
-                                        <button class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Viaje B</td>
-                                    <td>Mexico</td>
-                                    <td>2024-06-06</td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm mr-2"><i class="fas fa-eye"></i></button>
-                                        <button class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- More rows as needed -->
+                            @if($viaje)    
+                               <tr>
+                                <td>{{$viaje->nombreactividad}}</td>
+                                <td>{{$viaje->nombrepais}}</td>
+                                <td>{{$viaje->destinoviaje}}</td>
+                                <td>{{$viaje->cantidadpersonas}}</td>
+                                <td>{{$viaje->numerodias}}</td>
+                                <td>{{$viaje->totalplanviajeext}}</td>
+                                <td>
+                                <a  class="btn btn-primary btn-sm" href="{{route('viaticos.int.edit', $viaje->idpreviajeexterior)}}"><i class="fas fa-edit"></i></a>                                       
+                                        <a  class="btn btn-danger btn-sm" href="{{route('viaticos.int.delete', $viaje->idpreviajeexterior)}}"><i class="fas fa-trash-alt"></i></a>
+                                </td>
+                               </tr>
+                               @endif
                             </tbody>
                         </table>
-                      <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show')}}">Regresar</a>
+                      <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>
 
 
                     </div>

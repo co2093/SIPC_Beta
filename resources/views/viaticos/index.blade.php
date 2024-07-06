@@ -70,20 +70,18 @@
 
 
 
-  					<div class="form-group">
-					    <label for="exampleFormControlInput1">Destino</label>
-					    <input type="text" class="form-control" name="destino"
-					 
-					     placeholder="Nombre del lugar" required>
+					  	<div class="form-group">
+					    <label for="exampleFormControlTextarea1">Destino del viaje</label>
+					    <textarea class="form-control" name="destino" rows="3" placeholder="Nombre del lugar" required></textarea>
 					  </div>
+
 
 
 					  <div class="form-group">
 					    <label for="exampleFormControlInput1">KM a recorrer (ida+regreso)</label>
 					    <input type="number" class="form-control" name="distancia" placeholder="0"
 					    min="1"  step="1"                 
-					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required
-					    >
+						onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required					    >
 					  </div>
 
 
@@ -128,7 +126,8 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlInput1">Total por persona</label>
 					    <input type="number" class="form-control" name="total" placeholder="$ 0.0" 
-					    step="0.5" min="0" 		required 
+					    step="0.5" min="0" 		
+					     onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" require
 					    >
 					  </div>
 

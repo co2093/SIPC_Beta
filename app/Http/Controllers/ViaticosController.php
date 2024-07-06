@@ -184,15 +184,175 @@ class ViaticosController extends Controller
 
 
 
-    public function indexInt()
+    public function indexInt($cod)
     {
-        return view('viaticos.indexInt');
+
+        $viaje = DB::table('pre_viaje_exterior')
+        ->where('pre_viaje_exterior.idproyecto', '=', $cod)
+        ->first();
+
+        $actividades = DB::table('actividad')
+        ->where('idproyecto', '=', $cod)
+        ->get();
+
+        $paises = DB::table('pais')
+        ->get();
+
+       $fuentes = DB::table('pre_fuente')
+        ->where('idproyecto', '=', $cod)
+        ->get();
+
+
+        return view('viaticos.indexInt', compact('cod', 'actividades', 'fuentes', 'paises', 'viaje'));
     }
 
 
 
-    public function showInt()
+    public function showInt($cod)
     {
-        return view('viaticos.showInt');
+
+        $viaje = DB::table('pre_viaje_exterior')
+        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
+        ->join('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
+        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
+        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
+        ->where('pre_viaje_exterior.idproyecto', '=', $cod)
+        ->first();
+
+
+        return view('viaticos.showInt', compact('cod', 'viaje'));
+    }
+
+    public function storeInt(Request $request){
+
+            //dd($request); 
+            DB::table('pre_viaje_exterior')->insert([
+                'idfuente' => $request->input('idfuente'),
+                'idpais' => $request->input('pais'),
+                'idproyecto' => $request->input('cod'),
+                'destinoviaje' => $request->input('destino'),
+                'numerodias' => $request->input('numerodias'),
+                'cantidadpersonas' => $request->input('numeropersonas'),
+                'totalplanviajeext' => $request->input('total'),
+                'costoboleto' => $request->input('costoboleto'),
+                'inscripcionevento' => $request->input('costoinscripcion'),
+                'idactividad' => $request->input('actividad')
+            ]);
+
+        //flash('Producto agregado al inventario exitosamente', 'success');
+        session()->flash('success', 'Se ha registrado el viaje exitosamente.');
+
+        return redirect()->to('/viaticos/internacionales/show/'.$request->input('cod'));
+
+    }    
+
+
+
+       public function editInt($cod)
+    {
+        //dd($codinventario);
+        $viaje = DB::table('pre_viaje_exterior')
+        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
+        ->join('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
+        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
+        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
+        ->where('pre_viaje_exterior.idpreviajeexterior', '=', $cod)
+        ->first();
+
+
+        $actividades = DB::table('actividad')
+        ->where('idproyecto', '=', $viaje->idproyecto)
+        ->get();
+
+        $paises = DB::table('pais')
+        ->get();
+
+       $fuentes = DB::table('pre_fuente')
+        ->where('idproyecto', '=', $viaje->idproyecto)
+        ->get();
+
+
+        return view('viaticos.editInt', compact('viaje', 'actividades', 'paises', 'fuentes'));
+    }
+
+
+     public function updateInt(Request $request)
+    {
+        //dd($request);
+        $viaje = DB::table('pre_viaje_exterior')
+        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
+        ->join('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
+        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
+        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
+        ->where('pre_viaje_exterior.idproyecto', '=', $request->input('cod'))
+        ->first();
+
+ 
+
+        
+        DB::table('pre_viaje_exterior')
+        ->where('idpreviajeexterior', $request->input('idpreviajeexterior'))
+        ->update([
+            
+                'idfuente' => $request->input('idfuente'),
+                'idpais' => $request->input('pais'),
+                'destinoviaje' => $request->input('destino'),
+                'numerodias' => $request->input('numerodias'),
+                'cantidadpersonas' => $request->input('numeropersonas'),
+                'totalplanviajeext' => $request->input('total'),
+                'costoboleto' => $request->input('costoboleto'),
+                'inscripcionevento' => $request->input('costoinscripcion'),
+                'idactividad' => $request->input('actividad')
+        ]);
+
+
+
+                
+
+        session()->flash('success', 'Viaje actualizado exitosamente.');
+        return redirect()->to('/viaticos/internacionales/show/'.$viaje->idproyecto);
+
+    }
+
+
+    public function destroyConfirmInt($id)
+    {
+
+        $viaje = DB::table('pre_viaje_exterior')
+        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
+        ->join('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
+        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
+        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
+        ->where('pre_viaje_exterior.idpreviajeexterior', '=', $id)
+        ->first();
+
+        
+
+        return view('viaticos.deleteInt', compact('viaje'));
+    }
+
+
+    public function destroyInt($cod)
+    {
+
+
+        $viaje = DB::table('pre_viaje_exterior')
+        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
+        ->join('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
+        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
+        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
+        ->where('pre_viaje_exterior.idpreviajeexterior', '=', $cod)
+        ->first();
+        
+        
+        //dd($codinventario);
+         $obj = DB::table('pre_viaje_exterior')
+        ->where('idpreviajeexterior', '=', $cod)
+        ->delete();
+
+
+
+        session()->flash('success', 'Viaje eliminado exitosamente.');
+        return redirect()->to('/viaticos/internacionales/show/'.$viaje->idproyecto);
     }
 }

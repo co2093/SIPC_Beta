@@ -120,9 +120,13 @@ Route::get('/viaticos/edit/{cod}',[App\Http\Controllers\ViaticosController::clas
 
 
 //Fuentes
-Route::get('/viaticos/internacionales', [App\Http\Controllers\ViaticosController::class, 'indexInt'])->name('viaticos.int.crear');
-Route::get('/viaticos/internacionales/show', [App\Http\Controllers\ViaticosController::class, 'showInt'])->name('viaticos.int.show');
-
+Route::get('/viaticos/internacionales/nuevo/{cod}', [App\Http\Controllers\ViaticosController::class, 'indexInt'])->name('viaticos.int.crear');
+Route::get('/viaticos/internacionales/show/{cod}', [App\Http\Controllers\ViaticosController::class, 'showInt'])->name('viaticos.int.show');
+Route::post('/viaticos/internacionales/nuevo/obj', [App\Http\Controllers\ViaticosController::class, 'storeInt'])->name('viaticos.int.store');
+Route::get('/viaticos/internacionales/confirm/{id}',[App\Http\Controllers\ViaticosController::class, 'destroyConfirmInt'])->name('viaticos.int.delete');
+Route::post('/viaticos/internacionales/update', [App\Http\Controllers\ViaticosController::class, 'updateInt'])->name('viaticos.int.update');
+Route::delete('/viaticos/internacionales/delete/{cod}',[App\Http\Controllers\ViaticosController::class, 'destroyInt'])->name('viaticos.int.destroy');
+Route::get('/viaticos/internacionales/edit/{cod}',[App\Http\Controllers\ViaticosController::class, 'editInt'])->name('viaticos.int.edit');
 
 
 
