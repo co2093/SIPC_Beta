@@ -88,7 +88,7 @@
 
                     <!-- Step 6 -->
                     <div class="col text-center">
-                        <a href="{{route('publicaciones.show')}}" class="step-number pending-step">
+                        <a href="{{route('publicaciones.show', $cod)}}" class="step-number pending-step">
                             <span class="fa fa-book fa-2x"></span>
                             <p>Publicaciones</p>
                         </a>

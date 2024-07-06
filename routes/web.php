@@ -64,7 +64,7 @@ Route::get('/objetivos/edit/{cod}',[App\Http\Controllers\ObjetivosController::cl
 //Actividades
 Route::get('/actividades/crear/{cod}', [App\Http\Controllers\ActividadesController::class, 'index'])->name('actividades.crear');
 Route::get('/actividades/show/{cod}', [App\Http\Controllers\ActividadesController::class, 'show'])->name('actividades.show');
-Route::post('/actividades/nuevo/obj', [App\Http\Controllers\ActividadesController::class, 'store'])->name('actividades.store');
+Route::post('/actividades/nuevo/act', [App\Http\Controllers\ActividadesController::class, 'store'])->name('actividades.store');
 Route::get('/actividades/confirm/{id}',[App\Http\Controllers\ActividadesController::class, 'destroyConfirm'])->name('actividades.confirm');
 Route::post('/actividades/update', [App\Http\Controllers\ActividadesController::class, 'update'])->name('actividades.update');
 Route::delete('/actividades/delete/{cod}',[App\Http\Controllers\ActividadesController::class, 'destroy'])->name('actividades.destroy');
@@ -75,7 +75,7 @@ Route::get('/actividades/edit/{cod}',[App\Http\Controllers\ActividadesController
 //Fuentes
 Route::get('/fuentes/crear/nuevo/{cod}', [App\Http\Controllers\FuentesController::class, 'index'])->name('fuentes.crear');
 Route::get('/fuentes/show/{cod}', [App\Http\Controllers\FuentesController::class, 'show'])->name('fuentes.show');
-Route::post('/fuentes/nuevo/obj', [App\Http\Controllers\FuentesController::class, 'store'])->name('fuentes.store');
+Route::post('/fuentes/nuevo/ft', [App\Http\Controllers\FuentesController::class, 'store'])->name('fuentes.store');
 Route::get('/fuentes/confirm/{id}',[App\Http\Controllers\FuentesController::class, 'destroyConfirm'])->name('fuentes.delete');
 Route::post('/fuentes/update', [App\Http\Controllers\FuentesController::class, 'update'])->name('fuentes.update');
 Route::delete('/fuentes/delete/{cod}',[App\Http\Controllers\FuentesController::class, 'destroy'])->name('fuentes.destroy');
@@ -86,7 +86,7 @@ Route::get('/fuentes/edit/{cod}',[App\Http\Controllers\FuentesController::class,
 //Recursos
 Route::get('/recursos/crear/nuevo/{cod}', [App\Http\Controllers\RecursosController::class, 'index'])->name('recursos.crear');
 Route::get('/recursos/show/{cod}', [App\Http\Controllers\RecursosController::class, 'show'])->name('recursos.show');
-Route::post('/recursos/nuevo/obj', [App\Http\Controllers\RecursosController::class, 'store'])->name('recursos.store');
+Route::post('/recursos/nuevo/rec', [App\Http\Controllers\RecursosController::class, 'store'])->name('recursos.store');
 Route::get('/recursos/confirm/{id}',[App\Http\Controllers\RecursosController::class, 'destroyConfirm'])->name('recursos.delete');
 Route::post('/recursos/update', [App\Http\Controllers\RecursosController::class, 'update'])->name('recursos.update');
 Route::delete('/recursos/delete/{cod}',[App\Http\Controllers\RecursosController::class, 'destroy'])->name('recursos.destroy');
@@ -97,7 +97,7 @@ Route::get('/recursos/edit/{cod}',[App\Http\Controllers\RecursosController::clas
 //Fuentes
 Route::get('/personal/crear/nuevo/{cod}', [App\Http\Controllers\PersonalController::class, 'index'])->name('personal.crear');
 Route::get('/personal/show/{cod}', [App\Http\Controllers\PersonalController::class, 'show'])->name('personal.show');
-Route::post('/personal/nuevo/obj', [App\Http\Controllers\PersonalController::class, 'store'])->name('personal.store');
+Route::post('/personal/nuevo/per', [App\Http\Controllers\PersonalController::class, 'store'])->name('personal.store');
 Route::get('/personal/confirm/{id}',[App\Http\Controllers\PersonalController::class, 'destroyConfirm'])->name('personal.delete');
 Route::post('/personal/update', [App\Http\Controllers\PersonalController::class, 'update'])->name('personal.update');
 Route::delete('/personal/delete/{cod}',[App\Http\Controllers\PersonalController::class, 'destroy'])->name('personal.destroy');
@@ -111,7 +111,7 @@ Route::get('/personal/edit/{cod}',[App\Http\Controllers\PersonalController::clas
 //Fuentes
 Route::get('/viaticos/crear/nuevo/{cod}', [App\Http\Controllers\ViaticosController::class, 'index'])->name('viaticos.crear');
 Route::get('/viaticos/show/{cod}', [App\Http\Controllers\ViaticosController::class, 'show'])->name('viaticos.show');
-Route::post('/viaticos/nuevo/obj', [App\Http\Controllers\ViaticosController::class, 'store'])->name('viaticos.store');
+Route::post('/viaticos/nuevo/vnac', [App\Http\Controllers\ViaticosController::class, 'store'])->name('viaticos.store');
 Route::get('/viaticos/confirm/{id}',[App\Http\Controllers\ViaticosController::class, 'destroyConfirm'])->name('viaticos.delete');
 Route::post('/viaticos/update', [App\Http\Controllers\ViaticosController::class, 'update'])->name('viaticos.update');
 Route::delete('/viaticos/delete/{cod}',[App\Http\Controllers\ViaticosController::class, 'destroy'])->name('viaticos.destroy');
@@ -122,7 +122,7 @@ Route::get('/viaticos/edit/{cod}',[App\Http\Controllers\ViaticosController::clas
 //Fuentes
 Route::get('/viaticos/internacionales/nuevo/{cod}', [App\Http\Controllers\ViaticosController::class, 'indexInt'])->name('viaticos.int.crear');
 Route::get('/viaticos/internacionales/show/{cod}', [App\Http\Controllers\ViaticosController::class, 'showInt'])->name('viaticos.int.show');
-Route::post('/viaticos/internacionales/nuevo/obj', [App\Http\Controllers\ViaticosController::class, 'storeInt'])->name('viaticos.int.store');
+Route::post('/viaticos/internacionales/nuevo/vext', [App\Http\Controllers\ViaticosController::class, 'storeInt'])->name('viaticos.int.store');
 Route::get('/viaticos/internacionales/confirm/{id}',[App\Http\Controllers\ViaticosController::class, 'destroyConfirmInt'])->name('viaticos.int.delete');
 Route::post('/viaticos/internacionales/update', [App\Http\Controllers\ViaticosController::class, 'updateInt'])->name('viaticos.int.update');
 Route::delete('/viaticos/internacionales/delete/{cod}',[App\Http\Controllers\ViaticosController::class, 'destroyInt'])->name('viaticos.int.destroy');
@@ -131,9 +131,13 @@ Route::get('/viaticos/internacionales/edit/{cod}',[App\Http\Controllers\Viaticos
 
 
 //Fuentes
-Route::get('/publicaciones', [App\Http\Controllers\PublicacionesController::class, 'index'])->name('publicaciones.crear');
-Route::get('/publicaciones/show', [App\Http\Controllers\PublicacionesController::class, 'show'])->name('publicaciones.show');
-
+Route::get('/publicaciones/nuevo/{cod}', [App\Http\Controllers\PublicacionesController::class, 'index'])->name('publicaciones.crear');
+Route::get('/publicaciones/show/{cod}', [App\Http\Controllers\PublicacionesController::class, 'show'])->name('publicaciones.show');
+Route::post('/publicaciones/nuevo/pub', [App\Http\Controllers\PublicacionesController::class, 'store'])->name('publicaciones.store');
+Route::get('/publicaciones/confirm/{id}',[App\Http\Controllers\PublicacionesController::class, 'destroyConfirm'])->name('publicaciones.delete');
+Route::post('/publicaciones/update', [App\Http\Controllers\PublicacionesController::class, 'update'])->name('publicaciones.update');
+Route::delete('/publicaciones/delete/{cod}',[App\Http\Controllers\PublicacionesController::class, 'destroy'])->name('publicaciones.destroy');
+Route::get('/publicaciones/edit/{cod}',[App\Http\Controllers\PublicacionesController::class, 'edit'])->name('publicaciones.edit');
 
 
 //Convocatoria
