@@ -125,23 +125,34 @@
                     </div>
 
                     <div class="card-body">
-
+                        <div class="table-responsive">
                             <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Total</th>
+                                    <th scope="col">Convocatoria</th>
+                                    <th scope="col">Recursos</th>
+                                    <th scope="col">Contrataciones</th>
+                                    <th scope="col">Viáticos nacionales</th>
+                                    <th scope="col">Viáticos internacionales</th>
+                                    <th scope="col">Publicaciones</th>
                                     <th scope="col">Disponible</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>${{$p->presupuestototal}}</td>
-                                    <td>${{$p->disponible}}</td>
+                                    <td>${{$pre->montoconvocatoria}}</td>
+                                    <td>${{$pre->montorecursos}}</td>
+                                    <td>${{$pre->montocontratacion}}</td>
+                                    <td>${{$pre->montonacionales}}</td>
+                                    <td>${{$pre->montointernacionales}}</td>
+                                    <td>${{$pre->montopublicaciones}}</td>
+                                    
+                                    <td>${{$pre->montodisponible}}</td>
                                 </tr>
                                 
                             </tbody>
                         </table>
-
+                        </div>
                      <a  class="btn btn-secondary float-right" href="{{route('projects.prueba', $cod)}}">Regresar</a>
 
 

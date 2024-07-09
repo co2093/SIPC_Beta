@@ -37,11 +37,12 @@
                                 <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
                             </div>
                         </div>
-
+                        <div class="table-responsive">   
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Nombre</th>
+                                    <th scope="col">Rubro</th>
                                     <th scope="col">Monto</th>
                                      <th scope="col">Acciones</th>
                                 </tr>
@@ -51,7 +52,8 @@
                                 @foreach($fuentes as $f)
                                     <tr>
                                         <td>{{$f->descripcionfuente}}</td>
-                                        <td>{{$f->financiamiento}}</td>
+                                        <td>{{$f->rubro}}</td>
+                                        <td>${{$f->financiamiento}}</td>
                                         <td>
                                         <a  class="btn btn-primary btn-sm" href="{{ route('fuentes.edit', $f->idfuente) }}"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" href="{{ route('fuentes.delete', $f->idfuente) }}"><i class="fas fa-trash-alt"></i></a>
@@ -62,6 +64,7 @@
 
                             </tbody>
                         </table>
+                        </div>
                       <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Finalizar</a>
 
 

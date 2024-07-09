@@ -1,4 +1,5 @@
---Cambios
+--Base cambios:
+
 
 alter table public.inventario alter column idproyectoinventario drop not null;
 
@@ -170,6 +171,24 @@ alter column idcuotaviatico drop not null;
 
 
 
-
 alter table public.pre_viaje_exterior
 add idfuente int;
+
+
+alter table public.pre_fuente
+add idrubro int;
+
+
+create table public.presupuesto_inicial(
+	idpresupuestoinical serial,
+	idproyecto int,
+	montocontratacion numeric(12,2) default 0.0,
+	montorecursos numeric(12,2) default 0.0,
+	montonacionales numeric(12,2) default 0.0,
+	montointernacionales numeric(12,2) default 0.0,
+	montopublicaciones numeric(12,2) default 0.0,
+	montoconvocatoria numeric(12,2) default 0.0,
+	montodisponible numeric(12,2) default 0.0
+	
+);
+

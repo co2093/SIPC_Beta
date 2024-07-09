@@ -36,28 +36,32 @@ class PresupuestoController extends Controller
         ->where('estado', '=', 1)
         ->first();
 
-        if($p){
+        $pre = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+
+        if($pre){
 
 
 
-        return view('recursos.presupuesto', compact('cod', 'p'));
+        return view('recursos.presupuesto', compact('cod', 'pre'));
 
         }else{
 
 
-        DB::table('presupuesto')->insert([
+        DB::table('presupuesto_inicial')->insert([
             'idproyecto' => $cod,
-            'presupuestototal' => $c->presupuesto,
-            'disponible' => $c->presupuesto
+            'montoconvocatoria' => $c->presupuesto,
+            'montodisponible' => $c->presupuesto
         ]);       
 
 
-        $p = DB::table('presupuesto')
+        $pre = DB::table('presupuesto_inicial')
         ->where('idproyecto', '=', $cod)
         ->first();  
 
 
-        return view('recursos.presupuesto', compact('cod', 'p'));
+        return view('recursos.presupuesto', compact('cod', 'pre'));
 
         }
 

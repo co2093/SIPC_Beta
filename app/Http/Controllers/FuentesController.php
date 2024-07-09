@@ -17,9 +17,10 @@ class FuentesController extends Controller
     public function index($cod)
     {
 
+        $rubros = DB::table('pre_rubro')
+        ->get();
 
-
-        return view('fuentes.index', compact('cod'));
+        return view('fuentes.index', compact('cod', 'rubros'));
     }
 
 
@@ -28,6 +29,8 @@ class FuentesController extends Controller
     {
 
         $fuentes = DB::table('pre_fuente')
+        ->join('pre_rubro', 'pre_rubro.idrubro', '=', 'pre_fuente.idrubro')
+        ->select('pre_fuente.*', 'pre_rubro.rubro')
         ->where('idproyecto', '=', $cod)
         ->get();
 
@@ -39,26 +42,69 @@ class FuentesController extends Controller
 
     public function store(Request $request){
 
-           // dd($request); 
+
+            $p = DB::table('presupuesto_inicial')
+            ->where('idproyecto', '=', $request->input('cod'))
+            ->first();
+            $disponiblenuevo = $p->montodisponible + $request->input('financiamiento');
+
+            //dd($disponiblenuevo); 
+
+
             DB::table('pre_fuente')->insert([
                 'descripcionfuente' => $request->input('descripcion'),
                 'financiamiento' => $request->input('financiamiento'),
                 'esexterno' => $request->input('externo'),
-                'idproyecto' => $request->input('cod')
+                'idproyecto' => $request->input('cod'),
+                'idrubro' =>$request->input('rubro')
             ]);
 
-            
-            $p = DB::table('presupuesto')
-            ->where('idproyecto', '=', $request->input('cod'))
-            ->first();
 
-            $nuevo = $p->disponible + $request->input('financiamiento');
-
-            DB::table('presupuesto')
+            DB::table('presupuesto_inicial')
             ->where('idproyecto', $request->input('cod'))
             ->update([
-                'disponible' => $nuevo 
+                'montodisponible' => $disponiblenuevo 
             ]);
+
+
+
+            if($request->input('rubro') == 1)
+            {
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $request->input('cod'))
+                ->update([
+                    'montorecursos' => $p->montorecursos + $request->input('financiamiento') 
+                ]);
+            }elseif ($request->input('rubro') == 2) {
+                // code...
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $request->input('cod'))
+                ->update([
+                    'montocontratacion' => $p->montocontratacion + $request->input('financiamiento')  
+                ]);
+            }elseif ($request->input('rubro') == 3) {
+                // code...
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $request->input('cod'))
+                ->update([
+                    'montonacionales' => $p->montonacionales + $request->input('financiamiento')  
+                ]);
+            }elseif ($request->input('rubro') == 4) {
+                // code...
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $request->input('cod'))
+                ->update([
+                    'montointernacionales' => $p->montointernacionales + $request->input('financiamiento') 
+                ]);
+            }elseif ($request->input('rubro') == 5) {
+                // code...
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $request->input('cod'))
+                ->update([
+                    'montopublicaciones' => $p->montopublicaciones + $request->input('financiamiento') 
+                ]);
+            }
+
 
         //flash('Producto agregado al inventario exitosamente', 'success');
         session()->flash('success', 'Se ha registrado la fuente de financiamiento.');
@@ -75,26 +121,92 @@ class FuentesController extends Controller
         $fuente = DB::table('pre_fuente')
         ->where('idfuente', '=', $cod)
         ->first();
+        
+        $rubros = DB::table('pre_rubro')
+        ->get();
 
-        return view('fuentes.edit', compact('fuente'));
+        return view('fuentes.edit', compact('fuente', 'rubros'));
     }
 
 
      public function update(Request $request)
     {
 
+        //dd($request);
+
         $fuente = DB::table('pre_fuente')
         ->where('idfuente', '=', $request->input('idfuente'))
         ->first();
+
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $fuente->idproyecto)
+        ->first();
+
+
+        $diff = 0;
+
+
+        if($request->input('anterior') > $request->input('financiamiento'))
+        {
+            $diff = $request->input('anterior') + $request->input('financiamiento');   
+        }elseif ($request->input('anterior') < $request->input('financiamiento')) 
+        {
+            $diff = $request->input('anterior')  - $request->input('financiamiento'); 
+        }
+
+       
         
         DB::table('pre_fuente')
         ->where('idfuente', $request->input('idfuente'))
         ->update([
             'descripcionfuente' => $request->input('descripcion'),
             'financiamiento' => $request->input('financiamiento'),
-            'esexterno' => $request->input('esexterno')   
+            'esexterno' => $request->input('esexterno'),
+            'idrubro' =>$request->input('rubro')   
         ]);
 
+        DB::table('presupuesto_inicial')
+            ->where('idproyecto', $p->idproyecto)
+            ->update([
+            'montodisponible' => $p->montodisponible - $diff
+        ]);
+
+        if($fuente->idrubro == 1)
+            {
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $p->idproyecto)
+                ->update([
+                    'montorecursos' => $p->montorecursos - $diff 
+                ]);
+            }elseif ($fuente->idrubro == 2) {
+                // code...
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $p->idproyecto)
+                ->update([
+                    'montocontratacion' => $p->montocontratacion - $diff   
+                ]);
+            }elseif ($fuente->idrubro == 3) {
+                // code...
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $p->idproyecto)
+                ->update([
+                    'montonacionales' => $p->montonacionales - $diff 
+                ]);
+            }elseif ($fuente->idrubro == 4) {
+                // code...
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $p->idproyecto)
+                ->update([
+                    'montointernacionales' => $p->montointernacionales - $diff   
+                ]);
+            }elseif ($fuente->idrubro == 5) {
+                // code...
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $p->idproyecto)
+                ->update([
+                    'montopublicaciones' => $p->montopublicaciones - $diff  
+                ]);
+            }  
 
                 
 
@@ -122,9 +234,57 @@ class FuentesController extends Controller
         $f = DB::table('pre_fuente')
         ->where('idfuente', '=', $cod)
         ->first();
+
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $f->idproyecto)
+        ->first();
+
+        DB::table('presupuesto_inicial')
+           ->where('idproyecto', $f->idproyecto)
+           ->update([
+            'montodisponible' => $p->montodisponible - $f->financiamiento 
+        ]);
+
+
+        if($f->idrubro == 1)
+            {
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $f->idproyecto)
+                ->update([
+                    'montorecursos' => $p->montorecursos - $f->financiamiento 
+                ]);
+            }elseif ($f->idrubro == 2) {
+                // code...
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $f->idproyecto)
+                ->update([
+                    'montocontratacion' => $p->montocontratacion - $f->financiamiento   
+                ]);
+            }elseif ($f->idrubro == 3) {
+                // code...
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $f->idproyecto)
+                ->update([
+                    'montonacionales' => $p->montonacionales - $f->financiamiento 
+                ]);
+            }elseif ($f->idrubro == 4) {
+                // code...
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $f->idproyecto)
+                ->update([
+                    'montointernacionales' => $p->montointernacionales - $f->financiamiento  
+                ]);
+            }elseif ($f->idrubro == 5) {
+                // code...
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $f->idproyecto)
+                ->update([
+                    'montopublicaciones' => $p->montopublicaciones - $f->financiamiento 
+                ]);
+            }           
+            
         
-        //dd($codinventario);
-         $fu = DB::table('pre_fuente')
+        $fu = DB::table('pre_fuente')
         ->where('idfuente', '=', $cod)
         ->delete();
 

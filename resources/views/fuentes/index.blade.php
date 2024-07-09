@@ -53,20 +53,19 @@
 				  	<div class="form-group">
 					    <label for="exampleFormControlSelect1">Rubro</label>
 					    <select class="form-control" name="rubro" required>
-					      <option>Recursos</option>
-					      <option>Contrataciones</option>
-					      <option>Viaticos nacionales</option>
-					      <option>Viaticos internacionales</option>
-					      <option>Publicaciones</option>
-					      <option>Otro</option>
+					    	@foreach($rubros as $r)
+					    		<option value="{{$r->idrubro}}">{{$r->rubro}}</option>
+					    	@endforeach
 					    </select>
 					  </div>
 
 
 					 <div class="form-group">
-					    <label for="exampleFormControlInput1">Financiaminto</label>
-					    <input type="number" class="form-control" name="financiamiento" placeholder="" min="1"                   
-					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+					    <label for="exampleFormControlInput1">Financiamiento</label>
+					    <input type="number" class="form-control" name="financiamiento" 
+					    step="0.01" min="0" 		
+					    onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)"
+					    required>
 					 </div>
 
 					  <button type="submit" class="btn btn-danger">Guardar</button>

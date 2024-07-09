@@ -37,6 +37,10 @@
                        <input type="hidden" value="{{$fuente->idfuente}}" name="idfuente" >
                   </div>
 
+                  <div class="form-group">
+                       <input type="hidden" value="{{$fuente->financiamiento}}" name="anterior" >
+                  </div>
+
   					<div class="form-group">
 					    <label for="exampleFormControlInput1">Nombre de la institución</label>
 					    <input type="text" class="form-control" name="descripcion" placeholder="Nombre" value="{{$fuente->descripcionfuente}}" required>
@@ -64,14 +68,12 @@
 				  	<div class="form-group">
 					    <label for="exampleFormControlSelect1">Rubro</label>
 					    <select class="form-control" name="rubro" required>
-					      <option>Recursos</option>
-					      <option>Contrataciones</option>
-					      <option>Viaticos nacionales</option>
-					      <option>Viaticos internacionales</option>
-					      <option>Publicaciones</option>
-					      <option>Otro</option>
+					    	@foreach($rubros as $r)
+					    		<option value="{{$r->idrubro}}">{{$r->rubro}}</option>
+					    	@endforeach
 					    </select>
 					  </div>
+
 
 
 					 <div class="form-group">
