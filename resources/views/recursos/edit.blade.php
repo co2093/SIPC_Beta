@@ -90,7 +90,7 @@
 					  </div>
 
 					  <div class="form-group">
-					    <label for="exampleFormControlTextarea1">Especificaciones tecnicas del recurso</label>
+					    <label for="exampleFormControlTextarea1">Especifícaciones técnicas del recurso</label>
 					    <textarea class="form-control" name="especificaciones" rows="3" required>{{$recurso->especificacionestecnicas}}</textarea>
 					  </div>
 

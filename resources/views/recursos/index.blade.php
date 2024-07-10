@@ -14,7 +14,7 @@
         <li class="breadcrumb-item"><a href="{{route('projects.prueba', $cod)}}">Registro</a></li>
         <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show', $cod)}}">Presupuesto</a></li>
         <li class="breadcrumb-item"><a href="{{route('recursos.show', $cod)}}">Recursos</a></li>
-	    <li class="breadcrumb-item active" aria-current="page">Crear recurso</li>
+	    <li class="breadcrumb-item active" aria-current="page">Registrar recurso</li>
 	  </ol>
 	</nav>
 
@@ -83,42 +83,36 @@
 					  </div>
 
 					  <div class="form-group">
-					    <label for="exampleFormControlTextarea1">Especificaciones tecnicas del recurso</label>
+					    <label for="exampleFormControlTextarea1">Específicaciones técnicas del recurso</label>
 					    <textarea class="form-control" name="especificaciones" rows="3" required></textarea>
 					  </div>
 
-
+			  
 				 <div class="form-group">
 					    <label for="exampleFormControlSelect1">Fuente de financiamiento</label>
 					    <select class="form-control" name="idfuente" required>
-					   	
+					   	<option value="0">Convocatoria, $({{$p->montoconvocatoria}})</option>
 					   	@foreach($fuentes as $f)
-					   	<option value="{{$f->idfuente}}">{{$f->descripcionfuente}}</option>
+					   	<option value="{{$f->idfuente}}">{{$f->descripcionfuente}}, (${{$f->financiamiento}})</option>
 					   	@endforeach
 
 					    </select>
 				  </div>
-
+			
 
 					
   					<div class="form-group">
 					    <label for="exampleFormControlInput1">Costo unitario</label>
 					    <input type="number" class="form-control" name="costo" placeholder="" min="0.0"                   
-					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+					      step="0.01"     
+                         onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
 					  </div>
 
 					 <div class="form-group">
 					    <label for="exampleFormControlInput1">Cantidad</label>
-					    <input type="number" class="form-control" name="cantidad" placeholder="" min="0"                   
+					    <input type="number" class="form-control" name="cantidad" placeholder="" min="0"  step="1"                 
 					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
 					  </div>
-
-
-					 <div class="form-group">
-					    <label for="exampleFormControlInput1">Subtotal</label>
-					    <input type="number" class="form-control" name="subtotal" placeholder="0.0">
-					  </div>
-
 
 
 					  <button type="submit" class="btn btn-danger">Guardar</button>

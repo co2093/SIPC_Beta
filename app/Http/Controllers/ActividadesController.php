@@ -34,18 +34,18 @@ class ActividadesController extends Controller
 
 
         $act = DB::table('actividad')
-        ->where('idproyecto', '=', $cod)
+        ->leftjoin('objetivo', 'objetivo.idobjetivo', '=', 'actividad.idobjetivo')
+        ->leftjoin('tipo_actividad', 'actividad.idtipoactividad','=','tipo_actividad.idtipoactividad')
+        ->select('actividad.*', 'objetivo.descripcion', 'tipo_actividad.nombretipoactividad')
+        ->where('actividad.idproyecto', '=', $cod)
         ->get();
 
-        $obj = DB::table('objetivo')
-        ->where('idproyecto', '=', $cod)
-        ->where('tipo', '=', 2)
-        ->get();
+      
 
 
 
 
-        return view('actividades.show', compact('cod', 'act', 'obj'));
+        return view('actividades.show', compact('cod', 'act'));
     }
 
 

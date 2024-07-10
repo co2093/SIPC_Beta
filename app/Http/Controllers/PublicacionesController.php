@@ -31,8 +31,8 @@ class PublicacionesController extends Controller
 
         //dd($cod);
         $publicaciones = DB::table('pre_publicacion')
-        ->join('tipo_publicacion', 'tipo_publicacion.idtipopublicacion', '=', 'pre_publicacion.idtipopublicacion')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_publicacion.idfuente')
+        ->leftjoin('tipo_publicacion', 'tipo_publicacion.idtipopublicacion', '=', 'pre_publicacion.idtipopublicacion')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_publicacion.idfuente')
         ->select('pre_publicacion.*', 'tipo_publicacion.nombretipopublicacion', 'pre_fuente.descripcionfuente')
         ->where('pre_publicacion.idproyecto', '=', $cod)
         ->get();
@@ -67,8 +67,8 @@ class PublicacionesController extends Controller
     public function edit($cod)
     {
         $publicacion = DB::table('pre_publicacion')
-        ->join('tipo_publicacion', 'tipo_publicacion.idtipopublicacion', '=', 'pre_publicacion.idtipopublicacion')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_publicacion.idfuente')
+        ->leftjoin('tipo_publicacion', 'tipo_publicacion.idtipopublicacion', '=', 'pre_publicacion.idtipopublicacion')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_publicacion.idfuente')
         ->select('pre_publicacion.*', 'tipo_publicacion.nombretipopublicacion', 'pre_fuente.descripcionfuente')
         ->where('pre_publicacion.idpublicacion', '=', $cod)
         ->first();
@@ -114,8 +114,8 @@ class PublicacionesController extends Controller
     {
 
         $publicacion = DB::table('pre_publicacion')
-        ->join('tipo_publicacion', 'tipo_publicacion.idtipopublicacion', '=', 'pre_publicacion.idtipopublicacion')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_publicacion.idfuente')
+        ->leftjoin('tipo_publicacion', 'tipo_publicacion.idtipopublicacion', '=', 'pre_publicacion.idtipopublicacion')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_publicacion.idfuente')
         ->select('pre_publicacion.*', 'tipo_publicacion.nombretipopublicacion', 'pre_fuente.descripcionfuente')
         ->where('pre_publicacion.idpublicacion', '=', $id)
         ->first();

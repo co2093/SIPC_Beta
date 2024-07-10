@@ -34,7 +34,7 @@
                                 <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
                             </div>
                         </div>
-
+                        <div class="table-responsive table-wrapper">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
@@ -42,7 +42,9 @@
                                     <th scope="col">Título</th>
                                     <th scope="col">Convocatoria</th>
                                     <th scope="col">Estado</th>
-                                    <th scope="col">Acciones</th>
+                                    <th scope="col">Área</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col" class="fixed-col">Acciones</th>
                                    
                                 </tr>
                             </thead>
@@ -54,12 +56,11 @@
                                         <td>{{$i->idproyecto}}</td>
                                         <td>{{$i->tituloproyecto}}</td>
                                         <td>{{$i->idconvocatoria}}</td>
-                                        @foreach($estados as $e)
-                                        @if($e->idestadoproyecto == $i->idestadoproyecto)
-                                        <td>{{$e->nombreestadoproyecto}}</td>
-                                        @endif
-                                        @endforeach
-                                        <td>
+                            
+                                        <td>{{$i->nombreestadoproyecto}}</td>
+                                        <td>{{$i->nombreareaconocimiento}}</td>
+                                        <td>{{$i->tipoproyecto}}</td>
+                                        <td class="fixed-col">
                  
                                         <a  class="btn btn-primary btn-sm" href="{{ route('projects.prueba', $i->idproyecto) }}">Editar</a>                                        
                                        
@@ -71,7 +72,7 @@
                                 <!-- More rows as needed -->
                             </tbody>
                         </table>
-
+                        </div>
 
                          <!-- Pagination -
                         <nav aria-label="Page navigation example">

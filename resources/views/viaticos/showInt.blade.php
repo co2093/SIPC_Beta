@@ -35,7 +35,7 @@
                                 <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
                             </div>
                         </div>
-
+                        <div class="table-responsive table-wrapper">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
@@ -45,7 +45,7 @@
                                     <th scope="col">Personas</th>
                                     <th scope="col">Días</th>
                                      <th scope="col">Costo</th>
-                                     <th scope="col">Acciones</th>
+                                     <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,7 +57,7 @@
                                 <td>{{$viaje->cantidadpersonas}}</td>
                                 <td>{{$viaje->numerodias}}</td>
                                 <td>{{$viaje->totalplanviajeext}}</td>
-                                <td>
+                                <td class="fixed-col">
                                 <a  class="btn btn-primary btn-sm" href="{{route('viaticos.int.edit', $viaje->idpreviajeexterior)}}"><i class="fas fa-edit"></i></a>                                       
                                         <a  class="btn btn-danger btn-sm" href="{{route('viaticos.int.delete', $viaje->idpreviajeexterior)}}"><i class="fas fa-trash-alt"></i></a>
                                 </td>
@@ -65,6 +65,7 @@
                                @endif
                             </tbody>
                         </table>
+                        </div>
                       <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>
 
 

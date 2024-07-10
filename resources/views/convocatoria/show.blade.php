@@ -38,7 +38,7 @@
                                 <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
                             </div>
                         </div>
-
+                        <div class="table-responsive table-wrapper">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
@@ -47,7 +47,7 @@
                                     <th scope="col">Fecha Inicio</th>
                                     <th scope="col">Fecha Fin</th>
                                      <th scope="col">Presupuesto</th>
-                                     <th scope="col">Opciones</th>
+                                     <th scope="col" class="fixed-col">Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,7 +60,7 @@
                                         <td>{{$c->fechafin}}</td>
                                         <td>$ {{$c->presupuesto}}</td>
 
-                                        <td>
+                                        <td class="fixed-col">
                                         <a  class="btn btn-info btn-sm" href="#"><i class="fas fa-eye"></i></a>  
                                         <a  class="btn btn-primary btn-sm" href="#"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" 
@@ -73,6 +73,7 @@
 
                             </tbody>
                         </table>
+                        </div>
                       <a  class="btn btn-secondary float-right" href="{{route('home')}}">Regresar</a>
 
 

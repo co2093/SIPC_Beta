@@ -36,13 +36,14 @@
                             </div>
                         </div>
 
+                        <div class="table-responsive table-wrapper">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Facultad</th>
                                          <th scope="col">Tipo</th>
-                                     <th scope="col">Acciones</th>
+                                     <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,7 +67,7 @@
                                         @endforeach  
                                         </td>
 
-                                        <td>
+                                        <td class="fixed-col">
                                         <a  class="btn btn-primary btn-sm" href="{{ route('colaboradores.edit', $c->idcolaborador) }}"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" href="{{ route('colaboradores.confirm', $c->idcolaborador) }}"><i class="fas fa-trash-alt"></i></a>
 
@@ -75,6 +76,7 @@
                                @endforeach
 
                             </tbody>
+                           </div> 
                         </table>
                       <a  class="btn btn-secondary float-right" href="{{route('projects.prueba', $cod)}}">Regresar</a>
 

@@ -36,33 +36,28 @@
                                 <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
                             </div>
                         </div>
-
+                        <div class="table-responsive table-wrapper">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Actividad</th>
                                     <th scope="col">Objetivo</th>
+                                    <th scope="col">Tipo</th>
                                     <th scope="col">Inicio</th>
                                     <th scope="col">Fin</th>
-                                     <th scope="col">Acciones</th>
+                                     <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                             @foreach($act as $a)
                                     <tr>
                                         <td>{{$a->nombreactividad}}</td>
-                                        <td>
-                                        @foreach($obj as $o)
-                                            @if($o->idobjetivo = $a->idobjetivo)
-                                                {{$o->descripcion}}
-                                            @endif
-                                        @endforeach    
-
-                                        </td>
+                                        <td>{{$a->descripcion}}</td>
+                                        <td>{{$a->nombretipoactividad}}</td>
                                         <td>{{$a->fechainicioactividad}}</td>
                                         <td>{{$a->fechafinactividad}}</td>
 
-                                        <td>
+                                        <td class="fixed-col">
                                         <a  class="btn btn-primary btn-sm" href="{{ route('actividades.edit', $a->idactividad) }}"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" href="{{ route('actividades.confirm', $a->idactividad) }}"><i class="fas fa-trash-alt"></i></a>
 
@@ -73,7 +68,7 @@
 
                             </tbody>
                         </table>
-
+                        </div>
 
                       <a  class="btn btn-secondary float-right" href="{{route('projects.prueba', $cod)}}">Regresar</a>
 

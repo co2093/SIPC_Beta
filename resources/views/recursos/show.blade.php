@@ -35,17 +35,18 @@
                                 <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
                             </div>
                         </div>
-
+                        <div class="table-responsive table-wrapper">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Tipo</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Unidad</th>
+                                    <th scope="col">Fuente</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Precio</th>
                                     <th scope="col">Total</th>
-                                    <th scope="col">Acciones</th>
+                                    <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,10 +56,15 @@
                                         <td>{{$r->nombretiporecurso}}</td>
                                         <td>{{$r->nombrerecurso}}</td>
                                         <td>{{$r->nombreunidadmedida}}</td>
+                                        @if($r->descripcionfuente)
+                                        <td>{{$r->descripcionfuente}}</td>
+                                        @else
+                                        <td>Convocatoria</td>
+                                        @endif
                                         <td>{{$r->cantidadrecurso}}</td>
                                         <td>${{$r->preciorecurso}}</td>
                                         <td>${{$r->subtotalrecurso}}</td>
-                                        <td>
+                                        <td class="fixed-col">
                                         <a  class="btn btn-primary btn-sm" href="{{ route('recursos.edit', $r->idrecurso) }}"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" href="{{ route('recursos.delete', $r->idrecurso) }}"><i class="fas fa-trash-alt"></i></a>
 
@@ -68,6 +74,7 @@
 
                             </tbody>
                         </table>
+                        </div>
                       <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>
 
 

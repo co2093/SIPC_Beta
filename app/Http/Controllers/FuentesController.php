@@ -29,7 +29,7 @@ class FuentesController extends Controller
     {
 
         $fuentes = DB::table('pre_fuente')
-        ->join('pre_rubro', 'pre_rubro.idrubro', '=', 'pre_fuente.idrubro')
+        ->leftjoin('pre_rubro', 'pre_rubro.idrubro', '=', 'pre_fuente.idrubro')
         ->select('pre_fuente.*', 'pre_rubro.rubro')
         ->where('idproyecto', '=', $cod)
         ->get();

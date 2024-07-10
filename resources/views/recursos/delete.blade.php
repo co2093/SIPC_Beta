@@ -24,25 +24,35 @@
                     <div class="card-body">
                     	
                     	<br>
-                    	<label>Tipo: </label>{{$recurso->nombretiporecurso}}
+                    	<label class="font-weight-bold">Tipo:&nbsp;</label>{{$recurso->nombretiporecurso}}
                 
                     	<br>
-                    	<label>Nombre: </label>{{$recurso->nombrerecurso}}
+                    	<label class="font-weight-bold">Nombre:&nbsp;</label>{{$recurso->nombrerecurso}}
 
                         <br>
-                        <label>Unidad: </label>{{$recurso->nombreunidadmedida}}
+                        <label class="font-weight-bold">Unidad:&nbsp;</label>{{$recurso->nombreunidadmedida}}
                 
                        <br>
-                        <label>Especificaciones técnicas: </label>{{$recurso->especificacionestecnicas}}
-                
-                        <br>
-                        <label>Cantidad: </label>{{$recurso->cantidadrecurso}}
+                        <label class="font-weight-bold">Específicaciones técnicas:&nbsp;</label>{{$recurso->especificacionestecnicas}}
+                    
 
                         <br>
-                        <label>Precio: $</label>{{$recurso->preciorecurso}}
+                        <label class="font-weight-bold">Fuente de financiamiento:&nbsp;</label>    
+                        @if($recurso->descripcionfuente)
+                        {{$recurso->descripcionfuente}}
+                        @else
+                        Convocatoria
+                        @endif
+
+
+                        <br>
+                        <label class="font-weight-bold">Cantidad:&nbsp;</label>{{$recurso->cantidadrecurso}}
+
+                        <br>
+                        <label class="font-weight-bold">Precio:&nbsp;</label>${{$recurso->preciorecurso}}
                 
                         <br>
-                        <label>Total: $</label>{{$recurso->subtotalrecurso}}
+                        <label class="font-weight-bold">Total:&nbsp;</label>${{$recurso->subtotalrecurso}}
                     	
                     	<br><br><br>
 

@@ -37,12 +37,13 @@
                             </div>
                         </div>
 
+                        <div class="table-responsive table-wrapper">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Objetivo</th>
                                     <th scope="col">Tipo</th>
-                                     <th scope="col">Acciones</th>
+                                     <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -58,7 +59,7 @@
                                         Específico
                                         @endif    
                                         </td>
-                                        <td>
+                                        <td class="fixed-col">
                                         <a  class="btn btn-primary btn-sm" href="{{ route('objetivos.edit', $o->idobjetivo) }}"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" href="{{ route('objetivos.confirm', $o->idobjetivo) }}"><i class="fas fa-trash-alt"></i></a>
 
@@ -68,6 +69,7 @@
 
                             </tbody>
                         </table>
+                        </div>
                       <a  class="btn btn-secondary float-right" href="{{route('projects.prueba', $cod)}}">Regresar</a>
 
                     </div>

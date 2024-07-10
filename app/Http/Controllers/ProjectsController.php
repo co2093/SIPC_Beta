@@ -56,13 +56,17 @@ class ProjectsController extends Controller
 
         $convocatorias = DB::table('convocatoria')->get();
 
-        $estados = DB::table('estado_proyecto')->get();
+       // $estados = DB::table('estado_proyecto')->get();
 
         $proyectos = DB::table('proyecto')
-        ->where('usuario', '=', Auth::user()->email)
+        ->leftjoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
+        ->leftjoin('tipo_proyecto', 'tipo_proyecto.idtipoproyecto', '=', 'proyecto.idtipoproyecto')
+        ->leftjoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
+        ->select('proyecto.*', 'estado_proyecto.nombreestadoproyecto', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento')
+        ->where('proyecto.usuario', '=', Auth::user()->email)
         ->get();
 
-        return view('projects.show', compact('proyectos', 'convocatorias', 'estados'));
+        return view('projects.show', compact('proyectos', 'convocatorias'));
     }
 
 
@@ -201,10 +205,14 @@ class ProjectsController extends Controller
 
         $estados = DB::table('estado_proyecto')->get();
 
-        $proyectos = DB::table('proyecto')
-        ->where('idproyecto', '=', $cod)
 
-        ->get();
+        $proyectos = DB::table('proyecto')
+        ->leftjoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
+        ->leftjoin('tipo_proyecto', 'tipo_proyecto.idtipoproyecto', '=', 'proyecto.idtipoproyecto')
+        ->leftjoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
+        ->select('proyecto.*', 'estado_proyecto.nombreestadoproyecto', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
         return view('projects.prueba', compact('proyectos', 'convocatorias', 'estados', 'cod'));
 

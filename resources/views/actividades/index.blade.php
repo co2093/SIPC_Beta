@@ -65,7 +65,7 @@
                 
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Fecha de inicio</label>
-                        <input type="date" class="form-control" name="inicio" >
+                        <input type="date" class="form-control" name="inicio" min="01/01/2024">
                     </div>
 
                   <div class="form-group">

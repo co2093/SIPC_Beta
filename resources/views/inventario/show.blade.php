@@ -32,7 +32,7 @@
                                 <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
                             </div>
                         </div>
-
+                        <div class="table-responsive table-wrapper">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
@@ -40,7 +40,7 @@
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Facultad</th>
-                                     <th scope="col">Acciones</th>
+                                     <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,7 +51,7 @@
                                         <td>{{$i->descripcionbien}}</td>
                                         <td>{{$i->cantidad}}</td>
                                         <td>{{$i->facultad}}</td>
-                                        <td>
+                                        <td class="fixed-col"> 
                                         <a  class="btn btn-info btn-sm" href="{{ route('inventario.details', $i->codinventario) }}"><i class="fas fa-eye"></i></a>  
                                         <a  class="btn btn-primary btn-sm" href="{{ route('inventario.edit', $i->codinventario) }}"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" 
@@ -64,6 +64,7 @@
 
                             </tbody>
                         </table>
+                        </div>
                       <a  class="btn btn-secondary float-right" href="{{route('home')}}">Regresar</a>
 
 

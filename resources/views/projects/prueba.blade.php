@@ -119,32 +119,31 @@
                     <div class="card-body">
 
 
-
+                        <div class="table-responsive table-wrapper">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Código</th>
                                     <th scope="col">Título</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Área</th>
                                     <th scope="col">Convocatoria</th>
                                     <th scope="col">Estado</th>
-                                    <th scope="col">Acciones</th>
+                                    <th scope="col" class="fixed-col">Acciones</th>
                                    
                                 </tr>
                             </thead>
                             <tbody>
 
 
-                                @foreach($proyectos as $i)
                                     <tr>
-                                        <td>{{$i->idproyecto}}</td>
-                                        <td>{{$i->tituloproyecto}}</td>
-                                        <td>{{$i->idconvocatoria}}</td>
-                                        @foreach($estados as $e)
-                                        @if($e->idestadoproyecto == $i->idestadoproyecto)
-                                        <td>{{$e->nombreestadoproyecto}}</td>
-                                        @endif
-                                        @endforeach
-                                        <td>
+                                        <td>{{$proyectos->idproyecto}}</td>
+                                        <td>{{$proyectos->tituloproyecto}}</td>
+                                        <td>{{$proyectos->tipoproyecto}}</td>
+                                        <td>{{$proyectos->nombreareaconocimiento}}</td>
+                                        <td>{{$proyectos->idconvocatoria}}</td>
+                                        <td>{{$proyectos->nombreestadoproyecto}}</td>
+                                        <td class="fixed-col">
                                     
                                         <a  class="btn btn-danger btn-sm" 
                                         href="#">Eliminar</a>
@@ -152,14 +151,13 @@
 
                                         </td>
                                     </tr>
-                               @endforeach
 
                               
                                 <!-- More rows as needed -->
                             </tbody>
                         </table>
 
-
+                        </div>
                    
 
                     </div>

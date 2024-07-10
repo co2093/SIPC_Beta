@@ -37,7 +37,7 @@
                                 <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
                             </div>
                         </div>
-
+                        <div class="table-responsive table-wrapper">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
@@ -45,7 +45,7 @@
                                     <th scope="col">Departamento</th>
                                     <th scope="col">Destino</th>
                                     <th scope="col">Total</th>
-                                     <th scope="col">Acciones</th>
+                                     <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,8 +54,8 @@
                                         <td>{{$v->nombreactividad}}</td>
                                         <td>{{$v->departamento}}</td>
                                         <td>{{$v->destinoviaje}}</td>
-                                        <td>{{$v->totalplanviaje}}</td>
-                                                                                <td>
+                                        <td >{{$v->totalplanviaje}}</td>
+                                        <td class="fixed-col">
                                         <a  class="btn btn-primary btn-sm" href="{{route('viaticos.edit', $v->idpreviajelocal)}}"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" href="{{route('viaticos.delete', $v->idpreviajelocal)}}"><i class="fas fa-trash-alt"></i></a>
 
@@ -65,6 +65,7 @@
                                 
                             </tbody>
                         </table>
+                        </div>
                       <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>
 
 

@@ -29,9 +29,19 @@ class RecursosController extends Controller
 
         $fuentes = DB::table('pre_fuente')
         ->where('idproyecto', '=', $cod)
+        ->where('idrubro', '=', 1)
         ->get();
 
-        return view('recursos.index', compact('cod', 'actividades', 'unidades', 'tipo', 'fuentes'));
+
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+
+ 
+
+        //dd($f);
+
+        return view('recursos.index', compact('cod', 'actividades', 'unidades', 'tipo', 'fuentes', 'p'));
     }
 
 
@@ -39,9 +49,10 @@ class RecursosController extends Controller
     public function show($cod)
     {
         $recursos = DB::table('pre_recurso')
-        ->join('unidad_medida', 'pre_recurso.idunidadmedida', '=', 'unidad_medida.idunidadmedida')
-        ->join('tipo_recurso', 'pre_recurso.idtiporecurso', '=', 'tipo_recurso.idtiporecurso')
-        ->select('pre_recurso.*', 'unidad_medida.nombreunidadmedida', 'tipo_recurso.nombretiporecurso')    
+        ->leftjoin('unidad_medida', 'pre_recurso.idunidadmedida', '=', 'unidad_medida.idunidadmedida')
+        ->leftjoin('tipo_recurso', 'pre_recurso.idtiporecurso', '=', 'tipo_recurso.idtiporecurso')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_recurso.idfuente')
+        ->select('pre_recurso.*', 'unidad_medida.nombreunidadmedida', 'tipo_recurso.nombretiporecurso', 'pre_fuente.descripcionfuente')    
         ->where('pre_recurso.idproyecto', '=', $cod)
         ->get();
 
@@ -55,24 +66,92 @@ class RecursosController extends Controller
     public function store(Request $request){
 
            //dd($request); 
-            DB::table('pre_recurso')->insert([
-                'idtiporecurso' => $request->input('tiporecurso'),
-                'idunidadmedida' => $request->input('unidad'),
-                'idfuente' => $request->input('idfuente'),
-                'idproyecto' => $request->input('cod'),
-                'nombrerecurso' => $request->input('nombre'),
-                'especificacionestecnicas' => $request->input('especificaciones'),
-                'preciorecurso' => $request->input('costo'),
-                'cantidadrecurso' => $request->input('cantidad'),
-                'subtotalrecurso' => $request->input('costo')*$request->input('cantidad'),
-                'idactividad' => $request->input('idactividad')
-                
 
+            $fuentes = DB::table('pre_fuente')
+            ->where('idproyecto', '=', $request->input('cod'))
+            ->where('idrubro', '=', 1)
+            ->get();
 
-            ]);
+            $p = DB::table('presupuesto_inicial')
+            ->where('idproyecto', '=', $request->input('cod'))
+            ->first();
+            
+            $f = count($fuentes);
+
+            $total = $request->input('costo')*$request->input('cantidad');
+
+            if($request->input('idfuente')>0)
+            {
+
+                $fuente = DB::table('pre_fuente')
+                ->where('idfuente', '=', $request->input('idfuente'))
+                ->first();
+
+                if($fuente->financiamiento >= $total){
+                    DB::table('pre_recurso')->insert([
+                    'idtiporecurso' => $request->input('tiporecurso'),
+                    'idunidadmedida' => $request->input('unidad'),
+                    'idfuente' => $request->input('idfuente'),
+                    'idproyecto' => $request->input('cod'),
+                    'nombrerecurso' => $request->input('nombre'),
+                    'especificacionestecnicas' => $request->input('especificaciones'),
+                    'preciorecurso' => $request->input('costo'),
+                    'cantidadrecurso' => $request->input('cantidad'),
+                    'subtotalrecurso' => $request->input('costo')*$request->input('cantidad'),
+                    'idactividad' => $request->input('idactividad')
+                    ]);
+                    DB::table('presupuesto_inicial')
+                    ->where('idproyecto', $request->input('cod'))
+                    ->update([
+                    'montodisponible' => $p->montodisponible - $total,
+                    'montorecursos' => $p->montorecursos - $total 
+                    ]);
+                    DB::table('pre_fuente')
+                    ->where('idfuente', $request->input('idfuente'))
+                    ->update([
+                    'financiamiento' => $fuente->financiamiento - $total 
+                    ]);
+                }else{
+
+                session()->flash('success', 'No hay fondos suficientes en esta fuente, seleccione otra.');
+
+                return redirect()->back()->with('danger', 'No hay fondos suficientes en esta fuente, seleccione otra.');  
+
+                }
+
+            }else{
+
+                if($p->montoconvocatoria>= $total){
+                    DB::table('pre_recurso')->insert([
+                    'idtiporecurso' => $request->input('tiporecurso'),
+                    'idunidadmedida' => $request->input('unidad'),
+                    'idproyecto' => $request->input('cod'),
+                    'nombrerecurso' => $request->input('nombre'),
+                    'especificacionestecnicas' => $request->input('especificaciones'),
+                    'preciorecurso' => $request->input('costo'),
+                    'cantidadrecurso' => $request->input('cantidad'),
+                    'subtotalrecurso' => $request->input('costo')*$request->input('cantidad'),
+                    'idactividad' => $request->input('idactividad')
+                    ]);
+                    DB::table('presupuesto_inicial')
+                    ->where('idproyecto', $request->input('cod'))
+                    ->update([
+                    'montodisponible' => $p->montodisponible - $total,
+                    'montoconvocatoria' => $p->montoconvocatoria - $total 
+                    ]);
+
+                }else{
+
+                session()->flash('success', 'No hay fondos suficientes en esta fuente, seleccione otra.');
+
+                return redirect()->to('/recursos/show/'.$request->input('cod'));
+                }
+
+            }
+
 
         //flash('Producto agregado al inventario exitosamente', 'success');
-        session()->flash('success', 'Se ha registrado el recurso.');
+        session()->flash('success', 'Se ha registrado el recurso exitosamente.');
 
         return redirect()->to('/recursos/show/'.$request->input('cod'));
 
@@ -84,9 +163,9 @@ class RecursosController extends Controller
     {
         //dd($codinventario);
         $recurso = DB::table('pre_recurso')
-        ->join('unidad_medida', 'pre_recurso.idunidadmedida', '=', 'unidad_medida.idunidadmedida')
-        ->join('tipo_recurso', 'pre_recurso.idtiporecurso', '=', 'tipo_recurso.idtiporecurso')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_recurso.idactividad')
+        ->leftjoin('unidad_medida', 'pre_recurso.idunidadmedida', '=', 'unidad_medida.idunidadmedida')
+        ->leftjoin('tipo_recurso', 'pre_recurso.idtiporecurso', '=', 'tipo_recurso.idtiporecurso')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_recurso.idactividad')
         ->select('pre_recurso.*', 'unidad_medida.nombreunidadmedida', 'tipo_recurso.nombretiporecurso', 'actividad.idproyecto')    
         ->where('pre_recurso.idrecurso', '=', $cod)
         ->first();
@@ -148,10 +227,11 @@ class RecursosController extends Controller
     {
 
         $recurso = DB::table('pre_recurso')
-        ->join('unidad_medida', 'pre_recurso.idunidadmedida', '=', 'unidad_medida.idunidadmedida')
-        ->join('tipo_recurso', 'pre_recurso.idtiporecurso', '=', 'tipo_recurso.idtiporecurso')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_recurso.idactividad')
-        ->select('pre_recurso.*', 'unidad_medida.nombreunidadmedida', 'tipo_recurso.nombretiporecurso', 'actividad.idproyecto')    
+        ->leftjoin('unidad_medida', 'pre_recurso.idunidadmedida', '=', 'unidad_medida.idunidadmedida')
+        ->leftjoin('tipo_recurso', 'pre_recurso.idtiporecurso', '=', 'tipo_recurso.idtiporecurso')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_recurso.idactividad')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_recurso.idfuente')
+        ->select('pre_recurso.*', 'unidad_medida.nombreunidadmedida', 'tipo_recurso.nombretiporecurso', 'pre_fuente.descripcionfuente')   
         ->where('pre_recurso.idrecurso', '=', $id)
         ->first();
         
@@ -163,13 +243,49 @@ class RecursosController extends Controller
     public function destroy($id)
     {
 
+
         $recurso = DB::table('pre_recurso')
-        ->join('unidad_medida', 'pre_recurso.idunidadmedida', '=', 'unidad_medida.idunidadmedida')
-        ->join('tipo_recurso', 'pre_recurso.idtiporecurso', '=', 'tipo_recurso.idtiporecurso')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_recurso.idactividad')
-        ->select('pre_recurso.*', 'unidad_medida.nombreunidadmedida', 'tipo_recurso.nombretiporecurso', 'actividad.idproyecto')    
+        ->leftjoin('unidad_medida', 'pre_recurso.idunidadmedida', '=', 'unidad_medida.idunidadmedida')
+        ->leftjoin('tipo_recurso', 'pre_recurso.idtiporecurso', '=', 'tipo_recurso.idtiporecurso')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_recurso.idactividad')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_recurso.idfuente')
+        ->select('pre_recurso.*', 'unidad_medida.nombreunidadmedida', 'tipo_recurso.nombretiporecurso', 'pre_fuente.descripcionfuente')   
         ->where('pre_recurso.idrecurso', '=', $id)
         ->first();
+
+
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $recurso->idproyecto)
+        ->first();
+
+        if($recurso->idfuente > 0){
+
+            $fuente = DB::table('pre_fuente')
+            ->where('idfuente', '=', $recurso->idfuente)
+            ->first();
+            
+
+            DB::table('presupuesto_inicial')
+            ->where('idproyecto', $recurso->idproyecto)
+            ->update([
+            'montodisponible' => $p->montodisponible + + $recurso->subtotalrecurso,
+            'montorecursos' => $p->montorecursos + $recurso->subtotalrecurso 
+            ]);
+            DB::table('pre_fuente')
+            ->where('idfuente', $fuente->idfuente)
+            ->update([
+            'financiamiento' => $fuente->financiamiento + $recurso->subtotalrecurso 
+            ]);
+
+        }else{
+            DB::table('presupuesto_inicial')
+            ->where('idproyecto', $recurso->idproyecto)
+            ->update([
+            'montodisponible' => $p->montodisponible + $recurso->subtotalrecurso ,
+            'montoconvocatoria' => $p->montoconvocatoria + $recurso->subtotalrecurso  
+            ]);
+
+        }
         
         //dd($codinventario);
          $obj = DB::table('pre_recurso')

@@ -36,9 +36,9 @@ class ViaticosController extends Controller
     public function show($cod)
     {
         $viajes = DB::table('pre_viaje_local')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
-        ->join('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
+        ->leftjoin('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
         ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento')
         ->where('pre_viaje_local.idproyecto', '=', $cod)
         ->get();
@@ -77,9 +77,9 @@ class ViaticosController extends Controller
     {
         //dd($codinventario);
         $viaje = DB::table('pre_viaje_local')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
-        ->join('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
+        ->leftjoin('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
         ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento')
         ->where('pre_viaje_local.idpreviajelocal', '=', $cod)
         ->first();
@@ -105,9 +105,9 @@ class ViaticosController extends Controller
      public function update(Request $request)
     {
         $viaje = DB::table('pre_viaje_local')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
-        ->join('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
+        ->leftjoin('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
         ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento')
         ->where('pre_viaje_local.idpreviajelocal', '=', $request->input('idpreviajelocal'))
         ->first();
@@ -146,9 +146,9 @@ class ViaticosController extends Controller
     {
 
         $viaje = DB::table('pre_viaje_local')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
-        ->join('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
+        ->leftjoin('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
         ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento')
         ->where('pre_viaje_local.idpreviajelocal', '=', $id)
         ->first();
@@ -162,9 +162,9 @@ class ViaticosController extends Controller
     {
 
         $viaje = DB::table('pre_viaje_local')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
-        ->join('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
+        ->leftjoin('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
         ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento')
         ->where('pre_viaje_local.idpreviajelocal', '=', $cod)
         ->first();
@@ -191,6 +191,8 @@ class ViaticosController extends Controller
         ->where('pre_viaje_exterior.idproyecto', '=', $cod)
         ->first();
 
+       // dd($viaje);
+
         $actividades = DB::table('actividad')
         ->where('idproyecto', '=', $cod)
         ->get();
@@ -212,12 +214,13 @@ class ViaticosController extends Controller
     {
 
         $viaje = DB::table('pre_viaje_exterior')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
-        ->join('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
+        ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
         ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
         ->where('pre_viaje_exterior.idproyecto', '=', $cod)
         ->first();
+
 
 
         return view('viaticos.showInt', compact('cod', 'viaje'));
@@ -252,9 +255,9 @@ class ViaticosController extends Controller
     {
         //dd($codinventario);
         $viaje = DB::table('pre_viaje_exterior')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
-        ->join('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
+        ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
         ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
         ->where('pre_viaje_exterior.idpreviajeexterior', '=', $cod)
         ->first();
@@ -280,9 +283,9 @@ class ViaticosController extends Controller
     {
         //dd($request);
         $viaje = DB::table('pre_viaje_exterior')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
-        ->join('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
+        ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
         ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
         ->where('pre_viaje_exterior.idproyecto', '=', $request->input('cod'))
         ->first();
@@ -319,9 +322,9 @@ class ViaticosController extends Controller
     {
 
         $viaje = DB::table('pre_viaje_exterior')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
-        ->join('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
+        ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
         ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
         ->where('pre_viaje_exterior.idpreviajeexterior', '=', $id)
         ->first();
@@ -337,9 +340,9 @@ class ViaticosController extends Controller
 
 
         $viaje = DB::table('pre_viaje_exterior')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
-        ->join('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
-        ->join('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
+        ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
         ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
         ->where('pre_viaje_exterior.idpreviajeexterior', '=', $cod)
         ->first();

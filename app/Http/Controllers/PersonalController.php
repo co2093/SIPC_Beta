@@ -31,8 +31,8 @@ class PersonalController extends Controller
 
 
         $personal = DB::table('pre_contratacion')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_contratacion.idactividad')
-        ->join('tipo_contratacion', 'tipo_contratacion.idtipocontratacion', '=', 'pre_contratacion.idtipocontratacion')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_contratacion.idactividad')
+        ->leftjoin('tipo_contratacion', 'tipo_contratacion.idtipocontratacion', '=', 'pre_contratacion.idtipocontratacion')
         ->select('pre_contratacion.*', 'actividad.nombreactividad', 'actividad.idproyecto', 'tipo_contratacion.nombretipocontratacion')
         ->where('actividad.idproyecto', '=', $cod)
         ->get();
@@ -69,8 +69,8 @@ class PersonalController extends Controller
     public function edit($cod)
     {
         $personal = DB::table('pre_contratacion')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_contratacion.idactividad')
-        ->join('tipo_contratacion', 'tipo_contratacion.idtipocontratacion', '=', 'pre_contratacion.idtipocontratacion')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_contratacion.idactividad')
+        ->leftjoin('tipo_contratacion', 'tipo_contratacion.idtipocontratacion', '=', 'pre_contratacion.idtipocontratacion')
         ->select('pre_contratacion.*', 'actividad.nombreactividad', 'actividad.idproyecto', 'tipo_contratacion.nombretipocontratacion')
         ->where('pre_contratacion.idcontratacion', '=', $cod)
         ->first();
@@ -117,8 +117,8 @@ class PersonalController extends Controller
     {
 
         $personal = DB::table('pre_contratacion')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_contratacion.idactividad')
-        ->join('tipo_contratacion', 'tipo_contratacion.idtipocontratacion', '=', 'pre_contratacion.idtipocontratacion')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_contratacion.idactividad')
+        ->leftjoin('tipo_contratacion', 'tipo_contratacion.idtipocontratacion', '=', 'pre_contratacion.idtipocontratacion')
         ->select('pre_contratacion.*', 'actividad.nombreactividad', 'actividad.idproyecto', 'tipo_contratacion.nombretipocontratacion')
         ->where('pre_contratacion.idcontratacion', '=', $cod)
         ->first();
@@ -132,8 +132,8 @@ class PersonalController extends Controller
     {
 
         $personal = DB::table('pre_contratacion')
-        ->join('actividad', 'actividad.idactividad', '=', 'pre_contratacion.idactividad')
-        ->join('tipo_contratacion', 'tipo_contratacion.idtipocontratacion', '=', 'pre_contratacion.idtipocontratacion')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_contratacion.idactividad')
+        ->leftjoin('tipo_contratacion', 'tipo_contratacion.idtipocontratacion', '=', 'pre_contratacion.idtipocontratacion')
         ->select('pre_contratacion.*', 'actividad.nombreactividad', 'actividad.idproyecto', 'tipo_contratacion.nombretipocontratacion')
         ->where('pre_contratacion.idcontratacion', '=', $cod)
         ->first();

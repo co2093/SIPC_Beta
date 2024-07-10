@@ -35,7 +35,7 @@
                                 <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
                             </div>
                         </div>
-
+                        <div class="table-responsive table-wrapper">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
@@ -43,7 +43,7 @@
                                     <th scope="col">Pago por Hora</th>
                                     <th scope="col">Horas</th>
                                     <th scope="col">Subtotal</th>
-                                     <th scope="col">Acciones</th>
+                                     <th scope="col" class="fixed-col">Acciones</th>
 
                                 </tr>
                             </thead>
@@ -55,7 +55,7 @@
                                     <td>${{$p->pago}}</td>
                                     <td>{{$p->dias}}</td>
                                     <td>${{$p->total}}</td>
-                                    <td>
+                                    <td class="fixed-col">
                                 <a  class="btn btn-primary btn-sm" href="{{ route('personal.edit', $p->idcontratacion) }}"><i class="fas fa-edit"></i></a>                                        
                                 <a  class="btn btn-danger btn-sm" href="{{ route('personal.delete', $p->idcontratacion) }}"><i class="fas fa-trash-alt"></i></a>
 
@@ -65,6 +65,7 @@
 
                             </tbody>
                         </table>
+                        </div> 
                       <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>
 
                     </div>
