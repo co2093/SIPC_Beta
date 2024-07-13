@@ -111,7 +111,8 @@
   					<div class="form-group">
 					    <label for="exampleFormControlInput1">Costo unitario</label>
 					    <input type="number" class="form-control" name="costo"  value="{{$recurso->preciorecurso}}" placeholder="" min="0.0"                   
-					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+					      step="0.01"     
+                         onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
 					  </div>
 
 					 <div class="form-group">

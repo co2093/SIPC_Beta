@@ -197,7 +197,80 @@ class RecursosController extends Controller
     {
 
 
-       
+     
+
+        $recurso = DB::table('pre_recurso')
+        ->where('pre_recurso.idrecurso', '=', $request->input('idrecurso'))
+        ->first();
+
+
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $recurso->idproyecto)
+        ->first();
+
+
+  // dd($recurso);
+
+        $diff = 0;
+
+        if( $recurso->subtotalrecurso > $request->input('subtotalrecurso'))
+        {
+            $diff = $recurso->subtotalrecurso + $request->input('subtotalrecurso');   
+        }elseif ($recurso->subtotalrecurso < $request->input('subtotalrecurso')) 
+        {
+            $diff = $recurso->subtotalrecurso  - $request->input('subtotalrecurso'); 
+        }
+
+
+        if($recurso->idfuente > 0){
+
+        $fuente = DB::table('pre_fuente')
+        ->where('idfuente', '=', $recurso->idfuente)
+        ->first();
+
+
+        DB::table('presupuesto_inicial')
+            ->where('idproyecto', $recurso->idproyecto)
+            ->update([
+            'montodisponible' => $p->montodisponible - $diff,
+            'montorecursos' => $p->montorecursos - $diff
+        ]);
+        DB::table('pre_fuente')
+            ->where('idfuente', $fuente->idfuente)
+            ->update([
+            'financiamiento' => $fuente->financiamiento - $diff 
+        ]);
+
+
+    
+          DB::table('pre_recurso')
+          ->where('idrecurso', $request->input('idrecurso'))
+          ->update([
+                'idtiporecurso' => $request->input('tiporecurso'),
+                'idunidadmedida' => $request->input('unidad'),
+                'idfuente' => $request->input('idfuente'),
+                'nombrerecurso' => $request->input('nombre'),
+                'especificacionestecnicas' => $request->input('especificaciones'),
+                'preciorecurso' => $request->input('costo'),
+                'cantidadrecurso' => $request->input('cantidad'),
+                'subtotalrecurso' => $request->input('costo')*$request->input('cantidad'),
+                'idactividad' => $request->input('idactividad')
+                
+
+
+            ]);        
+
+        }else{
+
+            DB::table('presupuesto_inicial')
+            ->where('idproyecto', $recurso->idproyecto)
+            ->update([
+            'montodisponible' => $p->montodisponible - $diff,
+            'montoconvocatoria' => $p->montoconvocatoria - $diff  
+            ]);
+
+
+
           DB::table('pre_recurso')
           ->where('idrecurso', $request->input('idrecurso'))
           ->update([
@@ -215,10 +288,14 @@ class RecursosController extends Controller
 
             ]);
 
+        }
+       
+
+
 
                 
 
-        session()->flash('success', 'Recurso actualizado exitosamente');
+        session()->flash('success', 'Recurso actualizado exitosamente.');
         return redirect()->to('/recursos/show/'.$request->input('idproyecto'));
 
     }
@@ -268,7 +345,7 @@ class RecursosController extends Controller
             DB::table('presupuesto_inicial')
             ->where('idproyecto', $recurso->idproyecto)
             ->update([
-            'montodisponible' => $p->montodisponible + + $recurso->subtotalrecurso,
+            'montodisponible' => $p->montodisponible  + $recurso->subtotalrecurso,
             'montorecursos' => $p->montorecursos + $recurso->subtotalrecurso 
             ]);
             DB::table('pre_fuente')
@@ -294,7 +371,7 @@ class RecursosController extends Controller
 
 
 
-        session()->flash('success', 'Recurso eliminado exitosamente');
+        session()->flash('success', 'Recurso eliminado exitosamente.');
         return redirect()->to('/recursos/show/'.$recurso->idproyecto);
     }
 
