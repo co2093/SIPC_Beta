@@ -196,102 +196,125 @@ class RecursosController extends Controller
     public function update(Request $request)
     {
 
-
-     
-
         $recurso = DB::table('pre_recurso')
         ->where('pre_recurso.idrecurso', '=', $request->input('idrecurso'))
         ->first();
-
 
         $p = DB::table('presupuesto_inicial')
         ->where('idproyecto', '=', $recurso->idproyecto)
         ->first();
 
+        $fuente_nueva = DB::table('pre_fuente')
+        ->where('idfuente', '=', $request->input('idfuente'))
+        ->first();
 
-  // dd($recurso);
+        $fuente_anterior = DB::table('pre_fuente')
+        ->where('idfuente', '=', $request->input('fuenteanterior'))
+        ->first();
+
+        $nuevo_total = $request->input('costo')*$request->input('cantidad');
+
+        if( $recurso->subtotalrecurso > $nuevo_total)
+        {
+            $diff = $recurso->subtotalrecurso + $nuevo_total;   
+        }elseif ($recurso->subtotalrecurso < $nuevo_total) 
+        {
+            $diff = $recurso->subtotalrecurso  - $nuevo_total; 
+        }
+
 
         $diff = 0;
 
-        if( $recurso->subtotalrecurso > $request->input('subtotalrecurso'))
-        {
-            $diff = $recurso->subtotalrecurso + $request->input('subtotalrecurso');   
-        }elseif ($recurso->subtotalrecurso < $request->input('subtotalrecurso')) 
-        {
-            $diff = $recurso->subtotalrecurso  - $request->input('subtotalrecurso'); 
-        }
+        if ($request->input('idfuente') > 0) {
+
+            if($fuente_nueva->financiamiento >= $nuevo_total){
+
+                    DB::table('presupuesto_inicial')
+                    ->where('idproyecto', $recurso->idproyecto)
+                    ->update([
+                        'montodisponible' => $p->montodisponible - $diff,
+                        'montorecursos' => $p->montorecursos - $diff
+                    ]);
+           
+
+                    if($request->input('idfuente') == $fuente_anterior->idfuente){
 
 
-        if($recurso->idfuente > 0){
+                        DB::table('pre_fuente')
+                            ->where('idfuente', $request->input('idfuente'))
+                            ->update([
+                            'financiamiento' => $fuente_nueva->financiamiento - $diff 
+                        ]);         
+               
+                     
+                    }else{
 
-        $fuente = DB::table('pre_fuente')
-        ->where('idfuente', '=', $recurso->idfuente)
-        ->first();
+                        DB::table('pre_fuente')
+                            ->where('idfuente', $request->input('idfuente'))
+                            ->update([
+                            'financiamiento' => $fuente_nueva->financiamiento - $diff 
+                        ]);
 
-
-        DB::table('presupuesto_inicial')
-            ->where('idproyecto', $recurso->idproyecto)
-            ->update([
-            'montodisponible' => $p->montodisponible - $diff,
-            'montorecursos' => $p->montorecursos - $diff
-        ]);
-        DB::table('pre_fuente')
-            ->where('idfuente', $fuente->idfuente)
-            ->update([
-            'financiamiento' => $fuente->financiamiento - $diff 
-        ]);
-
-
-    
-          DB::table('pre_recurso')
-          ->where('idrecurso', $request->input('idrecurso'))
-          ->update([
-                'idtiporecurso' => $request->input('tiporecurso'),
-                'idunidadmedida' => $request->input('unidad'),
-                'idfuente' => $request->input('idfuente'),
-                'nombrerecurso' => $request->input('nombre'),
-                'especificacionestecnicas' => $request->input('especificaciones'),
-                'preciorecurso' => $request->input('costo'),
-                'cantidadrecurso' => $request->input('cantidad'),
-                'subtotalrecurso' => $request->input('costo')*$request->input('cantidad'),
-                'idactividad' => $request->input('idactividad')
-                
+                        DB::table('pre_fuente')
+                            ->where('idfuente', $request->input('idfuente'))
+                            ->update([
+                            'financiamiento' => $fuente_anterior->financiamiento + $recurso->subtotalrecurso
+                        ]);    
 
 
-            ]);        
+                    }
+
+
+
+
+
+            }else{
+
+                session()->flash('success', 'No hay fondos suficientes, seleccione otra fuente.');
+                return redirect()->to('/recursos/show/'.$request->input('idproyecto'));
+            }
 
         }else{
+   
+           if($p->montoconvocatoria >= $nuevo_total){
+                DB::table('presupuesto_inicial')
+                ->where('idproyecto', $recurso->idproyecto)
+                ->update([
+                    'montodisponible' => $p->montodisponible - $diff,
+                    'montoconvocatoria' => $p->montoconvocatoria - $diff
+                ]);
+               
+                if($fuente_anterior>0){
 
-            DB::table('presupuesto_inicial')
-            ->where('idproyecto', $recurso->idproyecto)
-            ->update([
-            'montodisponible' => $p->montodisponible - $diff,
-            'montoconvocatoria' => $p->montoconvocatoria - $diff  
-            ]);
+                    DB::table('pre_fuente')
+                    ->where('idfuente', $request->input('idfuente'))
+                    ->update([
+                        'financiamiento' => $fuente_anterior->financiamiento + $recurso->subtotalrecurso
+                    ]);    
+                }
+            }else{
+                session()->flash('success', 'No hay fondos suficientes, seleccione otra fuente.');
+                return redirect()->to('/recursos/show/'.$request->input('idproyecto'));
 
-
-
-          DB::table('pre_recurso')
-          ->where('idrecurso', $request->input('idrecurso'))
-          ->update([
-                'idtiporecurso' => $request->input('tiporecurso'),
-                'idunidadmedida' => $request->input('unidad'),
-                'idfuente' => $request->input('idfuente'),
-                'nombrerecurso' => $request->input('nombre'),
-                'especificacionestecnicas' => $request->input('especificaciones'),
-                'preciorecurso' => $request->input('costo'),
-                'cantidadrecurso' => $request->input('cantidad'),
-                'subtotalrecurso' => $request->input('costo')*$request->input('cantidad'),
-                'idactividad' => $request->input('idactividad')
-                
-
-
-            ]);
+           }
 
         }
+
+
        
-
-
+        DB::table('pre_recurso')
+        ->where('idrecurso', $request->input('idrecurso'))
+        ->update([
+            'idtiporecurso' => $request->input('tiporecurso'),
+            'idunidadmedida' => $request->input('unidad'),
+            'idfuente' => $request->input('idfuente'),
+            'nombrerecurso' => $request->input('nombre'),
+            'especificacionestecnicas' => $request->input('especificaciones'),
+            'preciorecurso' => $request->input('costo'),
+            'cantidadrecurso' => $request->input('cantidad'),
+            'subtotalrecurso' => $request->input('costo')*$request->input('cantidad'),
+            'idactividad' => $request->input('idactividad')    
+        ]);  
 
                 
 

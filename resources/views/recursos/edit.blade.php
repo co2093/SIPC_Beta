@@ -44,6 +44,9 @@
                         <input type="hidden" value="{{$recurso->idrecurso}}" name="idrecurso" >
                     </div>
 
+                   	<div class="form-group">
+                        <input type="hidden" value="{{$recurso->idfuente}}" name="fuenteanterior" >
+                    </div>
 
 
 				  <div class="form-group">
