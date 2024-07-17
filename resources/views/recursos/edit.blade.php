@@ -101,10 +101,17 @@
 				 <div class="form-group">
 					    <label for="exampleFormControlSelect1">Fuente de financiamiento</label>
 					    <select class="form-control" name="idfuente" required>
-					   	
+					    	@if($recurso->idfuente)
+					    	<option value="{{$recurso->idfuente}}">{{$recurso->descripcionfuente}}, $({{$recurso->financiamiento}})</option>
+					    	@endif
+						
+
 					   	@foreach($fuentes as $f)
-					   	<option value="{{$f->idfuente}}">{{$f->descripcionfuente}}</option>
+					   	@if($f->idfuente != $recurso->idfuente)
+					   	<option value="{{$f->idfuente}}">{{$f->descripcionfuente}}, (${{$f->financiamiento}})</option>
+					   	@endif
 					   	@endforeach
+						<option value="0">Convocatoria, $({{$p->montoconvocatoria}})</option>
 
 					    </select>
 				  </div>

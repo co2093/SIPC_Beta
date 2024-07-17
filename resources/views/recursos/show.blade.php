@@ -5,6 +5,11 @@
             {{ session('success') }}
         </div>
 @endif
+@if (session('error'))
+        <div style="color: red; margin-bottom: 20px;">
+            {{ session('error') }}
+        </div>
+@endif
 
 
     <nav aria-label="breadcrumb">
@@ -45,7 +50,7 @@
                                     <th scope="col">Fuente</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Precio</th>
-                                    <th scope="col">Total</th>
+                                    <th scope="col">Subtotal</th>
                                     <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
@@ -71,8 +76,23 @@
                                         </td>
                                     </tr>
                                @endforeach
-
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><b>Total</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b>$
+                                        @foreach($total as $t)
+                                            {{$t->sum}}
+                                        @endforeach
+                                        </b>
+                                    </td>
+                                </tr>
+                            </tfoot>  
                         </table>
                         </div>
                       <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>

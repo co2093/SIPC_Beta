@@ -5,6 +5,11 @@
             {{ session('success') }}
         </div>
 @endif
+@if (session('error'))
+        <div style="color: red; margin-bottom: 20px;">
+            {{ session('error') }}
+        </div>
+@endif
 
 
     <nav aria-label="breadcrumb">
@@ -41,6 +46,7 @@
                                 <tr>
                                     <th scope="col">Tipo</th>
                                     <th scope="col">Pago por Hora</th>
+                                    <th scope="col">Fuente</th>
                                     <th scope="col">Horas</th>
                                     <th scope="col">Subtotal</th>
                                      <th scope="col" class="fixed-col">Acciones</th>
@@ -53,6 +59,11 @@
                                 <tr>
                                     <td>{{$p->nombretipocontratacion}}</td>
                                     <td>${{$p->pago}}</td>
+                                    @if($p->idfuente > 0)
+                                    <td>{{$p->descripcionfuente}}</td>
+                                    @else
+                                    <td>Convocatoria</td>
+                                    @endif
                                     <td>{{$p->dias}}</td>
                                     <td>${{$p->total}}</td>
                                     <td class="fixed-col">
@@ -64,6 +75,20 @@
                                 @endforeach
 
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><b>Total</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b>$
+                                        @foreach($total as $t)
+                                            {{$t->sum}}
+                                        @endforeach
+                                        </b>
+                                    </td>
+                                </tr>
+                            </tfoot>  
                         </table>
                         </div> 
                       <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>

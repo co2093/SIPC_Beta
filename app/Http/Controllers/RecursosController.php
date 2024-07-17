@@ -56,10 +56,10 @@ class RecursosController extends Controller
         ->where('pre_recurso.idproyecto', '=', $cod)
         ->get();
 
-    //        dd($recursos);
+        $total = DB::select("select sum(subtotalrecurso) from pre_recurso where idproyecto = '$cod'");
 
 
-        return view('recursos.show', compact('cod', 'recursos'));
+        return view('recursos.show', compact('cod', 'recursos', 'total'));
     }
 
 
@@ -113,9 +113,9 @@ class RecursosController extends Controller
                     ]);
                 }else{
 
-                session()->flash('success', 'No hay fondos suficientes en esta fuente, seleccione otra.');
+                session()->flash('error', 'No hay fondos suficientes en esta fuente, seleccione otra.');
 
-                return redirect()->back()->with('danger', 'No hay fondos suficientes en esta fuente, seleccione otra.');  
+                return redirect()->back()->with('error', 'No hay fondos suficientes en esta fuente, seleccione otra.');  
 
                 }
 
@@ -142,7 +142,7 @@ class RecursosController extends Controller
 
                 }else{
 
-                session()->flash('success', 'No hay fondos suficientes en esta fuente, seleccione otra.');
+                session()->flash('error', 'No hay fondos suficientes en esta fuente, seleccione otra.');
 
                 return redirect()->to('/recursos/show/'.$request->input('cod'));
                 }
@@ -166,10 +166,15 @@ class RecursosController extends Controller
         ->leftjoin('unidad_medida', 'pre_recurso.idunidadmedida', '=', 'unidad_medida.idunidadmedida')
         ->leftjoin('tipo_recurso', 'pre_recurso.idtiporecurso', '=', 'tipo_recurso.idtiporecurso')
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_recurso.idactividad')
-        ->select('pre_recurso.*', 'unidad_medida.nombreunidadmedida', 'tipo_recurso.nombretiporecurso', 'actividad.idproyecto')    
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_recurso.idfuente')
+        ->select('pre_recurso.*', 'unidad_medida.nombreunidadmedida', 'tipo_recurso.nombretiporecurso', 
+            'actividad.idproyecto', 'pre_fuente.descripcionfuente', 'pre_fuente.financiamiento')    
         ->where('pre_recurso.idrecurso', '=', $cod)
         ->first();
 
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $recurso->idproyecto)
+        ->first();
 
         $actividades = DB::table('actividad')
         ->where('idproyecto', '=', $recurso->idproyecto)
@@ -184,12 +189,13 @@ class RecursosController extends Controller
 
         $fuentes = DB::table('pre_fuente')
         ->where('idproyecto', '=', $recurso->idproyecto)
+        ->where('idrubro', '=', 1)
         ->get();
 
       //  dd($recurso);
 
 
-        return view('recursos.edit', compact('recurso', 'actividades', 'unidades', 'tipo', 'fuentes'));
+        return view('recursos.edit', compact('recurso', 'actividades', 'unidades', 'tipo', 'fuentes', 'p'));
     }    
 
 
@@ -270,7 +276,7 @@ class RecursosController extends Controller
 
             }else{
 
-                session()->flash('success', 'No hay fondos suficientes, seleccione otra fuente.');
+                session()->flash('error', 'No hay fondos suficientes, seleccione otra fuente.');
                 return redirect()->to('/recursos/show/'.$request->input('idproyecto'));
             }
 
@@ -293,7 +299,7 @@ class RecursosController extends Controller
                     ]);    
                 }
             }else{
-                session()->flash('success', 'No hay fondos suficientes, seleccione otra fuente.');
+                session()->flash('error', 'No hay fondos suficientes, seleccione otra fuente.');
                 return redirect()->to('/recursos/show/'.$request->input('idproyecto'));
 
            }
@@ -358,7 +364,7 @@ class RecursosController extends Controller
         ->where('idproyecto', '=', $recurso->idproyecto)
         ->first();
 
-        if($recurso->idfuente > 0){
+        if($recurso->idfuente){
 
             $fuente = DB::table('pre_fuente')
             ->where('idfuente', '=', $recurso->idfuente)

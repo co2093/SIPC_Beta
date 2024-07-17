@@ -58,12 +58,18 @@
 					    </select>
 					  </div>
 
-					  <div class="form-group">
-					    <label for="exampleFormControlInput1">Pago por hora</label>
-					    <input type="number" class="form-control" id="pago" name="pago"  min="0" step="0.1" 
-					    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-					    placeholder="0.0">
-					  </div>
+				 <div class="form-group">
+					    <label for="exampleFormControlSelect1">Fuente de financiamiento</label>
+					    <select class="form-control" name="idfuente" required>
+					   	<option value="0">Convocatoria, $({{$p->montoconvocatoria}})</option>
+					   	@foreach($fuentes as $f)
+					   	<option value="{{$f->idfuente}}">{{$f->descripcionfuente}}, (${{$f->financiamiento}})</option>
+					   	@endforeach
+
+					    </select>
+				  </div>
+
+				  
 
 
 					  <div class="form-group">

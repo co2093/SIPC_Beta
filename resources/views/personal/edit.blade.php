@@ -40,35 +40,50 @@
 					<div class="form-group">
 					    <label for="exampleFormControlSelect1">Actividad asociada</label>
 					    <select class="form-control" name="actividad">
+
+					    	<option value="{{$personal->idactividad}}">{{$personal->nombreactividad}}</option>
 							
 					    	@foreach($actividades as $a)
-					    		<option value="{{$a->idactividad}}">{{$a->nombreactividad}}</option>
+					    		@if($a->idactividad != $personal->idactividad)
+					    			<option value="{{$a->idactividad}}">{{$a->nombreactividad}}</option>
+					    		@endif
 					    	@endforeach
 
 					    </select>
 					</div>
 
-
-  		
-
-
-
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Tipo de personal</label>
 					    <select class="form-control" name="tipo">
+					    	<option value="{{$personal->idtipocontratacion}}">{{$personal->nombretipocontratacion}}</option>
 					    	@foreach($tipo as $t)
-					    		<option value="{{$t->idtipocontratacion}}">{{$t->nombretipocontratacion}}</option>
+					    		@if($t->idtipocontratacion != $personal->idtipocontratacion)
+					    			<option value="{{$t->idtipocontratacion}}">{{$t->nombretipocontratacion}}</option>
+					    		@endif
 					    	@endforeach
 					    </select>
 					  </div>
 
-					  <div class="form-group">
-					    <label for="exampleFormControlInput1">Pago por hora</label>
-					    <input type="number" class="form-control" id="pago" name="pago"  min="0" step="0.1"
-					    value="{{$personal->pago}}" 
-					    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-					    placeholder="0.0">
-					  </div>
+
+				<div class="form-group">
+					    <label for="exampleFormControlSelect1">Fuente de financiamiento</label>
+					    <select class="form-control" name="idfuente" required>
+
+					    @if($personal->idfuente)
+					    	<option value="{{$personal->idfuente}}">{{$personal->descripcionfuente}}</option>	
+					    @endif	
+
+
+					   	@foreach($fuentes as $f)
+						   	@if($f->idfuente != $personal->idfuente)
+						   	<option value="{{$f->idfuente}}">{{$f->descripcionfuente}}, (${{$f->financiamiento}})</option>		
+						   	@endif
+					   	@endforeach
+					   	<option value="0">Convocatoria, $({{$p->montoconvocatoria}})</option>
+
+					    </select>
+				</div>
+
 
 
 					  <div class="form-group">

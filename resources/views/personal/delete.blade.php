@@ -24,22 +24,30 @@
                     <div class="card-body">
                     	
                     	<br>
-                    	<label>Actividad asociada: </label>{{$personal->nombreactividad}}
+                    	<label class="font-weight-bold">Actividad asociada: &nbsp;</label>{{$personal->nombreactividad}}
                 
                     	<br>
-                    	<label>Tipo: </label>{{$personal->nombretipocontratacion}}
+                    	<label class="font-weight-bold">Tipo:&nbsp; </label>{{$personal->nombretipocontratacion}}
 
                         <br>
-                        <label>Pago: </label>${{$personal->pago}}
+                        <label class="font-weight-bold">Pago:&nbsp; </label>${{$personal->pago}}
+
+                        <br>
+                        <label class="font-weight-bold">Fuente:&nbsp; </label>
+                        @if($personal->descripcionfuente)
+                        {{$personal->descripcionfuente}}
+                        @else
+                        Convocatoria
+                        @endif
 
 
                         <br>
-                        <label>Horas laborales: </label>{{$personal->dias}}
+                        <label class="font-weight-bold">Horas laborales:&nbsp; </label>{{$personal->dias}}
                     	
 
 
                         <br>
-                        <label>Total: </label>${{$personal->total}}
+                        <label class="font-weight-bold">Total:&nbsp; </label>${{$personal->total}}
                     	<br><br><br>
 
                   <form action="{{ route('personal.destroy', $personal->idcontratacion) }}" method="POST" style="display:inline">
