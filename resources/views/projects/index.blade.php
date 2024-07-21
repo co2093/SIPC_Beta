@@ -82,8 +82,8 @@
 					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
 					  </div>
 
-					  <button type="submit" class="btn btn-danger">Guardar</button>
-				      <a  class="btn btn-secondary float-right" href="{{route('projects.prueba', $cod)}}">Cancelar</a>
+					  <button type="submit" class="btn btn-danger">Finalizar</button>
+				      <a  class="btn btn-secondary float-right" href="{{route('projects.prueba', $cod)}}">Regresar</a>
 
 
 

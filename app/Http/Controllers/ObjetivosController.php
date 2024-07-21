@@ -119,8 +119,23 @@ class ObjetivosController extends Controller
 
 
 
-        session()->flash('success', 'Objetivo eliminado exitosamente');
+        session()->flash('success', 'Objetivo eliminado exitosamente.');
         return redirect()->to('/objetivos/show/'.$o->idproyecto);
+    }
+
+    public function end($cod){
+
+
+        DB::table('pasos_registro')
+        ->where('idproyecto', $cod)
+        ->update([
+            'objetivos' => 1    
+
+        ]);
+
+        session()->flash('success', 'Objetivos completados.');
+        return redirect()->to('/projects/registro/pasos/'.$cod);
+
     }
 
 }

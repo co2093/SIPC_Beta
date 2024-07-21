@@ -70,6 +70,8 @@
                             </tbody>
                         </table>
                         </div>
+                    <a  class="btn btn-danger" href="{{route('objetivos.end', $cod)}}">Finalizar</a>
+
                       <a  class="btn btn-secondary float-right" href="{{route('projects.prueba', $cod)}}">Regresar</a>
 
                     </div>

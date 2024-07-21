@@ -184,8 +184,104 @@ class PersonalController extends Controller
      public function update(Request $request)
     {
 
+        $personal = DB::table('pre_contratacion')
+        ->where('pre_contratacion.idcontratacion', '=', $request->input('idcontratacion'))
+        ->first();
 
-        DB::table('pre_contratacion')
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $request->input('cod'))
+        ->first();
+
+        $fuente_nueva = DB::table('pre_fuente')
+        ->where('idfuente', '=', $request->input('idfuente'))
+        ->first();
+
+        $fuente_anterior = DB::table('pre_fuente')
+        ->where('idfuente', '=', $request->input('fuenteanterior'))
+        ->first();
+
+        $nuevo_total = $request->input('dias')*$request->input('pago');
+
+        $diff = 0;
+
+        if( $personal->total > $nuevo_total)
+        {
+            $diff = $personal->total + $nuevo_total;   
+        }elseif ($personal->total < $nuevo_total) 
+        {
+            $diff = $personal->total  - $nuevo_total; 
+        }
+
+
+
+
+        //Comprobar si hay fuente nueva
+        if($fuente_nueva){
+
+            //Verificar que exista una anterior
+            if ($fuente_anterior) {
+                //Verificar si son las mismas    
+                if ($fuente_nueva->idfuente == $fuente_anterior->idfuente) {
+                //Si son las mismas
+
+
+                }else{
+                //Es diferente
+                    //Comprobar que tenga financiamientos suficientes                
+                    if ($fuente_nueva->financiamiento >= $request->input('dias')*$request->input('pago')) {
+                        
+
+                    }else{
+                        //No hay fondos
+                        session()->flash('error', 'No hay fondos suficientes, seleccione otra fuente.');
+                        return redirect()->to('/personal/show/'.$request->input('cod'));
+                    }
+
+                }
+            }
+
+            //No hay fuente anterior
+
+
+
+
+
+        }else{
+
+
+            
+            if ($fuente_anterior) {
+                // code...
+            }else{
+
+
+
+            }
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /*       DB::table('pre_contratacion')
         ->where('idcontratacion', $request->input('idcontratacion'))
         ->update([
             'idactividad' => $request->input('actividad'),
@@ -195,7 +291,7 @@ class PersonalController extends Controller
             'total' => $request->input('dias')*$request->input('pago')
         ]);
 
-
+*/
                 
 
         session()->flash('success', 'Contratación actualizada exitosamente');
@@ -278,6 +374,20 @@ class PersonalController extends Controller
         session()->flash('success', 'Contratación eliminada exitosamente.');
         return redirect()->to('/personal/show/'.$personal->idproyecto);
     }
- 
+
+    public function end($cod){
+
+
+        DB::table('pasos_presupuesto')
+        ->where('idproyecto', $cod)
+        ->update([
+            'contrataciones' => 1    
+
+        ]);
+
+        session()->flash('success', 'Contrataciones completadas.');
+        return redirect()->to('/presupuesto/show/menu/'.$cod);
+
+    } 
 
 }

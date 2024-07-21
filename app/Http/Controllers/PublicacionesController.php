@@ -143,6 +143,21 @@ class PublicacionesController extends Controller
         return redirect()->to('/publicaciones/show/'.$publicacion->idproyecto);
     }
 
+    public function end($cod){
+
+
+        DB::table('pasos_presupuesto')
+        ->where('idproyecto', $cod)
+        ->update([
+            'pulicaciones' => 1    
+
+        ]);
+
+        session()->flash('success', 'Publicaciones completadas.');
+        return redirect()->to('/presupuesto/show/menu/'.$cod);
+
+    }
+
 
 
 }

@@ -97,7 +97,6 @@ class ProjectsController extends Controller
 
         ]);
 
-    //flash('Producto agregado al inventario exitosamente', 'success');
     session()->flash('success', 'Se ha iniciado un nuevo proyecto');
 
     return redirect()->route('projects.show');
@@ -134,10 +133,16 @@ class ProjectsController extends Controller
             'idtipoproyecto' => $request->input('tipo'),
             'tiempo' => $request->input('tiempo')        ]);
 
+        DB::table('pasos_registro')
+        ->where('idproyecto', $request->input('idproyecto'))
+        ->update([
+            'titulo' => 1    
+
+        ]);
 
                 
 
-        session()->flash('success', 'Proyecto actualizado exitosamente');
+        session()->flash('success', 'Proyecto actualizado exitosamente.');
         return redirect()->to('/projects/registro/pasos/'.$request->input('idproyecto'));
 
     }
@@ -205,6 +210,9 @@ class ProjectsController extends Controller
 
         $estados = DB::table('estado_proyecto')->get();
 
+        $pasos = DB::table('pasos_registro')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
         $proyectos = DB::table('proyecto')
         ->leftjoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
@@ -214,18 +222,50 @@ class ProjectsController extends Controller
         ->where('idproyecto', '=', $cod)
         ->first();
 
-        return view('projects.prueba', compact('proyectos', 'convocatorias', 'estados', 'cod'));
+        if($pasos) {
+            // code...
+        }else{
+
+            DB::table('pasos_registro')->insert([
+            'idproyecto' => $cod,
+            'titulo' => 0,
+            'objetivos' => 0,
+            'actividades' => 0,
+            'presupuesto' => 0,
+            'colaboradores' => 0,
+            'protocolo' =>0
+
+        ]);
+
+        $pasos = DB::table('pasos_registro')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+        
+        }
+
+
+        $c = DB::table('pasos_registro')
+             ->select(DB::raw('sum(titulo+objetivos+actividades+presupuesto+colaboradores+protocolo)'))
+             ->where('idproyecto', '=', $cod)
+             ->first();
+        
+        $completado = round(($c->sum*16.666677),0);
+
+      //  dd($completado);
+
+
+        return view('projects.prueba', compact('proyectos', 'convocatorias', 'estados', 'cod', 'pasos', 'completado'));
 
     }
 
-    public function protocolo()
+    public function protocolo($cod)
     {
-        return view('projects.protocolo');
+        return view('projects.protocolo', compact('cod'));
     }
 
-    public function enviar()
+    public function enviar($cod)
     {
-        return view('projects.enviar');
+        return view('projects.enviar', compact('cod'));
     }
 
 
@@ -239,6 +279,21 @@ class ProjectsController extends Controller
     public function archivadosindex()
     {
         return view('projects.archivadosindex');
+    }
+
+    public function end($cod){
+
+
+        DB::table('pasos_registro')
+        ->where('idproyecto', $cod)
+        ->update([
+            'protocolo' => 1    
+
+        ]);
+
+        session()->flash('success', 'Protocolo completado.');
+        return redirect()->to('/projects/registro/pasos/'.$cod);
+
     }
 
 }

@@ -157,5 +157,20 @@ class ColaboradoresController extends Controller
         return redirect()->to('/colaboradores/show/'.$col->idproyecto);
     }
 
+    public function end($cod){
+
+
+        DB::table('pasos_registro')
+        ->where('idproyecto', $cod)
+        ->update([
+            'colaboradores' => 1    
+
+        ]);
+
+        session()->flash('success', 'Colaboradores completados.');
+        return redirect()->to('/projects/registro/pasos/'.$cod);
+
+    }
+
 
 }

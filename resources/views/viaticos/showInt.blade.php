@@ -66,6 +66,8 @@
                             </tbody>
                         </table>
                         </div>
+                    <a  class="btn btn-danger" href="{{route('viaticos.int.end', $cod)}}">Finalizar</a>  
+
                       <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>
 
 

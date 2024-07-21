@@ -358,4 +358,34 @@ class ViaticosController extends Controller
         session()->flash('success', 'Viaje eliminado exitosamente.');
         return redirect()->to('/viaticos/internacionales/show/'.$viaje->idproyecto);
     }
+
+    public function end($cod){
+
+
+        DB::table('pasos_presupuesto')
+        ->where('idproyecto', $cod)
+        ->update([
+            'nacionales' => 1    
+
+        ]);
+
+        session()->flash('success', 'Viajes nacionales completados.');
+        return redirect()->to('/presupuesto/show/menu/'.$cod);
+
+    }
+
+    public function endInt($cod){
+
+
+        DB::table('pasos_presupuesto')
+        ->where('idproyecto', $cod)
+        ->update([
+            'internacionales' => 1    
+
+        ]);
+
+        session()->flash('success', 'Viajes internacionales completados.');
+        return redirect()->to('/presupuesto/show/menu/'.$cod);
+
+    }
 }

@@ -32,8 +32,10 @@ Route::get('/projects/iniciar', [App\Http\Controllers\ProjectsController::class,
 
 Route::get('/projects/show', [App\Http\Controllers\ProjectsController::class, 'show'])->name('projects.show');
 Route::get('/projects/registro/pasos/{cod}', [App\Http\Controllers\ProjectsController::class, 'prueba'])->name('projects.prueba');
-Route::get('/projects/protocolo', [App\Http\Controllers\ProjectsController::class, 'protocolo'])->name('projects.protocolo');
-Route::get('/projects/enviar', [App\Http\Controllers\ProjectsController::class, 'enviar'])->name('projects.enviar');
+Route::get('/projects/protocolo/{cod}', [App\Http\Controllers\ProjectsController::class, 'protocolo'])->name('projects.protocolo');
+Route::get('/projects/protocolo/finalizar/{cod}',[App\Http\Controllers\ProjectsController::class, 'end'])->name('projects.end');
+
+Route::get('/projects/enviar/{cod}', [App\Http\Controllers\ProjectsController::class, 'enviar'])->name('projects.enviar');
 
 Route::get('/projects/archivados', [App\Http\Controllers\ProjectsController::class, 'archivadosindex'])->name('archivados.crear');
 Route::get('/projects/archivados/show', [App\Http\Controllers\ProjectsController::class, 'archivadosshow'])->name('archivados.show');
@@ -57,6 +59,7 @@ Route::get('/objetivos/confirm/{id}',[App\Http\Controllers\ObjetivosController::
 Route::post('/objetivos/update', [App\Http\Controllers\ObjetivosController::class, 'update'])->name('objetivos.update');
 Route::delete('/objetivos/delete/{cod}',[App\Http\Controllers\ObjetivosController::class, 'destroy'])->name('objetivos.destroy');
 Route::get('/objetivos/edit/{cod}',[App\Http\Controllers\ObjetivosController::class, 'edit'])->name('objetivos.edit');
+Route::get('/objetivos/finalizar/{cod}',[App\Http\Controllers\ObjetivosController::class, 'end'])->name('objetivos.end');
 
 
 
@@ -69,6 +72,7 @@ Route::get('/actividades/confirm/{id}',[App\Http\Controllers\ActividadesControll
 Route::post('/actividades/update', [App\Http\Controllers\ActividadesController::class, 'update'])->name('actividades.update');
 Route::delete('/actividades/delete/{cod}',[App\Http\Controllers\ActividadesController::class, 'destroy'])->name('actividades.destroy');
 Route::get('/actividades/edit/{cod}',[App\Http\Controllers\ActividadesController::class, 'edit'])->name('actividades.edit');
+Route::get('/actividades/finalizar/{cod}',[App\Http\Controllers\ActividadesController::class, 'end'])->name('actividades.end');
 
 
 
@@ -80,6 +84,7 @@ Route::get('/fuentes/confirm/{id}',[App\Http\Controllers\FuentesController::clas
 Route::post('/fuentes/update', [App\Http\Controllers\FuentesController::class, 'update'])->name('fuentes.update');
 Route::delete('/fuentes/delete/{cod}',[App\Http\Controllers\FuentesController::class, 'destroy'])->name('fuentes.destroy');
 Route::get('/fuentes/edit/{cod}',[App\Http\Controllers\FuentesController::class, 'edit'])->name('fuentes.edit');
+Route::get('/fuentes/finalizar/{cod}',[App\Http\Controllers\FuentesController::class, 'end'])->name('fuentes.end');
 
 
 
@@ -91,6 +96,7 @@ Route::get('/recursos/confirm/{id}',[App\Http\Controllers\RecursosController::cl
 Route::post('/recursos/update', [App\Http\Controllers\RecursosController::class, 'update'])->name('recursos.update');
 Route::delete('/recursos/delete/{cod}',[App\Http\Controllers\RecursosController::class, 'destroy'])->name('recursos.destroy');
 Route::get('/recursos/edit/{cod}',[App\Http\Controllers\RecursosController::class, 'edit'])->name('recursos.edit');
+Route::get('/recursos/finalizar/{cod}',[App\Http\Controllers\RecursosController::class, 'end'])->name('recursos.end');
 
 
 
@@ -102,6 +108,7 @@ Route::get('/personal/confirm/{id}',[App\Http\Controllers\PersonalController::cl
 Route::post('/personal/update', [App\Http\Controllers\PersonalController::class, 'update'])->name('personal.update');
 Route::delete('/personal/delete/{cod}',[App\Http\Controllers\PersonalController::class, 'destroy'])->name('personal.destroy');
 Route::get('/personal/edit/{cod}',[App\Http\Controllers\PersonalController::class, 'edit'])->name('personal.edit');
+Route::get('/personal/finalizar/{cod}',[App\Http\Controllers\PersonalController::class, 'end'])->name('personal.end');
 
 
 
@@ -116,6 +123,7 @@ Route::get('/viaticos/confirm/{id}',[App\Http\Controllers\ViaticosController::cl
 Route::post('/viaticos/update', [App\Http\Controllers\ViaticosController::class, 'update'])->name('viaticos.update');
 Route::delete('/viaticos/delete/{cod}',[App\Http\Controllers\ViaticosController::class, 'destroy'])->name('viaticos.destroy');
 Route::get('/viaticos/edit/{cod}',[App\Http\Controllers\ViaticosController::class, 'edit'])->name('viaticos.edit');
+Route::get('/viaticos/finalizar/{cod}',[App\Http\Controllers\ViaticosController::class, 'end'])->name('viaticos.end');
 
 
 
@@ -127,6 +135,7 @@ Route::get('/viaticos/internacionales/confirm/{id}',[App\Http\Controllers\Viatic
 Route::post('/viaticos/internacionales/update', [App\Http\Controllers\ViaticosController::class, 'updateInt'])->name('viaticos.int.update');
 Route::delete('/viaticos/internacionales/delete/{cod}',[App\Http\Controllers\ViaticosController::class, 'destroyInt'])->name('viaticos.int.destroy');
 Route::get('/viaticos/internacionales/edit/{cod}',[App\Http\Controllers\ViaticosController::class, 'editInt'])->name('viaticos.int.edit');
+Route::get('/viaticos/internacionales/finalizar/{cod}',[App\Http\Controllers\ViaticosController::class, 'endInt'])->name('viaticos.int.end');
 
 
 
@@ -138,6 +147,7 @@ Route::get('/publicaciones/confirm/{id}',[App\Http\Controllers\PublicacionesCont
 Route::post('/publicaciones/update', [App\Http\Controllers\PublicacionesController::class, 'update'])->name('publicaciones.update');
 Route::delete('/publicaciones/delete/{cod}',[App\Http\Controllers\PublicacionesController::class, 'destroy'])->name('publicaciones.destroy');
 Route::get('/publicaciones/edit/{cod}',[App\Http\Controllers\PublicacionesController::class, 'edit'])->name('publicaciones.edit');
+Route::get('/publicaciones/finalizar/{cod}',[App\Http\Controllers\PublicacionesController::class, 'end'])->name('publicaciones.end');
 
 
 //Convocatoria
@@ -155,6 +165,7 @@ Route::get('/colaboradores/confirm/{id}',[App\Http\Controllers\ColaboradoresCont
 Route::post('/colaboradores/update', [App\Http\Controllers\ColaboradoresController::class, 'update'])->name('colaboradores.update');
 Route::delete('/colaboradores/delete/{cod}',[App\Http\Controllers\ColaboradoresController::class, 'destroy'])->name('colaboradores.destroy');
 Route::get('/colaboradores/edit/{cod}',[App\Http\Controllers\ColaboradoresController::class, 'edit'])->name('colaboradores.edit');
+Route::get('/colaboradores/finalizar/{cod}',[App\Http\Controllers\ColaboradoresController::class, 'end'])->name('colaboradores.end');
 
 
 //Catalogos

@@ -295,5 +295,21 @@ class FuentesController extends Controller
     }    
 
 
+    public function end($cod){
+
+
+        DB::table('pasos_presupuesto')
+        ->where('idproyecto', $cod)
+        ->update([
+            'fuentes' => 1    
+
+        ]);
+
+        session()->flash('success', 'Financiamientos completados.');
+        return redirect()->to('/presupuesto/show/menu/'.$cod);
+
+    }
+
+
 }
 

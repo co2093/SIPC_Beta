@@ -37,6 +37,10 @@
                         <input type="hidden" value="{{$personal->idcontratacion}}" name="idcontratacion" >
                     </div>
 
+                    <div class="form-group">
+                        <input type="hidden" value="{{$personal->idfuente}}" name="fuenteanterior" >
+                    </div>
+
 					<div class="form-group">
 					    <label for="exampleFormControlSelect1">Actividad asociada</label>
 					    <select class="form-control" name="actividad">
@@ -72,6 +76,7 @@
 					    @if($personal->idfuente)
 					    	<option value="{{$personal->idfuente}}">{{$personal->descripcionfuente}}</option>	
 					    @endif	
+					   	<option value="0">Convocatoria, $({{$p->montoconvocatoria}})</option>
 
 
 					   	@foreach($fuentes as $f)
@@ -79,7 +84,6 @@
 						   	<option value="{{$f->idfuente}}">{{$f->descripcionfuente}}, (${{$f->financiamiento}})</option>		
 						   	@endif
 					   	@endforeach
-					   	<option value="0">Convocatoria, $({{$p->montoconvocatoria}})</option>
 
 					    </select>
 				</div>

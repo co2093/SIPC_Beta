@@ -168,4 +168,19 @@ class ActividadesController extends Controller
         session()->flash('success', 'Actividad eliminada exitosamente');
         return redirect()->to('/actividades/show/'.$act->idproyecto);
     }
+
+    public function end($cod){
+
+
+        DB::table('pasos_registro')
+        ->where('idproyecto', $cod)
+        ->update([
+            'actividades' => 1    
+
+        ]);
+
+        session()->flash('success', 'Actividades completadas.');
+        return redirect()->to('/projects/registro/pasos/'.$cod);
+
+    }
 }

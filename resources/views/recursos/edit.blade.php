@@ -104,6 +104,7 @@
 					    	@if($recurso->idfuente)
 					    	<option value="{{$recurso->idfuente}}">{{$recurso->descripcionfuente}}, $({{$recurso->financiamiento}})</option>
 					    	@endif
+						<option value="0">Convocatoria, $({{$p->montoconvocatoria}})</option>
 						
 
 					   	@foreach($fuentes as $f)
@@ -111,7 +112,6 @@
 					   	<option value="{{$f->idfuente}}">{{$f->descripcionfuente}}, (${{$f->financiamiento}})</option>
 					   	@endif
 					   	@endforeach
-						<option value="0">Convocatoria, $({{$p->montoconvocatoria}})</option>
 
 					    </select>
 				  </div>

@@ -5,6 +5,12 @@
             {{ session('success') }}
         </div>
 @endif
+@if (session('error'))
+        <div style="color: red; margin-bottom: 20px;">
+            {{ session('error') }}
+        </div>
+@endif
+
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
@@ -28,7 +34,7 @@
             <div class="container mt-5">
                 <!-- Progress Bar -->
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 16.6%" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100">20%</div>
+                    <div class="progress-bar" role="progressbar" style="width: {{$completado}}%"aria-valuenow="{{$completado}}" aria-valuemin="0" aria-valuemax="100">{{$completado}}%</div>
                 </div>
 
                 <!-- Tabs Navigation -->
@@ -47,7 +53,11 @@
                 <div class="row">
                     <!-- Step 1 -->
                     <div class="col text-center">
+                        @if($pasos->fuentes == 1)
                         <a href="{{route('fuentes.show', $cod)}}" class="step-number completed-step">
+                        @else
+                        <a href="{{route('fuentes.show', $cod)}}" class="step-number pending-step">
+                        @endif 
                             <span class="fa fa-university fa-2x"></span>
                             <p>Financiamientos</p>
                         </a>
@@ -56,7 +66,11 @@
                     
                     <!-- Step 2 -->
                     <div class="col text-center">
+                        @if($pasos->recursos == 1)
                         <a href="{{route('recursos.show', $cod)}}" class="step-number completed-step">
+                        @else
+                        <a href="{{route('recursos.show', $cod)}}" class="step-number pending-step">
+                        @endif 
                             <span class="fa fa-laptop fa-2x"></span>
                             <p>Recursos</p>
                         </a>
@@ -64,7 +78,11 @@
 
                     <!-- Step 3 -->
                     <div class="col text-center">
-                        <a href="{{route('personal.show', $cod)}}" class="step-number current-step">
+                        @if($pasos->contrataciones == 1)
+                        <a href="{{route('personal.show', $cod)}}" class="step-number completed-step">
+                        @else
+                        <a href="{{route('personal.show', $cod)}}" class="step-number pending-step">
+                        @endif 
                             <span class="fa fa-user-circle fa-2x"></span>
                             <p>Contrataciones</p>
                         </a>
@@ -72,7 +90,11 @@
                     
                     <!-- Step 4 -->
                     <div class="col text-center">
+                        @if($pasos->nacionales == 1)
+                        <a href="{{route('viaticos.show', $cod)}}" class="step-number completed-step">
+                        @else
                         <a href="{{route('viaticos.show', $cod)}}" class="step-number pending-step">
+                        @endif 
                             <span class="fa fa-car fa-2x"></span>
                             <p>Viáticos Nacionales</p>
                         </a>
@@ -80,7 +102,11 @@
 
                     <!-- Step 5 -->
                     <div class="col text-center">
+                        @if($pasos->internacionales == 1)
+                        <a href="{{route('viaticos.int.show', $cod)}}" class="step-number completed-step">
+                        @else
                         <a href="{{route('viaticos.int.show', $cod)}}" class="step-number pending-step">
+                        @endif
                             <span class="fa fa-plane fa-2x"></span>
                             <p>Viáticos Internacionales</p>
                         </a>
@@ -88,7 +114,11 @@
 
                     <!-- Step 6 -->
                     <div class="col text-center">
+                        @if($pasos->pulicaciones == 1)
+                        <a href="{{route('publicaciones.show', $cod)}}" class="step-number completed-step">
+                        @else
                         <a href="{{route('publicaciones.show', $cod)}}" class="step-number pending-step">
+                        @endif
                             <span class="fa fa-book fa-2x"></span>
                             <p>Publicaciones</p>
                         </a>

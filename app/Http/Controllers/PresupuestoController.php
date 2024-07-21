@@ -40,11 +40,59 @@ class PresupuestoController extends Controller
         ->where('idproyecto', '=', $cod)
         ->first();
 
+        $pasos = DB::table('pasos_presupuesto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+
+        if($pasos) {
+            // code...
+        }else{
+
+            DB::table('pasos_presupuesto')->insert([
+            'idproyecto' => $cod,
+            'fuentes' => 0,
+            'recursos' => 0,
+            'contrataciones' => 0,
+            'nacionales' => 0,
+            'internacionales' => 0,
+            'pulicaciones' =>0
+
+        ]);
+
+        $pasos = DB::table('pasos_presupuesto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+        
+        }
+
+
+        $c = DB::table('pasos_presupuesto')
+             ->select(DB::raw('sum(fuentes+recursos+contrataciones+nacionales+internacionales+pulicaciones)'))
+             ->where('idproyecto', '=', $cod)
+             ->first();
+        
+
+        $completado = round(($c->sum*16.666677),0);
+
+        if($completado == 100){
+
+        DB::table('pasos_registro')
+        ->where('idproyecto', $cod)
+        ->update([
+            'presupuesto' => 1    
+
+        ]);
+
+
+        }
+
+
+
         if($pre){
 
 
 
-        return view('recursos.presupuesto', compact('cod', 'pre'));
+        return view('recursos.presupuesto', compact('cod', 'pre', 'completado', 'pasos'));
 
         }else{
 
@@ -61,7 +109,7 @@ class PresupuestoController extends Controller
         ->first();  
 
 
-        return view('recursos.presupuesto', compact('cod', 'pre'));
+        return view('recursos.presupuesto', compact('cod', 'pre', 'completado', 'pasos'));
 
         }
 
