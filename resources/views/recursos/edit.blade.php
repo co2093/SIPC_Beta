@@ -103,9 +103,7 @@
 					    <select class="form-control" name="idfuente" required>
 					    	@if($recurso->idfuente)
 					    	<option value="{{$recurso->idfuente}}">{{$recurso->descripcionfuente}}, $({{$recurso->financiamiento}})</option>
-					    	@endif
-						<option value="0">Convocatoria, $({{$p->montoconvocatoria}})</option>
-						
+					    	@endif						
 
 					   	@foreach($fuentes as $f)
 					   	@if($f->idfuente != $recurso->idfuente)
@@ -117,13 +115,22 @@
 				  </div>
 
 
-					
-  					<div class="form-group">
-					    <label for="exampleFormControlInput1">Costo unitario</label>
-					    <input type="number" class="form-control" name="costo"  value="{{$recurso->preciorecurso}}" placeholder="" min="0.0"                   
-					      step="0.01"     
+				    <div class="form-group">
+					    <label for="exampleFormControlInput1">Solicitado a fuente externa</label>
+					    <input type="number" class="form-control" name="montofuente" placeholder="" min="0.0"                   
+					      step="0.01"    value="{{$recurso->montofuente}}" 
+                         onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)">
+					  </div>
+			
+
+
+				    <div class="form-group">
+					    <label for="exampleFormControlInput1">Solicitado a SIC UES, $({{$p->montoconvocatoria}})</label>
+					    <input type="number" class="form-control" name="montoconvocatoria" placeholder="" min="0.0"                   
+					      step="0.01"    value="{{$recurso->montoconvocatoria}}" max="{{$p->montoconvocatoria}}" 
                          onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
 					  </div>
+
 
 					 <div class="form-group">
 					    <label for="exampleFormControlInput1">Cantidad</label>

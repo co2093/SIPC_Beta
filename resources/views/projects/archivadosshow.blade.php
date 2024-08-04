@@ -1,14 +1,11 @@
 @extends('layouts.default')
 @section('content')
 
-<!--
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-           <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Proyectos Archivados</li>
-      </ol>
-    </nav>
--->
+@if (session('success'))
+        <div style="color: green; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+@endif
 
      <div class="row">
         <div class="col-lg-12">
@@ -17,7 +14,7 @@
   	        	    <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-dark">Proyectos de investigación archivados
 
-                        <a  class="btn btn-success float-right" href="{{route('archivados.crear')}}">Agregar</a>
+                        <a  class="btn btn-success float-right" href="{{route('archivados.nuevo')}}">Agregar</a>
 
                     </h6>
 
@@ -36,41 +33,39 @@
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Codigo</th>
-                                    <th scope="col">Titulo</th>
+                               <th scope="col">Código</th>
+                                    <th scope="col">Título</th>
                                     <th scope="col">Convocatoria</th>
-                                     <th scope="col">Acciones</th>
-                                   
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Área</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">AE2024</th>
-                                    <td>Proyecto</td>
-                                    <td>Ejemplo</td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm mr-2"><i class="fas fa-eye"></i></button>
-                                        <button class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">EA2023</th>
-                                    <td>Proyecto</td>
-                                    <td>Ejemplo</td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm mr-2"><i class="fas fa-eye"></i></button>
-                                        <button class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- More rows as needed -->
+                              @foreach($proyectos as $i)
+                                    <tr>
+                                        <td>{{$i->idproyecto}}</td>
+                                        <td>{{$i->tituloproyecto}}</td>
+                                        <td>{{$i->idconvocatoria}}</td>
+                            
+                                        <td>{{$i->nombreestadoproyecto}}</td>
+                                        <td>{{$i->nombreareaconocimiento}}</td>
+                                        <td>{{$i->tipoproyecto}}</td>
+                                        <td class="fixed-col">
+                 
+                                        <a  class="btn btn-primary btn-sm" href="{{ route('projects.prueba', $i->idproyecto) }}">Editar</a>                                        
+                                       
+                                        </td>
+                                    </tr>
+                               @endforeach
+
+
                             </tbody>
                         </table>
 
 
-                         <!-- Pagination -
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
                                 <li class="page-item disabled">
@@ -85,7 +80,6 @@
                             </ul>
                         </nav>
 
-                    -->
 
                     </div>
             </div>

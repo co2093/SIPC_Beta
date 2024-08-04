@@ -112,7 +112,9 @@
                         </a>
                     </div>
 
-                    <!-- Step 6 -->
+                    @if($proyectos->idestadoproyecto == 1)
+
+                                            <!-- Step 6 -->
                     <div class="col text-center">
                         @if($pasos->protocolo == 1)
                         <a href="{{route('projects.protocolo', $cod)}}" class="step-number completed-step">
@@ -131,6 +133,28 @@
                             <p>Enviar</p>
                         </a>
                     </div>
+
+                    @else
+
+
+                                            <!-- Step 6 -->
+                    <div class="col text-center">
+                        <a href="#" class="step-number current-step">
+                            <span class="fa fa-file fa-2x"></span>
+                            <p>Subir protocolo</p>
+                        </a>
+                    </div>
+
+                    <!-- Step 7 -->
+                    <div class="col text-center">
+                        <a href="#" class="step-number current-step">
+                            <span class="fa fa-paper-plane fa-2x"></span>
+                            <p>Subir informes</p>
+                        </a>
+                    </div>
+
+
+                    @endif
                 </div>
             </div>
 

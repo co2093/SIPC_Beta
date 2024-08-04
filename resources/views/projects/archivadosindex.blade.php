@@ -1,16 +1,23 @@
 @extends('layouts.default')
 @section('content')
 
-<!--
+@if (session('success'))
+        <div style="color: green; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+@endif
+
+
+
+
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{route('archivados.show')}}">Proyectos Archivados</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Registro</li>
+        <li class="breadcrumb-item"><a href="#">Proyectos</a></li>
+        <li class="breadcrumb-item"><a href="#">Registro</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Título</li>
       </ol>
     </nav>
 
--->
      <div class="row">
         <div class="col-lg-12">
             <div class="card shadow mb-4">
@@ -41,64 +48,7 @@
             <div class="container mt-5">
 
 
-                <div class="row">
-                    <!-- Step 1 -->
-                    <div class="col text-center">
-                        <a href="{{route('projects.crear')}}" class="step-number completed-step">
-                            <span class="fa fa-check-circle fa-2x"></span>
-                            <p>Definicion</p>
-                        </a>
-                    </div>
 
-                    
-                    <!-- Step 2 -->
-                    <div class="col text-center">
-                        <a href="{{route('objetivos.show')}}" class="step-number completed-step">
-                            <span class="fa fa-check-circle fa-2x"></span>
-                            <p>Objetivos</p>
-                        </a>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="col text-center">
-                        <a href="{{route('actividades.show')}}" class="step-number current-step">
-                            <span class="fa fa-edit fa-2x"></span>
-                            <p>Actividades</p>
-                        </a>
-                    </div>
-                    
-                    <!-- Step 4 -->
-                    <div class="col text-center">
-                        <a href="{{route('presupuesto.menu.show')}}" class="step-number pending-step">
-                            <span class="fa fa-clock fa-2x"></span>
-                            <p>Presupuesto</p>
-                        </a>
-                    </div>
-
-                    <!-- Step 5 -->
-                    <div class="col text-center">
-                        <a href="{{route('colaboradores.show')}}" class="step-number pending-step">
-                            <span class="fa fa-clock fa-2x"></span>
-                            <p>Colaboradores</p>
-                        </a>
-                    </div>
-
-                    <!-- Step 6 -->
-                    <div class="col text-center">
-                        <a href="{{route('projects.protocolo')}}" class="step-number pending-step">
-                            <span class="fa fa-clock fa-2x"></span>
-                            <p>Subir protocolo</p>
-                        </a>
-                    </div>
-
-                    <!-- Step 7 -->
-                    <div class="col text-center">
-                        <a href="{{route('projects.enviar')}}" class="step-number pending-step">
-                            <span class="fa fa-clock fa-2x"></span>
-                            <p>Subir informes</p>
-                        </a>
-                    </div>
-                </div>
             </div>
 
 </div>

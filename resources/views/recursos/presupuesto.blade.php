@@ -59,7 +59,7 @@
                         <a href="{{route('fuentes.show', $cod)}}" class="step-number pending-step">
                         @endif 
                             <span class="fa fa-university fa-2x"></span>
-                            <p>Financiamientos</p>
+                            <p>Fuentes de financiamientos</p>
                         </a>
                     </div>
 

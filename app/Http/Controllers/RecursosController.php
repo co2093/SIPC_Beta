@@ -67,27 +67,26 @@ class RecursosController extends Controller
 
            //dd($request); 
 
-            $fuentes = DB::table('pre_fuente')
-            ->where('idproyecto', '=', $request->input('cod'))
-            ->where('idrubro', '=', 1)
-            ->get();
-
+ 
             $p = DB::table('presupuesto_inicial')
             ->where('idproyecto', '=', $request->input('cod'))
             ->first();
-            
-            $f = count($fuentes);
+         
 
-            $total = $request->input('costo')*$request->input('cantidad');
+            $total = $request->input('montofuente') + $request->input('montoconvocatoria');
 
-            if($request->input('idfuente')>0)
+
+            if($request->input('idfuente'))
             {
 
                 $fuente = DB::table('pre_fuente')
                 ->where('idfuente', '=', $request->input('idfuente'))
                 ->first();
 
-                if($fuente->financiamiento >= $total){
+                if($fuente->financiamiento >= $request->input('montofuente') 
+                    && $p->montoconvocatoria>= $request->input('montoconvocatoria') ){
+
+
                     DB::table('pre_recurso')->insert([
                     'idtiporecurso' => $request->input('tiporecurso'),
                     'idunidadmedida' => $request->input('unidad'),
@@ -95,21 +94,26 @@ class RecursosController extends Controller
                     'idproyecto' => $request->input('cod'),
                     'nombrerecurso' => $request->input('nombre'),
                     'especificacionestecnicas' => $request->input('especificaciones'),
-                    'preciorecurso' => $request->input('costo'),
+                    'preciorecurso' => $total/$request->input('cantidad'),
                     'cantidadrecurso' => $request->input('cantidad'),
-                    'subtotalrecurso' => $request->input('costo')*$request->input('cantidad'),
-                    'idactividad' => $request->input('idactividad')
+                    'subtotalrecurso' => $total,
+                    'idactividad' => $request->input('idactividad'),
+                    'montoconvocatoria' => $request->input('montoconvocatoria'),
+                    'montofuente' => $request->input('montofuente')
                     ]);
+                   
                     DB::table('presupuesto_inicial')
                     ->where('idproyecto', $request->input('cod'))
                     ->update([
                     'montodisponible' => $p->montodisponible - $total,
-                    'montorecursos' => $p->montorecursos - $total 
+                    'montorecursos' => $p->montorecursos - $request->input('montofuente'),
+                    'montoconvocatoria' => $p->montoconvocatoria - $request->input('montoconvocatoria') 
+
                     ]);
                     DB::table('pre_fuente')
                     ->where('idfuente', $request->input('idfuente'))
                     ->update([
-                    'financiamiento' => $fuente->financiamiento - $total 
+                    'financiamiento' => $fuente->financiamiento - $request->input('montofuente')
                     ]);
                 }else{
 
@@ -121,23 +125,27 @@ class RecursosController extends Controller
 
             }else{
 
-                if($p->montoconvocatoria>= $total){
+                if($p->montoconvocatoria>= $request->input('montoconvocatoria')){
+
+
                     DB::table('pre_recurso')->insert([
                     'idtiporecurso' => $request->input('tiporecurso'),
                     'idunidadmedida' => $request->input('unidad'),
                     'idproyecto' => $request->input('cod'),
                     'nombrerecurso' => $request->input('nombre'),
                     'especificacionestecnicas' => $request->input('especificaciones'),
-                    'preciorecurso' => $request->input('costo'),
+                    'preciorecurso' => $total/$request->input('cantidad'),
                     'cantidadrecurso' => $request->input('cantidad'),
-                    'subtotalrecurso' => $request->input('costo')*$request->input('cantidad'),
+                    'subtotalrecurso' => $total,
+                    'montoconvocatoria' => $request->input('montoconvocatoria'),
                     'idactividad' => $request->input('idactividad')
                     ]);
+
                     DB::table('presupuesto_inicial')
                     ->where('idproyecto', $request->input('cod'))
                     ->update([
                     'montodisponible' => $p->montodisponible - $total,
-                    'montoconvocatoria' => $p->montoconvocatoria - $total 
+                    'montoconvocatoria' => $p->montoconvocatoria - $request->input('montoconvocatoria') 
                     ]);
 
                 }else{
@@ -218,22 +226,26 @@ class RecursosController extends Controller
         ->where('idfuente', '=', $request->input('fuenteanterior'))
         ->first();
 
-        $nuevo_total = $request->input('costo')*$request->input('cantidad');
-
-        if( $recurso->subtotalrecurso > $nuevo_total)
+        $nuevo_total = $request->input('montofuente') + $request->input('montoconvocatoria');
+        
+        $diffFuente = 0;
+        $diffConv = 0;
+        
+        if($request->input('montofuente') >= $recurso->montofuente )
         {
-            $diff = $recurso->subtotalrecurso + $nuevo_total;   
-        }elseif ($recurso->subtotalrecurso < $nuevo_total) 
+            $diffFuente = $recurso->montofuente - $request->input('montofuente');   
+        }elseif ($recurso->montofuente > $request->input('montofuente')) 
         {
-            $diff = $recurso->subtotalrecurso  - $nuevo_total; 
+            $diff = $recurso->montofuente  - $request->input('montofuente'); 
         }
 
 
-        $diff = 0;
+      
 
-        if ($request->input('idfuente') > 0) {
+        if ($request->input('idfuente')) {
 
-            if($fuente_nueva->financiamiento >= $nuevo_total){
+            if($fuente_nueva->financiamiento >= $request->input('montofuente') 
+                && $p->montoconvocatoria>= $request->input('montoconvocatoria')){
 
                     DB::table('presupuesto_inicial')
                     ->where('idproyecto', $recurso->idproyecto)

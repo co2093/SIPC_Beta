@@ -32,7 +32,7 @@ class PresupuestoController extends Controller
         ->where('idproyecto', '=', $cod)
         ->first();
 
-        $c = DB::table('convocatoria')
+        $c1 = DB::table('convocatoria')
         ->where('estado', '=', 1)
         ->first();
 
@@ -99,8 +99,8 @@ class PresupuestoController extends Controller
 
         DB::table('presupuesto_inicial')->insert([
             'idproyecto' => $cod,
-            'montoconvocatoria' => $c->presupuesto,
-            'montodisponible' => $c->presupuesto
+            'montoconvocatoria' => $c1->presupuesto,
+            'montodisponible' => $c1->presupuesto
         ]);       
 
 

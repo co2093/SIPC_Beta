@@ -39,6 +39,11 @@ Route::get('/projects/enviar/{cod}', [App\Http\Controllers\ProjectsController::c
 
 Route::get('/projects/archivados', [App\Http\Controllers\ProjectsController::class, 'archivadosindex'])->name('archivados.crear');
 Route::get('/projects/archivados/show', [App\Http\Controllers\ProjectsController::class, 'archivadosshow'])->name('archivados.show');
+Route::get('/projects/archivados/nuevo', [App\Http\Controllers\ProjectsController::class, 'archivadosnuevo'])->name('archivados.nuevo');
+Route::post('/projects/archivados/nuevo/store', [App\Http\Controllers\ProjectsController::class, 'archivadosstore'])->name('archivados.store');
+
+
+
 Route::post('/projects/nuevo/project', [App\Http\Controllers\ProjectsController::class, 'store'])->name('projects.store');
 
 Route::get('/projects/confirm/{cod}',[App\Http\Controllers\ProjectsController::class, 'destroyConfirm'])->name('projects.confirm');

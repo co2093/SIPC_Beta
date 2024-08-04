@@ -85,7 +85,6 @@ class ProjectsController extends Controller
             'idestadoproyecto' => 1,
             'idareaconocimiento' => $request->input('area'),
             'idconvocatoria' => $convocatoria->idconvocatoria,
-            'idestadoproyecto' => 1,
             'idtipoproyecto' => $request->input('tipo'),
           //  'codproyecto' => $convocatoria->anoconvocatoria,
             'tituloproyecto' => $request->input('titulo'),
@@ -273,12 +272,63 @@ class ProjectsController extends Controller
 
     public function archivadosshow()
     {
-        return view('projects.archivadosshow');
+
+
+        $proyectos = DB::table('proyecto')
+        ->leftjoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
+        ->leftjoin('tipo_proyecto', 'tipo_proyecto.idtipoproyecto', '=', 'proyecto.idtipoproyecto')
+        ->leftjoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
+        ->leftjoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
+        ->where('proyecto.idestadoproyecto', '!=', 1)
+        ->select('proyecto.*', 'estado_proyecto.nombreestadoproyecto', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento', 'convocatoria.numeroconvocatoria')
+        ->get();
+
+
+        return view('projects.archivadosshow', compact('proyectos'));
     }
 
     public function archivadosindex()
     {
         return view('projects.archivadosindex');
+    }
+
+    public function archivadosnuevo(){
+
+        $areas = DB::table('area_conocimiento')->get();
+        $tipo = DB::table('tipo_proyecto')->get();
+        $convocatorias = DB::table('convocatoria')->get();
+        $estados = DB::table('estado_proyecto')->get();
+
+        return view('projects.archivados', compact('areas', 'tipo', 'convocatorias', 'estados'));
+
+    }
+
+    public function archivadosstore(Request $request){
+
+        $areas = DB::table('area_conocimiento')->get();
+        $tipo = DB::table('tipo_proyecto')->get();
+        $convocatorias = DB::table('convocatoria')->get();
+
+
+        DB::table('proyecto')->insert([
+            'idestadoproyecto' => $request->input('idestado'),
+            'idareaconocimiento' => $request->input('area'),
+            'idconvocatoria' => $request->input('idconvocatoria'),
+            'idtipoproyecto' => $request->input('tipo'),
+            'tituloproyecto' => $request->input('titulo'),
+            'antiguo' => true,
+            'tiempo' =>$request->input('tiempo')
+
+        ]);
+
+
+
+
+
+
+        session()->flash('success', 'Se ha iniciado un nuevo proyecto.');
+
+        return redirect()->route('archivados.show');
     }
 
     public function end($cod){
