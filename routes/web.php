@@ -52,6 +52,11 @@ Route::get('/projects/edit/{cod}',[App\Http\Controllers\ProjectsController::clas
 Route::post('/projects/update', [App\Http\Controllers\ProjectsController::class, 'update'])->name('projects.update');
 Route::get('/projects/details/{cod}',[App\Http\Controllers\ProjectsController::class, 'details'])->name('projects.details');
 
+Route::get('/projects/export/',[App\Http\Controllers\ReportesController::class, 'exportPrueba'])->name('protocolo.export');
+Route::get('/excel/export/',[App\Http\Controllers\ExcelController::class, 'export'])->name('export.excel');
+Route::post('/projects/update/protocolo', [App\Http\Controllers\ProjectsController::class, 'updateProtocolo'])->name('update.protocolo');
+
+
 
 
 

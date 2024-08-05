@@ -32,16 +32,24 @@
 
                     <div class="card-body">
 
-                      <form>
-                    <div class="form-group">
+            <form method="POST" action="{{ route('update.protocolo') }}" accept-charset="UTF-8" enctype="multipart/form-data">
+
+              @csrf   
+                      <div class="form-group">
                         <label class="font-weight-bold">Subir protocolo: &nbsp;</label>
-                        <input class="form-control" type="file" name="protocolo" id="protocolo">
+                        <input class="form-control" type="file" name="attachment" id="attachment" accept=".doc, .docx" required>
+                      </div>
+
+                      <div class="form-group">
+                           
+                            <input type="hidden" value="{{$cod}}" name="cod" >
                       </div>
 
 
 
+
                         <br><br>
-                    <button type="submit" class="btn btn-danger">Finalizar</button>
+                    <button type="submit" class="btn btn-danger">Enviar</button>
                     <a  class="btn btn-secondary float-right" href="{{route('projects.prueba', $cod)}}">Regresar</a>
 
                       </form>

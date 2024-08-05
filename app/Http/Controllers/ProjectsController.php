@@ -267,6 +267,28 @@ class ProjectsController extends Controller
         return view('projects.enviar', compact('cod'));
     }
 
+    public function updateProtocolo(Request $request){
+
+        $attachment = null;
+        if ($request->hasFile('attachment')) {
+            $attachment = $request->file('attachment')->store('attachments');
+        }
+
+        $cod = $request->input('cod');
+
+        DB::table('proyecto')
+        ->where('idproyecto', $request->input('cod'))
+        ->update([
+            'documentodefinicion' => $attachment      
+        ]);
+
+        session()->flash('success', 'Protocolo actualizado exitosamente.');
+
+        return view('projects.enviar', compact('cod'));
+
+
+    }
+
 
 
 
