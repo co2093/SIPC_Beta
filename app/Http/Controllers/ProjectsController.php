@@ -64,7 +64,7 @@ class ProjectsController extends Controller
         ->leftjoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
         ->select('proyecto.*', 'estado_proyecto.nombreestadoproyecto', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento')
         ->where('proyecto.usuario', '=', Auth::user()->email)
-        ->get();
+        ->paginate(10);
 
         return view('projects.show', compact('proyectos', 'convocatorias'));
     }
@@ -303,7 +303,7 @@ class ProjectsController extends Controller
         ->leftjoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
         ->where('proyecto.idestadoproyecto', '!=', 1)
         ->select('proyecto.*', 'estado_proyecto.nombreestadoproyecto', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento', 'convocatoria.numeroconvocatoria')
-        ->get();
+        ->paginate(10);
 
 
         return view('projects.archivadosshow', compact('proyectos'));

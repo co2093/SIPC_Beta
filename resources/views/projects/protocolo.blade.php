@@ -37,7 +37,7 @@
 
                     <div class="form-group">
                         <label class="font-weight-bold">Descargar protocolo: &nbsp;</label>
-                        <a  class="btn btn-primary btn-sm" href="{{route('protocolo.export')}}"><i class="fas fa-download"></i></a>                                        
+                        <a  class="btn btn-primary btn-sm" href="{{route('protocolo.export', $cod)}}"><i class="fas fa-download"></i></a>                                        
                       </div>
 
                     <br><br>

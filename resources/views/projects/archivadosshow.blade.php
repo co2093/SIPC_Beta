@@ -66,7 +66,9 @@
                         </table>
 
 
-                        
+                        <div class="d-flex justify-content-center">
+                        {{ $proyectos->links() }}
+                        </div>
 
 
                     </div>

@@ -64,6 +64,9 @@
 
                             </tbody>
                         </table>
+                         <div class="d-flex justify-content-center">
+                        {{ $inventario->links() }}
+                        </div>
                         </div>
                       <a  class="btn btn-secondary float-right" href="{{route('home')}}">Regresar</a>
 

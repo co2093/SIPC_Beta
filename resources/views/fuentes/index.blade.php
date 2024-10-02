@@ -43,7 +43,7 @@
 				  	<div class="form-group">
 					    <label for="exampleFormControlSelect1">Tipo</label>
 					    <select class="form-control" name="externa" required>
-					      <option value="true">Cooperacion externa</option>
+					      <option value="true">Cooperacion externa internacional</option>
 					      <option value="false">Fuentes nacionales externas a la UES</option>
 					    </select>
 					</div>

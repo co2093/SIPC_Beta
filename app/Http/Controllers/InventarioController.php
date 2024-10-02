@@ -24,7 +24,7 @@ class InventarioController extends Controller
     public function show()
     {
 
-        $inventario = DB::table('inventario')->get();
+        $inventario = DB::table('inventario')->paginate(10);
 
         return view('inventario.show', compact('inventario'));
     }
