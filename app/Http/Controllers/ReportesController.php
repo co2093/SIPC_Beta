@@ -37,6 +37,81 @@ class ReportesController extends Controller
         ->get();
       
 
+        $act = DB::table('actividad')
+        ->leftjoin('tipo_actividad', 'actividad.idtipoactividad','=','tipo_actividad.idtipoactividad')
+        ->select('actividad.*', 'tipo_actividad.nombretipoactividad')
+        ->where('actividad.idproyecto', '=', $cod)
+        ->get();
+
+
+        $recursos = DB::table('pre_recurso')
+        ->leftjoin('unidad_medida', 'pre_recurso.idunidadmedida', '=', 'unidad_medida.idunidadmedida')
+        ->leftjoin('tipo_recurso', 'pre_recurso.idtiporecurso', '=', 'tipo_recurso.idtiporecurso')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_recurso.idfuente')
+        ->select('pre_recurso.*', 'unidad_medida.nombreunidadmedida', 'tipo_recurso.nombretiporecurso', 'pre_fuente.descripcionfuente')    
+        ->where('pre_recurso.idproyecto', '=', $cod)
+        ->get();
+
+
+
+        $personal = DB::table('pre_contratacion')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_contratacion.idactividad')
+        ->leftjoin('tipo_contratacion', 'tipo_contratacion.idtipocontratacion', '=', 'pre_contratacion.idtipocontratacion')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_contratacion.idfuente')
+        ->select('pre_contratacion.*', 'actividad.nombreactividad', 'actividad.idproyecto', 'tipo_contratacion.nombretipocontratacion', 'pre_fuente.descripcionfuente')
+        ->where('actividad.idproyecto', '=', $cod)
+        ->get();
+
+
+
+        $viajes = DB::table('pre_viaje_local')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
+        ->leftjoin('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
+        ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento')
+        ->where('pre_viaje_local.idproyecto', '=', $cod)
+        ->get();
+
+         $publicaciones = DB::table('pre_publicacion')
+        ->leftjoin('tipo_publicacion', 'tipo_publicacion.idtipopublicacion', '=', 'pre_publicacion.idtipopublicacion')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_publicacion.idfuente')
+        ->select('pre_publicacion.*', 'tipo_publicacion.nombretipopublicacion', 'pre_fuente.descripcionfuente')
+        ->where('pre_publicacion.idproyecto', '=', $cod)
+        ->get();
+
+
+         $viajext = DB::table('pre_viaje_exterior')
+        ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
+        ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
+        ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
+        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
+        ->where('pre_viaje_exterior.idproyecto', '=', $cod)
+        ->first();
+
+        //dd($viajext);
+
+        $totalPersonal = DB::table('pre_contratacion')
+            ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_contratacion.idactividad')
+            ->where('actividad.idproyecto', '=', $cod)
+            ->sum('total');
+
+
+        $totalRecursos = DB::table('pre_recurso')
+            ->where('idproyecto', $cod)
+            ->sum('subtotalrecurso');
+
+        $totalViajes = DB::table('pre_viaje_local')
+            ->where('idproyecto', $cod)
+            ->sum('totalplanviaje');
+
+        $totalViajext = DB::table('pre_viaje_exterior')
+            ->where('idproyecto', $cod)
+            ->sum('totalplanviajeext');    
+
+        $totalPublicacion = DB::table('pre_publicacion')
+            ->where('idproyecto', $cod)
+            ->sum('montopublicacion');
+
 
         //dd($usuario->email);
 
@@ -139,7 +214,7 @@ class ReportesController extends Controller
 
         $section->addPageBreak();
         $section->addTitle('2. Objetivos', 1);
-        $section->addTextBreak(5);
+        $section->addTextBreak(1);
         $section->addTitle('2.1. General', 2);
         
         $section->addTextBreak(1);
@@ -229,10 +304,19 @@ class ReportesController extends Controller
         // Añadir la primera fila
         $table->addRow();
         $table->addCell(2900)->addText('Descripción de la actividad', ['bold' => true]);
-        $table->addCell(2900)->addText('Resultados esperados', ['bold' => true]);
+        $table->addCell(2900)->addText('Tipo de actividad', ['bold' => true]);
         $table->addCell(1700)->addText('Fecha de inicio', ['bold' => true]);
         $table->addCell(1700)->addText('Fecha de fin', ['bold' => true]);
 
+        //dd($act);
+
+        foreach ($act as $a) {
+            $table->addRow();
+            $table->addCell(2900)->addText($a->nombreactividad);
+            $table->addCell(2900)->addText($a->nombretipoactividad);
+            $table->addCell(1700)->addText($a->fechainicioactividad);
+            $table->addCell(1700)->addText($a->fechafinactividad);
+        }
 
 
 
@@ -255,16 +339,22 @@ class ReportesController extends Controller
         $table->addCell(2000)->addText('Costo unitario (USD)', ['bold' => true]);       
         $table->addCell(1000)->addText('Total', ['bold' => true]);
         
-        $table->addRow();
-        $table->addCell(2300)->addText('');
-        $table->addCell(2900)->addText('');
-        $table->addCell(1000)->addText('');
-        $table->addCell(2000)->addText('');
-        $table->addCell(1000)->addText('');
+
+
+        foreach ($recursos as $r) {
+            $table->addRow();
+            $table->addCell(2300)->addText($r->nombrerecurso);
+            $table->addCell(2900)->addText($r->especificacionestecnicas);
+            $table->addCell(1000)->addText($r->cantidadrecurso);
+            $table->addCell(2000)->addText($r->preciorecurso);
+            $table->addCell(1000)->addText($r->subtotalrecurso);
+        }
+
+        //dd($totalRecursos);
        
         $table->addRow();
         $table->addCell(8200)->addText('Total (USD)', ['bold' => true]);
-        $table->addCell(1000)->addText('');
+        $table->addCell(1000)->addText($totalRecursos);
 
 
         //$section->addTextBreak(2);
@@ -283,29 +373,102 @@ class ReportesController extends Controller
 
         $table->addRow();
         $table->addCell(2300)->addText('Perfil', ['bold' => true]);
-        $table->addCell(2900)->addText('Funciones', ['bold' => true]);
+        $table->addCell(2900)->addText('Actividad', ['bold' => true]);
         $table->addCell(1000)->addText('Horas laborales', ['bold' => true]);
         $table->addCell(2000)->addText('Pago por hora (USD)', ['bold' => true]);       
         $table->addCell(1000)->addText('Salario total (USD)', ['bold' => true]);
 
-        $table->addRow();
-        $table->addCell(2300)->addText('');
-        $table->addCell(2900)->addText('');
-        $table->addCell(1000)->addText('');
-        $table->addCell(2000)->addText('');
-        $table->addCell(1000)->addText('');
+
+        foreach ($personal as $p) {
+            $table->addRow();
+            $table->addCell(2300)->addText($p->nombretipocontratacion);
+            $table->addCell(2900)->addText($p->nombreactividad);
+            $table->addCell(1000)->addText($p->dias);
+            $table->addCell(2000)->addText($p->pago);
+            $table->addCell(1000)->addText($p->total);
+        }
+
        
         $table->addRow();
         $table->addCell(8200)->addText('Total (USD)', ['bold' => true]);
-        $table->addCell(1000)->addText('');
+        $table->addCell(1000)->addText($totalPersonal);
 
 
 
         $section->addTextBreak(2);
         $section->addTitle('8.3. Viajes locales', 2);
         $section->addTextBreak(2);
+
+        $table = $section->addTable([
+            'borderSize' => 6,     // Tamaño del borde
+            'borderColor' => '999999', // Color del borde
+            'cellMargin' => 50,    // Margen de la celda
+        ]);
+
+        $table->addRow();
+        $table->addCell(2400)->addText('Departamento', ['bold' => true]);
+        $table->addCell(2400)->addText('Destino', ['bold' => true]);
+        $table->addCell(2400)->addText('Actividad', ['bold' => true]);
+        $table->addCell(1000)->addText('Días', ['bold' => true]);       
+        $table->addCell(1000)->addText('Total (USD)', ['bold' => true]);
+
+
+        foreach ($viajes as $v) {
+            $table->addRow();
+            $table->addCell(2400)->addText($v->departamento);
+            $table->addCell(2400)->addText($v->destinoviaje);
+            $table->addCell(2400)->addText($v->nombreactividad);
+            $table->addCell(1000)->addText($v->cantidaddias);
+            $table->addCell(1000)->addText($v->totalplanviaje);
+        }
+
+       
+        $table->addRow();
+        $table->addCell(8200)->addText('Total (USD)', ['bold' => true]);
+        $table->addCell(1000)->addText($totalViajes);
+
+
+        $section->addTextBreak(2);
+
         $section->addTitle('8.4. Viajes al exterior', 2);
         $section->addTextBreak(2);
+
+
+        $table = $section->addTable([
+            'borderSize' => 6,     // Tamaño del borde
+            'borderColor' => '999999', // Color del borde
+            'cellMargin' => 50,    // Margen de la celda
+        ]);
+
+        $table->addRow();
+        $table->addCell(2400)->addText('País', ['bold' => true]);
+        $table->addCell(2400)->addText('Destino', ['bold' => true]);
+        $table->addCell(2400)->addText('Actividad', ['bold' => true]);
+        $table->addCell(1000)->addText('Boleto', ['bold' => true]);
+        $table->addCell(1000)->addText('Inscripción', ['bold' => true]);
+        $table->addCell(1000)->addText('Días', ['bold' => true]);        
+
+
+            $table->addRow();
+            $table->addCell(2400)->addText($viajext->nombrepais);
+            $table->addCell(2400)->addText($viajext->destinoviaje);
+            $table->addCell(2400)->addText($viajext->nombreactividad);
+            $table->addCell(1000)->addText($viajext->costoboleto);
+            $table->addCell(1000)->addText($viajext->inscripcionevento);
+            $table->addCell(1000)->addText($viajext->numerodias);
+        
+
+
+        $table->addRow();
+        $table->addCell(8200)->addText('Total (USD)', ['bold' => true]);
+        $table->addCell(1000)->addText($totalViajext);
+
+
+
+
+
+        $section->addTextBreak(2);
+
         $section->addTitle('8.5. Publicaciones', 2);  
         $section->addTextBreak(2);
 
@@ -318,23 +481,70 @@ class ReportesController extends Controller
         $table->addRow();
         $table->addCell(2300)->addText('Tipo', ['bold' => true]);
         $table->addCell(5200)->addText('Detalle', ['bold' => true]);      
-        $table->addCell(1500)->addText('Costo(USD)', ['bold' => true]);
+        $table->addCell(1500)->addText('Costo (USD)', ['bold' => true]);
 
-        $table->addRow();
-        $table->addCell(2300)->addText('');
-        $table->addCell(5200)->addText('');
-        $table->addCell(1500)->addText('');
+
+        foreach ($publicaciones as $pu) {
+            $table->addRow();
+            $table->addCell(2300)->addText($pu->nombretipopublicacion);
+            $table->addCell(5200)->addText($pu->detallepublicacion);
+            $table->addCell(1500)->addText($pu->montopublicacion);
+
+        }
 
         $table->addRow();
         $table->addCell(7500)->addText('Total (USD)', ['bold' => true]);
-        $table->addCell(1500)->addText('');
+        $table->addCell(1500)->addText($totalPublicacion);
 
 
 
-        $section->addTitle('8.7. Otros bienes o servicios', 2);  
         $section->addTextBreak(2);
-        $section->addTitle('8.7. Resumen del presupuesto', 2);    
+        $section->addTitle('8.6. Resumen del presupuesto', 2);    
+        $section->addTextBreak(2);
 
+
+
+        $table = $section->addTable([
+            'borderSize' => 6,     // Tamaño del borde
+            'borderColor' => '999999', // Color del borde
+            'cellMargin' => 50,    // Margen de la celda
+        ]);
+
+        $table->addRow();
+        $table->addCell(7000)->addText('Detalle', ['bold' => true]);
+        $table->addCell(2500)->addText('Monto', ['bold' => true]);
+
+
+        $table->addRow();
+        $table->addCell(7000)->addText('Recursos');
+        $table->addCell(2500)->addText($totalRecursos);
+        $table->addRow();
+        $table->addCell(7000)->addText('Contrataciones');
+        $table->addCell(2500)->addText($totalPersonal);
+
+        $table->addRow();
+        $table->addCell(7000)->addText('Viáticos nacionales');
+        $table->addCell(2500)->addText($totalViajes);
+
+        $table->addRow();
+        $table->addCell(7000)->addText('Viáticos internacionales');
+        $table->addCell(2500)->addText($totalViajext);
+
+        $table->addRow();
+        $table->addCell(7000)->addText('Publicaciones');
+        $table->addCell(2500)->addText($totalPublicacion);
+       
+        $totalPr = $totalRecursos+$totalViajes+$totalPersonal+$totalPublicacion;
+
+        $table->addRow();
+        $table->addCell(7000)->addText('Total (USD)', ['bold' => true]);
+        $table->addCell(2500)->addText($totalPr, ['bold' => true]);
+       
+
+
+
+
+        $section->addTextBreak(2);
 
         $section->addPageBreak();
         $section->addTitle('9. Consideraciones éticas', 1);
@@ -349,7 +559,7 @@ class ReportesController extends Controller
         //
 
         // Define the file name
-        $fileName = 'sample.docx';
+        $fileName = 'protocolo_'.'proyecto_'.$cod.'_'.time().'.docx';
 
         // Save the file temporarily
         $temp_file = tempnam(sys_get_temp_dir(), $fileName);
