@@ -161,7 +161,7 @@
                         <a class="collapse-item" href="{{route('tipopublicaciones.show')}}">Tipo de publicacion</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Otros:</h6>
-                        <a class="collapse-item" href="#">Pais</a>
+                        <a class="collapse-item" href="{{route('pais.show')}}">Pais</a>
 
                         <a class="collapse-item" href="#">Ciudad</a>
                         <a class="collapse-item" href="#">Departamento</a>

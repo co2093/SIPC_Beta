@@ -206,6 +206,17 @@ Route::get('/catalogos/facultades/show', [App\Http\Controllers\CatalogosControll
 Route::get('/catalogos/tipopublicaciones', [App\Http\Controllers\CatalogosController::class, 'indexTipopublicaciones'])->name('tipopublicaciones.crear');
 Route::get('/catalogos/tipopublicaciones/show', [App\Http\Controllers\CatalogosController::class, 'showTipopublicaciones'])->name('tipopublicaciones.show');
 
+Route::get('/catalogos/crear/nuevo/', [App\Http\Controllers\CatalogosController::class, 'indexPais'])->name('pais.crear');
+Route::get('/catalogos/pais/show/', [App\Http\Controllers\CatalogosController::class, 'showPais'])->name('pais.show');
+Route::post('/catalogos/nuevo/pais', [App\Http\Controllers\CatalogosController::class, 'storePais'])->name('pais.store');
+Route::get('/catalogos/confirm/pais/{id}',[App\Http\Controllers\CatalogosController::class, 'destroyConfirmPais'])->name('pais.delete');
+Route::post('/catalogos/pais/update', [App\Http\Controllers\CatalogosController::class, 'updatePais'])->name('pais.update');
+Route::delete('/catalogos/pais/delete/{id}',[App\Http\Controllers\CatalogosController::class, 'destroyPais'])->name('pais.destroy');
+Route::get('/catalogos/pais/edit/{cod}',[App\Http\Controllers\CatalogosController::class, 'editPais'])->name('pais.edit');
+
+
+
+
 
 
 
