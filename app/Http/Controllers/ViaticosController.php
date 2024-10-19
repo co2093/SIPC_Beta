@@ -198,14 +198,23 @@ class ViaticosController extends Controller
         ->get();
 
         $paises = DB::table('pais')
+        ->orderby('nombrepais')
         ->get();
 
        $fuentes = DB::table('pre_fuente')
         ->where('idproyecto', '=', $cod)
+        ->where('idrubro', '=', 4)
         ->get();
 
+        //dd($fuentes);
 
-        return view('viaticos.indexInt', compact('cod', 'actividades', 'fuentes', 'paises', 'viaje'));
+
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+
+
+        return view('viaticos.indexInt', compact('cod', 'actividades', 'fuentes', 'paises', 'viaje', 'p'));
     }
 
 
@@ -217,7 +226,7 @@ class ViaticosController extends Controller
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
         ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
         ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
-        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
+        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais', 'pre_fuente.descripcionfuente')
         ->where('pre_viaje_exterior.idproyecto', '=', $cod)
         ->first();
 
@@ -228,7 +237,22 @@ class ViaticosController extends Controller
 
     public function storeInt(Request $request){
 
-            //dd($request); 
+        $pais = DB::table('pais')->where('idpais', '=', $request->input('pais'))->first();
+
+        $fuente = DB::table('pre_fuente')
+        ->where('idfuente', '=', $request->input('idfuente'))
+        ->first();
+
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $request->input('cod'))
+        ->first();
+
+        $total = ($request->input('costoboleto') * $request->input('numeropersonas')) + 
+        ($request->input('costoinscripcion') * $request->input('numeropersonas')) +  
+        ($pais->costo * $request->input('numeropersonas') * $request->input('numerodias'));
+
+        if ($fuente) {
+            // code...
             DB::table('pre_viaje_exterior')->insert([
                 'idfuente' => $request->input('idfuente'),
                 'idpais' => $request->input('pais'),
@@ -236,29 +260,67 @@ class ViaticosController extends Controller
                 'destinoviaje' => $request->input('destino'),
                 'numerodias' => $request->input('numerodias'),
                 'cantidadpersonas' => $request->input('numeropersonas'),
-                'totalplanviajeext' => $request->input('total'),
+                'totalplanviajeext' => $total,
                 'costoboleto' => $request->input('costoboleto'),
                 'inscripcionevento' => $request->input('costoinscripcion'),
-                'idactividad' => $request->input('actividad')
+                'idactividad' => $request->input('actividad'), 
+                'montofuente' => $request->input('montofuente'),
+                'montoconvocatoria' => $request->input('montoconvocatoria')
+            ]);
+
+
+            DB::table('presupuesto_inicial')
+                    ->where('idproyecto', $request->input('cod'))
+                    ->update([
+                    'montodisponible' => $p->montodisponible - $total,
+                    'montointernacionales' => $p->montorecursos - $request->input('montofuente'),
+                    'montoconvocatoria' => $p->montoconvocatoria - $request->input('montoconvocatoria') 
+
+            ]);
+            DB::table('pre_fuente')
+                ->where('idfuente', $request->input('idfuente'))
+                ->update([
+                'financiamiento' => $fuente->financiamiento - $request->input('montofuente')
+            ]);
+
+        //flash('Producto agregado al inventario exitosamente', 'success');
+        session()->flash('success', 'Se ha registrado el viaje exitosamente.');
+        return redirect()->to('/viaticos/internacionales/show/'.$request->input('cod'));
+
+        } else {
+            // code...
+            DB::table('pre_viaje_exterior')->insert([
+                'idpais' => $request->input('pais'),
+                'idproyecto' => $request->input('cod'),
+                'destinoviaje' => $request->input('destino'),
+                'numerodias' => $request->input('numerodias'),
+                'cantidadpersonas' => $request->input('numeropersonas'),
+                'totalplanviajeext' => $total,
+                'costoboleto' => $request->input('costoboleto'),
+                'inscripcionevento' => $request->input('costoinscripcion'),
+                'idactividad' => $request->input('actividad'), 
+                'montoconvocatoria' => $request->input('montoconvocatoria')
             ]);
 
         //flash('Producto agregado al inventario exitosamente', 'success');
         session()->flash('success', 'Se ha registrado el viaje exitosamente.');
 
         return redirect()->to('/viaticos/internacionales/show/'.$request->input('cod'));
-
+        }
     }    
 
 
 
-       public function editInt($cod)
+    public function editInt($cod)
     {
         //dd($codinventario);
+
+
         $viaje = DB::table('pre_viaje_exterior')
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
         ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
         ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
-        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
+        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais', 'pais.idpais')
         ->where('pre_viaje_exterior.idpreviajeexterior', '=', $cod)
         ->first();
 
@@ -270,18 +332,42 @@ class ViaticosController extends Controller
         $paises = DB::table('pais')
         ->get();
 
+
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $viaje->idproyecto)
+        ->first();
+
        $fuentes = DB::table('pre_fuente')
         ->where('idproyecto', '=', $viaje->idproyecto)
+        ->where('idrubro', '=', 4)
         ->get();
 
+        //dd($fuentes);
 
-        return view('viaticos.editInt', compact('viaje', 'actividades', 'paises', 'fuentes'));
+
+        return view('viaticos.editInt', compact('viaje', 'actividades', 'paises', 'fuentes', 'p'));
     }
 
 
      public function updateInt(Request $request)
     {
         //dd($request);
+        
+        $pais = DB::table('pais')->where('idpais', '=', $request->input('pais'))->first();
+
+        $total = $pais->costo*$request->input('numerodias')*$request->input('numeropersonas');
+
+
+        //dd($total);
+
+
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+
+ 
+
+
         $viaje = DB::table('pre_viaje_exterior')
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
         ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
@@ -289,8 +375,6 @@ class ViaticosController extends Controller
         ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
         ->where('pre_viaje_exterior.idproyecto', '=', $request->input('cod'))
         ->first();
-
- 
 
         
         DB::table('pre_viaje_exterior')
@@ -302,7 +386,7 @@ class ViaticosController extends Controller
                 'destinoviaje' => $request->input('destino'),
                 'numerodias' => $request->input('numerodias'),
                 'cantidadpersonas' => $request->input('numeropersonas'),
-                'totalplanviajeext' => $request->input('total'),
+                'totalplanviajeext' => $total,
                 'costoboleto' => $request->input('costoboleto'),
                 'inscripcionevento' => $request->input('costoinscripcion'),
                 'idactividad' => $request->input('actividad')

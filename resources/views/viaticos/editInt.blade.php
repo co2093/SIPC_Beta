@@ -50,29 +50,22 @@
 					  </div>
 
 
-				 <div class="form-group">
-					    <label for="exampleFormControlSelect1">Fuente de financiamiento</label>
-					    <select class="form-control" name="idfuente" required>
-					   	
-					   	@foreach($fuentes as $f)
-					   	<option value="{{$f->idfuente}}">{{$f->descripcionfuente}}</option>
-					   	@endforeach
-
-					    </select>
-				  </div>
+		
 
 					   <div class="form-group">
 					    <label for="exampleFormControlSelect1">País</label>
 					    <select class="form-control" name="pais">
+					    	<option value="{{$viaje->idpais}}">{{$viaje->nombrepais}}</option>
 					    	@foreach($paises as $pa)
-					    		<option value="{{$pa->idpais}}">{{$pa->nombrepais}}</option>
+					    	@if($pa->idpais != $viaje->idpais)
+							<option value="{{$pa->idpais}}">{{$pa->nombrepais}}</option>
+					    	@endif
 					    	@endforeach
 
 					    </select>
 					  </div>
 
-
-
+							
 					  	<div class="form-group">
 					    <label for="exampleFormControlTextarea1">Destino del viaje</label>
 					    <textarea class="form-control" name="destino" rows="3" required>{{$viaje->destinoviaje}}</textarea>
@@ -90,7 +83,7 @@
 					  </div>
 
 					  <div class="form-group">
-					    <label for="exampleFormControlInput1">Costo de la inscripción</label>
+					    <label for="exampleFormControlInput1">Costo de la inscripción (USD)</label>
 					    <input type="number" class="form-control" name="costoinscripcion" placeholder="0.0"
 					    value="{{$viaje->inscripcionevento}}" 				    min="0"  step="0.1"                 
 					    onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required
@@ -117,10 +110,33 @@
 					    >
 					  </div>
 
+		 		<div class="form-group">
+					    <label for="exampleFormControlSelect1">Fuente de financiamiento</label>
+					    <select class="form-control" name="idfuente" required>
+					   	
+					   	@foreach($fuentes as $f)
+					   	<option value="{{$f->idfuente}}">{{$f->descripcionfuente}}</option>
+					   	@endforeach
+
+					    </select>
+				  </div>
+
+				    <div class="form-group">
+					    <label for="exampleFormControlInput1">Solicitado a fuente externa</label>
+					    <input type="number" class="form-control" name="montofuente" placeholder="" min="0.0"                   
+					      step="0.01"    value="0.0" 
+                         onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
+					  </div>
+			
 
 
-
-
+				    <div class="form-group">
+					    <label for="exampleFormControlInput1">Solicitado a SIC UES, $({{$p->montoconvocatoria}})</label>
+					    <input type="number" class="form-control" name="montoconvocatoria" placeholder="" min="0.0"                   
+					      step="0.01"    value="0.0" max="{{$p->montoconvocatoria}}" 
+                         onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
+					  </div>
+			
 
 
 

@@ -44,7 +44,10 @@
                                     <th scope="col">Destino</th>
                                     <th scope="col">Personas</th>
                                     <th scope="col">Días</th>
-                                     <th scope="col">Costo</th>
+                                    <th scope="col">Fuente</th>
+                                    <th scope="col">Monto fuente</th>
+                                    <th scope="col">Monto SIC-UES</th>
+                                     <th scope="col">Costo (USD)</th>
                                      <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
@@ -56,6 +59,9 @@
                                 <td>{{$viaje->destinoviaje}}</td>
                                 <td>{{$viaje->cantidadpersonas}}</td>
                                 <td>{{$viaje->numerodias}}</td>
+                                <td>{{$viaje->descripcionfuente}}</td>
+                                <td>{{$viaje->montofuente}}</td>
+                                <td>{{$viaje->montoconvocatoria}}</td>
                                 <td>{{$viaje->totalplanviajeext}}</td>
                                 <td class="fixed-col">
                                 <a  class="btn btn-primary btn-sm" href="{{route('viaticos.int.edit', $viaje->idpreviajeexterior)}}"><i class="fas fa-edit"></i></a>                                       
