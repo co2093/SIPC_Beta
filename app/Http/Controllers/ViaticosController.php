@@ -268,12 +268,11 @@ class ViaticosController extends Controller
                 'montoconvocatoria' => $request->input('montoconvocatoria')
             ]);
 
-
             DB::table('presupuesto_inicial')
                     ->where('idproyecto', $request->input('cod'))
                     ->update([
                     'montodisponible' => $p->montodisponible - $total,
-                    'montointernacionales' => $p->montorecursos - $request->input('montofuente'),
+                    'montointernacionales' => $p->montointernacionales - $request->input('montofuente'),
                     'montoconvocatoria' => $p->montoconvocatoria - $request->input('montoconvocatoria') 
 
             ]);
@@ -300,6 +299,15 @@ class ViaticosController extends Controller
                 'inscripcionevento' => $request->input('costoinscripcion'),
                 'idactividad' => $request->input('actividad'), 
                 'montoconvocatoria' => $request->input('montoconvocatoria')
+            ]);
+
+            DB::table('presupuesto_inicial')
+                    ->where('idproyecto', $request->input('cod'))
+                    ->update([
+                    'montodisponible' => $p->montodisponible - $total,
+                    'montointernacionales' => $p->montointernacionales - $request->input('montofuente'),
+                    'montoconvocatoria' => $p->montoconvocatoria - $request->input('montoconvocatoria') 
+
             ]);
 
         //flash('Producto agregado al inventario exitosamente', 'success');
@@ -409,7 +417,7 @@ class ViaticosController extends Controller
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
         ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
         ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
-        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
+        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais', 'pais.costo', 'pre_fuente.descripcionfuente')
         ->where('pre_viaje_exterior.idpreviajeexterior', '=', $id)
         ->first();
 
@@ -421,8 +429,6 @@ class ViaticosController extends Controller
 
     public function destroyInt($cod)
     {
-
-
         $viaje = DB::table('pre_viaje_exterior')
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
         ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
@@ -430,17 +436,58 @@ class ViaticosController extends Controller
         ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais')
         ->where('pre_viaje_exterior.idpreviajeexterior', '=', $cod)
         ->first();
+
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $viaje->idproyecto)
+        ->first();
+
+        $fuente = DB::table('pre_fuente')
+        ->where('idfuente', '=', $viaje->idfuente)
+        ->first();
+                
+        if ($fuente) {
+            // code...
+            //dd($codinventario);
+
+            DB::table('presupuesto_inicial')
+                ->where('idproyecto', $viaje->idproyecto)
+                ->update([
+                'montodisponible' => $p->montodisponible + $viaje->totalplanviajeext,
+                'montointernacionales' => $p->montointernacionales + $viaje->montofuente,
+                'montoconvocatoria' => $p->montoconvocatoria + $viaje->montoconvocatoria 
+            ]);
+            DB::table('pre_fuente')
+                ->where('idfuente', $fuente->idfuente)
+                ->update([
+                'financiamiento' => $fuente->financiamiento + $viaje->montofuente
+            ]);
+
+            $v = DB::table('pre_viaje_exterior')
+            ->where('idpreviajeexterior', '=', $cod)
+            ->delete();
+
+            session()->flash('success', 'Viaje eliminado exitosamente.');
+            return redirect()->to('/viaticos/internacionales/show/'.$viaje->idproyecto);
+
+        } else {
+            // code...
+            DB::table('presupuesto_inicial')
+                ->where('idproyecto', $viaje->idproyecto)
+                ->update([
+                'montodisponible' => $p->montodisponible + $viaje->totalplanviajeext,
+                'montointernacionales' => $p->montointernacionales + $viaje->montofuente,
+                'montoconvocatoria' => $p->montoconvocatoria + $viaje->montoconvocatoria 
+            ]);
+
+            $v = DB::table('pre_viaje_exterior')
+            ->where('idpreviajeexterior', '=', $cod)
+            ->delete();
+
+            session()->flash('success', 'Viaje eliminado exitosamente.');
+            return redirect()->to('/viaticos/internacionales/show/'.$viaje->idproyecto);
+        }
         
-        
-        //dd($codinventario);
-         $obj = DB::table('pre_viaje_exterior')
-        ->where('idpreviajeexterior', '=', $cod)
-        ->delete();
 
-
-
-        session()->flash('success', 'Viaje eliminado exitosamente.');
-        return redirect()->to('/viaticos/internacionales/show/'.$viaje->idproyecto);
     }
 
     public function end($cod){

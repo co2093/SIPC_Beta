@@ -23,20 +23,38 @@
 
                     <div class="card-body">
                     	
-                    	<br>
-                    	<label>Actividad: </label>{{$viaje->nombreactividad}}
+                        <label class="font-weight-bold">Actividad:&nbsp;</label>{{$viaje->nombreactividad}}
                 
                     	<br>
-                    	<label>País: </label>{{$viaje->nombrepais}}
+                    	<label class="font-weight-bold">País:&nbsp;</label>{{$viaje->nombrepais}}
 
                         <br>
-                        <label>Destino: </label>{{$viaje->destinoviaje}}
+                        <label class="font-weight-bold">Destino:&nbsp;</label>{{$viaje->destinoviaje}}
+
+                        <br>
+                        <label class="font-weight-bold">Cantidad de personas:&nbsp;</label>{{$viaje->cantidadpersonas}}
+
+
+                        <br>
+                        <label class="font-weight-bold">Cantidad de días:&nbsp;</label>{{$viaje->numerodias}}
+
+
+                        <br>
+                        <label class="font-weight-bold">Fuente de financiamiento:&nbsp;</label>{{$viaje->descripcionfuente}}
+
+
+                        <br>
+                        <label class="font-weight-bold">Monto solicitado a la fuente:&nbsp;</label>${{$viaje->montofuente}}
+
+
+                        <br>
+                        <label class="font-weight-bold">Monto solicitado a la SIC UES:&nbsp;</label>${{$viaje->montoconvocatoria}}
                 
                 
                         <br>
-                        <label>Total: $</label>{{$viaje->totalplanviajeext}}
+                        <label class="font-weight-bold">Total:&nbsp;</label>${{$viaje->totalplanviajeext}}
                     	
-                    	<br><br><br>
+                        <hr class="my-4">
 
                   <form action="{{ route('viaticos.int.destroy', $viaje->idpreviajeexterior) }}" method="POST" style="display:inline">
                     	@csrf

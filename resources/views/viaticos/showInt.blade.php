@@ -29,12 +29,7 @@
 
                     <div class="card-body">
 
-                    <!-- Search Box -->
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
-                            </div>
-                        </div>
+
                         <div class="table-responsive table-wrapper">
                         <table class="table">
                             <thead class="thead-dark">
@@ -45,9 +40,9 @@
                                     <th scope="col">Personas</th>
                                     <th scope="col">Días</th>
                                     <th scope="col">Fuente</th>
-                                    <th scope="col">Monto fuente</th>
-                                    <th scope="col">Monto SIC-UES</th>
-                                     <th scope="col">Costo (USD)</th>
+                                    <th scope="col">Monto</th>
+                                    <th scope="col">Convocatoria</th>
+                                     <th scope="col">Costo</th>
                                      <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
@@ -71,6 +66,8 @@
                                @endif
                             </tbody>
                         </table>
+                        <hr class="my-4">
+
                         </div>
                     <a  class="btn btn-danger" href="{{route('viaticos.int.end', $cod)}}">Finalizar</a>  
 
