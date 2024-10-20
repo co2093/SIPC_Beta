@@ -195,6 +195,7 @@ class ViaticosController extends Controller
 
         $actividades = DB::table('actividad')
         ->where('idproyecto', '=', $cod)
+        ->orderby('nombreactividad')
         ->get();
 
         $paises = DB::table('pais')
@@ -328,17 +329,23 @@ class ViaticosController extends Controller
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
         ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
         ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_exterior.idfuente')
-        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais', 'pais.idpais')
+        ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais', 'pais.idpais','actividad.idactividad', 'pais.idpais', 'pre_fuente.descripcionfuente', 'pre_fuente.idfuente')
         ->where('pre_viaje_exterior.idpreviajeexterior', '=', $cod)
         ->first();
 
 
         $actividades = DB::table('actividad')
         ->where('idproyecto', '=', $viaje->idproyecto)
+        ->orderby('nombreactividad')
         ->get();
 
         $paises = DB::table('pais')
+        ->orderby('nombrepais')
         ->get();
+
+        $pais = DB::table('pais')
+        ->where('idpais', '=', $viaje->idpais)
+        ->first();
 
 
         $p = DB::table('presupuesto_inicial')
@@ -346,36 +353,51 @@ class ViaticosController extends Controller
         ->first();
 
        $fuentes = DB::table('pre_fuente')
-        ->where('idproyecto', '=', $viaje->idproyecto)
+        ->where('idfuente', '=', $viaje->idproyecto)
         ->where('idrubro', '=', 4)
         ->get();
 
-        //dd($fuentes);
+
+       $fuente = DB::table('pre_fuente')
+        ->where('idfuente', '=', $viaje->idfuente)
+        ->first();
+
+       $disponibleconv = $viaje->montoconvocatoria + $p->montoconvocatoria; 
+
+        //dd($disponibleconv);
+
+       if ($fuente) {
+           // code...
+        $disponiblefuente = $fuente->financiamiento + $viaje->montofuente;
+        return view('viaticos.editInt', compact('viaje', 'actividades', 'paises', 'fuentes', 'p', 'pais', 'fuente', 'disponibleconv', 'disponiblefuente'));
+
+       } else {
+           // code...
+        return view('viaticos.editInt', compact('viaje', 'actividades', 'paises', 'fuentes', 'p', 'pais', 'disponibleconv'));
+       }
+       
 
 
-        return view('viaticos.editInt', compact('viaje', 'actividades', 'paises', 'fuentes', 'p'));
     }
 
 
      public function updateInt(Request $request)
     {
         //dd($request);
-        
         $pais = DB::table('pais')->where('idpais', '=', $request->input('pais'))->first();
-
-        $total = $pais->costo*$request->input('numerodias')*$request->input('numeropersonas');
-
-
-        //dd($total);
-
+        $total = ($request->input('costoboleto') * $request->input('numeropersonas')) + 
+        ($request->input('costoinscripcion') * $request->input('numeropersonas')) +  
+        ($pais->costo * $request->input('numeropersonas') * $request->input('numerodias'));
 
         $p = DB::table('presupuesto_inicial')
-        ->where('idproyecto', '=', $cod)
+        ->where('idproyecto', '=', $request->input('cod'))
         ->first();
+    
+         $total = ($request->input('costoboleto') * $request->input('numeropersonas')) + 
+        ($request->input('costoinscripcion') * $request->input('numeropersonas')) +  
+        ($pais->costo * $request->input('numeropersonas') * $request->input('numerodias'));
 
  
-
-
         $viaje = DB::table('pre_viaje_exterior')
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_exterior.idactividad')
         ->leftjoin('pais', 'pais.idpais', '=', 'pre_viaje_exterior.idpais')
@@ -384,7 +406,28 @@ class ViaticosController extends Controller
         ->where('pre_viaje_exterior.idproyecto', '=', $request->input('cod'))
         ->first();
 
-        
+        $fuente = DB::table('pre_fuente')
+        ->where('idfuente', '=', $request->input('idfuente'))
+        ->first();
+
+
+        if ($fuente) {
+            // code...
+            DB::table('presupuesto_inicial')
+                    ->where('idproyecto', $request->input('cod'))
+                    ->update([
+                    'montodisponible' => $p->montodisponible + $viaje->totalplanviajeext - $total,
+                    'montointernacionales' => $p->montointernacionales + $viaje->montofuente - $request->input('montofuente'),
+                    'montoconvocatoria' => $p->montoconvocatoria + $viaje->montoconvocatoria - $request->input('montoconvocatoria')
+
+        ]);
+
+        DB::table('pre_fuente')
+            ->where('idfuente', $request->input('idfuente'))
+            ->update([
+            'financiamiento' => $fuente->financiamiento + $viaje->montofuente - $request->input('montofuente')
+        ]);
+
         DB::table('pre_viaje_exterior')
         ->where('idpreviajeexterior', $request->input('idpreviajeexterior'))
         ->update([
@@ -397,15 +440,50 @@ class ViaticosController extends Controller
                 'totalplanviajeext' => $total,
                 'costoboleto' => $request->input('costoboleto'),
                 'inscripcionevento' => $request->input('costoinscripcion'),
-                'idactividad' => $request->input('actividad')
+                'idactividad' => $request->input('actividad'), 
+                'montofuente' => $request->input('montofuente'),
+                'montoconvocatoria' => $request->input('montoconvocatoria')        
         ]);
-
-
-
-                
 
         session()->flash('success', 'Viaje actualizado exitosamente.');
         return redirect()->to('/viaticos/internacionales/show/'.$viaje->idproyecto);
+
+
+        } else {
+            // code...
+        DB::table('presupuesto_inicial')
+                    ->where('idproyecto', $request->input('cod'))
+                    ->update([
+                    'montodisponible' => $p->montodisponible + $viaje->totalplanviajeext - $total,
+                    'montointernacionales' => $p->montointernacionales + $viaje->montofuente - $request->input('montofuente'),
+                    'montoconvocatoria' => $p->montoconvocatoria + $viaje->montoconvocatoria - $request->input('montoconvocatoria')
+
+        ]);
+
+        DB::table('pre_viaje_exterior')
+        ->where('idpreviajeexterior', $request->input('idpreviajeexterior'))
+        ->update([
+            
+                'idfuente' => $request->input('idfuente'),
+                'idpais' => $request->input('pais'),
+                'destinoviaje' => $request->input('destino'),
+                'numerodias' => $request->input('numerodias'),
+                'cantidadpersonas' => $request->input('numeropersonas'),
+                'totalplanviajeext' => $total,
+                'costoboleto' => $request->input('costoboleto'),
+                'inscripcionevento' => $request->input('costoinscripcion'),
+                'idactividad' => $request->input('actividad'), 
+                'montofuente' => $request->input('montofuente'),
+                'montoconvocatoria' => $request->input('montoconvocatoria')        
+        ]);
+
+        session()->flash('success', 'Viaje actualizado exitosamente.');
+        return redirect()->to('/viaticos/internacionales/show/'.$viaje->idproyecto);
+
+        }
+        
+        
+
 
     }
 

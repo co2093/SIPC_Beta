@@ -68,7 +68,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">Destino del viaje</label>
-                                    <textarea class="form-control" name="destino" rows="2" required></textarea>
+                                    <textarea class="form-control" minlength="10" name="destino" rows="2" required></textarea>
                                 </div>
                             </div>
 
@@ -125,7 +125,7 @@
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Fuente de financiamiento</label>
                                         <select class="form-control" name="idfuente" id="idfuente">
-                                        	 <option value="" disabled selected>Seleccione un país</option>
+                                        	 <option value="" disabled selected>Seleccione una fuente de financiamiento</option>
                                             @foreach($fuentes as $f)
                                                 <option value="{{$f->idfuente}}" data-financiamiento="{{ $f->financiamiento }}">
                                                 	{{$f->descripcionfuente}}. Disponible: ${{$f->financiamiento}}</option>
