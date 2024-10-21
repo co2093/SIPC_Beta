@@ -44,7 +44,10 @@
                                     <th scope="col">Actividad</th>
                                     <th scope="col">Departamento</th>
                                     <th scope="col">Destino</th>
-                                    <th scope="col">Total</th>
+                                      <th scope="col">Fuente</th>
+                                    <th scope="col">Monto</th>
+                                    <th scope="col">Convocatoria</th>
+                                     <th scope="col">Costo</th>
                                      <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
@@ -54,6 +57,9 @@
                                         <td>{{$v->nombreactividad}}</td>
                                         <td>{{$v->departamento}}</td>
                                         <td>{{$v->destinoviaje}}</td>
+                                        <td>{{$v->descripcionfuente}}</td>
+                                        <td>{{$v->montofuente}}</td>
+                                        <td>{{$v->montoconvocatoria}}</td>
                                         <td >{{$v->totalplanviaje}}</td>
                                         <td class="fixed-col">
                                         <a  class="btn btn-primary btn-sm" href="{{route('viaticos.edit', $v->idpreviajelocal)}}"><i class="fas fa-edit"></i></a>                                        

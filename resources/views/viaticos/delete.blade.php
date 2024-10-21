@@ -24,25 +24,35 @@
                     <div class="card-body">
                     	
                     	<br>
-                    	<label>Actividad: </label>{{$viaje->nombreactividad}}
+                    	<label class="font-weight-bold">Actividad:&nbsp;</label>{{$viaje->nombreactividad}}
                 
                     	<br>
-                    	<label>Departamento: </label>{{$viaje->departamento}}
+                    	<label class="font-weight-bold">Departamento:&nbsp;</label>{{$viaje->departamento}}
 
                         <br>
-                        <label>Destino: </label>{{$viaje->destinoviaje}}
+                        <label class="font-weight-bold">Destino:&nbsp;</label>{{$viaje->destinoviaje}}
+                        <br>
+                        <label class="font-weight-bold">Distancia en KM:&nbsp;</label>{{$viaje->kmsarecorrer}}
                 
                        <br>
-                        <label>Hora de llegada: </label>{{$viaje->horallegada}}
+                        <label class="font-weight-bold">Hora de llegada:&nbsp;</label>{{$viaje->horallegada}}
                 
                         <br>
-                        <label>Hora de salida: </label>{{$viaje->horasalida}}
+                        <label class="font-weight-bold">Hora de salida:&nbsp;</label>{{$viaje->horasalida}}
 
                         <br>
-                        <label>Cantidad de vales de combustible: $</label>{{$viaje->cantidadvalescombustible}}
+                        <label class="font-weight-bold">Cantidad de vales de combustible ($10 c/u):&nbsp;</label>{{$viaje->cantidadvalescombustible}}
+
+                        <br>
+                        <label class="font-weight-bold">Cantidad de días:&nbsp;</label>{{$viaje->cantidaddias}}
+
+                        <br>
+                        <label class="font-weight-bold">Número de personas:&nbsp;</label>{{$viaje->cantidadpersonas}}
+                
+                
                 
                         <br>
-                        <label>Total: $</label>{{$viaje->totalplanviaje}}
+                        <label class="font-weight-bold">Total:&nbsp; </label>${{$viaje->totalplanviaje}}
                     	
                     	<br><br><br>
 

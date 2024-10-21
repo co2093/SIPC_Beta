@@ -18,17 +18,25 @@ class ViaticosController extends Controller
 
         $actividades = DB::table('actividad')
         ->where('idproyecto', '=', $cod)
+        ->orderby('nombreactividad')
         ->get();
 
         $departamentos = DB::table('departamento')
+        ->orderby('departamento')
         ->get();
 
        $fuentes = DB::table('pre_fuente')
         ->where('idproyecto', '=', $cod)
         ->get();
+        
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
 
-        return view('viaticos.index', compact('cod', 'fuentes', 'departamentos', 'actividades'));
+
+
+        return view('viaticos.index', compact('cod', 'fuentes', 'departamentos', 'actividades', 'p'));
     }
 
 
@@ -39,10 +47,9 @@ class ViaticosController extends Controller
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
         ->leftjoin('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
         ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
-        ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento')
+        ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento', 'pre_fuente.descripcionfuente')
         ->where('pre_viaje_local.idproyecto', '=', $cod)
         ->get();
-
 
         return view('viaticos.show', compact('cod', 'viajes'));
     }
@@ -50,7 +57,18 @@ class ViaticosController extends Controller
 
     public function store(Request $request){
 
-            //dd($request); 
+        $fuente = DB::table('pre_fuente')
+        ->where('idfuente', '=', $request->input('idfuente'))
+        ->first();
+
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $request->input('cod'))
+        ->first();
+
+        $total = $request->input('costodiario')*$request->input('dias')*$request->input('personas') + $request->input('vales')*10;
+
+        if ($fuente) {
+            // code...
             DB::table('pre_viaje_local')->insert([
                 'idfuente' => $request->input('idfuente'),
                 'iddepartamento' => $request->input('iddepartamento'),
@@ -60,16 +78,62 @@ class ViaticosController extends Controller
                 'destinoviaje' => $request->input('destino'),
                 'cantidaddias' => $request->input('dias'),
                 'cantidadpersonas' => $request->input('personas'),
-                'totalplanviaje' => $request->input('total'),
+                'totalplanviaje' => $total,
                 'horasalida' => $request->input('salida'),
                 'horallegada' => $request->input('regreso'),
-                'idactividad' => $request->input('actividad')
+                'idactividad' => $request->input('actividad'),
+                'montofuente' => $request->input('montofuente'),
+                'montoconvocatoria' => $request->input('montoconvocatoria')
+            ]);
+            DB::table('presupuesto_inicial')
+                    ->where('idproyecto', $request->input('cod'))
+                    ->update([
+                    'montodisponible' => $p->montodisponible - $total,
+                    'montonacionales' => $p->montonacionales - $request->input('montofuente'),
+                    'montoconvocatoria' => $p->montoconvocatoria - $request->input('montoconvocatoria') 
+
+            ]);
+            DB::table('pre_fuente')
+                ->where('idfuente', $request->input('idfuente'))
+                ->update([
+                'financiamiento' => $fuente->financiamiento - $request->input('montofuente')
+            ]);
+
+        //flash('Producto agregado al inventario exitosamente', 'success');
+        session()->flash('success', 'Se ha registrado el viaje exitosamente.');
+        return redirect()->to('/viaticos/nacionales/show/'.$request->input('cod'));
+
+        } else {
+            // code...
+            DB::table('pre_viaje_local')->insert([
+                'iddepartamento' => $request->input('iddepartamento'),
+                'idproyecto' => $request->input('cod'),
+                'kmsarecorrer' => $request->input('distancia'),
+                'cantidadvalescombustible' => $request->input('vales'),
+                'destinoviaje' => $request->input('destino'),
+                'cantidaddias' => $request->input('dias'),
+                'cantidadpersonas' => $request->input('personas'),
+                'totalplanviaje' => $total,
+                'horasalida' => $request->input('salida'),
+                'horallegada' => $request->input('regreso'),
+                'idactividad' => $request->input('actividad'),
+                'montoconvocatoria' => $request->input('montoconvocatoria')
+            ]);
+            DB::table('presupuesto_inicial')
+                    ->where('idproyecto', $request->input('cod'))
+                    ->update([
+                    'montodisponible' => $p->montodisponible - $total,
+                    'montoconvocatoria' => $p->montoconvocatoria - $request->input('montoconvocatoria') 
+
             ]);
 
         //flash('Producto agregado al inventario exitosamente', 'success');
         session()->flash('success', 'Se ha registrado el viaje exitosamente.');
 
-        return redirect()->to('/viaticos/show/'.$request->input('cod'));
+        return redirect()->to('/viaticos/nacionales/show/'.$request->input('cod'));
+        }
+
+
 
     }    
 
@@ -169,11 +233,59 @@ class ViaticosController extends Controller
         ->where('pre_viaje_local.idpreviajelocal', '=', $cod)
         ->first();
         
+
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $viaje->idproyecto)
+        ->first();
+
+        $fuente = DB::table('pre_fuente')
+        ->where('idfuente', '=', $viaje->idfuente)
+        ->first();
+
+
+        if ($fuente) {
+            // code...
+            //dd($codinventario);
+
+            DB::table('presupuesto_inicial')
+                ->where('idproyecto', $viaje->idproyecto)
+                ->update([
+                'montodisponible' => $p->montodisponible + $viaje->totalplanviaje,
+                'montointernacionales' => $p->montonacionales + $viaje->montofuente,
+                'montoconvocatoria' => $p->montoconvocatoria + $viaje->montoconvocatoria 
+            ]);
+            DB::table('pre_fuente')
+                ->where('idfuente', $fuente->idfuente)
+                ->update([
+                'financiamiento' => $fuente->financiamiento + $viaje->montofuente
+            ]);
+
         
-        //dd($codinventario);
-         $obj = DB::table('pre_viaje_local')
-        ->where('idpreviajelocal', '=', $cod)
-        ->delete();
+            //dd($codinventario);
+             $obj = DB::table('pre_viaje_local')
+            ->where('idpreviajelocal', '=', $cod)
+            ->delete();
+
+            session()->flash('success', 'Viaje eliminado exitosamente.');
+            return redirect()->to('/viaticos/internacionales/show/'.$viaje->idproyecto);
+
+        } else {
+            // code...
+            DB::table('presupuesto_inicial')
+                ->where('idproyecto', $viaje->idproyecto)
+                ->update([
+                'montodisponible' => $p->montodisponible + $viaje->totalplanviaje,
+                'montoconvocatoria' => $p->montoconvocatoria + $viaje->montoconvocatoria 
+            ]);
+
+            //dd($codinventario);
+             $obj = DB::table('pre_viaje_local')
+            ->where('idpreviajelocal', '=', $cod)
+            ->delete();
+            
+            session()->flash('success', 'Viaje eliminado exitosamente.');
+            return redirect()->to('/viaticos/internacionales/show/'.$viaje->idproyecto);
+        }
 
 
 
@@ -306,7 +418,6 @@ class ViaticosController extends Controller
                     ->where('idproyecto', $request->input('cod'))
                     ->update([
                     'montodisponible' => $p->montodisponible - $total,
-                    'montointernacionales' => $p->montointernacionales - $request->input('montofuente'),
                     'montoconvocatoria' => $p->montoconvocatoria - $request->input('montoconvocatoria') 
 
             ]);
