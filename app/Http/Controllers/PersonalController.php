@@ -68,79 +68,69 @@ class PersonalController extends Controller
             ->where('idproyecto', '=', $request->input('cod'))
             ->first();
             
-            $total = $request->input('dias')*$tipo->pagoporhora;
+            $total = $request->input('costototal');
+
+            $fuente = DB::table('pre_fuente')
+            ->where('idfuente', '=', $request->input('idfuente'))
+            ->first();
 
 
-            if($request->input('idfuente')>0)
-            {
+            if ($fuente) {
+                // code...
 
-                $fuente = DB::table('pre_fuente')
-                ->where('idfuente', '=', $request->input('idfuente'))
-                ->first();
-
-;
-
-                if($fuente->financiamiento >= $total){
-
-                    DB::table('pre_contratacion')->insert([
+            DB::table('pre_contratacion')->insert([
                     'idtipocontratacion' => $request->input('tipo'),
                     'idactividad' => $request->input('actividad'),
-                    'pago' => $tipo->pagoporhora,
                     'dias' => $request->input('dias'),
                     'idfuente' => $request->input('idfuente'),
-                    'total' => $request->input('dias')*$tipo->pagoporhora
-                    ]);
-                    DB::table('presupuesto_inicial')
+                    'total' => $request->input('costototal'),
+                    'montofuente' => $request->input('montofuente'),
+                    'montoconvocatoria' => $request->input('montoconvocatoria')
+            ]);
+            DB::table('presupuesto_inicial')
                     ->where('idproyecto', $request->input('cod'))
                     ->update([
-                    'montodisponible' => $p->montodisponible - $total,
-                    'montocontratacion' => $p->montocontratacion - $total 
-                    ]);
-                    DB::table('pre_fuente')
+                    'montodisponible' => $p->montodisponible - $request->input('montoconvocatoria'),
+                    'montocontratacion' => $p->montocontratacion - $request->input('montofuente') 
+                ]);
+            DB::table('pre_fuente')
                     ->where('idfuente', $request->input('idfuente'))
                     ->update([
-                    'financiamiento' => $fuente->financiamiento - $total 
-                    ]);
-                }else{
+                    'financiamiento' => $fuente->financiamiento - $request->input('montofuente') 
+            ]);
 
-                session()->flash('error', 'No hay fondos suficientes en esta fuente, seleccione otra.');
-
-                return redirect()->back()->with('error', 'No hay fondos suficientes en esta fuente, seleccione otra.');  
-
-                }
-
-            }else{
-
-                if($p->montoconvocatoria>= $total){
-                    DB::table('pre_contratacion')->insert([
-                    'idtipocontratacion' => $request->input('tipo'),
-                    'idactividad' => $request->input('actividad'),
-                    'pago' => $tipo->pagoporhora,
-                    'dias' => $request->input('dias'),
-                    'total' => $request->input('dias')*$tipo->pagoporhora
-                    ]);
-
-                    DB::table('presupuesto_inicial')
-                    ->where('idproyecto', $request->input('cod'))
-                    ->update([
-                    'montodisponible' => $p->montodisponible - $total,
-                    'montoconvocatoria' => $p->montoconvocatoria - $total 
-                    ]);
-
-                }else{
-
-                session()->flash('error', 'No hay fondos suficientes en esta fuente, seleccione otra.');
-
-                return redirect()->to('/personal/show/'.$request->input('cod'));
-                }
-
-            }
-
-
-        //flash('Producto agregado al inventario exitosamente', 'success');
+                            //flash('Producto agregado al inventario exitosamente', 'success');
         session()->flash('success', 'Se ha registrado la contratación.');
 
         return redirect()->to('/personal/show/'.$request->input('cod'));
+                        
+            } else {
+                // code...
+
+                 DB::table('pre_contratacion')->insert([
+                    'idtipocontratacion' => $request->input('tipo'),
+                    'idactividad' => $request->input('actividad'),
+                    'dias' => $request->input('dias'),
+                    'total' => $request->input('costototal'),
+                    'montoconvocatoria' => $request->input('montoconvocatoria')
+            ]);
+            DB::table('presupuesto_inicial')
+                    ->where('idproyecto', $request->input('cod'))
+                    ->update([
+                    'montodisponible' => $p->montodisponible - $request->input('montoconvocatoria')
+                ]);
+         
+                            //flash('Producto agregado al inventario exitosamente', 'success');
+        session()->flash('success', 'Se ha registrado la contratación.');
+
+        return redirect()->to('/personal/show/'.$request->input('cod'));
+                        
+            }
+            
+
+
+
+
 
     }   
 

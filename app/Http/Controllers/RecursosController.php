@@ -71,23 +71,18 @@ class RecursosController extends Controller
             $p = DB::table('presupuesto_inicial')
             ->where('idproyecto', '=', $request->input('cod'))
             ->first();
+
+             $fuente = DB::table('pre_fuente')
+            ->where('idfuente', '=', $request->input('idfuente'))
+            ->first();
          
 
-            $total = $request->input('montofuente') + $request->input('montoconvocatoria');
+            $total = $request->input('costototal');
 
 
-            if($request->input('idfuente'))
-            {
-
-                $fuente = DB::table('pre_fuente')
-                ->where('idfuente', '=', $request->input('idfuente'))
-                ->first();
-
-                if($fuente->financiamiento >= $request->input('montofuente') 
-                    && $p->montoconvocatoria>= $request->input('montoconvocatoria') ){
-
-
-                    DB::table('pre_recurso')->insert([
+            if ($fuente) {
+                // code...
+                DB::table('pre_recurso')->insert([
                     'idtiporecurso' => $request->input('tiporecurso'),
                     'idunidadmedida' => $request->input('unidad'),
                     'idfuente' => $request->input('idfuente'),
@@ -115,18 +110,12 @@ class RecursosController extends Controller
                     ->update([
                     'financiamiento' => $fuente->financiamiento - $request->input('montofuente')
                     ]);
-                }else{
 
-                session()->flash('error', 'No hay fondos suficientes en esta fuente, seleccione otra.');
+        return redirect()->to('/recursos/show/'.$request->input('cod'));
 
-                return redirect()->back()->with('error', 'No hay fondos suficientes en esta fuente, seleccione otra.');  
 
-                }
-
-            }else{
-
-                if($p->montoconvocatoria>= $request->input('montoconvocatoria')){
-
+            } else {
+                // code...
 
                     DB::table('pre_recurso')->insert([
                     'idtiporecurso' => $request->input('tiporecurso'),
@@ -148,20 +137,12 @@ class RecursosController extends Controller
                     'montoconvocatoria' => $p->montoconvocatoria - $request->input('montoconvocatoria') 
                     ]);
 
-                }else{
-
-                session()->flash('error', 'No hay fondos suficientes en esta fuente, seleccione otra.');
-
-                return redirect()->to('/recursos/show/'.$request->input('cod'));
-                }
-
-            }
-
-
-        //flash('Producto agregado al inventario exitosamente', 'success');
-        session()->flash('success', 'Se ha registrado el recurso exitosamente.');
 
         return redirect()->to('/recursos/show/'.$request->input('cod'));
+
+
+            }
+            
 
     }
 

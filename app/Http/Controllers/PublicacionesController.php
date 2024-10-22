@@ -19,9 +19,14 @@ class PublicacionesController extends Controller
         ->get();
         
         $tipos = DB::table('tipo_publicacion')
+        ->orderby('nombretipopublicacion')
         ->get();
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
-        return view('publicaciones.index', compact('cod', 'tipos', 'fuentes'));
+
+        return view('publicaciones.index', compact('cod', 'tipos', 'fuentes', 'p'));
     }
 
 
@@ -51,7 +56,9 @@ class PublicacionesController extends Controller
                 'idproyecto' => $request->input('cod'),
                 'idtipopublicacion' => $request->input('idtipo'),
                 'detallepublicacion' => $request->input('detalle'),
-                'montopublicacion' => $request->input('costo')
+                'montopublicacion' => $request->input('costototal'),
+                'montoconvocatoria' => $request->input('montoconvocatoria'),
+                'montofuente' => $request->input('montofuente')
             ]);
 
         //flash('Producto agregado al inventario exitosamente', 'success');
@@ -69,21 +76,25 @@ class PublicacionesController extends Controller
         $publicacion = DB::table('pre_publicacion')
         ->leftjoin('tipo_publicacion', 'tipo_publicacion.idtipopublicacion', '=', 'pre_publicacion.idtipopublicacion')
         ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_publicacion.idfuente')
-        ->select('pre_publicacion.*', 'tipo_publicacion.nombretipopublicacion', 'pre_fuente.descripcionfuente')
+        ->select('pre_publicacion.*', 'tipo_publicacion.nombretipopublicacion', 'tipo_publicacion.idtipopublicacion','pre_fuente.descripcionfuente', 'pre_fuente.idfuente')
         ->where('pre_publicacion.idpublicacion', '=', $cod)
         ->first();
 
 
         $fuentes = DB::table('pre_fuente')
-        ->where('idproyecto', '=', $cod)
+        ->where('idproyecto', '=', $publicacion->idproyecto)
         ->get();
         
         $tipos = DB::table('tipo_publicacion')
+        ->orderby('nombretipopublicacion')
         ->get();
 
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $publicacion->idproyecto)
+        ->first();
 
 
-        return view('publicaciones.edit', compact('publicacion', 'fuentes', 'tipos'));
+        return view('publicaciones.edit', compact('publicacion', 'fuentes', 'tipos', 'p'));
     }
 
 
@@ -98,7 +109,9 @@ class PublicacionesController extends Controller
             'idfuente' => $request->input('idfuente'),
             'idtipopublicacion' => $request->input('idtipo'),
             'detallepublicacion' => $request->input('detalle'),
-            'montopublicacion' => $request->input('costo')
+            'montopublicacion' => $request->input('costototal'),
+            'montoconvocatoria' => $request->input('montoconvocatoria'),
+            'montofuente' => $request->input('montofuente')
         ]);
 
 
