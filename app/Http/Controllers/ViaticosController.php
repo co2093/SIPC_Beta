@@ -101,7 +101,7 @@ class ViaticosController extends Controller
 
         //flash('Producto agregado al inventario exitosamente', 'success');
         session()->flash('success', 'Se ha registrado el viaje exitosamente.');
-        return redirect()->to('/viaticos/nacionales/show/'.$request->input('cod'));
+        return redirect()->to('/viaticos/show/'.$request->input('cod'));
 
         } else {
             // code...
@@ -130,7 +130,7 @@ class ViaticosController extends Controller
         //flash('Producto agregado al inventario exitosamente', 'success');
         session()->flash('success', 'Se ha registrado el viaje exitosamente.');
 
-        return redirect()->to('/viaticos/nacionales/show/'.$request->input('cod'));
+        return redirect()->to('/viaticos/show/'.$request->input('cod'));
         }
 
 
@@ -144,7 +144,7 @@ class ViaticosController extends Controller
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
         ->leftjoin('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
         ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
-        ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento')
+        ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento','departamento.iddepartamento', 'actividad.idactividad', 'pre_fuente.idfuente', 'pre_fuente.descripcionfuente')
         ->where('pre_viaje_local.idpreviajelocal', '=', $cod)
         ->first();
 
@@ -161,8 +161,12 @@ class ViaticosController extends Controller
         ->where('idproyecto', '=', $viaje->idproyecto)
         ->get();
 
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $viaje->idproyecto)
+        ->first();
 
-        return view('viaticos.edit', compact('viaje', 'cod', 'actividades', 'departamentos', 'fuentes'));
+
+        return view('viaticos.edit', compact('viaje', 'cod', 'actividades', 'departamentos', 'fuentes', 'p'));
     }
 
 
@@ -175,10 +179,32 @@ class ViaticosController extends Controller
         ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento')
         ->where('pre_viaje_local.idpreviajelocal', '=', $request->input('idpreviajelocal'))
         ->first();
+        $p = DB::table('presupuesto_inicial')
+        ->where('idproyecto', '=', $viaje->idproyecto)
+        ->first();
+        $fuente = DB::table('pre_fuente')
+        ->where('idfuente', '=', $viaje->idfuente)
+        ->first();
+         $total = $request->input('costodiario')*$request->input('dias')*$request->input('personas') + $request->input('vales')*10;
 
- 
 
-        
+        if ($fuente) {
+            // code...
+            DB::table('presupuesto_inicial')
+                    ->where('idproyecto', $request->input('cod'))
+                    ->update([
+                    'montodisponible' => $p->montodisponible + $viaje->totalplanviaje - $total,
+                    'montonacionales' => $p->montonacionales + $viaje->montofuente - $request->input('montofuente'),
+                    'montoconvocatoria' => $p->montoconvocatoria + $viaje->montoconvocatoria - $request->input('montoconvocatoria')
+
+        ]);
+
+        DB::table('pre_fuente')
+            ->where('idfuente', $request->input('idfuente'))
+            ->update([
+            'financiamiento' => $fuente->financiamiento + $viaje->montofuente - $request->input('montofuente')
+        ]);
+
         DB::table('pre_viaje_local')
         ->where('idpreviajelocal', $request->input('idpreviajelocal'))
         ->update([
@@ -190,17 +216,50 @@ class ViaticosController extends Controller
                 'destinoviaje' => $request->input('destino'),
                 'cantidaddias' => $request->input('dias'),
                 'cantidadpersonas' => $request->input('personas'),
-                'totalplanviaje' => $request->input('total'),
+                'totalplanviaje' => $total,
                 'horasalida' => $request->input('salida'),
                 'horallegada' => $request->input('regreso'),
-                'idactividad' => $request->input('actividad')
+                'idactividad' => $request->input('actividad'),
+                'montofuente' => $request->input('montofuente'),
+                'montoconvocatoria' => $request->input('montoconvocatoria')        
         ]);
-
-
-                
 
         session()->flash('success', 'Viaje actualizado exitosamente.');
         return redirect()->to('/viaticos/show/'.$viaje->idproyecto);
+
+
+        } else {
+            // code...
+        DB::table('presupuesto_inicial')
+                    ->where('idproyecto', $request->input('cod'))
+                    ->update([
+                    'montodisponible' => $p->montodisponible + $viaje->totalplanviaje - $total,
+                    'montoconvocatoria' => $p->montoconvocatoria + $viaje->montoconvocatoria - $request->input('montoconvocatoria')
+
+        ]);
+
+        DB::table('pre_viaje_local')
+        ->where('idpreviajelocal', $request->input('idpreviajelocal'))
+        ->update([
+            
+                'iddepartamento' => $request->input('iddepartamento'),
+                'kmsarecorrer' => $request->input('distancia'),
+                'cantidadvalescombustible' => $request->input('vales'),
+                'destinoviaje' => $request->input('destino'),
+                'cantidaddias' => $request->input('dias'),
+                'cantidadpersonas' => $request->input('personas'),
+                'totalplanviaje' => $total,
+                'horasalida' => $request->input('salida'),
+                'horallegada' => $request->input('regreso'),
+                'idactividad' => $request->input('actividad'),
+                'montoconvocatoria' => $request->input('montoconvocatoria')        
+        ]);
+
+        session()->flash('success', 'Viaje actualizado exitosamente.');
+        return redirect()->to('/viaticos/show/'.$viaje->idproyecto);
+
+        }
+
 
     }
 
