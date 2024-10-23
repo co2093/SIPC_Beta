@@ -65,7 +65,7 @@ class RecursosController extends Controller
 
     public function store(Request $request){
 
-           //dd($request); 
+           //dd($request->input('cod')); 
 
  
             $p = DB::table('presupuesto_inicial')
@@ -160,6 +160,8 @@ class RecursosController extends Controller
             'actividad.idproyecto', 'pre_fuente.descripcionfuente', 'pre_fuente.financiamiento')    
         ->where('pre_recurso.idrecurso', '=', $cod)
         ->first();
+
+        dd($recurso);
 
         $p = DB::table('presupuesto_inicial')
         ->where('idproyecto', '=', $recurso->idproyecto)

@@ -532,21 +532,19 @@ class ViaticosController extends Controller
         ->where('idfuente', '=', $viaje->idfuente)
         ->first();
 
+        $flag = 0;
+        $disponiblefuente = 0;
+
+        if ($fuente) {
+            // code...
+            $flag = 1;
+            $disponiblefuente = $fuente->financiamiento + $viaje->montofuente;
+        }
+
        $disponibleconv = $viaje->montoconvocatoria + $p->montoconvocatoria; 
 
-        //dd($disponibleconv);
-
-       if ($fuente) {
-           // code...
-        $disponiblefuente = $fuente->financiamiento + $viaje->montofuente;
-        return view('viaticos.editInt', compact('viaje', 'actividades', 'paises', 'fuentes', 'p', 'pais', 'fuente', 'disponibleconv', 'disponiblefuente'));
-
-       } else {
-           // code...
-        return view('viaticos.editInt', compact('viaje', 'actividades', 'paises', 'fuentes', 'p', 'pais', 'disponibleconv'));
-       }
-       
-
+        //dd($disponibleconv);      
+        return view('viaticos.editInt', compact('viaje', 'actividades', 'paises', 'fuentes', 'p', 'pais', 'fuente', 'disponibleconv', 'disponiblefuente', 'flag'));
 
     }
 

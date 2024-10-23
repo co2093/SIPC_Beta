@@ -48,6 +48,8 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Área de conocimiento</label>
 					    <select class="form-control" name="area" required>
+					    						    	<option value="" disabled selected>Seleccione una opción</option>
+
 					     @foreach($areas as $a)
 					     	<option value="{{$a->idareaconocimiento}}">{{$a->nombreareaconocimiento}}</option>
 					   	 @endforeach	
@@ -57,6 +59,8 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Tipo de proyecto</label>
 					    <select class="form-control" name="tipo" required>
+					    						    	<option value="" disabled selected>Seleccione una opción</option>
+
 			    		 @foreach($tipo as $t)
 					     	<option value="{{$t->idtipoproyecto}}">{{$t->tipoproyecto}}</option>
 					   	 @endforeach		
@@ -66,7 +70,7 @@
 
 
   					<div class="form-group">
-					    <label for="exampleFormControlInput1">Tiempo dedicado a la investigación</label>
+					    <label for="exampleFormControlInput1">Tiempo dedicado a la investigación (Horas)</label>
 					    <input type="number" class="form-control"  name="tiempo" placeholder="" min="1"                   
 					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
 					  </div>

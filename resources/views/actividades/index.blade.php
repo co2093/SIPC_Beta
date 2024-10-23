@@ -31,7 +31,9 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Objetivo específico asociado</label>
-                        <select class="form-control" name="objetivo">
+                        <select class="form-control" name="objetivo" required>
+                                                        <option value="" disabled selected>Seleccione una opción</option>
+
                         @foreach($obj as $o)
                             <option value="{{$o->idobjetivo}}">{{$o->descripcion}}</option>
                         @endforeach
@@ -73,6 +75,16 @@
                         <input type="date" class="form-control" name="final" >
                     </div>
 
+          <hr class="my-4">
+
+                  <!-- Mensaje de advertencia -->
+                  <label id="mensajeAdvertencia" class="text-danger" style="display: none;">
+                     La fecha de inicio debe ser menor a la fecha de finalización.
+                  </label>
+<label id="mensajeAdvertenciaHoy" class="text-danger" style="display: none;">
+    La fecha de inicio y la fecha de finalización no pueden ser anteriores al día de hoy.
+</label>
+
 
                       <button type="submit" class="btn btn-danger">Guardar</button>
                     <a  class="btn btn-secondary float-right" href="{{route('actividades.show', $cod)}}">Regresar</a>
@@ -85,7 +97,58 @@
     </div>
 
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Obtener los elementos de fecha, el botón de guardar y los mensajes de advertencia
+    const fechaInicioInput = document.querySelector('input[name="inicio"]');
+    const fechaFinalInput = document.querySelector('input[name="final"]');
+    const botonGuardar = document.querySelector('button[type="submit"]');
+    const mensajeAdvertenciaFechas = document.getElementById('mensajeAdvertencia'); // Advertencia por fechas inválidas
+    const mensajeAdvertenciaHoy = document.getElementById('mensajeAdvertenciaHoy'); // Advertencia por fechas menores al día de hoy
 
+    // Función para obtener la fecha de hoy sin horas, minutos y segundos
+    function obtenerFechaHoy() {
+        const hoy = new Date();
+        return new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+    }
+
+    // Función para verificar las fechas y habilitar/deshabilitar el botón
+    function verificarFechas() {
+        const fechaHoy = obtenerFechaHoy();
+        const fechaInicio = new Date(fechaInicioInput.value);
+        const fechaFinal = new Date(fechaFinalInput.value);
+
+        // Ocultar mensajes por defecto
+        mensajeAdvertenciaFechas.style.display = 'none';
+        mensajeAdvertenciaHoy.style.display = 'none';
+
+        // Verificar si las fechas son válidas y mayores o iguales al día de hoy
+        if (fechaInicio < fechaHoy || fechaFinal < fechaHoy) {
+            // Mostrar advertencia si alguna fecha es menor al día de hoy
+            mensajeAdvertenciaHoy.style.display = 'block';
+            botonGuardar.disabled = true;
+        } else if (fechaInicio >= fechaFinal) {
+            // Mostrar advertencia si la fecha de inicio no es menor a la de finalización
+            mensajeAdvertenciaFechas.style.display = 'block';
+            botonGuardar.disabled = true;
+        } else {
+            // Si ambas condiciones se cumplen, habilitar el botón
+            botonGuardar.disabled = false;
+        }
+    }
+
+    // Deshabilitar el botón inicialmente
+    botonGuardar.disabled = true;
+
+    // Ocultar los mensajes de advertencia inicialmente
+    mensajeAdvertenciaFechas.style.display = 'none';
+    mensajeAdvertenciaHoy.style.display = 'none';
+
+    // Agregar event listeners para verificar las fechas cuando cambien
+    fechaInicioInput.addEventListener('input', verificarFechas);
+    fechaFinalInput.addEventListener('input', verificarFechas);
+});
+</script>
 
 
 @endsection

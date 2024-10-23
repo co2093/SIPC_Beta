@@ -140,7 +140,8 @@
                                         	@if($fuente)
                                         	  <option value="{{$viaje->idfuente}}" data-financiamiento="{{ $disponiblefuente }}">
                                         	  	{{$viaje->descripcionfuente}}. Disponible: ${{$disponiblefuente}}</option>
-                                        	@endif 	
+                                        	@endif
+                    						    	<option value="" disabled selected>Seleccione una opción</option>
                                             @foreach($fuentes as $f)
                                             @if($f->idfuente != $viaje->idfuente)
                                                 <option value="{{$f->idfuente}}" data-financiamiento="{{ $f->financiamiento }}">

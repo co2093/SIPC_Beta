@@ -1,3 +1,4 @@
+Base - cambios:
 
 
 alter table public.inventario alter column idproyectoinventario drop not null;
@@ -192,7 +193,7 @@ create table public.presupuesto_inicial(
 );
 
 
-alter table public.pre_viaje_local drop constraint fk_pre_viaj_viaje_loc_pre_fuen;
+--alter table public.pre_viaje_local drop constraint fk_pre_viaj_viaje_loc_pre_fuen;
 
 alter table public.pre_recurso 
 	alter column idfuente drop not null;
@@ -240,6 +241,46 @@ ALTER TABLE public.pre_recurso
 	alter table public.pais 
 	add costo numeric(10,2);
 
+
+	
+alter table public.pre_recurso
+add montofuente numeric(12,2
+
+
+alter table public.pre_viaje_exterior
+add montofuente numeric(12,2);
+
+alter table public.pre_viaje_exterior
+add montoconvocatoria numeric(12,2);
+
+alter table public.pre_publicacion
+add montofuente numeric(12,2);
+
+alter table public.pre_publicacion
+add montoconvocatoria numeric(12,2);
+
+
+alter table public.pre_viaje_local
+add montofuente numeric(12,2);
+
+alter table public.pre_viaje_local
+add montoconvocatoria numeric(12,2);
 	
 
 
+alter table public.pre_contratacion
+add montofuente numeric(12,2);
+
+alter table public.pre_contratacion
+add montoconvocatoria numeric(12,2);
+
+
+alter table public.pre_viaje_local drop constraint 
+fk_pre_viaj_viajes_lo_presupue;
+
+alter table public.pre_viaje_exterior drop constraint 
+fk_pre_viaj_relations_presupue;
+
+alter table public.pre_publicacion drop constraint 
+fk_pre_publ_publicaci_presupue;
+	

@@ -279,13 +279,13 @@ class ProjectsController extends Controller
         DB::table('proyecto')
         ->where('idproyecto', $request->input('cod'))
         ->update([
-            'documentodefinicion' => $attachment      
+            'documentodefinicion' => $attachment,
+            'idestadoproyecto' => 4      
         ]);
 
-        session()->flash('success', 'Protocolo actualizado exitosamente.');
+        session()->flash('success', 'Proyecto enviado a revisión exitosamente.');
 
-        return view('projects.enviar', compact('cod'));
-
+        return redirect()->to('/projects/show/');
 
     }
 
