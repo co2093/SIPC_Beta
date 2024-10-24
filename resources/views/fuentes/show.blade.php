@@ -53,7 +53,7 @@
                                     <tr>
                                         <td>{{$f->descripcionfuente}}</td>
                                         <td>{{$f->rubro}}</td>
-                                        <td>${{$f->financiamiento}}</td>
+                                        <td class="monto">{{$f->financiamiento}}</td>
                                         <td class="fixed-col">
                                         <a  class="btn btn-primary btn-sm" href="{{ route('fuentes.edit', $f->idfuente) }}"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" href="{{ route('fuentes.delete', $f->idfuente) }}"><i class="fas fa-trash-alt"></i></a>
@@ -64,18 +64,21 @@
 
                             </tbody>
                         </table>
+
                         </div>
+                         <hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
+
                     <a  class="btn btn-danger" href="{{route('fuentes.end', $cod)}}">Finalizar</a>  
-                      <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>
+                    <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>
 
 
                     </div>
             </div>
         </div>                    
     </div>
-
-
-
-
 
 @endsection

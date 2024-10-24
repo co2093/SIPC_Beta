@@ -68,8 +68,11 @@
 				  	<div class="form-group">
 					    <label for="exampleFormControlSelect1">Rubro</label>
 					    <select class="form-control" name="rubro" required>
+					    	<option value="{{$fuente->idrubro}}">{{$fuente->rubro}}</option>
 					    	@foreach($rubros as $r)
+					    	@if($fuente->idrubro != $r->idrubro)
 					    		<option value="{{$r->idrubro}}">{{$r->rubro}}</option>
+					    	@endif	
 					    	@endforeach
 					    </select>
 					  </div>
@@ -77,10 +80,16 @@
 
 
 					 <div class="form-group">
-					    <label for="exampleFormControlInput1">Financiaminto</label>
+					    <label for="exampleFormControlInput1">Monto a financiar</label>
 					    <input type="number" class="form-control" name="financiamiento" placeholder="" min="1"                   
 					    onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="{{$fuente->financiamiento}}" required>
 					 </div>
+
+					    <hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos deben estar expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
 
 					  <button type="submit" class="btn btn-danger">Guardar</button>
 					   <a  class="btn btn-secondary float-right" href="{{route('fuentes.show', $fuente->idproyecto)}}">Regresar</a>

@@ -322,6 +322,27 @@
         </div>
     </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Selecciona todos los montos
+        var montos = document.querySelectorAll('.monto');
+        
+        montos.forEach(function(monto) {
+            // Convierte el texto del monto en número
+            var montoNumerico = parseFloat(monto.textContent);
+            
+            // Formatea el número como moneda (USD)
+            var formatoMoneda = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(montoNumerico);
+            
+            // Actualiza el contenido de la celda con el formato
+            monto.textContent = formatoMoneda;
+        });
+    });
+</script>
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

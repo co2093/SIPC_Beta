@@ -119,10 +119,13 @@ class FuentesController extends Controller
     {
         //dd($codinventario);
         $fuente = DB::table('pre_fuente')
+        ->leftjoin('pre_rubro', 'pre_rubro.idrubro', '=', 'pre_fuente.idrubro')
+        ->select('pre_fuente.*', 'pre_rubro.rubro', 'pre_rubro.idrubro')
         ->where('idfuente', '=', $cod)
         ->first();
         
         $rubros = DB::table('pre_rubro')
+        ->orderby('rubro')
         ->get();
 
         return view('fuentes.edit', compact('fuente', 'rubros'));
@@ -220,6 +223,8 @@ class FuentesController extends Controller
     {
 
         $fuente = DB::table('pre_fuente')
+        ->leftjoin('pre_rubro', 'pre_rubro.idrubro', '=', 'pre_fuente.idrubro')
+        ->select('pre_fuente.*', 'pre_rubro.rubro')
         ->where('idfuente', '=', $id)
         ->first();
         

@@ -170,19 +170,24 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>${{$pre->montoconvocatoria}}</td>
-                                    <td>${{$pre->montorecursos}}</td>
-                                    <td>${{$pre->montocontratacion}}</td>
-                                    <td>${{$pre->montonacionales}}</td>
-                                    <td>${{$pre->montointernacionales}}</td>
-                                    <td>${{$pre->montopublicaciones}}</td>
+                                    <td class="monto">{{$pre->montoconvocatoria}}</td>
+                                    <td class="monto">{{$pre->montorecursos}}</td>
+                                    <td class="monto">{{$pre->montocontratacion}}</td>
+                                    <td class="monto">{{$pre->montonacionales}}</td>
+                                    <td class="monto">{{$pre->montointernacionales}}</td>
+                                    <td class="monto">{{$pre->montopublicaciones}}</td>
                                     
-                                    <td>${{$pre->montodisponible}}</td>
+                                    <td class="monto">{{$pre->montodisponible}}</td>
                                 </tr>
                                 
                             </tbody>
                         </table>
                         </div>
+                        <hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
                      <a  class="btn btn-secondary float-right" href="{{route('projects.prueba', $cod)}}">Regresar</a>
 
 

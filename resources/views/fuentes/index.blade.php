@@ -35,7 +35,7 @@
 
   					<div class="form-group">
 					    <label for="exampleFormControlInput1">Nombre de la institución</label>
-					    <input type="text" class="form-control" name="descripcion" placeholder="Nombre" required>
+					    <input type="text" class="form-control" name="descripcion" placeholder="" required>
 					  </div>
 
 					 
@@ -43,6 +43,7 @@
 				  	<div class="form-group">
 					    <label for="exampleFormControlSelect1">Tipo</label>
 					    <select class="form-control" name="externa" required>
+					    	<option value="" disabled selected>Seleccione una opción</option>
 					      <option value="true">Cooperacion externa internacional</option>
 					      <option value="false">Fuentes nacionales externas a la UES</option>
 					    </select>
@@ -53,6 +54,7 @@
 				  	<div class="form-group">
 					    <label for="exampleFormControlSelect1">Rubro</label>
 					    <select class="form-control" name="rubro" required>
+					    	<option value="" disabled selected>Seleccione una opción</option>
 					    	@foreach($rubros as $r)
 					    		<option value="{{$r->idrubro}}">{{$r->rubro}}</option>
 					    	@endforeach
@@ -61,12 +63,17 @@
 
 
 					 <div class="form-group">
-					    <label for="exampleFormControlInput1">Financiamiento</label>
+					    <label for="exampleFormControlInput1">Monto a financiar</label>
 					    <input type="number" class="form-control" name="financiamiento" 
 					    step="0.01" min="0" 		
 					    onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)"
 					    required>
 					 </div>
+                         <hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos deben estar expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
 
 					  <button type="submit" class="btn btn-danger">Guardar</button>
 					   <a  class="btn btn-secondary float-right" href="{{route('fuentes.show', $cod)}}">Regresar</a>
