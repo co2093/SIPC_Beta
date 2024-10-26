@@ -39,9 +39,12 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Tipo</th>
-                                    <th scope="col">Fuente</th>
+                                    <th scope="col">Nivel</th>
                                     <th scope="col">Detalle</th>
-                                     <th scope="col">Costo</th>
+                                    <th scope="col">Fuente</th>
+                                    <th scope="col">Monto</th>
+                                    <th scope="col">Convocatoria</th>
+                                     <th scope="col">Total</th>
                                      <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -49,9 +52,13 @@
                                 @foreach($publicaciones as $p)
                                     <tr>
                                         <td>{{$p->nombretipopublicacion}}</td>
-                                        <td>{{$p->descripcionfuente}}</td>
+                                        <td>{{$p->nivel}}</td>
                                         <td>{{$p->detallepublicacion}}</td>
-                                        <td>{{$p->montopublicacion}}</td>
+
+                                        <td>{{$p->descripcionfuente}}</td>
+                                        <td class="monto">{{$p->montofuente}}</td>
+                                        <td class="monto">{{$p->montoconvocatoria}}</td>
+                                        <td class="monto">{{$p->montopublicacion}}</td>
                                         <td>
                                         <a  class="btn btn-primary btn-sm" href="{{ route('publicaciones.edit', $p->idpublicacion) }}"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" href="{{ route('publicaciones.delete', $p->idpublicacion) }}"><i class="fas fa-trash-alt"></i></a>
@@ -61,9 +68,31 @@
                                 @endforeach
 
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><b>Total</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b>$
+                                        @foreach($total as $t)
+                                            {{$t->sum}}
+                                        @endforeach
+                                        </b>
+                                    </td>
+                                </tr>
+                            </tfoot> 
                         </table>
 
                         </div>
+
+                                                <hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
                     <a  class="btn btn-danger" href="{{route('publicaciones.end', $cod)}}">Finalizar</a>  
 
                       <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>

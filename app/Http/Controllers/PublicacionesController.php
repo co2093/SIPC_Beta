@@ -41,10 +41,12 @@ class PublicacionesController extends Controller
         ->select('pre_publicacion.*', 'tipo_publicacion.nombretipopublicacion', 'pre_fuente.descripcionfuente')
         ->where('pre_publicacion.idproyecto', '=', $cod)
         ->get();
+        $total = DB::select("select sum(montopublicacion) from pre_publicacion where idproyecto = '$cod'");
+
 
         //dd($publicaciones);
 
-        return view('publicaciones.show', compact('cod', 'publicaciones'));
+        return view('publicaciones.show', compact('cod', 'publicaciones','total'));
     }
 
 
@@ -58,7 +60,8 @@ class PublicacionesController extends Controller
                 'detallepublicacion' => $request->input('detalle'),
                 'montopublicacion' => $request->input('costototal'),
                 'montoconvocatoria' => $request->input('montoconvocatoria'),
-                'montofuente' => $request->input('montofuente')
+                'montofuente' => $request->input('montofuente'),
+                'nivel' => $request->input('nivel')
             ]);
 
         //flash('Producto agregado al inventario exitosamente', 'success');
@@ -101,7 +104,6 @@ class PublicacionesController extends Controller
      public function update(Request $request)
     {
 
-        //dd($request);
 
         DB::table('pre_publicacion')
         ->where('idpublicacion', $request->input('idpublicacion'))
@@ -111,7 +113,9 @@ class PublicacionesController extends Controller
             'detallepublicacion' => $request->input('detalle'),
             'montopublicacion' => $request->input('costototal'),
             'montoconvocatoria' => $request->input('montoconvocatoria'),
-            'montofuente' => $request->input('montofuente')
+            'montofuente' => $request->input('montofuente'), 
+            'nivel' => $request->input('nivel'), 
+            'montopublicacion' => $request->input('costototal')
         ]);
 
 

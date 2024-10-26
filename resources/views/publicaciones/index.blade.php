@@ -30,7 +30,8 @@
                     <div class="form-group">
                         <input type="hidden" value="{{$cod}}" name="cod" >
                     </div>
-
+          <div class="row">
+            <div class="col-md-6">
                  <div class="form-group">
                         <label for="exampleFormControlSelect1">Tipo de publicación</label>
                         <select class="form-control" name="idtipo" required>
@@ -42,6 +43,20 @@
 
                         </select>
                   </div>
+              </div>
+                <div class="col-md-6">
+                 <div class="form-group">
+                        <label for="exampleFormControlSelect1">Nivel de publicación</label>
+                        <select class="form-control" name="nivel" required>
+                        <option value="" disabled selected>Seleccione una opción</option>
+
+                        <option value="Nacional">Nacional</option>
+                        <option value="Internacional">Internacional</option>
+                      
+                        </select>
+                  </div>
+              </div>
+          </div>
 
                       <div class="form-group">
                         <label for="exampleFormControlTextarea1">Detalle publicación</label>
@@ -67,7 +82,7 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="montofuente">Solicitado a fuente externa (USD)</label>
+                <label for="montofuente">Monto solicitado a fuente externa</label>
                 <input type="number" class="form-control" name="montofuente" id="montofuente" placeholder="0.0" min="0.0" step="0.01" value="0.0"
                   onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
               </div>
@@ -87,7 +102,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="montoconvocatoria">Solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}} </label>
+                <label for="montoconvocatoria">Monto solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}} </label>
                 <input type="number" class="form-control" name="montoconvocatoria" id="montoconvocatoria" min="0.0" step="0.01" value="0.0"
                   placeholder="0.0" max="" onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
               </div>
@@ -100,16 +115,12 @@
             </div>
           </div>
 
-          <hr class="my-4">
-          <label class="font-weight-bold">Total de la publicación: <span id="total">0</span></label>
 
-
-          <hr class="my-4">
-
-                  <!-- Mensaje de advertencia -->
-                  <label id="mensajeAdvertencia" class="text-danger" style="display: none;">
-                      El monto solicitado debe ser menor o igual a los fondos disponibles.
-                  </label>
+                        <hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos deben estar expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
 
 
 

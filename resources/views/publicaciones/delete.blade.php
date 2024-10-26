@@ -22,23 +22,28 @@
                     </div>
 
                     <div class="card-body">
-                    	
-                    	<br>
-                    	<label>Tipo: </label>{{$publicacion->nombretipopublicacion}}
-                
-                    	<br>
-                    	<label>Fuente: </label>{{$publicacion->descripcionfuente}}
+                 <div class="card mb-3">
+                        <div class="card-body">
 
-                        <br>
-                        <label>Detalles: </label>{{$publicacion->detallepublicacion}}
-                
-                       <br>
-                        <label>Costo: </label>{{$publicacion->montopublicacion}}
-                
 
-                    	
-                    	<br><br><br>
+                        <p><strong>Tipo de publicación: </strong>{{$publicacion->nombretipopublicacion}}</p>
+                        <p><strong>Alcance: </strong>{{$publicacion->nivel}}</p>
+                        <p><strong>Detalles: </strong>{{$publicacion->detallepublicacion}}</p>
+                        <p><strong>Fuente de financiamiento: </strong>{{$publicacion->descripcionfuente}}</p>
 
+
+
+            <p><strong>Monto financiado: </strong> <span class="monto">{{$publicacion->montofuente}}</span></p>
+            <p><strong>Monto convocatoria: </strong> <span class="monto">{{$publicacion->montoconvocatoria}}</span></p>
+            <p><strong>Total: </strong> <span class="monto">{{$publicacion->montopublicacion}}</span></p>
+
+                
+                    </div></div>
+<hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
                   <form action="{{ route('publicaciones.destroy', $publicacion->idpublicacion) }}" method="POST" style="display:inline">
                     	@csrf
                     	@method('DELETE')

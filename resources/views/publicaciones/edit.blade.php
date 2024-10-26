@@ -35,20 +35,40 @@
                         <input type="hidden" value="{{$publicacion->idpublicacion}}" name="idpublicacion" >
                     </div>
 
-
-                    <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+                 <div class="form-group">
                         <label for="exampleFormControlSelect1">Tipo de publicación</label>
                         <select class="form-control" name="idtipo" required>
                     <option value="{{$publicacion->idtipopublicacion}}">{{$publicacion->nombretipopublicacion}}</option>
 
                         @foreach($tipos as $t)
                         @if($publicacion->idtipopublicacion != $t->idtipopublicacion)
+
                         <option value="{{$t->idtipopublicacion}}">{{$t->nombretipopublicacion}}</option>
                         @endif
+
                         @endforeach
 
                         </select>
                   </div>
+              </div>
+                <div class="col-md-6">
+                 <div class="form-group">
+                        <label for="exampleFormControlSelect1">Nivel de publicación</label>
+                        <select class="form-control" name="nivel" required>
+                <option value="{{ $publicacion->nivel }}">{{ $publicacion->nivel }}</option>
+                @if($publicacion->nivel == "Nacional")
+                    <option value="Internacional">Internacional</option>
+                @else
+                    <option value="Nacional">Nacional</option>
+                @endif
+                </select>
+
+                  </div>
+              </div>
+          </div>
+
 
                       <div class="form-group">
                         <label for="exampleFormControlTextarea1">Detalle publicación</label>
@@ -78,7 +98,7 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="montofuente">Solicitado a fuente externa (USD)</label>
+                <label for="montofuente">Monto solicitado a fuente externa</label>
                 <input type="number" class="form-control" name="montofuente" id="montofuente" placeholder="0.0" min="0.0" step="0.01" value="{{$publicacion->montofuente}}"
                   onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
               </div>
@@ -91,29 +111,25 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="montoconvocatoria">Solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}} </label>
+                <label for="montoconvocatoria">Monto solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}} </label>
                 <input type="number" class="form-control" name="montoconvocatoria" id="montoconvocatoria" min="0.0" step="0.01" value="{{$publicacion->montoconvocatoria}}"
                   placeholder="0.0" max="" onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="costoDiario">Costo total: </label>
+                <label for="costoDiario">Costo total</label>
                 <input type="text" class="form-control" id="costototal" name="costototal" readonly>
               </div>
             </div>
           </div>
 
-          <hr class="my-4">
-          <label class="font-weight-bold">Total de la publicación: <span id="total">0</span></label>
+                        <hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos deben estar expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
 
-
-          <hr class="my-4">
-
-                  <!-- Mensaje de advertencia -->
-                  <label id="mensajeAdvertencia" class="text-danger" style="display: none;">
-                      El monto solicitado debe ser menor o igual a los fondos disponibles.
-                  </label>
 
 
 
@@ -132,35 +148,32 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Obtener los elementos de los inputs y el span total
+    // Seleccionamos los elementos por su ID
     const montofuenteInput = document.getElementById('montofuente');
     const montoconvocatoriaInput = document.getElementById('montoconvocatoria');
-    const totalSpan = document.getElementById('total');
-    const costoTotalInput = document.getElementById('costototal');
+    const costototalInput = document.getElementById('costototal');
 
-    // Función para calcular la suma y actualizar los elementos
-    function actualizarTotal() {
-        // Obtener los valores de los inputs y convertirlos a números
+    // Función para actualizar el costo total
+    function actualizarCostoTotal() {
+        // Convertimos los valores de los campos a números flotantes
         const montofuente = parseFloat(montofuenteInput.value) || 0;
         const montoconvocatoria = parseFloat(montoconvocatoriaInput.value) || 0;
-
-        // Calcular la suma
-        const total = montofuente + montoconvocatoria;
-
-        // Actualizar el span y el input con el total calculado
-        totalSpan.textContent = total.toFixed(2);
-        costoTotalInput.value = total.toFixed(2);
+        
+        // Calculamos la suma
+        const costototal = montofuente + montoconvocatoria;
+        
+        // Mostramos el resultado en el campo de costo total
+        costototalInput.value = costototal.toFixed(2);
     }
 
-    // Escuchar cambios en los inputs de montofuente y montoconvocatoria
-    montofuenteInput.addEventListener('input', actualizarTotal);
-    montoconvocatoriaInput.addEventListener('input', actualizarTotal);
+    // Añadimos un event listener para detectar cambios en los campos de entrada
+    montofuenteInput.addEventListener('input', actualizarCostoTotal);
+    montoconvocatoriaInput.addEventListener('input', actualizarCostoTotal);
 
-    // Llamar a la función para inicializar el valor al cargar la página
-    actualizarTotal();
-});
+    // Llamamos a la función al cargar para que se muestre el valor inicial
+    actualizarCostoTotal();
 </script>
+
 
 
 <script>
