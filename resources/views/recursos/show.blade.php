@@ -95,6 +95,13 @@
                             </tfoot>  
                         </table>
                         </div>
+
+
+                        <hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
                     <a  class="btn btn-danger" href="{{route('recursos.end', $cod)}}">Finalizar</a>  
 
                       <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>

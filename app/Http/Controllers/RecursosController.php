@@ -157,11 +157,11 @@ class RecursosController extends Controller
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_recurso.idactividad')
         ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_recurso.idfuente')
         ->select('pre_recurso.*', 'unidad_medida.nombreunidadmedida', 'tipo_recurso.nombretiporecurso', 
-            'actividad.idproyecto', 'pre_fuente.descripcionfuente', 'pre_fuente.financiamiento')    
+            'actividad.idproyecto', 'pre_fuente.descripcionfuente', 'pre_fuente.financiamiento', 'actividad.nombreactividad')    
         ->where('pre_recurso.idrecurso', '=', $cod)
         ->first();
 
-        dd($recurso);
+        //dd($recurso);
 
         $p = DB::table('presupuesto_inicial')
         ->where('idproyecto', '=', $recurso->idproyecto)

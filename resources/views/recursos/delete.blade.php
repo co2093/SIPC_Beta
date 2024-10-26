@@ -22,40 +22,29 @@
                     </div>
 
                     <div class="card-body">
+                        <div class="card mb-3">
+                        <div class="card-body">
+
+
+            <p><strong>Nombre: </strong>{{$recurso->nombrerecurso}}</p>
+            <p><strong>Tipo: </strong>{{$recurso->nombretiporecurso}}</p>
+            <p><strong>Unidad de medida: </strong>{{$recurso->nombreunidadmedida}}</p>
+            <p><strong>Específicaciones técnicas: </strong>{{$recurso->especificacionestecnicas}}</p>
+            <p><strong>Fuente de financiamiento: </strong>{{$recurso->descripcionfuente}}</p>
+            <p><strong>Cantidad: </strong>{{$recurso->cantidadrecurso}}</p>
+            <p><strong>Monto financiado: </strong> <span class="monto">{{$recurso->montofuente}}</span></p>
+            <p><strong>Monto convocatoria: </strong> <span class="monto">{{$recurso->montoconvocatoria}}</span></p>
+            <p><strong>Costo total: </strong> <span class="monto">{{$recurso->subtotalrecurso}}</span></p>
+
+                
                     	
-                    	<br>
-                    	<label class="font-weight-bold">Tipo:&nbsp;</label>{{$recurso->nombretiporecurso}}
-                
-                    	<br>
-                    	<label class="font-weight-bold">Nombre:&nbsp;</label>{{$recurso->nombrerecurso}}
-
-                        <br>
-                        <label class="font-weight-bold">Unidad:&nbsp;</label>{{$recurso->nombreunidadmedida}}
-                
-                       <br>
-                        <label class="font-weight-bold">Específicaciones técnicas:&nbsp;</label>{{$recurso->especificacionestecnicas}}
-                    
-
-                        <br>
-                        <label class="font-weight-bold">Fuente de financiamiento:&nbsp;</label>    
-                        @if($recurso->descripcionfuente)
-                        {{$recurso->descripcionfuente}}
-                        @else
-                        Convocatoria
-                        @endif
-
-
-                        <br>
-                        <label class="font-weight-bold">Cantidad:&nbsp;</label>{{$recurso->cantidadrecurso}}
-
-                        <br>
-                        <label class="font-weight-bold">Precio:&nbsp;</label>${{$recurso->preciorecurso}}
-                
-                        <br>
-                        <label class="font-weight-bold">Total:&nbsp;</label>${{$recurso->subtotalrecurso}}
-                    	
-                    	<br><br><br>
-
+                    	</div>
+                    </div>
+<hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
                   <form action="{{ route('recursos.destroy', $recurso->idrecurso) }}" method="POST" style="display:inline">
                     	@csrf
                     	@method('DELETE')
