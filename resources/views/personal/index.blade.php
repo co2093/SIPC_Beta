@@ -87,7 +87,7 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="montofuente">Solicitado a fuente externa (USD)</label>
+                <label for="montofuente">Monto solicitado a fuente externa (USD)</label>
                 <input type="number" class="form-control" name="montofuente" id="montofuente" placeholder="0.0" min="0.0" step="0.01" value="0.0"
                   onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
               </div>
@@ -102,7 +102,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="montoconvocatoria">Solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}} </label>
+                <label for="montoconvocatoria">Monto solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}} </label>
                 <input type="number" class="form-control" name="montoconvocatoria" id="montoconvocatoria" min="0.0" step="0.01" value="0.0"
                   placeholder="0.0" max="" onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
               </div>
@@ -115,8 +115,11 @@
             </div>
           </div>
 
-          <hr class="my-4">
-
+ <hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos deben estar expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
 
 					  <button type="submit" class="btn btn-danger">Guardar</button>
 					  <a  class="btn btn-secondary float-right" href="{{route('personal.show', $cod)}}">Regresar</a>

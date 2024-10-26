@@ -48,9 +48,11 @@
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Tipo de recurso</label>
                                 <select class="form-control" name="tiporecurso" required>
-                                    <option value="" disabled selected>Seleccione una opción</option>
+                            <option value="{{ $recurso->idtiporecurso }}">{{ $recurso->nombretiporecurso }}</option>
                                     @foreach($tipo as $t)
+                                    @if($t->idtiporecurso!=$recurso->idtiporecurso)
                                         <option value="{{ $t->idtiporecurso }}">{{ $t->nombretiporecurso }}</option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -60,9 +62,11 @@
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Unidad de medida</label>
                                 <select class="form-control" name="unidad" required>
-                                    <option value="" disabled selected>Seleccione una opción</option>
+                            <option value="{{ $recurso->idunidadmedida }}">{{ $recurso->nombreunidadmedida }}</option>
                                     @foreach($unidades as $u)
+                                    @if($recurso->idunidadmedida!=$u->idunidadmedida)
                                         <option value="{{ $u->idunidadmedida }}">{{ $u->nombreunidadmedida }}</option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>

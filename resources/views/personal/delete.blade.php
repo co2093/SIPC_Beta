@@ -22,34 +22,27 @@
                     </div>
 
                     <div class="card-body">
-                    	
-                    	<br>
-                    	<label class="font-weight-bold">Actividad asociada: &nbsp;</label>{{$personal->nombreactividad}}
-                
-                    	<br>
-                    	<label class="font-weight-bold">Tipo:&nbsp; </label>{{$personal->nombretipocontratacion}}
+                     <div class="card mb-3">
+                        <div class="card-body">	
 
-                        <br>
-                        <label class="font-weight-bold">Pago:&nbsp; </label>${{$personal->pago}}
+            <p><strong>Actividad asociada: </strong>{{$personal->nombreactividad}}</p>
+            <p><strong>Tipo de contratación: </strong>{{$personal->nombretipocontratacion}}</p>
+            <p><strong>Horas laborales: </strong>{{$personal->dias}}</p>
+            <p><strong>Fuente de financiamiento: </strong>{{$personal->descripcionfuente}}</p>
 
-                        <br>
-                        <label class="font-weight-bold">Fuente:&nbsp; </label>
-                        @if($personal->descripcionfuente)
-                        {{$personal->descripcionfuente}}
-                        @else
-                        Convocatoria
-                        @endif
+            <p><strong>Monto financiado: </strong> <span class="monto">{{$personal->montofuente}}</span></p>
+            <p><strong>Monto convocatoria: </strong> <span class="monto">{{$personal->montoconvocatoria}}</span></p>
 
+            <p><strong>Total: </strong> <span class="monto">{{$personal->total}}</span></p>
 
-                        <br>
-                        <label class="font-weight-bold">Horas laborales:&nbsp; </label>{{$personal->dias}}
-                    	
+            
 
-
-                        <br>
-                        <label class="font-weight-bold">Total:&nbsp; </label>${{$personal->total}}
-                    	<br><br><br>
-
+                    </div></div>
+<hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
                   <form action="{{ route('personal.destroy', $personal->idcontratacion) }}" method="POST" style="display:inline">
                     	@csrf
                     	@method('DELETE')

@@ -45,8 +45,9 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Tipo</th>
-                                    <th scope="col">Pago por Hora</th>
+                                    <th scope="col">Monto convocatoria</th>
                                     <th scope="col">Fuente</th>
+                                    <th scope="col">Monto fuente</th>
                                     <th scope="col">Horas</th>
                                     <th scope="col">Subtotal</th>
                                      <th scope="col" class="fixed-col">Acciones</th>
@@ -58,12 +59,9 @@
                                 @foreach($personal as $p)
                                 <tr>
                                     <td>{{$p->nombretipocontratacion}}</td>
-                                    <td>${{$p->pago}}</td>
-                                    @if($p->idfuente > 0)
+                                    <td>${{$p->montoconvocatoria}}</td>
                                     <td>{{$p->descripcionfuente}}</td>
-                                    @else
-                                    <td>Convocatoria</td>
-                                    @endif
+                                    <td>{{$p->montofuente}}</td>
                                     <td>{{$p->dias}}</td>
                                     <td>${{$p->total}}</td>
                                     <td class="fixed-col">
@@ -81,6 +79,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    <td></td>
                                     <td><b>$
                                         @foreach($total as $t)
                                             {{$t->sum}}
@@ -91,6 +90,12 @@
                             </tfoot>  
                         </table>
                         </div>
+
+                        <hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
                     <a  class="btn btn-danger" href="{{route('personal.end', $cod)}}">Finalizar</a>  
 
                       <a  class="btn btn-secondary float-right" href="{{route('presupuesto.menu.show', $cod)}}">Regresar</a>

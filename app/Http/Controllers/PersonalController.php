@@ -145,7 +145,7 @@ class PersonalController extends Controller
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_contratacion.idactividad')
         ->leftjoin('tipo_contratacion', 'tipo_contratacion.idtipocontratacion', '=', 'pre_contratacion.idtipocontratacion')
         ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_contratacion.idfuente')
-        ->select('pre_contratacion.*', 'actividad.nombreactividad', 'actividad.idproyecto', 'tipo_contratacion.nombretipocontratacion', 'pre_fuente.descripcionfuente')
+        ->select('pre_contratacion.*', 'actividad.nombreactividad', 'actividad.idproyecto', 'tipo_contratacion.nombretipocontratacion', 'pre_fuente.descripcionfuente', 'actividad.idactividad')
         ->where('pre_contratacion.idcontratacion', '=', $cod)
         ->first();
 
