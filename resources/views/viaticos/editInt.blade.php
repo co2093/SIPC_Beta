@@ -75,12 +75,11 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleFormControlTextarea1">Destino del viaje</label>
-                                    <textarea class="form-control" minlength="10" name="destino" rows="2" required>
-                                    	{{$viaje->destinoviaje}}
-                                    </textarea>
-                                </div>
+<div class="form-group">
+    <label for="exampleFormControlTextarea1">Destino del viaje</label>
+    <textarea class="form-control" minlength="10" name="destino" rows="2" required>{{ trim($viaje->destinoviaje) }}</textarea>
+</div>
+
                             </div>
 
                             <div class="col-md-6">
@@ -124,7 +123,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput1">Solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}}</label>
+                                    <label for="exampleFormControlInput1">Monto solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}}</label>
                             <input type="number" class="form-control" name="montoconvocatoria" id="montoconvocatoria" min="0.0" step="0.01" value="{{$viaje->montoconvocatoria}}" max="{{$disponibleconv}}"
                                 placeholder="0.0"  onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
                                 </div>
@@ -137,11 +136,10 @@
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Fuente de financiamiento</label>
                                         <select class="form-control" name="idfuente" id="idfuente">
-                                        	@if($fuente)
+                                        	@if($flag==1)
                                         	  <option value="{{$viaje->idfuente}}" data-financiamiento="{{ $disponiblefuente }}">
                                         	  	{{$viaje->descripcionfuente}}. Disponible: ${{$disponiblefuente}}</option>
                                         	@endif
-                    						    	<option value="" disabled selected>Seleccione una opción</option>
                                             @foreach($fuentes as $f)
                                             @if($f->idfuente != $viaje->idfuente)
                                                 <option value="{{$f->idfuente}}" data-financiamiento="{{ $f->financiamiento }}">
@@ -154,7 +152,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleFormControlInput1">Solicitado a fuente externa (USD)</label>
+                                        <label for="exampleFormControlInput1">Monto solicitado a fuente externa (USD)</label>
                                         <input type="number" class="form-control" name="montofuente" id="montofuente" placeholder="0.0" min="0.0" step="0.01" value="{{$viaje->montofuente}}" max="{{$disponiblefuente}}" 
                                             onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)"  required>
                                     </div>
@@ -163,10 +161,14 @@
                         @endif
                         <hr class="my-4">
 
-                        <label class="font-weight-bold">Total del viaje: <span id="costoPais">{{$viaje->totalplanviajeext}}</span></label>
+                        <label class="font-weight-bold">Total del viaje: <span class="monto" id="costoPais">{{$viaje->totalplanviajeext}}</span></label>
 
 								<hr class="my-4">
 
+                        <div class="alert alert-light" role="alert">
+                            <label class="font-weight-bold">Nota:</label> Todos los montos deben estar expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
 								<label id="mensajeAdvertencia" class="text-danger" style="display: none;">
 									    El monto solicitado debe ser menor o igual a los fondos disponibles.
 									</label>

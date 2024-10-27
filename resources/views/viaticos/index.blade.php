@@ -37,27 +37,38 @@
               </div>
             </div>
 
-            <div class="col-md-6">
+          <div class="col-md-6">
               <div class="form-group">
-                <label for="iddepartamento">Departamento</label>
-                <select class="form-control" name="iddepartamento" required>
-                  <option value="" disabled selected>Seleccione un departamento</option>
-                  @foreach($departamentos as $d)
-                  <option value="{{ $d->iddepartamento }}">{{ $d->departamento }}</option>
-                  @endforeach
-                </select>
+                  <label for="iddepartamento">Departamento</label>
+                  <select class="form-control" id="iddepartamento" name="iddepartamento" required>
+                      <option value="" disabled selected>Seleccione un departamento</option>
+                      @foreach($departamentos as $d)
+                          <option value="{{ $d->iddepartamento }}">{{ $d->departamento }}</option>
+                      @endforeach
+                  </select>
               </div>
-            </div>
+          </div>
           </div>
 
           <!-- Segunda fila -->
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="form-group">
                 <label for="destino">Destino del viaje</label>
                 <textarea class="form-control" name="destino" rows="2" placeholder="Dirección especifica del lugar" minlength="10" required></textarea>
               </div>
             </div>
+
+          <!-- Selector de Municipio -->
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label for="idmunicipio">Municipio</label>
+                  <select class="form-control" id="idmunicipio" name="idmunicipio" required>
+                      <option value="" disabled selected>Seleccione un municipio</option>
+                  </select>
+              </div>
+          </div>
+
           </div>
 
           <!-- Tercera fila -->
@@ -71,8 +82,8 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="vales">Cantidad de vales de combustible ($10 c/u)</label>
-                <input type="number" class="form-control" name="vales" id="vales" min="0" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                <label for="vales">Cantidad de vales de combustible ($10 C/U)</label>
+                <input type="number" class="form-control" name="vales" id="vales" min="0" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" readonly required>
               </div>
             </div>
           </div>
@@ -130,7 +141,7 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="montofuente">Solicitado a fuente externa (USD)</label>
+                <label for="montofuente">Monto solicitado a fuente externa</label>
                 <input type="number" class="form-control" name="montofuente" id="montofuente" placeholder="0.0" min="0.0" step="0.01" value="0.0"
                   onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
               </div>
@@ -142,7 +153,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="montoconvocatoria">Solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}}</label>
+                <label for="montoconvocatoria">Monto solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}}</label>
                 <input type="number" class="form-control" name="montoconvocatoria" id="montoconvocatoria" min="0.0" step="0.01" value="0.0"
                   placeholder="0.0" max="" onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
               </div>
@@ -156,11 +167,15 @@
           </div>
 
           <hr class="my-4">
-          <label class="font-weight-bold">Total del viaje: <span id="costoViaje">0</span></label>
+          <label class="font-weight-bold">Total del viaje: <span class="monto" id="costoViaje">0</span></label>
 
 
-          <hr class="my-4">
+                <hr class="my-4">
 
+                        <div class="alert alert-light" role="alert">
+                            <label class="font-weight-bold">Nota:</label> Todos los montos deben estar expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
                   <!-- Mensaje de advertencia -->
                   <label id="mensajeAdvertencia" class="text-danger" style="display: none;">
                       El monto solicitado debe ser menor o igual a los fondos disponibles.
@@ -174,6 +189,34 @@
     </div>
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#iddepartamento').change(function() {
+        var departamentoId = $(this).val();
+        $('#idmunicipio').empty(); // Limpia el select de municipios
+
+        if(departamentoId) {
+            $.ajax({
+                url: '/obtener-municipios/' + departamentoId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#idmunicipio').append('<option value="" disabled selected>Seleccione un municipio</option>'); // Añade opción por defecto
+                    $.each(data, function(key, municipio) {
+                        $('#idmunicipio').append('<option value="' + municipio.idmunicipio + '">' + municipio.municipio + '</option>');
+                    });
+                }
+            });
+        } else {
+            $('#idmunicipio').append('<option value="" disabled selected>Seleccione un municipio</option>');
+        }
+    });
+});
+</script>
+
+
 
 
 

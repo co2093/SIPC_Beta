@@ -144,9 +144,12 @@ class ViaticosController extends Controller
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
         ->leftjoin('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
         ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
-        ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento','departamento.iddepartamento', 'actividad.idactividad', 'pre_fuente.idfuente', 'pre_fuente.descripcionfuente')
+        ->leftjoin('municipio', 'departamento.iddepartamento', '=', 'municipio.iddepartamento')
+        ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento','departamento.iddepartamento', 'actividad.idactividad', 'pre_fuente.idfuente', 'pre_fuente.descripcionfuente', 'municipio.nombremunicipio')
         ->where('pre_viaje_local.idpreviajelocal', '=', $cod)
         ->first();
+
+        dd($viaje);
 
 
 
@@ -272,8 +275,9 @@ class ViaticosController extends Controller
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_viaje_local.idactividad')
         ->leftjoin('departamento', 'departamento.iddepartamento', '=', 'pre_viaje_local.iddepartamento')
         ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_viaje_local.idfuente')
-        ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento')
-        ->where('pre_viaje_local.idpreviajelocal', '=', $id)
+        ->leftjoin('municipio', 'departamento.iddepartamento', '=', 'municipio.iddepartamento')
+    ->select('pre_viaje_local.*', 'actividad.nombreactividad', 'departamento.departamento','departamento.iddepartamento', 'actividad.idactividad', 'pre_fuente.idfuente', 'pre_fuente.descripcionfuente', 'municipio.nombremunicipio')        
+    ->where('pre_viaje_local.idpreviajelocal', '=', $id)
         ->first();
         
 

@@ -44,7 +44,7 @@
                                 <tr>
                                     <th scope="col">ISO</th>
                                          <th scope="col">Nombre</th>
-                                         <th scope="col">Costo por día (USD)</th>
+                                         <th scope="col">Costo por día</th>
                                      <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
@@ -54,7 +54,7 @@
                                     <tr>
                                         <td>{{$i->iso}}</td>
                                         <td>{{$i->nombrepais}}</td>
-                                        <td>{{$i->costo}}</td>
+                                        <td class="monto">{{$i->costo}}</td>
                                         <td class="fixed-col"> 
                                         <a  class="btn btn-primary btn-sm" href="{{ route('pais.edit', $i->idpais) }}"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" 
@@ -71,7 +71,12 @@
                          <div class="d-flex justify-content-center">
                         {{ $paises->links() }}
                         </div>
+                                <hr class="my-4">
 
+                        <div class="alert alert-light" role="alert">
+                            <label class="font-weight-bold">Nota:</label> Todos los montos deben estar expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
                       <a  class="btn btn-secondary float-right" href="{{ route('home') }}">Regresar</a>
 
 

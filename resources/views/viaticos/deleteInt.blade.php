@@ -22,40 +22,27 @@
                     </div>
 
                     <div class="card-body">
+
+                             <div class="card mb-3">
+                        <div class="card-body">
+                    <p><strong>Actividad: </strong>{{$viaje->nombreactividad}}</p>
+                    <p><strong>País: </strong>{{$viaje->nombrepais}}</p>
+                    <p><strong>Destino: </strong>{{$viaje->destinoviaje}}</p>
+                    <p><strong>Cantidad de personas: </strong>{{$viaje->cantidadpersonas}}</p>
+                    <p><strong>Cantidad de días: </strong>{{$viaje->numerodias}}</p>
+                    <p><strong>Fuente de financiamiento: </strong>{{$viaje->descripcionfuente}}</p>
+
+                    <p><strong>Monto financiado: </strong> <span class="monto">{{$viaje->montofuente}}</span></p>
+                    <p><strong>Monto convocatoria: </strong> <span class="monto">{{$viaje->montoconvocatoria}}</span></p>
+                    <p><strong>Total: </strong> <span class="monto">{{$viaje->totalplanviajeext}}</span></p>
                     	
-                        <label class="font-weight-bold">Actividad:&nbsp;</label>{{$viaje->nombreactividad}}
-                
-                    	<br>
-                    	<label class="font-weight-bold">País:&nbsp;</label>{{$viaje->nombrepais}}
-
-                        <br>
-                        <label class="font-weight-bold">Destino:&nbsp;</label>{{$viaje->destinoviaje}}
-
-                        <br>
-                        <label class="font-weight-bold">Cantidad de personas:&nbsp;</label>{{$viaje->cantidadpersonas}}
-
-
-                        <br>
-                        <label class="font-weight-bold">Cantidad de días:&nbsp;</label>{{$viaje->numerodias}}
-
-
-                        <br>
-                        <label class="font-weight-bold">Fuente de financiamiento:&nbsp;</label>{{$viaje->descripcionfuente}}
-
-
-                        <br>
-                        <label class="font-weight-bold">Monto solicitado a la fuente:&nbsp;</label>${{$viaje->montofuente}}
-
-
-                        <br>
-                        <label class="font-weight-bold">Monto solicitado a la SIC UES:&nbsp;</label>${{$viaje->montoconvocatoria}}
-                
-                
-                        <br>
-                        <label class="font-weight-bold">Total:&nbsp;</label>${{$viaje->totalplanviajeext}}
+                    </div></div>
                     	
+<hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
+                        </div>
                         <hr class="my-4">
-
                   <form action="{{ route('viaticos.int.destroy', $viaje->idpreviajeexterior) }}" method="POST" style="display:inline">
                     	@csrf
                     	@method('DELETE')

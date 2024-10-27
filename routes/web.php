@@ -237,3 +237,9 @@ Route::get('/inventario/details/{codinventario}',[App\Http\Controllers\Inventari
 
 
 
+// Ruta para obtener municipios por departamento
+Route::get('/obtener-municipios/{iddepartamento}', [App\Http\Controllers\CatalogosController::class, 'obtenerMunicipios']);
+
+
+
+

@@ -67,14 +67,28 @@
             </div>
           </div>
 
-  <!-- Segunda fila -->
+
+
+
+                    <!-- Segunda fila -->
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="form-group">
                 <label for="destino">Destino del viaje</label>
                 <textarea class="form-control" name="destino" rows="2" placeholder="Dirección especifica del lugar" minlength="10" required>{{$viaje->destinoviaje}}</textarea>
               </div>
             </div>
+
+          <!-- Selector de Municipio -->
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label for="idmunicipio">Municipio</label>
+                  <select class="form-control" id="idmunicipio" name="idmunicipio" required>
+                      <option value="" disabled selected>Seleccione un municipio</option>
+                  </select>
+              </div>
+          </div>
+
           </div>
 
  <!-- Tercera fila -->
@@ -88,8 +102,8 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="vales">Cantidad de vales de combustible ($10 c/u)</label>
-                <input type="number" class="form-control" name="vales" id="vales" min="0" step="1" value="{{$viaje->cantidadvalescombustible}}" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                <label for="vales">Cantidad de vales de combustible ($10 C/U)</label>
+                <input type="number" class="form-control" name="vales" id="vales" min="0" step="1" value="{{$viaje->cantidadvalescombustible}}" onkeypress="return event.charCode >= 48 && event.charCode <= 57" readonly required>
               </div>
             </div>
           </div>
@@ -150,7 +164,7 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="montofuente">Solicitado a fuente externa (USD)</label>
+                <label for="montofuente">Monto solicitado a fuente externa (USD)</label>
                 <input type="number" class="form-control" name="montofuente" id="montofuente" placeholder="0.0" min="0.0" step="0.01" value="{{$viaje->montofuente}}"
                   onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
               </div>
@@ -162,7 +176,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="montoconvocatoria">Solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}}</label>
+                <label for="montoconvocatoria">Monto solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}}</label>
                 <input type="number" class="form-control" name="montoconvocatoria" id="montoconvocatoria" min="0.0" step="0.01" value="{{$viaje->montoconvocatoria}}"
                   placeholder="0.0" max="" onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
               </div>
@@ -177,7 +191,11 @@
 
           <hr class="my-4">
           <label class="font-weight-bold">Total del viaje: <span id="costoViaje">0</span></label>
+                <hr class="my-4">
 
+                        <div class="alert alert-light" role="alert">
+                            <label class="font-weight-bold">Nota:</label> Todos los montos deben estar expresados en dólares estadounidenses (USD).
+                        </div>
 
           <hr class="my-4">
 
@@ -198,6 +216,39 @@
         </div>                    
     </div>
 
+
+<!-- Script para manejar la carga dinámica de municipios -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#iddepartamento').change(function() {
+        var departamentoId = $(this).val();
+        console.log('Departamento ID seleccionado:', departamentoId); // Verifica el ID
+
+        $('#idmunicipio').empty(); // Limpia el select de municipios
+
+        if(departamentoId) {
+            $.ajax({
+                url: '/obtener-municipios/' + departamentoId, // Asegúrate de que esta URL sea correcta
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    console.log('Datos recibidos:', data); // Verifica los datos recibidos
+                    $('#idmunicipio').append('<option value="" disabled selected>Seleccione un municipio</option>'); // Opción por defecto
+                    $.each(data, function(key, municipio) {
+                        $('#idmunicipio').append('<option value="' + municipio.idmunicipio + '">' + municipio.municipio + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error en la solicitud AJAX:', error); // Manejo de errores
+                }
+            });
+        } else {
+            $('#idmunicipio').append('<option value="" disabled selected>Seleccione un municipio</option>');
+        }
+    });
+});
+</script>
 
 
 <!-- Validación de tiempo -->

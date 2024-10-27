@@ -22,40 +22,35 @@
                     </div>
 
                     <div class="card-body">
+                            <div class="card mb-3">
+                        <div class="card-body">	
+           <p><strong>Actividad: </strong>{{$viaje->nombreactividad}}</p>
+           <p><strong>Departamento: </strong>{{$viaje->departamento}}</p>
+           <p><strong>Municipio: </strong>{{$viaje->nombremunicipio}}</p>
+           <p><strong>Destino: </strong>{{$viaje->destinoviaje}}</p>
+           <p><strong>Distancia en KM: </strong>{{$viaje->kmsarecorrer}}</p>
+           <p><strong>Hora salida: </strong>{{$viaje->horasalida}}</p>
+           <p><strong>Hola llegada: </strong>{{$viaje->horallegada}}</p>
+           <p><strong>Cantidad de vales de combustible: </strong>{{$viaje->cantidadvalescombustible}}</p>
+           <p><strong>Cantidad de personas: </strong>{{$viaje->cantidadpersonas}}</p>
+           <p><strong>Cantidad de días: </strong>{{$viaje->cantidaddias}}</p>
+
+                    <p><strong>Fuente de financiamiento: </strong>{{$viaje->descripcionfuente}}</p>
+
+                    <p><strong>Monto financiado: </strong> <span class="monto">{{$viaje->montofuente}}</span></p>
+                    <p><strong>Monto convocatoria: </strong> <span class="monto">{{$viaje->montoconvocatoria}}</span></p>
+                    <p><strong>Total: </strong> <span class="monto">{{$viaje->totalplanviaje}}</span></p>
+
+
+                
+
                     	
-                    	<br>
-                    	<label class="font-weight-bold">Actividad:&nbsp;</label>{{$viaje->nombreactividad}}
-                
-                    	<br>
-                    	<label class="font-weight-bold">Departamento:&nbsp;</label>{{$viaje->departamento}}
-
-                        <br>
-                        <label class="font-weight-bold">Destino:&nbsp;</label>{{$viaje->destinoviaje}}
-                        <br>
-                        <label class="font-weight-bold">Distancia en KM:&nbsp;</label>{{$viaje->kmsarecorrer}}
-                
-                       <br>
-                        <label class="font-weight-bold">Hora de llegada:&nbsp;</label>{{$viaje->horallegada}}
-                
-                        <br>
-                        <label class="font-weight-bold">Hora de salida:&nbsp;</label>{{$viaje->horasalida}}
-
-                        <br>
-                        <label class="font-weight-bold">Cantidad de vales de combustible ($10 c/u):&nbsp;</label>{{$viaje->cantidadvalescombustible}}
-
-                        <br>
-                        <label class="font-weight-bold">Cantidad de días:&nbsp;</label>{{$viaje->cantidaddias}}
-
-                        <br>
-                        <label class="font-weight-bold">Número de personas:&nbsp;</label>{{$viaje->cantidadpersonas}}
-                
-                
-                
-                        <br>
-                        <label class="font-weight-bold">Total:&nbsp; </label>${{$viaje->totalplanviaje}}
-                    	
-                    	<br><br><br>
-
+                    </div></div>
+<hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
                   <form action="{{ route('viaticos.destroy', $viaje->idpreviajelocal) }}" method="POST" style="display:inline">
                     	@csrf
                     	@method('DELETE')

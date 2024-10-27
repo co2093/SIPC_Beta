@@ -233,4 +233,17 @@ class CatalogosController extends Controller
 
     }
 
+
+    public function obtenerMunicipios($iddepartamento)
+    {
+        // Consulta los municipios que pertenecen al departamento seleccionado
+        $municipios = DB::table('municipio')
+        ->where('iddepartamento','=',$iddepartamento)
+        ->get();
+
+        //dd($municipios);
+
+        // Devuelve la lista de municipios en formato JSON
+        return response()->json($municipios);
+    }
 }

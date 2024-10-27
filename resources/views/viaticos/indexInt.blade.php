@@ -74,7 +74,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput1">Costo del boleto aéreo (USD)</label>
+                                    <label for="exampleFormControlInput1">Costo del boleto aéreo</label>
                                     <input type="number" class="form-control" name="costoboleto" id="costoboleto" min="0" step="0.1"
                                         onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
                                 </div>
@@ -84,7 +84,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput1">Costo de la inscripción (USD)</label>
+                                    <label for="exampleFormControlInput1">Costo de la inscripción</label>
                                     <input type="number" class="form-control" name="costoinscripcion" id="costoinscripcion"  min="0" step="0.1"
                                         onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
                                 </div>
@@ -112,7 +112,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput1">Solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}}</label>
+                                    <label for="exampleFormControlInput1">Monto solicitado a SIC UES. Disponible: ${{$p->montoconvocatoria}}</label>
                             <input type="number" class="form-control" name="montoconvocatoria" id="montoconvocatoria" min="0.0" step="0.01" value="0.0"
                                 placeholder="0.0" max="{{$p->montoconvocatoria}}" onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" required>
                                 </div>
@@ -136,7 +136,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleFormControlInput1">Solicitado a fuente externa (USD)</label>
+                                        <label for="exampleFormControlInput1">Monto solicitado a fuente externa</label>
                                         <input type="number" class="form-control" name="montofuente" id="montofuente" placeholder="0.0" min="0.0" step="0.01" value="0.0"
                                             onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)"  required>
                                     </div>
@@ -145,10 +145,15 @@
                         @endif
                         <hr class="my-4">
 
-                        <label class="font-weight-bold">Total del viaje: <span id="costoPais">0</span></label>
+                        <label class="font-weight-bold">Total del viaje: <span class="monto" id="costoPais">0</span></label>
 
 
 								<hr class="my-4">
+
+                        <div class="alert alert-light" role="alert">
+                            <label class="font-weight-bold">Nota:</label> Todos los montos deben estar expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
 
 									<!-- Mensaje de advertencia -->
 									<label id="mensajeAdvertencia" class="text-danger" style="display: none;">

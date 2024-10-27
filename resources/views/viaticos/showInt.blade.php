@@ -55,9 +55,9 @@
                                 <td>{{$viaje->cantidadpersonas}}</td>
                                 <td>{{$viaje->numerodias}}</td>
                                 <td>{{$viaje->descripcionfuente}}</td>
-                                <td>{{$viaje->montofuente}}</td>
-                                <td>{{$viaje->montoconvocatoria}}</td>
-                                <td>{{$viaje->totalplanviajeext}}</td>
+                                <td class="monto">{{$viaje->montofuente}}</td>
+                                <td class="monto">{{$viaje->montoconvocatoria}}</td>
+                                <td class="monto">{{$viaje->totalplanviajeext}}</td>
                                 <td class="fixed-col">
                                 <a  class="btn btn-primary btn-sm" href="{{route('viaticos.int.edit', $viaje->idpreviajeexterior)}}"><i class="fas fa-edit"></i></a>                                       
                                         <a  class="btn btn-danger btn-sm" href="{{route('viaticos.int.delete', $viaje->idpreviajeexterior)}}"><i class="fas fa-trash-alt"></i></a>
@@ -67,7 +67,10 @@
                             </tbody>
                         </table>
                         <hr class="my-4">
-
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
                         </div>
                     <a  class="btn btn-danger" href="{{route('viaticos.int.end', $cod)}}">Finalizar</a>  
 
