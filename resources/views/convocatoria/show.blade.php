@@ -7,9 +7,7 @@
         </div>
 @endif
 
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Convocatoria de Proyectos de investigación</h1>
-    </div>
+
 
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">

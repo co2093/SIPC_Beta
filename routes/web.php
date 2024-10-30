@@ -235,11 +235,9 @@ Route::post('/inventario/update', [App\Http\Controllers\InventarioController::cl
 Route::get('/inventario/details/{codinventario}',[App\Http\Controllers\InventarioController::class, 'details'])->name('inventario.details');
 
 
-
-
 // Ruta para obtener municipios por departamento
 Route::get('/obtener-municipios/{iddepartamento}', [App\Http\Controllers\CatalogosController::class, 'obtenerMunicipios']);
 
 
-
-
+Route::post('/convocatoria/notificacion', [App\Http\Controllers\ConvocatoriaController::class, 'notificacion'])->name('convocatoria.notificacion');
+Route::get('/convocatoria/enviar', [App\Http\Controllers\ConvocatoriaController::class, 'enviar'])->name('convocatoria.enviar');

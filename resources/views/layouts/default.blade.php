@@ -130,7 +130,7 @@
                         <h6 class="collapse-header">Administrar:</h6>
                         <a class="collapse-item" href="{{route('convocatoria.crear')}}">Crear</a>
                         <a class="collapse-item" href="{{route('convocatoria.show')}}">Gestionar convocatoria</a>
-                        <a class="collapse-item" href="#">Notificar</a>
+                        <a class="collapse-item" href="{{route('convocatoria.enviar')}}">Notificar</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Otros:</h6>
                         <a class="collapse-item" href="#">404</a>
