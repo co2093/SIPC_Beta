@@ -90,11 +90,13 @@ class InventarioController extends Controller
     {
 
 
-        $facultades = DB::table('facultad')->get();
-        $estados = DB::table('condicion_inventario')->get();
+        $facultades = DB::table('facultad')->orderby('nombrefacultad')->get();
+        $estados = DB::table('condicion_inventario')->orderby('condicion')->get();
 
         //dd($codinventario);
-         $inv = DB::table('inventario')
+        $inv = DB::table('inventario')
+        ->leftjoin('condicion_inventario', 'inventario.idcondicioninventario', '=', 'condicion_inventario.idcondicioninventario')
+        ->select('inventario.*', 'condicion_inventario.condicion')
         ->where('codinventario', '=', $codinventario)
         ->first();
 
@@ -133,17 +135,15 @@ class InventarioController extends Controller
     public function details($codinventario)
     {
 
-
-        $estados = DB::table('condicion_inventario')->get();
-
-        //dd($codinventario);
-         $inv = DB::table('inventario')
+        $inv = DB::table('inventario')
+        ->leftjoin('condicion_inventario', 'inventario.idcondicioninventario', '=', 'condicion_inventario.idcondicioninventario')
+        ->select('inventario.*', 'condicion_inventario.condicion')
         ->where('codinventario', '=', $codinventario)
         ->first();
 
     
         
-        return view('inventario.details', compact('inv','estados'));
+        return view('inventario.details', compact('inv'));
     }
 
 
@@ -154,7 +154,9 @@ class InventarioController extends Controller
     {
 
         //dd($codinventario);
-         $inv = DB::table('inventario')
+        $inv = DB::table('inventario')
+        ->leftjoin('condicion_inventario', 'inventario.idcondicioninventario', '=', 'condicion_inventario.idcondicioninventario')
+        ->select('inventario.*', 'condicion_inventario.condicion')
         ->where('codinventario', '=', $codinventario)
         ->first();
 
@@ -251,7 +253,7 @@ class InventarioController extends Controller
                 $sheet->mergeCells('A3:G3'); // Tercera fila
 
                 // Establecer estilos para los títulos
-                $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
+                $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(12);
                 $sheet->setCellValue('A1', 'Secretaría de Investigaciones Científicas de la Universidad de El Salvador');
 
                 $sheet->getStyle('A2')->getFont()->setBold(true)->setSize(12);

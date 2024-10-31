@@ -20,45 +20,30 @@
                     </div>
 
                     <div class="card-body">
+                    	           <div class="card mb-3">
+                        <div class="card-body">
                     	
-                    	<br>
-                    	<label>Código: </label>{{$inv->codinventario}}
-                
-                    	<br>
-                    	<label>Nombre: </label>{{$inv->descripcionbien}}
-
-                    	<br>
-                    	<label>Cantidad: </label>{{$inv->cantidad}}
-
-							<br>
-                    	<label>Ubicación: </label>{{$inv->ubicacion}}
+        	            <p><strong>Serie: </strong>{{$inv->serie}}</p>                
+                    	<p><strong>Nombre del bien: </strong>{{$inv->descripcionbien}}</p>
+                    	<p><strong>Facultad: </strong>{{$inv->facultad}}</p>
+                    	<p><strong>Ubicación actual: </strong>{{$inv->ubicacion}}</p>
+                    	<p><strong>Cantidad: </strong>{{$inv->cantidad}}</p>
+                    	<p><strong>Costo unitario: </strong><span class="monto">{{$inv->valor}}</span></p>
+                    	<p><strong>Estado: </strong>{{$inv->condicion}}</p>
+                    	<p><strong>Especificaciones técnicas: </strong>{{$inv->especificacion}}</p>
 
 
-							<br>
-                    	<label>Especificaciones: </label>{{$inv->especificacion}}                    	
-                    
-							<br>
-                    	<label>Serie: </label>{{$inv->serie}}
-							
-							<br>
-                    	<label>Facultad: </label>{{$inv->facultad}}
-					
-                    			<br>
-                    	<label>Estado: </label>
-                
+                                 	
 
-                    	@foreach($estados as $j)
-							@if($j->idcondicioninventario == $inv->idcondicioninventario)
-							{{$j->condicion}}
-							@endif
-						@endforeach
+            
 
-							<br>
-                    	<label>Costo: </label>{{$inv->valor}}
+                    </div></div>
+								<hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
+                        </div>
+                        <hr class="my-4">
 
-                    	<br><br><br>
-
-                 
                     	 <a  class="btn btn-secondary float-right" href="{{route('inventario.show')}}">Regresar</a>
 
 
