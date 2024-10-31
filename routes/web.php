@@ -233,6 +233,9 @@ Route::delete('/inventario/delete/{codinventario}',[App\Http\Controllers\Inventa
 Route::get('/inventario/edit/{codinventario}',[App\Http\Controllers\InventarioController::class, 'edit'])->name('inventario.edit');
 Route::post('/inventario/update', [App\Http\Controllers\InventarioController::class, 'update'])->name('inventario.update');
 Route::get('/inventario/details/{codinventario}',[App\Http\Controllers\InventarioController::class, 'details'])->name('inventario.details');
+Route::get('/inventario/reporte/pdf', [App\Http\Controllers\InventarioController::class, 'reportepdf'])->name('inventario.pdf');
+Route::get('/inventario/reporte/excel', [App\Http\Controllers\InventarioController::class, 'exportarExcel'])->name('inventario.excel');;
+
 
 
 // Ruta para obtener municipios por departamento
