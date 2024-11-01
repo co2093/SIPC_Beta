@@ -8,15 +8,14 @@
 @endif
 
 
-
-
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Proyectos</a></li>
-        <li class="breadcrumb-item"><a href="#">Registro</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Título</li>
-      </ol>
-    </nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('archivados.nuevo') }}">Proyectos antiguos</a></li>
+         <li class="breadcrumb-item active" aria-current="page">Registrar</li>
+       
+    </ol>
+</nav>
 
      <div class="row">
         <div class="col-lg-12">

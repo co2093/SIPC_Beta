@@ -30,8 +30,18 @@
                         <input type="text" class="form-control" id="searchInput" placeholder="Buscar...">
                     </div>
                     <div class="col-md-6 text-right">
-                        <a class="btn btn-danger" href="{{ route('inventario.pdf') }}">Descargar PDF</a>
-                        <a class="btn btn-success ml-2" href="{{ route('inventario.excel') }}">Descargar Excel</a>
+                     
+                    <a href="{{ route('inventario.pdf') }}" class="d-none d-sm-inline-block btn btn-sm shadow-sm" style="background-color: #cf302a; color: white;">
+                        <i class="fas fa-download fa-sm text-white-50"></i>
+                        Reporte PDF
+                    </a>
+
+
+                    <a href="{{ route('inventario.excel') }}" class="d-none d-sm-inline-block btn btn-sm shadow-sm" style="background-color: #217346; color: white;">
+                        <i class="fas fa-download fa-sm text-white-50"></i>
+                        Reporte Excel
+                    </a>
+
                     </div>
                 </div>
 

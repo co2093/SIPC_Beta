@@ -41,6 +41,11 @@ Route::get('/projects/archivados', [App\Http\Controllers\ProjectsController::cla
 Route::get('/projects/archivados/show', [App\Http\Controllers\ProjectsController::class, 'archivadosshow'])->name('archivados.show');
 Route::get('/projects/archivados/nuevo', [App\Http\Controllers\ProjectsController::class, 'archivadosnuevo'])->name('archivados.nuevo');
 Route::post('/projects/archivados/nuevo/store', [App\Http\Controllers\ProjectsController::class, 'archivadosstore'])->name('archivados.store');
+Route::get('/projects/archivados/reportes', [App\Http\Controllers\ProjectsController::class, 'reportes'])->name('archivados.reportes');
+Route::get('/projects/archivados/reportes/crear', [App\Http\Controllers\ProjectsController::class, 'proyectosreportes'])->name('archivados.crearreporte');
+
+Route::get('/projects/archivados/reportes/pdf', [App\Http\Controllers\ProjectsController::class, 'proyectospdf'])->name('archivados.pdf');
+Route::get('/projects/archivados/reportes/excel', [App\Http\Controllers\ProjectsController::class, 'proyectosexcel'])->name('archivados.excel');
 
 
 

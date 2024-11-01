@@ -92,7 +92,8 @@
                   
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Antiguos</h6>
-                        <a class="collapse-item" href="{{route('archivados.show')}}">Archivados</a>
+                        <a class="collapse-item" href="{{route('archivados.show')}}">Antiguos</a>
+                        <a class="collapse-item" href="{{route('archivados.reportes')}}">Reportes</a>
                        
                     </div>
                
