@@ -86,7 +86,7 @@
                 </div>
                 <hr class="my-4">
 
-                <a class="btn btn-secondary float-right" href="{{ route('home') }}">Regresar</a>
+                <a class="btn btn-secondary float-right" href="{{ route('archivados.reportes') }}">Regresar</a>
             </div>
         </div>
     </div>                    

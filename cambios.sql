@@ -284,3 +284,5 @@ fk_pre_viaj_relations_presupue;
 alter table public.pre_publicacion drop constraint 
 fk_pre_publ_publicaci_presupue;
 	
+alter table public.proyecto
+add idfacultad int;

@@ -94,6 +94,7 @@
                         <h6 class="collapse-header">Antiguos</h6>
                         <a class="collapse-item" href="{{route('archivados.show')}}">Antiguos</a>
                         <a class="collapse-item" href="{{route('archivados.reportes')}}">Reportes</a>
+                        <a class="collapse-item" href="{{route('archivados.graficos')}}">Gráficos</a>
                        
                     </div>
                
@@ -362,6 +363,8 @@
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
    <script src="{{ asset('js/custom.js') }}"></script>
+   <script src="{{ asset('js/charjs.js') }}"></script>
+
 
 </body>
 

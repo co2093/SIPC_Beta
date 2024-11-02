@@ -46,6 +46,8 @@ Route::get('/projects/archivados/reportes/crear', [App\Http\Controllers\Projects
 
 Route::get('/projects/archivados/reportes/pdf', [App\Http\Controllers\ProjectsController::class, 'proyectospdf'])->name('archivados.pdf');
 Route::get('/projects/archivados/reportes/excel', [App\Http\Controllers\ProjectsController::class, 'proyectosexcel'])->name('archivados.excel');
+Route::get('/projects/archivados/graficos', [App\Http\Controllers\ProjectsController::class, 'graficos'])->name('archivados.graficos');
+Route::get('/projects/datos-grafico', [App\Http\Controllers\ProjectsController::class, 'obtenerdatosinicial'])->name('archivados.graficoinicial');;
 
 
 

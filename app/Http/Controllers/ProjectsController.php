@@ -422,6 +422,25 @@ class ProjectsController extends Controller
         return view('projects.generar', compact('proyectos'));
     }
 
+    public function graficos(){
+
+        return view('projects.graficos');
+
+
+    }
+
+    public function obtenerdatosinicial()
+    {
+    $datos = DB::table('convocatoria')
+        ->select('numeroconvocatoria', 'presupuesto')
+        ->orderBy('anoconvocatoria', 'desc')
+        ->limit(5)
+        ->get();
+
+        return response()->json($datos);
+    }
+
+
 public function proyectosexcel()
 {
     $proyectos = DB::table('proyecto')
