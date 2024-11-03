@@ -16,6 +16,7 @@ class ColaboradoresController extends Controller
     public function index($cod)
     {
         $facultades = DB::table('facultad')
+        ->orderby('nombrefacultad')
         ->get();
 
         $tipo = DB::table('tipocolaborador')

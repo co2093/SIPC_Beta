@@ -204,7 +204,7 @@
                                         <td>{{$proyectos->nombreestadoproyecto}}</td>
                                         <td class="fixed-col">
                                     
-                                        <a  class="btn btn-danger btn-sm" 
+                                        <a  class="btn btn-danger" 
                                         href="#">Eliminar</a>
 
 
@@ -212,14 +212,14 @@
                                     </tr>
 
                               
-                                <!-- More rows as needed -->
                             </tbody>
                         </table>
 
                         </div>
-                   
 
-                    </div>
+
+                        <hr class="my-4">
+                     </div>
             </div>
         </div>                    
     </div>

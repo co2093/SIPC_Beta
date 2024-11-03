@@ -103,7 +103,7 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <a href="#" 
+                        <a href="{{ route('archivados.graficos') }}" 
                            class="text-xs font-weight-bold text-dark text-uppercase mb-1" 
                            data-toggle="tooltip" 
                            title="Seleccione una opción para generar gráficos">
@@ -130,7 +130,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-dark">Últimas convocatorias</h6>
+        <h6 class="m-0 font-weight-bold text-dark">Proyectos por facultad</h6>
     </div>
     <div class="card-body">
         <div class="row justify-content-center">
@@ -148,78 +148,75 @@
         $('[data-toggle="tooltip"]').tooltip(); 
     });
 </script>
+<script>
+    // Obtén los datos de la API en Laravel
+    fetch('/projects/datos-grafico/facultad')
+        .then(response => response.json())
+        .then(datos => {
+            // Prepara los datos para el gráfico
+            const etiquetas = datos.map(dato => dato.nombrefacultad);
+            const valores = datos.map(dato => dato.cantidad_proyectos);
 
-
-   
-    <script>
-        // Obtén los datos de la API en Laravel
-        fetch('/projects/datos-grafico')
-            .then(response => response.json())
-            .then(datos => {
-                // Prepara los datos para el gráfico
-                const etiquetas = datos.map(dato => dato.numeroconvocatoria);
-                const valores = datos.map(dato => dato.presupuesto);
-
-                // Configura el gráfico
-                const ctx = document.getElementById('graficoBarras').getContext('2d');
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: etiquetas,
-                        datasets: [{
-                            label: 'Presupuesto por Convocatoria (USD)',
-                            data: valores,
-                            backgroundColor: 'rgba(228, 161, 27, 0.6)',
-                            borderColor: 'rgba(228, 161, 27, 1)',
-                            borderWidth: 1
-                        }]
+            // Configura el gráfico
+            const ctx = document.getElementById('graficoBarras').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: etiquetas,
+                    datasets: [{
+                        label: 'Cantidad de Proyectos por Facultad',
+                        data: valores,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return `Proyectos: ${tooltipItem.raw}`;
+                                }
+                            }
+                        }
                     },
-                    options: {
-                        plugins: {
-                            legend: {
+                    scales: {
+                        x: {
+                            title: {
                                 display: true,
-                                position: 'top',
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(tooltipItem) {
-                                        // Formatea el valor como moneda
-                                        return `Presupuesto: $${tooltipItem.raw.toLocaleString()}`;
-                                    }
+                                text: 'Facultades',
+                                font: {
+                                    size: 14
                                 }
                             }
                         },
-                        scales: {
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Número de Convocatoria', // Título del eje X
-                                    font: {
-                                        size: 14
-                                    }
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Cantidad de Proyectos',
+                                font: {
+                                    size: 14
                                 }
                             },
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: 'Presupuesto', // Título del eje Y
-                                    font: {
-                                        size: 14
-                                    }
-                                },
-                                ticks: {
-                                    callback: function(value) {
-                                        // Formatea el valor como moneda
-                                        return `$${value.toLocaleString()}`;
-                                    }
+                            ticks: {
+                                stepSize: 1, // Muestra solo números enteros
+                                callback: function(value) {
+                                    return Number.isInteger(value) ? value : null;
                                 }
                             }
                         }
                     }
-                });
-            })
-            .catch(error => console.error('Error al obtener los datos:', error));
-    </script>
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener los datos:', error));
+</script>
+
 
 @endsection

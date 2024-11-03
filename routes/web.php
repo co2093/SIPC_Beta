@@ -47,7 +47,15 @@ Route::get('/projects/archivados/reportes/crear', [App\Http\Controllers\Projects
 Route::get('/projects/archivados/reportes/pdf', [App\Http\Controllers\ProjectsController::class, 'proyectospdf'])->name('archivados.pdf');
 Route::get('/projects/archivados/reportes/excel', [App\Http\Controllers\ProjectsController::class, 'proyectosexcel'])->name('archivados.excel');
 Route::get('/projects/archivados/graficos', [App\Http\Controllers\ProjectsController::class, 'graficos'])->name('archivados.graficos');
-Route::get('/projects/datos-grafico', [App\Http\Controllers\ProjectsController::class, 'obtenerdatosinicial'])->name('archivados.graficoinicial');;
+Route::get('/projects/archivados/graficos/facultad', [App\Http\Controllers\ProjectsController::class, 'graficosfacultad'])->name('archivados.graficosfacultad');
+Route::get('/projects/archivados/graficos/financiamientos', [App\Http\Controllers\ProjectsController::class, 'graficosfinanciamientos'])->name('archivados.graficosfinanciamientos');
+Route::get('/projects/archivados/graficos/investigadores', [App\Http\Controllers\ProjectsController::class, 'graficosinvestigadores'])->name('archivados.graficosinvestigadores');
+
+Route::get('/projects/datos-grafico', [App\Http\Controllers\ProjectsController::class, 'obtenerdatosinicial'])->name('archivados.graficoinicial');
+Route::get('/projects/datos-grafico/facultad', [App\Http\Controllers\ProjectsController::class, 'obtenerdatosfacultad']);
+Route::get('/projects/datos-grafico/financiamientos', [App\Http\Controllers\ProjectsController::class, 'obtenerdatosfinanciamientos']);
+Route::get('/projects/datos-grafico/investigadores', [App\Http\Controllers\ProjectsController::class, 'obtenerdatosinvestigadores']);
+
 
 
 

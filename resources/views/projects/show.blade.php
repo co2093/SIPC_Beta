@@ -44,9 +44,9 @@
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Código</th>
                                     <th scope="col">Título</th>
                                     <th scope="col">Convocatoria</th>
+                                    <th scope="col">Facultad</th>
                                     <th scope="col">Estado</th>
                                     <th scope="col">Área</th>
                                     <th scope="col">Tipo</th>
@@ -59,10 +59,9 @@
 
                                 @foreach($proyectos as $i)
                                     <tr>
-                                        <td>{{$i->idproyecto}}</td>
                                         <td>{{$i->tituloproyecto}}</td>
                                         <td>{{$i->idconvocatoria}}</td>
-                            
+                                        <td>{{$i->nombrefacultad}}</td>
                                         <td>{{$i->nombreestadoproyecto}}</td>
                                         <td>{{$i->nombreareaconocimiento}}</td>
                                         <td>{{$i->tipoproyecto}}</td>

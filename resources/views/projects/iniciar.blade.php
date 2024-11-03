@@ -44,6 +44,19 @@
                         <textarea class="form-control" name="titulo" rows="3"></textarea>
                       </div>
 
+   					  <div class="form-group">
+					    <label for="exampleFormControlSelect1">Facultad</label>
+					    <select class="form-control" name="facultad" required>
+						    	 <option value="" disabled selected>Seleccione una opción</option>
+
+						  	@foreach($facultades as $f)
+						  		<option value="{{$f->idfacultad}}">{{$f->nombrefacultad}}</option>
+						  	@endforeach
+
+					    </select>
+					  </div>
+
+					  
 
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Área de conocimiento</label>

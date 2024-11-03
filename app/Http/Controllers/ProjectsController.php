@@ -43,18 +43,29 @@ class ProjectsController extends Controller
         ->where('idareaconocimiento', '=', $proyectos->idareaconocimiento)
         ->first();
 
+        $facultades = DB::table('facultad')
+        ->orderby('nombrefacultad')
+        ->get();
+
         
 
 
-        return view('projects.index', compact('areas', 'cod','proyectos', 'tipo', 'tp', 'ar'));
+        return view('projects.index', compact('areas', 'cod','proyectos', 'tipo', 'tp', 'ar', 'facultades'));
     }
 
     public function iniciar()
     {
-        $areas = DB::table('area_conocimiento')->get();
-        $tipo = DB::table('tipo_proyecto')->get();
+        $areas = DB::table('area_conocimiento')
+        ->orderby('nombreareaconocimiento')
+        ->get();
+        $tipo = DB::table('tipo_proyecto')
+        ->orderby('tipoproyecto')
+        ->get();
+        $facultades = DB::table('facultad')
+        ->orderby('nombrefacultad')
+        ->get();
 
-        return view('projects.iniciar', compact('areas', 'tipo'));
+        return view('projects.iniciar', compact('areas', 'tipo', 'facultades'));
     }
 
 
@@ -70,7 +81,8 @@ class ProjectsController extends Controller
         ->leftjoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
         ->leftjoin('tipo_proyecto', 'tipo_proyecto.idtipoproyecto', '=', 'proyecto.idtipoproyecto')
         ->leftjoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
-        ->select('proyecto.*', 'estado_proyecto.nombreestadoproyecto', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento')
+        ->leftjoin('facultad', 'facultad.idfacultad', '=', 'proyecto.idfacultad')
+        ->select('proyecto.*', 'estado_proyecto.nombreestadoproyecto', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento', 'facultad.nombrefacultad')
         ->where('proyecto.usuario', '=', Auth::user()->email)
         ->paginate(10);
 
@@ -98,13 +110,13 @@ class ProjectsController extends Controller
             'tituloproyecto' => $request->input('titulo'),
             'antiguo' => false,
             'tiempo' =>$request->input('tiempo'),
-            
+            'idfacultad' =>$request->input('facultad'),
             'usuario' => $request->input('usuario')
 
 
         ]);
 
-    session()->flash('success', 'Se ha iniciado un nuevo proyecto');
+    session()->flash('success', 'Se ha iniciado un nuevo proyecto exitosamente.');
 
     return redirect()->route('projects.show');
 
@@ -138,6 +150,7 @@ class ProjectsController extends Controller
             'tituloproyecto' => $request->input('titulo'),
             'idareaconocimiento' => $request->input('area'),
             'idtipoproyecto' => $request->input('tipo'),
+             'idfacultad' => $request->input('facultad'),
             'tiempo' => $request->input('tiempo')        ]);
 
         DB::table('pasos_registro')
@@ -429,13 +442,76 @@ class ProjectsController extends Controller
 
     }
 
+    public function graficosfacultad(){
+
+    return view('projects.graficosfacultad');
+
+
+    }
+
+    public function graficosfinanciamientos(){
+
+    return view('projects.graficosfinanciamiento');
+
+
+    }
+
+    public function graficosinvestigadores(){
+
+    return view('projects.graficosinvestigadores');
+
+
+    }
+
     public function obtenerdatosinicial()
     {
-    $datos = DB::table('convocatoria')
+        $datos = DB::table('convocatoria')
         ->select('numeroconvocatoria', 'presupuesto')
         ->orderBy('anoconvocatoria', 'desc')
         ->limit(5)
         ->get();
+
+        return response()->json($datos);
+    }
+
+    public function obtenerdatosfacultad()
+    {
+        $datos = DB::table('proyecto')
+        ->join('facultad', 'facultad.idfacultad', '=', 'proyecto.idfacultad') // Unimos con la tabla facultad
+        ->select('facultad.nombrefacultad', DB::raw('COUNT(proyecto.idproyecto) as cantidad_proyectos'))
+        ->groupBy('facultad.nombrefacultad') // Agrupamos por el nombre de la facultad
+        ->get();
+
+        return response()->json($datos);
+    }
+
+    public function obtenerdatosfinanciamientos()
+    {
+        $datos = DB::table('proyecto')
+        ->join('facultad', 'facultad.idfacultad', '=', 'proyecto.idfacultad') // Unimos con la tabla facultad
+        ->join('pre_fuente', 'pre_fuente.idproyecto', '=', 'proyecto.idproyecto') // Unimos con la tabla pre_fuente
+        ->select('facultad.nombrefacultad', DB::raw('SUM(pre_fuente.financiamiento) as total_financiamiento')) 
+        ->groupBy('facultad.nombrefacultad') // Agrupamos por el nombre de la facultad
+        ->get();
+
+
+        return response()->json($datos);
+    }
+
+    public function obtenerdatosinvestigadores()
+    {
+        $datos = DB::table('proyecto')
+            ->join('facultad', 'facultad.idfacultad', '=', 'proyecto.idfacultad') // Unimos con la tabla facultad
+            ->join('colaboradores', 'colaboradores.idproyecto', '=', 'proyecto.idproyecto') // Unimos con la tabla colaboradores
+            ->select(
+                'facultad.nombrefacultad',
+                DB::raw("SUM(CASE WHEN colaboradores.sexo = '1' THEN 1 ELSE 0 END) as total_hombres"),
+                DB::raw("SUM(CASE WHEN colaboradores.sexo = '2' THEN 1 ELSE 0 END) as total_mujeres")
+            )
+            ->groupBy('facultad.nombrefacultad') // Agrupamos por el nombre de la facultad
+            ->get();
+
+
 
         return response()->json($datos);
     }
