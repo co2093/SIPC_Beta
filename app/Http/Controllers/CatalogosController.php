@@ -246,4 +246,139 @@ class CatalogosController extends Controller
         // Devuelve la lista de municipios en formato JSON
         return response()->json($municipios);
     }
+
+      public function indexMunicipios()
+    {
+        $dep = DB::table('departamento')
+        ->orderby('departamento')
+        ->get();
+
+        return view('catalogos.indexMun', compact('dep'));
+    }
+
+
+
+    public function showMunicipios()
+    {
+
+        $municipios = DB::table('municipio')
+        ->leftjoin('departamento', 'departamento.iddepartamento','=', 'municipio.iddepartamento')
+        ->select('municipio.*', 'departamento.departamento')
+        ->orderby('departamento')
+        ->orderBy('nombremunicipio')  // Ordena por el nombre del país
+        ->paginate(50);
+        //dd($paises);
+
+        return view('catalogos.showMun', compact('municipios'));
+    }
+
+
+    public function storeMunicipios(Request $request){
+
+       
+        DB::table('municipio')->insert([
+            'iddepartamento' => $request->input('departamento'),
+            'nombremunicipio' => $request->input('nombre'),
+            'valescombustible' => $request->input('vales')
+        ]);
+
+       
+        session()->flash('success', 'Se ha registrado un nuevo municipio.');
+
+        return redirect()->to('/catalogos/mun/show/');
+    
+    }    
+
+
+    public function editMunicipios($id)
+    {
+        $municipio = DB::table('municipio')
+        ->leftjoin('departamento', 'departamento.iddepartamento','=', 'municipio.iddepartamento')
+        ->where('municipio.idmunicipio', '=', $id)
+        ->select('municipio.*', 'departamento.departamento')
+        ->first();
+
+       // dd($municipio);
+
+        $dep = DB::table('departamento')
+        ->orderby('departamento')
+        ->get();
+
+        return view('catalogos.editMun', compact('municipio', 'dep'));
+    }
+
+
+
+     public function updateMunicipios(Request $request)
+    {
+
+        //dd($request);
+
+        DB::table('municipio')
+        ->where('idmunicipio', $request->input('idmunicipio'))
+        ->update([
+            'nombremunicipio' => $request->input('nombre'),
+            'valescombustible' => $request->input('vales'),
+            'iddepartamento' => $request->input('departamento')
+        ]);
+
+
+                
+
+        session()->flash('success', 'Municipio actualizado exitosamente.');
+        return redirect()->to('/catalogos/mun/show/');
+
+    }
+
+    public function destroyConfirmMunicipios($id)
+    {
+        
+        $municipio = DB::table('municipio')
+        ->leftjoin('departamento', 'departamento.iddepartamento','=', 'municipio.iddepartamento')
+        ->where('municipio.idmunicipio', '=', $id)
+        ->select('municipio.*', 'departamento.departamento')
+        ->first();
+
+        return view('catalogos.deleteMun', compact('municipio'));
+    }
+
+
+
+    public function destroyMunicipios($cod)
+    {
+
+    /*    $municipio = DB::table('municipio')
+        ->leftjoin('departamento', 'departamento.iddepartamento','=', 'municipio.iddepartamento')
+        ->where('municipio.idmunicipio', '=', $cod)
+        ->select('municipio.*', 'departamento.departamento')
+        ->first();
+
+
+         $vi = DB::table('pre_viaje_local')
+         ->where('iddepartamento', '=', $municipio->iddepartamento)
+         ->first();  
+
+     if ($vi) {
+         // code...
+
+        session()->flash('error', 'No se puede eliminar este municipio porque está en uso.');
+
+        return redirect()->to('/catalogos/mun/show/');
+
+
+     } else {
+         // code...
+
+         */
+         $pais = DB::table('municipio')
+        ->where('idmunicipio', '=', $cod)
+        ->delete();
+
+        session()->flash('success', 'Municipio eliminado correctamente.');
+
+        return redirect()->to('/catalogos/mun/show/');
+     
+     
+
+    }
 }

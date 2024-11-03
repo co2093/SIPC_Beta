@@ -165,8 +165,7 @@
                         <h6 class="collapse-header">Otros:</h6>
                         <a class="collapse-item" href="{{route('pais.show')}}">Pais</a>
 
-                        <a class="collapse-item" href="#">Ciudad</a>
-                        <a class="collapse-item" href="#">Departamento</a>
+                        <a class="collapse-item" href="{{route('mun.show')}}">Municipio</a>
                     </div>
                 </div>
             </li>

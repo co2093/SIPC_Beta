@@ -221,7 +221,7 @@ Route::get('/catalogos/facultades/show', [App\Http\Controllers\CatalogosControll
 Route::get('/catalogos/tipopublicaciones', [App\Http\Controllers\CatalogosController::class, 'indexTipopublicaciones'])->name('tipopublicaciones.crear');
 Route::get('/catalogos/tipopublicaciones/show', [App\Http\Controllers\CatalogosController::class, 'showTipopublicaciones'])->name('tipopublicaciones.show');
 
-Route::get('/catalogos/crear/nuevo/', [App\Http\Controllers\CatalogosController::class, 'indexPais'])->name('pais.crear');
+Route::get('/catalogos/pais/crear/nuevo/', [App\Http\Controllers\CatalogosController::class, 'indexPais'])->name('pais.crear');
 Route::get('/catalogos/pais/show/', [App\Http\Controllers\CatalogosController::class, 'showPais'])->name('pais.show');
 Route::post('/catalogos/nuevo/pais', [App\Http\Controllers\CatalogosController::class, 'storePais'])->name('pais.store');
 Route::get('/catalogos/confirm/pais/{id}',[App\Http\Controllers\CatalogosController::class, 'destroyConfirmPais'])->name('pais.delete');
@@ -229,7 +229,13 @@ Route::post('/catalogos/pais/update', [App\Http\Controllers\CatalogosController:
 Route::delete('/catalogos/pais/delete/{id}',[App\Http\Controllers\CatalogosController::class, 'destroyPais'])->name('pais.destroy');
 Route::get('/catalogos/pais/edit/{cod}',[App\Http\Controllers\CatalogosController::class, 'editPais'])->name('pais.edit');
 
-
+Route::get('/catalogos/mun/crear/nuevo/', [App\Http\Controllers\CatalogosController::class, 'indexMunicipios'])->name('mun.crear');
+Route::get('/catalogos/mun/show/', [App\Http\Controllers\CatalogosController::class, 'showMunicipios'])->name('mun.show');
+Route::post('/catalogos/nuevo/mun', [App\Http\Controllers\CatalogosController::class, 'storeMunicipios'])->name('mun.store');
+Route::get('/catalogos/confirm/mun/{id}',[App\Http\Controllers\CatalogosController::class, 'destroyConfirmMunicipios'])->name('mun.delete');
+Route::post('/catalogos/mun/update', [App\Http\Controllers\CatalogosController::class, 'updateMunicipios'])->name('mun.update');
+Route::delete('/catalogos/mun/delete/{id}',[App\Http\Controllers\CatalogosController::class, 'destroyMunicipios'])->name('mun.destroy');
+Route::get('/catalogos/mun/edit/{cod}',[App\Http\Controllers\CatalogosController::class, 'editMunicipios'])->name('mun.edit');
 
 
 
