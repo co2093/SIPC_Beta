@@ -636,33 +636,55 @@ public function archivadosshow(Request $request)
 
 public function proyectosexcel()
 {
-    $proyectos = DB::table('proyecto')
-        ->leftJoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
-        ->leftJoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
-        ->leftJoin('users', 'users.email', '=', 'proyecto.usuario')
-        ->leftJoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
-        ->leftJoin('pre_fuente', 'pre_fuente.idproyecto', '=', 'proyecto.idproyecto')
-        ->select(
-            'proyecto.tituloproyecto',
-            'area_conocimiento.nombreareaconocimiento',
-            'users.name',
-            DB::raw('SUM(pre_fuente.financiamiento) as total_financiamiento'),
-            'convocatoria.presupuesto',
-            'estado_proyecto.nombreestadoproyecto'
-        )
-        ->groupBy(
-            'proyecto.idproyecto',
-            'proyecto.tituloproyecto',
-            'area_conocimiento.nombreareaconocimiento',
-            'users.name',
-            'convocatoria.presupuesto',
-            'estado_proyecto.nombreestadoproyecto'
-        )
-        ->get();
+        $convocatoria = session('convocatoria', 'todas');
+        $area = session('area', 'todas');
+        $estado = session('estado', 'todas');
+        $facultad = session('facultad', 'todas');
+
+
+        $proyectos = DB::table('proyecto')
+            ->leftJoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
+            ->leftJoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
+            ->leftJoin('users', 'users.email', '=', 'proyecto.usuario')
+            ->leftJoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
+            ->leftJoin('pre_fuente', 'pre_fuente.idproyecto', '=', 'proyecto.idproyecto')
+            ->leftjoin('facultad', 'facultad.idfacultad', '=','proyecto.idfacultad')
+            ->select(
+                'proyecto.tituloproyecto',
+                'estado_proyecto.nombreestadoproyecto',
+                'area_conocimiento.nombreareaconocimiento',
+                'users.name',
+                'convocatoria.presupuesto',
+                'facultad.nombrefacultad',
+                DB::raw('SUM(pre_fuente.financiamiento) as total_financiamiento')
+            )
+            ->when($convocatoria && $convocatoria != 'todas', function ($query) use ($convocatoria) {
+                return $query->where('convocatoria.idconvocatoria', $convocatoria);
+            })
+            ->when($facultad && $facultad != 'todas', function ($query) use ($facultad) {
+                return $query->where('facultad.idfacultad', $facultad);
+            })
+            ->when($area && $area != 'todas', function ($query) use ($area) {
+                return $query->where('area_conocimiento.idareaconocimiento', $area);
+            })
+            ->when($estado && $estado != 'todas', function ($query) use ($estado) {
+                return $query->where('estado_proyecto.idestadoproyecto', $estado);
+            })
+            ->groupBy(
+                'proyecto.idproyecto',
+                'proyecto.tituloproyecto',
+                'estado_proyecto.nombreestadoproyecto',
+                'area_conocimiento.nombreareaconocimiento',
+                'users.name',
+                'convocatoria.presupuesto', 
+                'facultad.nombrefacultad',
+            )
+            ->get();
 
     $data = $proyectos->map(function ($item) {
         return [
             'Título' => $item->tituloproyecto,
+            'facultad' => $item->nombrefacultad,
             'Área de conocimiento' => $item->nombreareaconocimiento,
             'Investigador' => $item->name,
             'Financiamiento externo' => $item->total_financiamiento,
@@ -696,16 +718,16 @@ public function proyectosexcel()
                 ['Proyectos de Investigación'],
                 ['Fecha: ' . $this->fecha],
                 [], // Fila vacía
-                ['Título', 'Área de conocimiento', 'Investigador', 'Financiamiento externo', 'Financiamiento SIC UES', 'Estado'] // Encabezados de la tabla
+                ['Título', 'Facultad','Área de conocimiento', 'Investigador', 'Financiamiento externo', 'Financiamiento SIC UES', 'Estado'] // Encabezados de la tabla
             ];
         }
 
         public function styles(Worksheet $sheet)
         {
             // Combina las celdas para los títulos
-            $sheet->mergeCells('A1:F1'); // Primera fila
-            $sheet->mergeCells('A2:F2'); // Segunda fila
-            $sheet->mergeCells('A3:F3'); // Tercera fila
+            $sheet->mergeCells('A1:G1'); // Primera fila
+            $sheet->mergeCells('A2:G2'); // Segunda fila
+            $sheet->mergeCells('A3:G3'); // Tercera fila
 
             // Establece estilos para los títulos
             $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(12);
@@ -721,7 +743,7 @@ public function proyectosexcel()
             $sheet->setCellValue('A4', ''); // Fila vacía para separación
 
             // Estilo para los encabezados de la tabla
-            $sheet->getStyle('A5:F5')->getFont()->setBold(true);
+            $sheet->getStyle('A5:G5')->getFont()->setBold(true);
 
             // Estilo para los bordes
             $styleArray = [
@@ -734,8 +756,8 @@ public function proyectosexcel()
             ];
 
             // Aplicar bordes a todas las celdas de datos
-            $rowCount = count($this->data) + 5; // +5 para incluir las filas de encabezado
-            $sheet->getStyle('A1:F' . $rowCount)->applyFromArray($styleArray);
+            $rowCount = count($this->data) + 6; // +5 para incluir las filas de encabezado
+            $sheet->getStyle('A1:G' . $rowCount)->applyFromArray($styleArray);
         }
     }, $nombreArchivo);
 }
