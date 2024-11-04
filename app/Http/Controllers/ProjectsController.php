@@ -313,22 +313,47 @@ class ProjectsController extends Controller
 
 
 
-    public function archivadosshow()
-    {
+public function archivadosshow(Request $request)
+{
+    // Obtener los datos de filtros
+    $convocatorias = DB::table('convocatoria')->select('idconvocatoria', 'numeroconvocatoria')->get();
+    $areas = DB::table('area_conocimiento')->select('idareaconocimiento', 'nombreareaconocimiento')->get();
+    $estados = DB::table('estado_proyecto')->select('idestadoproyecto', 'nombreestadoproyecto')->get();
 
-
-        $proyectos = DB::table('proyecto')
-        ->leftjoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
-        ->leftjoin('tipo_proyecto', 'tipo_proyecto.idtipoproyecto', '=', 'proyecto.idtipoproyecto')
-        ->leftjoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
-        ->leftjoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
+    // Construir consulta de proyectos
+    $query = DB::table('proyecto')
+        ->leftJoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
+        ->leftJoin('tipo_proyecto', 'tipo_proyecto.idtipoproyecto', '=', 'proyecto.idtipoproyecto')
+        ->leftJoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
+        ->leftJoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
         ->where('proyecto.idestadoproyecto', '!=', 1)
-        ->select('proyecto.*', 'estado_proyecto.nombreestadoproyecto', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento', 'convocatoria.numeroconvocatoria')
-        ->paginate(10);
+        ->select('proyecto.*', 'estado_proyecto.nombreestadoproyecto', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento', 'convocatoria.numeroconvocatoria');
 
-
-        return view('projects.archivadosshow', compact('proyectos'));
+    // Filtrar según la búsqueda y los filtros seleccionados
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->where(function ($subquery) use ($search) {
+            $subquery->where('proyecto.tituloproyecto', 'LIKE', "%$search%")
+                     ->orWhere('area_conocimiento.nombreareaconocimiento', 'LIKE', "%$search%")
+                     ->orWhere('estado_proyecto.nombreestadoproyecto', 'LIKE', "%$search%");
+        });
     }
+    if ($request->filled('convocatoria')) {
+        $query->where('proyecto.idconvocatoria', $request->convocatoria);
+    }
+    if ($request->filled('area')) {
+        $query->where('proyecto.idareaconocimiento', $request->area);
+    }
+    if ($request->filled('estado')) {
+        $query->where('proyecto.idestadoproyecto', $request->estado);
+    }
+
+    $proyectos = $query->paginate(10);
+
+    return view('projects.archivadosshow', compact('proyectos', 'convocatorias', 'areas', 'estados'));
+}
+
+
 
     public function archivadosindex()
     {
