@@ -58,6 +58,7 @@
         <thead>
             <tr>
                 <th scope="col">Título</th>
+                <th scope="col">Facultad</th>
                 <th scope="col">Área de conocimiento</th>
                 <th scope="col">Investigador</th>
                 <th scope="col">Financiamiento externo</th>
@@ -69,6 +70,7 @@
             @foreach($proyectos as $p)
                 <tr>
                     <td>{{ $p->tituloproyecto }}</td>
+                    <td>{{$p->nombrefacultad}}</td>
                     <td>{{ $p->nombreareaconocimiento }}</td>
                     <td>{{ $p->name }}</td>
                     <td class="monto">${{ number_format($p->total_financiamiento, 2) }}</td>

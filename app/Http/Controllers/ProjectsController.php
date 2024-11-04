@@ -425,24 +425,44 @@ public function archivadosshow(Request $request)
         ->select('proyecto.*', 'estado_proyecto.nombreestadoproyecto', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento')
         ->paginate(10);
 
-        return view('projects.reportes', compact('proyectos'));
+        $convocatorias = DB::table('convocatoria')->select('idconvocatoria', 'numeroconvocatoria')->orderby('numeroconvocatoria')
+        ->get();
+        $areas = DB::table('area_conocimiento')->select('idareaconocimiento', 'nombreareaconocimiento')
+        ->orderby('nombreareaconocimiento')->get();
+        $estados = DB::table('estado_proyecto')->select('idestadoproyecto', 'nombreestadoproyecto')->orderby('nombreestadoproyecto')
+        ->get();
+        $facultades = DB::table('facultad')->orderby('nombrefacultad')->get();
+
+
+        return view('projects.reportes', compact('proyectos', 'convocatorias', 'areas', 'estados', 'facultades'));
     }
 
-    public function proyectosreportes()
+   public function proyectosreportes(Request $request)
     {
 
-    $proyectos = DB::table('proyecto')
+      // Guarda los filtros en la sesión
+    session([
+        'convocatoria' => $request->convocatoria,
+        'area' => $request->area,
+        'estado' => $request->estado,
+        'facultad' => $request->facultad,
+    ]);
+
+
+    $query = DB::table('proyecto')
         ->leftJoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
         ->leftJoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
         ->leftJoin('users', 'users.email', '=', 'proyecto.usuario')
         ->leftJoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
         ->leftJoin('pre_fuente', 'pre_fuente.idproyecto', '=', 'proyecto.idproyecto')
+        ->leftjoin('facultad', 'facultad.idfacultad', '=','proyecto.idfacultad')
         ->select(
             'proyecto.tituloproyecto',
             'estado_proyecto.nombreestadoproyecto',
             'area_conocimiento.nombreareaconocimiento',
             'users.name',
             'convocatoria.presupuesto',
+            'facultad.nombrefacultad',
             DB::raw('SUM(pre_fuente.financiamiento) as total_financiamiento')
         )
         ->groupBy(
@@ -451,14 +471,86 @@ public function archivadosshow(Request $request)
             'estado_proyecto.nombreestadoproyecto',
             'area_conocimiento.nombreareaconocimiento',
             'users.name',
-            'convocatoria.presupuesto'
-        )
-        ->paginate(10);
+            'convocatoria.presupuesto',
+            'facultad.nombrefacultad',
+        );
 
-        //dd($proyectos);
-
-        return view('projects.generar', compact('proyectos'));
+    // Aplicar filtros si se han enviado
+    if ($request->filled('convocatoria')) {
+        $query->where('convocatoria.idconvocatoria', $request->convocatoria);
     }
+
+    if ($request->filled('facultad')) {
+        $query->where('facultad.idfacultad', $request->facultad);
+    }
+
+    if ($request->filled('area')) {
+        $query->where('area_conocimiento.idareaconocimiento', $request->area);
+    }
+
+    if ($request->filled('estado')) {
+        $query->where('estado_proyecto.idestadoproyecto', $request->estado);
+    }
+
+    // Ejecutar la consulta y paginar los resultados
+    $proyectos = $query->paginate(10);
+
+    return view('projects.generar', compact('proyectos'));
+    }
+
+
+    public function proyectospdf()
+    {
+        $convocatoria = session('convocatoria', 'todas');
+        $area = session('area', 'todas');
+        $estado = session('estado', 'todas');
+        $facultad = session('facultad', 'todas');
+
+
+        $proyectos = DB::table('proyecto')
+            ->leftJoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
+            ->leftJoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
+            ->leftJoin('users', 'users.email', '=', 'proyecto.usuario')
+            ->leftJoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
+            ->leftJoin('pre_fuente', 'pre_fuente.idproyecto', '=', 'proyecto.idproyecto')
+            ->leftjoin('facultad', 'facultad.idfacultad', '=','proyecto.idfacultad')
+            ->select(
+                'proyecto.tituloproyecto',
+                'estado_proyecto.nombreestadoproyecto',
+                'area_conocimiento.nombreareaconocimiento',
+                'users.name',
+                'convocatoria.presupuesto',
+                'facultad.nombrefacultad',
+                DB::raw('SUM(pre_fuente.financiamiento) as total_financiamiento')
+            )
+            ->when($convocatoria && $convocatoria != 'todas', function ($query) use ($convocatoria) {
+                return $query->where('convocatoria.idconvocatoria', $convocatoria);
+            })
+            ->when($facultad && $facultad != 'todas', function ($query) use ($facultad) {
+                return $query->where('facultad.idfacultad', $facultad);
+            })
+            ->when($area && $area != 'todas', function ($query) use ($area) {
+                return $query->where('area_conocimiento.idareaconocimiento', $area);
+            })
+            ->when($estado && $estado != 'todas', function ($query) use ($estado) {
+                return $query->where('estado_proyecto.idestadoproyecto', $estado);
+            })
+            ->groupBy(
+                'proyecto.idproyecto',
+                'proyecto.tituloproyecto',
+                'estado_proyecto.nombreestadoproyecto',
+                'area_conocimiento.nombreareaconocimiento',
+                'users.name',
+                'convocatoria.presupuesto', 
+                'facultad.nombrefacultad',
+            )
+            ->get();
+
+        $pdf = Pdf::loadView('projects.pdfpro', compact('proyectos'));
+        return $pdf->download('reporte_proyectos'.time().'.pdf');
+    }
+
+
 
     public function graficos(){
 
