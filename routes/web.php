@@ -261,6 +261,8 @@ Route::get('/inventario/reporte/excel', [App\Http\Controllers\InventarioControll
 
 // Ruta para obtener municipios por departamento
 Route::get('/obtener-municipios/{iddepartamento}', [App\Http\Controllers\CatalogosController::class, 'obtenerMunicipios']);
+Route::get('/obtener-valescombustible/{idmunicipio}', [App\Http\Controllers\ViaticosController::class, 'obtenerValesCombustible']);
+
 
 
 Route::post('/convocatoria/notificacion', [App\Http\Controllers\ConvocatoriaController::class, 'notificacion'])->name('convocatoria.notificacion');

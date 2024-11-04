@@ -347,29 +347,15 @@ class CatalogosController extends Controller
     public function destroyMunicipios($cod)
     {
 
-    /*    $municipio = DB::table('municipio')
-        ->leftjoin('departamento', 'departamento.iddepartamento','=', 'municipio.iddepartamento')
-        ->where('municipio.idmunicipio', '=', $cod)
-        ->select('municipio.*', 'departamento.departamento')
-        ->first();
-
-
          $vi = DB::table('pre_viaje_local')
-         ->where('iddepartamento', '=', $municipio->iddepartamento)
+         ->where('idmunicipio', '=', $cod)
          ->first();  
 
      if ($vi) {
          // code...
-
         session()->flash('error', 'No se puede eliminar este municipio porque está en uso.');
-
         return redirect()->to('/catalogos/mun/show/');
-
-
      } else {
-         // code...
-
-         */
          $pais = DB::table('municipio')
         ->where('idmunicipio', '=', $cod)
         ->delete();

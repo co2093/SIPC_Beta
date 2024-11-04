@@ -79,15 +79,17 @@
               </div>
             </div>
 
-          <!-- Selector de Municipio -->
-          <div class="col-md-6">
-              <div class="form-group">
-                  <label for="idmunicipio">Municipio</label>
-                  <select class="form-control" id="idmunicipio" name="idmunicipio" required>
-                      <option value="" disabled selected>Seleccione un municipio</option>
-                  </select>
-              </div>
-          </div>
+<!-- Selector de Municipio -->
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="idmunicipio">Municipio</label>
+        <select class="form-control" id="idmunicipio" name="idmunicipio" required>
+            <!-- Valor inicial preseleccionado -->
+            <option value="{{ $viaje->idmunicipio }}" selected>{{ $viaje->nombremunicipio }}</option>
+        </select>
+    </div>
+</div>
+
 
           </div>
 
@@ -219,36 +221,50 @@
 
 <!-- Script para manejar la carga dinámica de municipios -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
     $('#iddepartamento').change(function() {
         var departamentoId = $(this).val();
-        console.log('Departamento ID seleccionado:', departamentoId); // Verifica el ID
+        $('#idmunicipio').empty();
 
-        $('#idmunicipio').empty(); // Limpia el select de municipios
-
-        if(departamentoId) {
+        if (departamentoId) {
             $.ajax({
-                url: '/obtener-municipios/' + departamentoId, // Asegúrate de que esta URL sea correcta
+                url: '/obtener-municipios/' + departamentoId,
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
-                    console.log('Datos recibidos:', data); // Verifica los datos recibidos
-                    $('#idmunicipio').append('<option value="" disabled selected>Seleccione un municipio</option>'); // Opción por defecto
+                    $('#idmunicipio').append('<option value="" disabled selected>Seleccione un municipio</option>');
                     $.each(data, function(key, municipio) {
-                        $('#idmunicipio').append('<option value="' + municipio.idmunicipio + '">' + municipio.municipio + '</option>');
+                        $('#idmunicipio').append('<option value="' + municipio.idmunicipio + '">' + municipio.nombremunicipio + '</option>');
                     });
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error en la solicitud AJAX:', error); // Manejo de errores
                 }
             });
         } else {
             $('#idmunicipio').append('<option value="" disabled selected>Seleccione un municipio</option>');
         }
     });
+
+    // Actualizar el valor de vales al seleccionar un municipio
+    $('#idmunicipio').change(function() {
+        var municipioId = $(this).val();
+        
+        if (municipioId) {
+            $.ajax({
+                url: '/obtener-valescombustible/' + municipioId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#vales').val(data.valescombustible);
+                }
+            });
+        } else {
+            $('#vales').val('');
+        }
+    });
 });
 </script>
+
 
 
 <!-- Validación de tiempo -->

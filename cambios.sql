@@ -286,3 +286,6 @@ fk_pre_publ_publicaci_presupue;
 	
 alter table public.proyecto
 add idfacultad int;
+
+alter table public.pre_viaje_local
+add idmunicipio int;

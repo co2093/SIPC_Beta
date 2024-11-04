@@ -72,6 +72,7 @@ class ViaticosController extends Controller
             DB::table('pre_viaje_local')->insert([
                 'idfuente' => $request->input('idfuente'),
                 'iddepartamento' => $request->input('iddepartamento'),
+                'idmunicipio' => $request->input('idmunicipio'),
                 'idproyecto' => $request->input('cod'),
                 'kmsarecorrer' => $request->input('distancia'),
                 'cantidadvalescombustible' => $request->input('vales'),
@@ -107,6 +108,7 @@ class ViaticosController extends Controller
             // code...
             DB::table('pre_viaje_local')->insert([
                 'iddepartamento' => $request->input('iddepartamento'),
+                'idmunicipio' => $request->input('idmunicipio'),
                 'idproyecto' => $request->input('cod'),
                 'kmsarecorrer' => $request->input('distancia'),
                 'cantidadvalescombustible' => $request->input('vales'),
@@ -149,7 +151,7 @@ class ViaticosController extends Controller
         ->where('pre_viaje_local.idpreviajelocal', '=', $cod)
         ->first();
 
-        dd($viaje);
+        //dd($viaje);
 
 
 
@@ -214,6 +216,7 @@ class ViaticosController extends Controller
             
                 'idfuente' => $request->input('idfuente'),
                 'iddepartamento' => $request->input('iddepartamento'),
+                'idmunicipio' => $request->input('idmunicipio'),
                 'kmsarecorrer' => $request->input('distancia'),
                 'cantidadvalescombustible' => $request->input('vales'),
                 'destinoviaje' => $request->input('destino'),
@@ -246,6 +249,7 @@ class ViaticosController extends Controller
         ->update([
             
                 'iddepartamento' => $request->input('iddepartamento'),
+                'idmunicipio' => $request->input('idmunicipio'),
                 'kmsarecorrer' => $request->input('distancia'),
                 'cantidadvalescombustible' => $request->input('vales'),
                 'destinoviaje' => $request->input('destino'),
@@ -769,4 +773,15 @@ class ViaticosController extends Controller
         return redirect()->to('/presupuesto/show/menu/'.$cod);
 
     }
+
+    public function obtenerValesCombustible($idmunicipio)
+    {
+        $municipio = DB::table('municipio')
+        ->select('valescombustible')
+        ->where('idmunicipio', $idmunicipio)
+        ->first();
+
+    return response()->json($municipio);
+    }
+
 }

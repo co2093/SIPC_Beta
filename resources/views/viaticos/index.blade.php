@@ -197,7 +197,7 @@ $(document).ready(function() {
         var departamentoId = $(this).val();
         $('#idmunicipio').empty(); // Limpia el select de municipios
 
-        if(departamentoId) {
+        if (departamentoId) {
             $.ajax({
                 url: '/obtener-municipios/' + departamentoId,
                 type: 'GET',
@@ -205,7 +205,7 @@ $(document).ready(function() {
                 success: function(data) {
                     $('#idmunicipio').append('<option value="" disabled selected>Seleccione un municipio</option>'); // Añade opción por defecto
                     $.each(data, function(key, municipio) {
-                        $('#idmunicipio').append('<option value="' + municipio.idmunicipio + '">' + municipio.municipio + '</option>');
+                        $('#idmunicipio').append('<option value="' + municipio.idmunicipio + '">' + municipio.nombremunicipio + '</option>');
                     });
                 }
             });
@@ -213,8 +213,28 @@ $(document).ready(function() {
             $('#idmunicipio').append('<option value="" disabled selected>Seleccione un municipio</option>');
         }
     });
+
+    // Nuevo: Actualizar el valor de vales al seleccionar un municipio
+    $('#idmunicipio').change(function() {
+        var municipioId = $(this).val();
+        
+        if (municipioId) {
+            $.ajax({
+                url: '/obtener-valescombustible/' + municipioId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Asigna el valor de valescombustible al campo de entrada #vales
+                    $('#vales').val(data.valescombustible);
+                }
+            });
+        } else {
+            $('#vales').val(''); // Limpia el valor de vales si no hay municipio seleccionado
+        }
+    });
 });
 </script>
+
 
 
 
