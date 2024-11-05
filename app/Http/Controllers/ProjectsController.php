@@ -499,6 +499,73 @@ public function archivadosshow(Request $request)
     }
 
 
+public function colaboradoresreportes(Request $request)
+    {
+
+      // Guarda los filtros en la sesión
+    session([
+        'convocatoria' => $request->convocatoria,
+        'area' => $request->area,
+        'estado' => $request->estado,
+        'facultad' => $request->facultad,
+    ]);
+
+
+    $query = DB::table('proyecto')
+        ->leftJoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
+        ->leftJoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
+        ->leftJoin('users', 'users.email', '=', 'proyecto.usuario')
+        ->leftJoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
+        ->leftJoin('pre_fuente', 'pre_fuente.idproyecto', '=', 'proyecto.idproyecto')
+        ->leftjoin('facultad', 'facultad.idfacultad', '=','proyecto.idfacultad')
+        ->leftjoin('colaboradores', 'colaboradores.idproyecto', '=', 'proyecto.idproyecto')
+        ->select(
+            'proyecto.tituloproyecto',
+            'estado_proyecto.nombreestadoproyecto',
+            'area_conocimiento.nombreareaconocimiento',
+            'users.name',
+            'convocatoria.presupuesto',
+            'facultad.nombrefacultad',
+            'colaboradores.nombrecompleto',
+            'colaboradores.sexodescr',
+            DB::raw('SUM(pre_fuente.financiamiento) as total_financiamiento')
+        )
+        ->groupBy(
+            'proyecto.idproyecto',
+            'proyecto.tituloproyecto',
+            'estado_proyecto.nombreestadoproyecto',
+            'area_conocimiento.nombreareaconocimiento',
+            'users.name',
+            'convocatoria.presupuesto',
+            'colaboradores.sexodescr',
+            'colaboradores.nombrecompleto',
+            'facultad.nombrefacultad',
+        );
+
+    // Aplicar filtros si se han enviado
+    if ($request->filled('convocatoria')) {
+        $query->where('convocatoria.idconvocatoria', $request->convocatoria);
+    }
+
+    if ($request->filled('facultad')) {
+        $query->where('facultad.idfacultad', $request->facultad);
+    }
+
+    if ($request->filled('area')) {
+        $query->where('area_conocimiento.idareaconocimiento', $request->area);
+    }
+
+    if ($request->filled('estado')) {
+        $query->where('estado_proyecto.idestadoproyecto', $request->estado);
+    }
+
+    // Ejecutar la consulta y paginar los resultados
+    $proyectos = $query->paginate(10);
+
+    return view('projects.colaboradores', compact('proyectos'));
+    }
+
+
     public function proyectospdf()
     {
         $convocatoria = session('convocatoria', 'todas');
@@ -550,7 +617,61 @@ public function archivadosshow(Request $request)
         return $pdf->download('reporte_proyectos'.time().'.pdf');
     }
 
+    public function colaboradorespdf()
+    {
+        $convocatoria = session('convocatoria', 'todas');
+        $area = session('area', 'todas');
+        $estado = session('estado', 'todas');
+        $facultad = session('facultad', 'todas');
 
+
+        $proyectos = DB::table('proyecto')
+            ->leftJoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
+            ->leftJoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
+            ->leftJoin('users', 'users.email', '=', 'proyecto.usuario')
+            ->leftJoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
+            ->leftJoin('pre_fuente', 'pre_fuente.idproyecto', '=', 'proyecto.idproyecto')
+            ->leftjoin('facultad', 'facultad.idfacultad', '=','proyecto.idfacultad')
+            ->leftjoin('colaboradores', 'colaboradores.idproyecto', '=', 'proyecto.idproyecto')
+            ->select(
+                'proyecto.tituloproyecto',
+                'estado_proyecto.nombreestadoproyecto',
+                'area_conocimiento.nombreareaconocimiento',
+                'users.name',
+                'convocatoria.presupuesto',
+                'colaboradores.sexodescr',
+                'colaboradores.nombrecompleto',
+                'facultad.nombrefacultad',
+                DB::raw('SUM(pre_fuente.financiamiento) as total_financiamiento')
+            )
+            ->when($convocatoria && $convocatoria != 'todas', function ($query) use ($convocatoria) {
+                return $query->where('convocatoria.idconvocatoria', $convocatoria);
+            })
+            ->when($facultad && $facultad != 'todas', function ($query) use ($facultad) {
+                return $query->where('facultad.idfacultad', $facultad);
+            })
+            ->when($area && $area != 'todas', function ($query) use ($area) {
+                return $query->where('area_conocimiento.idareaconocimiento', $area);
+            })
+            ->when($estado && $estado != 'todas', function ($query) use ($estado) {
+                return $query->where('estado_proyecto.idestadoproyecto', $estado);
+            })
+            ->groupBy(
+                'proyecto.idproyecto',
+                'proyecto.tituloproyecto',
+                'estado_proyecto.nombreestadoproyecto',
+                'area_conocimiento.nombreareaconocimiento',
+                'users.name',
+                'convocatoria.presupuesto',
+                'colaboradores.sexodescr',
+                'colaboradores.nombrecompleto', 
+                'facultad.nombrefacultad',
+            )
+            ->get();
+
+        $pdf = Pdf::loadView('projects.pdfcolaboradores', compact('proyectos'));
+        return $pdf->download('reporte_proyectos_colaborador'.time().'.pdf');
+    }
 
     public function graficos(){
 
@@ -634,27 +755,158 @@ public function archivadosshow(Request $request)
     }
 
 
-public function proyectosexcel()
-{
-        $convocatoria = session('convocatoria', 'todas');
-        $area = session('area', 'todas');
-        $estado = session('estado', 'todas');
-        $facultad = session('facultad', 'todas');
+    public function proyectosexcel()
+    {
+            $convocatoria = session('convocatoria', 'todas');
+            $area = session('area', 'todas');
+            $estado = session('estado', 'todas');
+            $facultad = session('facultad', 'todas');
 
 
-        $proyectos = DB::table('proyecto')
+            $proyectos = DB::table('proyecto')
+                ->leftJoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
+                ->leftJoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
+                ->leftJoin('users', 'users.email', '=', 'proyecto.usuario')
+                ->leftJoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
+                ->leftJoin('pre_fuente', 'pre_fuente.idproyecto', '=', 'proyecto.idproyecto')
+                ->leftjoin('facultad', 'facultad.idfacultad', '=','proyecto.idfacultad')
+                ->select(
+                    'proyecto.tituloproyecto',
+                    'estado_proyecto.nombreestadoproyecto',
+                    'area_conocimiento.nombreareaconocimiento',
+                    'users.name',
+                    'convocatoria.presupuesto',
+                    'facultad.nombrefacultad',
+                    DB::raw('SUM(pre_fuente.financiamiento) as total_financiamiento')
+                )
+                ->when($convocatoria && $convocatoria != 'todas', function ($query) use ($convocatoria) {
+                    return $query->where('convocatoria.idconvocatoria', $convocatoria);
+                })
+                ->when($facultad && $facultad != 'todas', function ($query) use ($facultad) {
+                    return $query->where('facultad.idfacultad', $facultad);
+                })
+                ->when($area && $area != 'todas', function ($query) use ($area) {
+                    return $query->where('area_conocimiento.idareaconocimiento', $area);
+                })
+                ->when($estado && $estado != 'todas', function ($query) use ($estado) {
+                    return $query->where('estado_proyecto.idestadoproyecto', $estado);
+                })
+                ->groupBy(
+                    'proyecto.idproyecto',
+                    'proyecto.tituloproyecto',
+                    'estado_proyecto.nombreestadoproyecto',
+                    'area_conocimiento.nombreareaconocimiento',
+                    'users.name',
+                    'convocatoria.presupuesto', 
+                    'facultad.nombrefacultad',
+                )
+                ->get();
+
+        $data = $proyectos->map(function ($item) {
+            return [
+                'Título' => $item->tituloproyecto,
+                'facultad' => $item->nombrefacultad,
+                'Área de conocimiento' => $item->nombreareaconocimiento,
+                'Investigador' => $item->name,
+                'Financiamiento externo' => $item->total_financiamiento,
+                'Financiamiento SIC UES' => $item->presupuesto,
+                'Estado' => $item->nombreestadoproyecto,
+            ];
+        })->toArray();
+
+        $fechaActual = date('Y-m-d');
+        $nombreArchivo = 'proyectos_investigacion_' . $fechaActual . '.xlsx';
+
+        return Excel::download(new class($data, $fechaActual) implements FromArray, WithHeadings, WithStyles, ShouldAutoSize {
+            private $data;
+            private $fecha;
+
+            public function __construct(array $data, $fecha)
+            {
+                $this->data = $data;
+                $this->fecha = $fecha;
+            }
+
+            public function array(): array
+            {
+                return $this->data;
+            }
+
+            public function headings(): array
+            {
+                return [
+                    ['Secretaría de Investigaciones Científicas de la Universidad de El Salvador'],
+                    ['Proyectos de Investigación'],
+                    ['Fecha: ' . $this->fecha],
+                    [], // Fila vacía
+                    ['Título', 'Facultad','Área de conocimiento', 'Investigador', 'Financiamiento externo', 'Financiamiento SIC UES', 'Estado'] // Encabezados de la tabla
+                ];
+            }
+
+            public function styles(Worksheet $sheet)
+            {
+                // Combina las celdas para los títulos
+                $sheet->mergeCells('A1:G1'); // Primera fila
+                $sheet->mergeCells('A2:G2'); // Segunda fila
+                $sheet->mergeCells('A3:G3'); // Tercera fila
+
+                // Establece estilos para los títulos
+                $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(12);
+                $sheet->setCellValue('A1', 'Secretaría de Investigaciones Científicas de la Universidad de El Salvador');
+
+                $sheet->getStyle('A2')->getFont()->setBold(true)->setSize(12);
+                $sheet->setCellValue('A2', 'Proyectos de Investigación');
+
+                $sheet->getStyle('A3')->getFont()->setBold(true);
+                $sheet->setCellValue('A3', 'Fecha: ' . $this->fecha);
+
+                // Fila vacía
+                $sheet->setCellValue('A4', ''); // Fila vacía para separación
+
+                // Estilo para los encabezados de la tabla
+                $sheet->getStyle('A5:G5')->getFont()->setBold(true);
+
+                // Estilo para los bordes
+                $styleArray = [
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => Border::BORDER_THIN,
+                            'color' => ['argb' => 'FF000000'], // Color negro
+                        ],
+                    ],
+                ];
+
+                // Aplicar bordes a todas las celdas de datos
+                $rowCount = count($this->data) + 6; // +5 para incluir las filas de encabezado
+                $sheet->getStyle('A1:G' . $rowCount)->applyFromArray($styleArray);
+            }
+        }, $nombreArchivo);
+    }
+
+    public function colaboradoresexcel()
+    {
+            $convocatoria = session('convocatoria', 'todas');
+            $area = session('area', 'todas');
+            $estado = session('estado', 'todas');
+            $facultad = session('facultad', 'todas');
+
+
+            $proyectos = DB::table('proyecto')
             ->leftJoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
             ->leftJoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
             ->leftJoin('users', 'users.email', '=', 'proyecto.usuario')
             ->leftJoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
             ->leftJoin('pre_fuente', 'pre_fuente.idproyecto', '=', 'proyecto.idproyecto')
             ->leftjoin('facultad', 'facultad.idfacultad', '=','proyecto.idfacultad')
+            ->leftjoin('colaboradores', 'colaboradores.idproyecto', '=', 'proyecto.idproyecto')
             ->select(
                 'proyecto.tituloproyecto',
                 'estado_proyecto.nombreestadoproyecto',
                 'area_conocimiento.nombreareaconocimiento',
                 'users.name',
                 'convocatoria.presupuesto',
+                'colaboradores.sexodescr',
+                'colaboradores.nombrecompleto',
                 'facultad.nombrefacultad',
                 DB::raw('SUM(pre_fuente.financiamiento) as total_financiamiento')
             )
@@ -676,91 +928,93 @@ public function proyectosexcel()
                 'estado_proyecto.nombreestadoproyecto',
                 'area_conocimiento.nombreareaconocimiento',
                 'users.name',
-                'convocatoria.presupuesto', 
+                'convocatoria.presupuesto',
+                'colaboradores.sexodescr',
+                'colaboradores.nombrecompleto', 
                 'facultad.nombrefacultad',
             )
             ->get();
 
-    $data = $proyectos->map(function ($item) {
-        return [
-            'Título' => $item->tituloproyecto,
-            'facultad' => $item->nombrefacultad,
-            'Área de conocimiento' => $item->nombreareaconocimiento,
-            'Investigador' => $item->name,
-            'Financiamiento externo' => $item->total_financiamiento,
-            'Financiamiento SIC UES' => $item->presupuesto,
-            'Estado' => $item->nombreestadoproyecto,
-        ];
-    })->toArray();
-
-    $fechaActual = date('Y-m-d');
-    $nombreArchivo = 'proyectos_investigacion_' . $fechaActual . '.xlsx';
-
-    return Excel::download(new class($data, $fechaActual) implements FromArray, WithHeadings, WithStyles, ShouldAutoSize {
-        private $data;
-        private $fecha;
-
-        public function __construct(array $data, $fecha)
-        {
-            $this->data = $data;
-            $this->fecha = $fecha;
-        }
-
-        public function array(): array
-        {
-            return $this->data;
-        }
-
-        public function headings(): array
-        {
+        $data = $proyectos->map(function ($item) {
             return [
-                ['Secretaría de Investigaciones Científicas de la Universidad de El Salvador'],
-                ['Proyectos de Investigación'],
-                ['Fecha: ' . $this->fecha],
-                [], // Fila vacía
-                ['Título', 'Facultad','Área de conocimiento', 'Investigador', 'Financiamiento externo', 'Financiamiento SIC UES', 'Estado'] // Encabezados de la tabla
+                'Título' => $item->tituloproyecto,
+                'facultad' => $item->nombrefacultad,
+                'Área de conocimiento' => $item->nombreareaconocimiento,
+                'Investigador' => $item->name,
+                'Colaborador' => $item->nombrecompleto,
+                'Sexo' => $item->sexodescr,
+                'Estado' => $item->nombreestadoproyecto,
             ];
-        }
+        })->toArray();
 
-        public function styles(Worksheet $sheet)
-        {
-            // Combina las celdas para los títulos
-            $sheet->mergeCells('A1:G1'); // Primera fila
-            $sheet->mergeCells('A2:G2'); // Segunda fila
-            $sheet->mergeCells('A3:G3'); // Tercera fila
+        $fechaActual = date('Y-m-d');
+        $nombreArchivo = 'proyectos_investigacion_' . $fechaActual . '.xlsx';
 
-            // Establece estilos para los títulos
-            $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(12);
-            $sheet->setCellValue('A1', 'Secretaría de Investigaciones Científicas de la Universidad de El Salvador');
+        return Excel::download(new class($data, $fechaActual) implements FromArray, WithHeadings, WithStyles, ShouldAutoSize {
+            private $data;
+            private $fecha;
 
-            $sheet->getStyle('A2')->getFont()->setBold(true)->setSize(12);
-            $sheet->setCellValue('A2', 'Proyectos de Investigación');
+            public function __construct(array $data, $fecha)
+            {
+                $this->data = $data;
+                $this->fecha = $fecha;
+            }
 
-            $sheet->getStyle('A3')->getFont()->setBold(true);
-            $sheet->setCellValue('A3', 'Fecha: ' . $this->fecha);
+            public function array(): array
+            {
+                return $this->data;
+            }
 
-            // Fila vacía
-            $sheet->setCellValue('A4', ''); // Fila vacía para separación
+            public function headings(): array
+            {
+                return [
+                    ['Secretaría de Investigaciones Científicas de la Universidad de El Salvador'],
+                    ['Proyectos de Investigación'],
+                    ['Fecha: ' . $this->fecha],
+                    [], // Fila vacía
+                    ['Título', 'Facultad','Área de conocimiento', 'Investigador', 'Colaborador', 'Sexo', 'Estado'] // Encabezados de la tabla
+                ];
+            }
 
-            // Estilo para los encabezados de la tabla
-            $sheet->getStyle('A5:G5')->getFont()->setBold(true);
+            public function styles(Worksheet $sheet)
+            {
+                // Combina las celdas para los títulos
+                $sheet->mergeCells('A1:G1'); // Primera fila
+                $sheet->mergeCells('A2:G2'); // Segunda fila
+                $sheet->mergeCells('A3:G3'); // Tercera fila
 
-            // Estilo para los bordes
-            $styleArray = [
-                'borders' => [
-                    'allBorders' => [
-                        'borderStyle' => Border::BORDER_THIN,
-                        'color' => ['argb' => 'FF000000'], // Color negro
+                // Establece estilos para los títulos
+                $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(12);
+                $sheet->setCellValue('A1', 'Secretaría de Investigaciones Científicas de la Universidad de El Salvador');
+
+                $sheet->getStyle('A2')->getFont()->setBold(true)->setSize(12);
+                $sheet->setCellValue('A2', 'Proyectos de Investigación');
+
+                $sheet->getStyle('A3')->getFont()->setBold(true);
+                $sheet->setCellValue('A3', 'Fecha: ' . $this->fecha);
+
+                // Fila vacía
+                $sheet->setCellValue('A4', ''); // Fila vacía para separación
+
+                // Estilo para los encabezados de la tabla
+                $sheet->getStyle('A5:G5')->getFont()->setBold(true);
+
+                // Estilo para los bordes
+                $styleArray = [
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => Border::BORDER_THIN,
+                            'color' => ['argb' => 'FF000000'], // Color negro
+                        ],
                     ],
-                ],
-            ];
+                ];
 
-            // Aplicar bordes a todas las celdas de datos
-            $rowCount = count($this->data) + 6; // +5 para incluir las filas de encabezado
-            $sheet->getStyle('A1:G' . $rowCount)->applyFromArray($styleArray);
-        }
-    }, $nombreArchivo);
-}
+                // Aplicar bordes a todas las celdas de datos
+                $rowCount = count($this->data) + 6; // +5 para incluir las filas de encabezado
+                $sheet->getStyle('A1:G' . $rowCount)->applyFromArray($styleArray);
+            }
+        }, $nombreArchivo);
+    }
 
 
 }

@@ -44,8 +44,13 @@ Route::post('/projects/archivados/nuevo/store', [App\Http\Controllers\ProjectsCo
 Route::get('/projects/archivados/reportes', [App\Http\Controllers\ProjectsController::class, 'reportes'])->name('archivados.reportes');
 Route::get('/projects/archivados/reportes/crear', [App\Http\Controllers\ProjectsController::class, 'proyectosreportes'])->name('archivados.crearreporte');
 
+Route::get('/projects/colaboradores/reportes/crear', [App\Http\Controllers\ProjectsController::class, 'colaboradoresreportes'])->name('colaboradores.crearreporte');
+
 Route::get('/projects/archivados/reportes/pdf', [App\Http\Controllers\ProjectsController::class, 'proyectospdf'])->name('archivados.pdf');
+Route::get('/projects/colaboradores/reportes/pdf', [App\Http\Controllers\ProjectsController::class, 'colaboradorespdf'])->name('colaboradores.pdf');
 Route::get('/projects/archivados/reportes/excel', [App\Http\Controllers\ProjectsController::class, 'proyectosexcel'])->name('archivados.excel');
+Route::get('/projects/colaboradores/reportes/excel', [App\Http\Controllers\ProjectsController::class, 'colaboradoresexcel'])->name('colaboradores.excel');
+
 Route::get('/projects/archivados/graficos', [App\Http\Controllers\ProjectsController::class, 'graficos'])->name('archivados.graficos');
 Route::get('/projects/archivados/graficos/facultad', [App\Http\Controllers\ProjectsController::class, 'graficosfacultad'])->name('archivados.graficosfacultad');
 Route::get('/projects/archivados/graficos/financiamientos', [App\Http\Controllers\ProjectsController::class, 'graficosfinanciamientos'])->name('archivados.graficosfinanciamientos');

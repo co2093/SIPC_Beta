@@ -141,29 +141,54 @@
         <h6 class="m-0 font-weight-bold text-dark">Filtros para reportes de colaboradores</h6>
     </div>
     <div class="card-body">
-        <form method="GET" action="{{ route('archivados.show') }}">
+    <form method="GET" action="{{ route('colaboradores.crearreporte') }}">
             <div class="form-row align-items-center">
-                <div class="col-md-3 mb-3">
-                    <select class="form-control" name="convocatoria">
-                        <option value="">Convocatoria</option>
-                        <!-- Opciones de convocatoria aquí -->
-                    </select>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <select class="form-control" name="area">
-                        <option value="">Área de investigación</option>
-                        <!-- Opciones de área de investigación aquí -->
-                    </select>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <select class="form-control" name="estado">
-                        <option value="">Estado</option>
-                        <!-- Opciones de estado aquí -->
-                    </select>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <button type="submit" class="btn btn-danger w-100">Buscar</button>
-                </div>
+        <div class="col-md-3 mb-3">
+            <select class="form-control" name="convocatoria">
+                <option value="">Todas las convocatorias</option>
+                <!-- Opciones de convocatoria aquí -->
+                @foreach($convocatorias as $c)
+                <option value="{{$c->idconvocatoria}}">{{$c->numeroconvocatoria}}</option>                    
+                @endforeach
+            </select>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <select class="form-control" name="facultad">
+                <option value="">Todas las facultades</option>
+                <!-- Opciones de convocatoria aquí -->
+                @foreach($facultades as $f)
+                <option value="{{$f->idfacultad}}">{{$f->nombrefacultad}}</option>                    
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Filtro de Área de investigación -->
+        <div class="col-md-2 mb-3">
+            <select class="form-control" name="area">
+                <option value="">Todas las áreas</option>
+                <!-- Opciones de área aquí -->
+                @foreach($areas as $a)
+                <option value="{{$a->idareaconocimiento}}">{{$a->nombreareaconocimiento}}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Filtro de Estado -->
+        <div class="col-md-3 mb-3">
+            <select class="form-control" name="estado">
+                <option value="">Todos los estados</option>
+                <!-- Opciones de estado aquí -->
+                @foreach($estados as $e)
+                <option value="{{$e->idestadoproyecto}}">{{$e->nombreestadoproyecto}}</option>
+                @endforeach
+            </select>
+        </div>
+                
+        <!-- Botón de búsqueda -->
+        <div class="col-md-1 mb-3">
+            <button type="submit" class="btn btn-danger">Buscar</button>
+        </div>
             </div>
         </form>
     </div>

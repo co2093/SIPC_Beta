@@ -289,3 +289,6 @@ add idfacultad int;
 
 alter table public.pre_viaje_local
 add idmunicipio int;
+
+alter table public.colaboradores
+add sexodescr varchar(64);
