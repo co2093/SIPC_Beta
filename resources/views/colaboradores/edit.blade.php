@@ -46,14 +46,7 @@
 
 
 
-                      <div class="form-group">
-                        <label for="exampleFormControlSelect1">Ad Honorem</label>
-                        <select class="form-control" name="adhonorem">
-                          <option value="1">Sí</option>
-                          <option value="2">No</option>
-    
-                        </select>
-                      </div>
+                     
 
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Facultad</label>
@@ -71,16 +64,14 @@
 
 
 
-                      <div class="form-group">
+                    <div class="form-group">
                         <label for="exampleFormControlSelect1">Sexo</label>
                         <select class="form-control" name="sexo">
-                        @if($col->sexo == 1)
-                          <option value="1">Masculino</option>
-                          @else
-                          <option value="2">Femenino</option>
-                        @endif    
+                            <option value="Masculino" {{ $col->sexodescr == "Masculino" ? 'selected' : '' }}>Masculino</option>
+                            <option value="Femenino" {{ $col->sexodescr == "Femenino" ? 'selected' : '' }}>Femenino</option>
                         </select>
-                      </div>
+                    </div>
+
                       
 
                       <div class="form-group">

@@ -39,14 +39,7 @@
                     </div>
 
 
-					  <div class="form-group">
-					    <label for="exampleFormControlSelect1">Ad Honorem</label>
-					    <select class="form-control" name="adhonorem">
-					      <option value="1">Sí</option>
-					      <option value="2">No</option>
-	
-					    </select>
-					  </div>
+					 
 
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Facultad/Unidad</label>
@@ -63,8 +56,8 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Sexo</label>
 					    <select class="form-control" name="sexo">
-					      <option value="1">Masculino</option>
-					      <option value="2">Femenino</option>
+					      <option value="Masculino">Masculino</option>
+					      <option value="Femenino">Femenino</option>
 	
 					    </select>
 					  </div>

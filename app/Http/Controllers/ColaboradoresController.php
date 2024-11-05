@@ -32,6 +32,9 @@ class ColaboradoresController extends Controller
     {
 
         $colaboradores = DB::table('colaboradores')
+        ->leftjoin('tipocolaborador', 'tipocolaborador.idtipo', '=', 'colaboradores.idtipocolaborador')
+        ->leftjoin('facultad', 'facultad.idfacultad', '=', 'colaboradores.idfacultad')
+        ->select('colaboradores.*', 'facultad.nombrefacultad', 'tipocolaborador.nombretipocolaborador')
         ->where('idproyecto', '=', $cod)
         ->get();
 
@@ -54,7 +57,7 @@ class ColaboradoresController extends Controller
                 'idproyecto' => $request->input('cod'),
                 'idfacultad' => $request->input('facultad'),
                 'idtipocolaborador' =>$request->input('tipo'),
-                'sexo' =>$request->input('sexo')
+                'sexodescr' =>$request->input('sexo')
             ]);
 
         //flash('Producto agregado al inventario exitosamente', 'success');
@@ -106,7 +109,7 @@ class ColaboradoresController extends Controller
             'adhonorem' => $request->input('adhonorem'),
             'idfacultad' => $request->input('facultad'),
             'idtipocolaborador' => $request->input('tipo'),
-            'sexo' => $request->input('sexo')
+            'sexodescr' => $request->input('sexo')
 
         ]);
 
@@ -120,22 +123,15 @@ class ColaboradoresController extends Controller
 
     public function destroyConfirm($id)
     {
+
         $col = DB::table('colaboradores')
+        ->leftjoin('tipocolaborador', 'tipocolaborador.idtipo', '=', 'colaboradores.idtipocolaborador')
+        ->leftjoin('facultad', 'facultad.idfacultad', '=', 'colaboradores.idfacultad')
+        ->select('colaboradores.*', 'facultad.nombrefacultad', 'tipocolaborador.nombretipocolaborador')
         ->where('idcolaborador', '=', $id)
         ->first();
 
-        $tp = DB::table('tipocolaborador')
-        ->where('idtipo', '=', $col->idtipocolaborador)
-        ->first();
-
-        $facu = DB::table('facultad')
-        ->where('idfacultad', '=', $col->idfacultad)
-        ->first();
-
-
-        
-
-        return view('colaboradores.delete', compact('col', 'facu', 'tp'));
+        return view('colaboradores.delete', compact('col'));
     }
 
 

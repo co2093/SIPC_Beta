@@ -23,32 +23,19 @@
 
                     <div class="card-body">
                     	
-                    	<br>
-                    	<label>Nombre completo: </label>{{$col->nombrecompleto}}
-                
-                    	<br>
-                    	<label>Facultad: </label>{{$facu->nombrefacultad}}
+                    <div class="card mb-3">
+                        <div class="card-body">
 
-                        <br>
-                        <label>Tipo: </label>{{$tp->nombretipocolaborador}}
+                            <p><strong>Nombre completo: </strong>{{$col->nombrecompleto}}</p>
+                            <p><strong>Facultad: </strong> {{$col->nombrefacultad}}                        
+                            </p>
+                            <p><strong>Sexo:</strong> {{$col->sexodescr}}</p>
+                            <p><strong>Tipo:</strong> {{$col->nombretipocolaborador}}</p>
+                        </div>
+                    </div>
 
-                        <br>
-                        <label>Ad Honorem: </label>
-                        @if($col->adhonorem == 1)
-                        Sí
-                        @else
-                        No
-                        @endif
-                        <br>
-                        <label>Sexo: </label>
-                        @if($col->sexo == 1)
-                        Masculino
-                        @else
-                        Femenino
-                        @endif
+                    <hr class="my-4">
 
-                    	
-                    	<br><br><br>
 
                   <form action="{{ route('colaboradores.destroy', $col->idcolaborador) }}" method="POST" style="display:inline">
                     	@csrf

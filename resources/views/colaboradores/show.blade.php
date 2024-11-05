@@ -42,7 +42,8 @@
                                 <tr>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Facultad</th>
-                                         <th scope="col">Tipo</th>
+                                    <th scope="col">Sexo</th>
+                                    <th scope="col">Tipo</th>
                                      <th scope="col" class="fixed-col">Acciones</th>
                                 </tr>
                             </thead>
@@ -51,22 +52,9 @@
                                 @foreach($colaboradores as $c)
                                     <tr>
                                         <td>{{$c->nombrecompleto}}</td>
-                                        <td>
-                                        @foreach($facultades as $f)
-                                            @if($c->idfacultad == $f->idfacultad)
-                                                {{$f->nombrefacultad}}
-                                            @endif
-                                        @endforeach    
-
-                                        </td>
-                                        <td>
-                                        @foreach($tipo as $t)
-                                            @if($c->idtipocolaborador == $t->idtipo)
-                                                {{$t->nombretipocolaborador}}
-                                            @endif
-                                        @endforeach  
-                                        </td>
-
+                                        <td>{{$c->nombrefacultad}}</td>
+                                        <td>{{$c->sexodescr}}</td>
+                                        <td>{{$c->nombretipocolaborador}}</td>
                                         <td class="fixed-col">
                                         <a  class="btn btn-primary btn-sm" href="{{ route('colaboradores.edit', $c->idcolaborador) }}"><i class="fas fa-edit"></i></a>                                        
                                         <a  class="btn btn-danger btn-sm" href="{{ route('colaboradores.confirm', $c->idcolaborador) }}"><i class="fas fa-trash-alt"></i></a>
