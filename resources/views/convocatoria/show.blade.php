@@ -6,6 +6,11 @@
             {{ session('success') }}
         </div>
 @endif
+@if (session('error'))
+        <div style="color: red; margin-bottom: 20px;">
+            {{ session('error') }}
+        </div>
+@endif
 
 
 
@@ -40,11 +45,12 @@
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th scope="col">Número</th>
+                                    <th scope="col">Código</th>
                                     <th scope="col">Año</th>
                                     <th scope="col">Fecha Inicio</th>
                                     <th scope="col">Fecha Fin</th>
-                                     <th scope="col">Presupuesto</th>
+                                    <th scope="col">Estado</th>
+                                     <th scope="col">Presupuesto (USD)</th>
                                      <th scope="col" class="fixed-col">Opciones</th>
                                 </tr>
                             </thead>
@@ -56,13 +62,12 @@
                                         <td>{{$c->anoconvocatoria}}</td>
                                         <td>{{$c->fechainicio}}</td>
                                         <td>{{$c->fechafin}}</td>
-                                        <td>$ {{$c->presupuesto}}</td>
+                                        <td>{{$c->estadodescr}}</td>
+                                        <td class="monto">{{$c->presupuesto}}</td>
 
                                         <td class="fixed-col">
-                                        <a  class="btn btn-info btn-sm" href="#"><i class="fas fa-eye"></i></a>  
-                                        <a  class="btn btn-primary btn-sm" href="#"><i class="fas fa-edit"></i></a>                                        
-                                        <a  class="btn btn-danger btn-sm" 
-                                        href="#"><i class="fas fa-trash"></i></a>
+                                        <a  class="btn btn-primary btn-sm" href="{{ route('convocatoria.edit', $c->idconvocatoria) }}"><i class="fas fa-edit"></i></a>                                        
+                                
 
 
                                         </td>

@@ -41,16 +41,28 @@
                     </div>
 
                   <div class="form-group">
-                        <label for="exampleFormControlInput1">Presupuesto aprobado</label>
+                        <label for="exampleFormControlInput1">Presupuesto aprobado (USD)</label>
                         <input type="number" class="form-control" name="presupuesto" required>
                     </div>
 
-
+                
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Estado</label>
+                        <select class="form-control" name="estado" required>
+                            <option value="" disabled selected>Seleccione una opción</option>
+                                <option value="Activa">Activa</option>
+                                <option value="Inactiva">Inactiva</option>
+                          </select>
+                      </div>
                       <div class="form-group">
                         <label for="exampleFormControlTextarea1">Observación</label>
                         <textarea class="form-control" name="observacion" rows="3"></textarea>
                       </div>
-
+                    <hr class="my-4">
+                        <div class="alert alert-light" role="alert">
+                            <strong>Nota:</strong> Solo puede existir una convocatoria activa.
+                        </div>
+                        <hr class="my-4">
 
 
 

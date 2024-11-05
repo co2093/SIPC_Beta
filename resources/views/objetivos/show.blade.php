@@ -6,6 +6,11 @@
             {{ session('success') }}
         </div>
 @endif
+@if (session('error'))
+        <div style="color: red; margin-bottom: 20px;">
+            {{ session('error') }}
+        </div>
+@endif
 
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">

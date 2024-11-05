@@ -184,6 +184,8 @@ Route::get('/publicaciones/finalizar/{cod}',[App\Http\Controllers\PublicacionesC
 Route::get('/convocatoria', [App\Http\Controllers\ConvocatoriaController::class, 'index'])->name('convocatoria.crear');
 Route::get('/convocatoria/show', [App\Http\Controllers\ConvocatoriaController::class, 'show'])->name('convocatoria.show');
 Route::post('/convocatoria/nuevo/store', [App\Http\Controllers\ConvocatoriaController::class, 'store'])->name('convocatoria.store');
+Route::get('/convocatoria/edit/{cod}',[App\Http\Controllers\ConvocatoriaController::class, 'edit'])->name('convocatoria.edit');
+Route::post('/convocatoria/update', [App\Http\Controllers\ConvocatoriaController::class, 'update'])->name('convocatoria.update');
 
 
 

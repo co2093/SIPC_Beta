@@ -292,3 +292,6 @@ add idmunicipio int;
 
 alter table public.colaboradores
 add sexodescr varchar(64);
+
+alter table public.convocatoria
+add estadodescr varchar(64);

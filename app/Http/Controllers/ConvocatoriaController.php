@@ -28,7 +28,7 @@ class ConvocatoriaController extends Controller
     public function show()
     {
         $convocatorias = DB::table('convocatoria')
-        ->where('estado', '=', 1)
+        ->orderby('estado')
         ->get();
 
         //dd($convocatorias);
@@ -40,34 +40,164 @@ class ConvocatoriaController extends Controller
         $time = $request->input('fechainicio');
         $date = new Carbon( $time );  
 
+        $activa = "Activa";
+        $estado = $request->input('estado');
+
+        $convocatoria = DB::table('convocatoria')
+        ->where('estadodescr', '=', $activa)
+        ->first();
+
+        if ($estado == "Inactiva") {
+            // code...
 
         DB::table('convocatoria')->insert([
 
-          //  'idconvocatoria' => $request->input('codigo'),
             'fechainicio' => $request->input('fechainicio'),
             'fechafin' => $request->input('fechafin'),
             'presupuesto' => $request->input('presupuesto'),
             'observacion' => $request->input('observacion'),
             'numeroconvocatoria' => $request->input('codigo'),
             'anoconvocatoria' => $date->year,
-            'estado' => 1
-
+            'estadodescr' => $request->input('estado')
 
         ]);
 
-    //flash('Producto agregado al inventario exitosamente', 'success');
-    session()->flash('success', 'Se ha iniciado una nueva convocatoria: '.$request->input('codigo'));
+        //flash('Producto agregado al inventario exitosamente', 'success');
+        session()->flash('success', 'Se ha iniciado una nueva convocatoria: '.$request->input('codigo'));
 
-    return redirect()->route('convocatoria.show');
+        return redirect()->route('convocatoria.show');
+
+        } else {
+            // code...
+            if ($convocatoria) {
+                // code...
+            session()->flash('error', 'La siguiente convocatoria está activa: '.$convocatoria->numeroconvocatoria.'. Debe deshabilitarla primero.');
+            return redirect()->route('convocatoria.show');
+
+            } else {
+                // code...
+            DB::table('convocatoria')->insert([
+
+            'fechainicio' => $request->input('fechainicio'),
+            'fechafin' => $request->input('fechafin'),
+            'presupuesto' => $request->input('presupuesto'),
+            'observacion' => $request->input('observacion'),
+            'numeroconvocatoria' => $request->input('codigo'),
+            'anoconvocatoria' => $date->year,
+            'estadodescr' => $request->input('estado')
+
+            ]);
+
+        session()->flash('success', 'Se ha iniciado una nueva convocatoria: '.$request->input('codigo'));
+
+        return redirect()->route('convocatoria.show');
+
+            }
+            
+
+
+        }
+        
+
+
+
 
     } 
+
+    public function edit($id)
+    {
+
+ 
+       
+        $convocatoria = DB::table('convocatoria')
+        ->where('idconvocatoria', '=', $id)
+        ->first();
+
+
+        return view('convocatoria.edit', compact('convocatoria'));
+    }
+
+
+
+     public function update(Request $request)
+    {
+        $id = $request->input('idconvocatoria');
+
+        $time = $request->input('fechainicio');
+        $date = new Carbon( $time );  
+
+        $activa = "Activa";
+        $estado = $request->input('estado');
+
+        $convocatoriaactiva = DB::table('convocatoria')
+        ->where('estadodescr', '=', $activa)
+        ->first();
+
+
+         $convocatoria = DB::table('convocatoria')
+        ->where('idconvocatoria', '=', $id)
+        ->first();
+
+        $estadoactual = $convocatoria->estadodescr;
+
+        if($estadoactual!=$estado){
+
+            if ($estado != $activa) {
+                // code...
+            DB::table('convocatoria')
+            ->where('idconvocatoria', $request->input('idconvocatoria'))
+            ->update([
+               'fechainicio' => $request->input('fechainicio'),
+                'fechafin' => $request->input('fechafin'),
+                'presupuesto' => $request->input('presupuesto'),
+                'observacion' => $request->input('observacion'),
+                'numeroconvocatoria' => $request->input('codigo'),
+                'anoconvocatoria' => $date->year,
+                'estadodescr' => $request->input('estado')
+            ]);
+
+            session()->flash('success', 'Convocatoria actualizada exitosamente.');
+            return redirect()->route('convocatoria.show');
+
+
+            } else {
+                // code...
+            session()->flash('error', 'La siguiente convocatoria está activa: '.$convocatoria->numeroconvocatoria.'. Debe deshabilitarla primero.');
+            return redirect()->route('convocatoria.show');
+
+            }
+            
+
+        }else{
+
+        DB::table('convocatoria')
+        ->where('idconvocatoria', $request->input('idconvocatoria'))
+        ->update([
+           'fechainicio' => $request->input('fechainicio'),
+            'fechafin' => $request->input('fechafin'),
+            'presupuesto' => $request->input('presupuesto'),
+            'observacion' => $request->input('observacion'),
+            'numeroconvocatoria' => $request->input('codigo'),
+            'anoconvocatoria' => $date->year,
+            'estadodescr' => $request->input('estado')
+        ]);
+
+        session()->flash('success', 'Convocatoria actualizada exitosamente.');
+        return redirect()->route('convocatoria.show');
+
+        }
+
+
+    }
+
 
     public function enviar()
     {
         $convocatorias = DB::table('convocatoria')->get();
 
         return view('convocatoria.notificar', compact('convocatorias'));
-    }  
+    } 
+
 
 
     public function notificacion(Request $request){
