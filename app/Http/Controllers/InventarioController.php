@@ -25,7 +25,10 @@ class InventarioController extends Controller
         $facultades = DB::table('facultad')->get();
         $estados = DB::table('condicion_inventario')->get();
 
-        return view('inventario.index', compact('facultades', 'estados'));
+        $proyectos = DB::table('proyecto')
+        ->where('id', '!=', null)->select('id')->get();
+
+        return view('inventario.index', compact('facultades', 'estados', 'proyectos'));
     }
 
 
@@ -70,7 +73,8 @@ class InventarioController extends Controller
             'especificacion' => $request->input('especificaciones'),
             'serie' => $request->input('serie'),
             'valor' => $request->input('costo'),
-            'facultad' => $request->input('facultad')
+            'facultad' => $request->input('facultad'), 
+            'idproyecto' => $request->input('idproyecto')
 
         ]);
 
@@ -89,7 +93,8 @@ class InventarioController extends Controller
     public function edit($codinventario)
     {
 
-
+        $proyectos = DB::table('proyecto')
+        ->where('id', '!=', null)->select('id')->get();
         $facultades = DB::table('facultad')->orderby('nombrefacultad')->get();
         $estados = DB::table('condicion_inventario')->orderby('condicion')->get();
 
@@ -102,7 +107,7 @@ class InventarioController extends Controller
 
     
         
-        return view('inventario.edit', compact('inv', 'facultades','estados', 'codinventario'));
+        return view('inventario.edit', compact('inv', 'facultades','estados', 'codinventario', 'proyectos'));
     }
 
     public function update(Request $request)
@@ -121,13 +126,14 @@ class InventarioController extends Controller
             'especificacion' => $request->input('especificaciones'),
             'serie' => $request->input('serie'),
             'valor' => $request->input('costo'),
-            'facultad' => $request->input('facultad')            
+            'facultad' => $request->input('facultad'), 
+            'idproyecto' => $request->input('idproyecto')            
         ]);
 
 
                 
 
-        session()->flash('success', 'Producto actualizado exitosamente');
+        session()->flash('success', 'Producto actualizado exitosamente.');
         return redirect()->route('inventario.show');
 
     }
@@ -206,6 +212,7 @@ class InventarioController extends Controller
         $data = $inventario->map(function ($item) {
             return [
                 'Serie' => $item->serie,
+                'Proyecto' => $item->idproyecto,
                 'Nombre' => $item->descripcionbien,
                 'Facultad' => $item->facultad,
                 'Condición' => $item->condicion, 
@@ -241,16 +248,16 @@ class InventarioController extends Controller
                     ['Inventario actual'],
                     ['Fecha: ' . $this->fecha],
                     [], // Fila vacía
-                    ['Serie', 'Nombre', 'Facultad', 'Condición', 'Cantidad', 'Costo unitario', 'Total'] // Encabezados de la tabla
+                    ['Serie', 'Proyecto','Nombre', 'Facultad', 'Condición', 'Cantidad', 'Costo unitario', 'Total'] // Encabezados de la tabla
                 ];
             }
 
             public function styles(Worksheet $sheet)
             {
                                 // Combina las celdas para los títulos
-                $sheet->mergeCells('A1:G1'); // Primera fila
-                $sheet->mergeCells('A2:G2'); // Segunda fila
-                $sheet->mergeCells('A3:G3'); // Tercera fila
+                $sheet->mergeCells('A1:H1'); // Primera fila
+                $sheet->mergeCells('A2:H2'); // Segunda fila
+                $sheet->mergeCells('A3:H3'); // Tercera fila
 
                 // Establecer estilos para los títulos
                 $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(12);
@@ -268,7 +275,7 @@ class InventarioController extends Controller
 
                
                 // Estilo para los encabezados de la tabla
-                $sheet->getStyle('A5:G5')->getFont()->setBold(true);
+                $sheet->getStyle('A5:H5')->getFont()->setBold(true);
 
                 // Estilo para los bordes
                 $styleArray = [
@@ -281,8 +288,8 @@ class InventarioController extends Controller
                 ];
 
                 // Aplicar bordes a todas las celdas de datos
-                $rowCount = count($this->data) + 5; // +5 para incluir las filas de encabezado
-                $sheet->getStyle('A1:G' . $rowCount)->applyFromArray($styleArray);
+                $rowCount = count($this->data) + 6; // +5 para incluir las filas de encabezado
+                $sheet->getStyle('A1:H' . $rowCount)->applyFromArray($styleArray);
             }
         }, $nombreArchivo);
     }

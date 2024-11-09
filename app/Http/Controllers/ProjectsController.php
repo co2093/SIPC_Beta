@@ -297,11 +297,18 @@ class ProjectsController extends Controller
 
         $cod = $request->input('cod');
 
+        $p = DB::table('proyecto')
+        ->where('idproyecto', $request->input('cod'))
+        ->first();
+
+        $id = $p->idconvocatoria.'.'.$p->idproyecto;
+
         DB::table('proyecto')
         ->where('idproyecto', $request->input('cod'))
         ->update([
             'documentodefinicion' => $attachment,
-            'idestadoproyecto' => 4      
+            'idestadoproyecto' => 4,
+            'id' => $p->id     
         ]);
 
         session()->flash('success', 'Proyecto enviado a revisión exitosamente.');

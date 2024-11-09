@@ -23,7 +23,8 @@
                     	           <div class="card mb-3">
                         <div class="card-body">
                     	
-        	            <p><strong>Serie: </strong>{{$inv->serie}}</p>                
+        	            <p><strong>Serie: </strong>{{$inv->serie}}</p>   
+        	            <p><strong>Proyecto: </strong>{{$inv->idproyecto}}</p>             
                     	<p><strong>Nombre del bien: </strong>{{$inv->descripcionbien}}</p>
                     	<p><strong>Facultad: </strong>{{$inv->facultad}}</p>
                     	<p><strong>Ubicación actual: </strong>{{$inv->ubicacion}}</p>

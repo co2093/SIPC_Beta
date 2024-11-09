@@ -35,6 +35,7 @@
         <thead>
             <tr>
                 <th scope="col">Serie</th>
+                <th scope="col">Proyecto</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Facultad</th>
                 <th scope="col">Condición</th>
@@ -47,6 +48,7 @@
            @foreach($inventario as $i)
                 <tr>
                     <td>{{ $i->serie }}</td>
+                    <td>{{ $i->idproyecto }}</td>
                     <td>{{ $i->descripcionbien }}</td>
                     <td>{{ $i->facultad }}</td>
                     <td>{{ $i->condicion }}</td>

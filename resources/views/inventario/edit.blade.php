@@ -33,14 +33,47 @@
 					  </div>
            </div>
 
+
+            <div class="col-md-6">
+											    <label for="exampleFormControlSelect1">Proyecto de investigación</label>
+					    <select class="form-control" name="idproyecto" required>
+							<option value="{{$inv->idproyecto}}">{{$inv->idproyecto}}</option>
+
+						@foreach($proyectos as $i)
+							<option value="{{$i->id}}">{{$i->id}}</option>
+						@endforeach
+					    </select>
+					  </div>
+
+				</div>
+
+
+
+		      <div class="row">
+		  
             <div class="col-md-6">
 						<div class="form-group">
 							    <label for="exampleFormControlInput1">Nombre del bien</label>
 							    <input type="text" class="form-control" value="{{$inv->descripcionbien}}" name="nombre" placeholder="" required>
 						</div>
 					</div>
+
+					            <div class="col-md-6">
+									<div class="form-group">
+					    <label for="exampleFormControlSelect1">Estado</label>
+					    <select class="form-control" name="estado" required>
+							<option value="{{$inv->idcondicioninventario}}">{{$inv->condicion}}</option>
+
+						@foreach($estados as $j)
+						@if($j->idcondicioninventario != $inv->idcondicioninventario)
+							<option value="{{$j->idcondicioninventario}}">{{$j->condicion}}</option>
+							@endif
+						@endforeach
+					    </select>
+					  </div>
 				</div>
 
+			</div>		
 
 
           <div class="row">
@@ -69,7 +102,7 @@
          </div>
 
           <div class="row">
-           <div class="col-md-4">
+           <div class="col-md-6">
   					<div class="form-group">
 					    <label for="exampleFormControlInput1">Cantidad</label>
 					    <input type="number" class="form-control" name="cantidad" placeholder="" min="1"  value="{{$inv->cantidad}}"                   
@@ -77,7 +110,7 @@
 					  </div>
 				</div>
 					  
-            <div class="col-md-4">
+            <div class="col-md-6">
 					  <div class="form-group">
 					    <label for="exampleFormControlInput1">Costo unitario</label>
 					    <input type="number" class="form-control" name="costo" placeholder="" min="0" step="0.1" value="{{$inv->valor}}" 
@@ -87,20 +120,7 @@
 					  </div>
 
 				</div>
-            <div class="col-md-4">
-									<div class="form-group">
-					    <label for="exampleFormControlSelect1">Estado</label>
-					    <select class="form-control" name="estado" required>
-							<option value="{{$inv->idcondicioninventario}}">{{$inv->condicion}}</option>
 
-						@foreach($estados as $j)
-						@if($j->idcondicioninventario != $inv->idcondicioninventario)
-							<option value="{{$j->idcondicioninventario}}">{{$j->condicion}}</option>
-							@endif
-						@endforeach
-					    </select>
-					  </div>
-				</div>
 				</div>
 
 
