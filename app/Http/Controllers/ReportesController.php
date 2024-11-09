@@ -21,7 +21,8 @@ class ReportesController extends Controller
          $proyecto = DB::table('proyecto')
         ->leftjoin('tipo_proyecto', 'tipo_proyecto.idtipoproyecto', '=', 'proyecto.idtipoproyecto')
         ->leftjoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
-        ->select('proyecto.*', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento')
+        ->leftjoin('facultad', 'facultad.idfacultad', '=','proyecto.idfacultad')
+        ->select('proyecto.*', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento', 'facultad.nombrefacultad')
         ->where('proyecto.idproyecto', '=', $cod)
         ->first();
 
@@ -139,19 +140,19 @@ class ReportesController extends Controller
         $textRun = $section->addTextRun();
         
         $textRun->addText('TÍTULO DEL PROYECTO: ');
-        $textRun->addText($proyecto->tituloproyecto); 
+        $textRun->addText($proyecto->tituloproyecto ?? ''); 
         
         $section->addTextBreak(1);
         $textRun = $section->addTextRun();
 
         $textRun->addText('ÁREA DEL CONOCIMIENTO: ');
-        $textRun->addText($proyecto->nombreareaconocimiento); 
+        $textRun->addText($proyecto->nombreareaconocimiento ?? ''); 
         
         $section->addTextBreak(1);
         $textRun = $section->addTextRun();
         
         $textRun->addText('INVESTIGADOR PRINCIPAL: ');
-        $textRun->addText($usuario->name); 
+        $textRun->addText($usuario->name ?? ''); 
        
         $section->addTextBreak(1);
         $section->addText('TELÉFONO: ');
@@ -159,13 +160,18 @@ class ReportesController extends Controller
         $textRun = $section->addTextRun();
         
         $textRun->addText('EMAIL: ');
-        $textRun->addText($usuario->email); 
+        $textRun->addText($usuario->email ?? ''); 
        
 
         $section->addTextBreak(1);
         $section->addText('DIRECCIÓN: ');
         $section->addTextBreak(1);
-        $section->addText('FACULTAD: ');
+
+        $textRun = $section->addTextRun();
+        $textRun->addText('FACULTAD: ');
+        $textRun->addText($proyecto->nombrefacultad ?? ''); 
+
+
 //        $section->addTextBreak(1);
 //        $section->addText('INVESTIGADORES ASOCIADOS: ');
         $section->addTextBreak(1);
@@ -173,9 +179,8 @@ class ReportesController extends Controller
         $section->addTextBreak(1);
         
         $textRun = $section->addTextRun();
-        $textRun->addText('TIEMPO DE EJECUCIÓN: ');
-        $textRun->addText($proyecto->tiempo); 
-        $textRun->addText(' horas ');
+        $textRun->addText('TIEMPO DE EJECUCIÓN (HORAS): ');
+        $textRun->addText($proyecto->tiempo ?? ''); 
 
 
         $section->addTextBreak(1);
@@ -220,7 +225,7 @@ class ReportesController extends Controller
         $section->addTextBreak(1);
 
         $textRun = $section->addTextRun();
-        $textRun->addText($obj->descripcion); 
+        $textRun->addText($obj->descripcion  ?? ''); 
 
 
 
@@ -230,9 +235,16 @@ class ReportesController extends Controller
         //$section = $phpWord->addSection();
 
         foreach ($objetivos as $o) {
-            $section->addTextBreak(1);
-            $section->addListItem($o->descripcion); // Cada texto se añade en una nueva línea
+            $section->addTextBreak(1); // Añade un salto de línea antes de cada elemento
+            
+            // Verifica si la descripción no es nula o vacía
+            if (!empty($o->descripcion)) {
+                $section->addListItem($o->descripcion); // Añade el texto de la descripción
+            } else {
+                $section->addText(' '); // Añade un espacio en blanco o un texto predeterminado
+            }
         }
+
 
 
         $section->addPageBreak();
@@ -310,13 +322,16 @@ class ReportesController extends Controller
 
         //dd($act);
 
-        foreach ($act as $a) {
-            $table->addRow();
-            $table->addCell(2900)->addText($a->nombreactividad);
-            $table->addCell(2900)->addText($a->nombretipoactividad);
-            $table->addCell(1700)->addText($a->fechainicioactividad);
-            $table->addCell(1700)->addText($a->fechafinactividad);
+        if (!empty($act)) { // Verifica que $act no sea nulo ni vacío
+            foreach ($act as $a) {
+                $table->addRow();
+                $table->addCell(2900)->addText($a->nombreactividad);
+                $table->addCell(2900)->addText($a->nombretipoactividad);
+                $table->addCell(1700)->addText($a->fechainicioactividad);
+                $table->addCell(1700)->addText($a->fechafinactividad);
+            }
         }
+
 
 
 
@@ -341,21 +356,23 @@ class ReportesController extends Controller
         
 
 
-        foreach ($recursos as $r) {
-            $table->addRow();
-            $table->addCell(2300)->addText($r->nombrerecurso);
-            $table->addCell(2900)->addText($r->especificacionestecnicas);
-            $table->addCell(1000)->addText($r->cantidadrecurso);
-            $table->addCell(2000)->addText($r->preciorecurso);
-            $table->addCell(1000)->addText($r->subtotalrecurso);
+        if (!empty($recursos)) { // Verifica que $recursos no sea nulo ni vacío
+            foreach ($recursos as $r) {
+                $table->addRow();
+                $table->addCell(2300)->addText($r->nombrerecurso);
+                $table->addCell(2900)->addText($r->especificacionestecnicas);
+                $table->addCell(1000)->addText($r->cantidadrecurso);
+                $table->addCell(2000)->addText($r->preciorecurso);
+                $table->addCell(1000)->addText($r->subtotalrecurso);
+            }
         }
+
 
         //dd($totalRecursos);
        
         $table->addRow();
         $table->addCell(8200)->addText('Total (USD)', ['bold' => true]);
-        $table->addCell(1000)->addText($totalRecursos);
-
+        $table->addCell(1000)->addText($totalRecursos ?? ''); 
 
         //$section->addTextBreak(2);
         //$section->addTitle('8.2. Materiales y suministros', 2);
@@ -379,20 +396,22 @@ class ReportesController extends Controller
         $table->addCell(1000)->addText('Salario total (USD)', ['bold' => true]);
 
 
-        foreach ($personal as $p) {
-            $table->addRow();
-            $table->addCell(2300)->addText($p->nombretipocontratacion);
-            $table->addCell(2900)->addText($p->nombreactividad);
-            $table->addCell(1000)->addText($p->dias);
-            $table->addCell(2000)->addText($p->pago);
-            $table->addCell(1000)->addText($p->total);
+        if (!empty($personal)) { // Verifica que $personal no sea nulo ni vacío
+            foreach ($personal as $p) {
+                $table->addRow();
+                $table->addCell(2300)->addText($p->nombretipocontratacion);
+                $table->addCell(2900)->addText($p->nombreactividad);
+                $table->addCell(1000)->addText($p->dias);
+                $table->addCell(2000)->addText($p->pago);
+                $table->addCell(1000)->addText($p->total);
+            }
         }
+
 
        
         $table->addRow();
         $table->addCell(8200)->addText('Total (USD)', ['bold' => true]);
-        $table->addCell(1000)->addText($totalPersonal);
-
+        $table->addCell(1000)->addText($totalPersonal ?? ''); 
 
 
         $section->addTextBreak(2);
@@ -413,19 +432,22 @@ class ReportesController extends Controller
         $table->addCell(1000)->addText('Total (USD)', ['bold' => true]);
 
 
-        foreach ($viajes as $v) {
-            $table->addRow();
-            $table->addCell(2400)->addText($v->departamento);
-            $table->addCell(2400)->addText($v->destinoviaje);
-            $table->addCell(2400)->addText($v->nombreactividad);
-            $table->addCell(1000)->addText($v->cantidaddias);
-            $table->addCell(1000)->addText($v->totalplanviaje);
+        if (!empty($viajes)) { // Verifica que $viajes no sea nulo ni vacío
+            foreach ($viajes as $v) {
+                $table->addRow();
+                $table->addCell(2400)->addText($v->departamento);
+                $table->addCell(2400)->addText($v->destinoviaje);
+                $table->addCell(2400)->addText($v->nombreactividad);
+                $table->addCell(1000)->addText($v->cantidaddias);
+                $table->addCell(1000)->addText($v->totalplanviaje);
+            }
         }
+
 
        
         $table->addRow();
         $table->addCell(8200)->addText('Total (USD)', ['bold' => true]);
-        $table->addCell(1000)->addText($totalViajes);
+        $table->addCell(1000)->addText($totalViajes ?? '');
 
 
         $section->addTextBreak(2);
@@ -450,18 +472,18 @@ class ReportesController extends Controller
 
 
             $table->addRow();
-            $table->addCell(2400)->addText($viajext->nombrepais);
-            $table->addCell(2400)->addText($viajext->destinoviaje);
-            $table->addCell(2400)->addText($viajext->nombreactividad);
-            $table->addCell(1000)->addText($viajext->costoboleto);
-            $table->addCell(1000)->addText($viajext->inscripcionevento);
-            $table->addCell(1000)->addText($viajext->numerodias);
+            $table->addCell(2400)->addText($viajext->nombrepais ?? '');
+            $table->addCell(2400)->addText($viajext->destinoviaje ?? '');
+            $table->addCell(2400)->addText($viajext->nombreactividad ?? '');
+            $table->addCell(1000)->addText($viajext->costoboleto ?? '');
+            $table->addCell(1000)->addText($viajext->inscripcionevento ?? '');
+            $table->addCell(1000)->addText($viajext->numerodias ?? '');;
         
 
 
         $table->addRow();
         $table->addCell(8200)->addText('Total (USD)', ['bold' => true]);
-        $table->addCell(1000)->addText($totalViajext);
+        $table->addCell(1000)->addText($totalViajext ?? '');
 
 
 
@@ -484,17 +506,19 @@ class ReportesController extends Controller
         $table->addCell(1500)->addText('Costo (USD)', ['bold' => true]);
 
 
-        foreach ($publicaciones as $pu) {
-            $table->addRow();
-            $table->addCell(2300)->addText($pu->nombretipopublicacion);
-            $table->addCell(5200)->addText($pu->detallepublicacion);
-            $table->addCell(1500)->addText($pu->montopublicacion);
-
+        if (!empty($publicaciones)) { // Verifica que $publicaciones no sea nulo ni vacío
+            foreach ($publicaciones as $pu) {
+                $table->addRow();
+                $table->addCell(2300)->addText($pu->nombretipopublicacion);
+                $table->addCell(5200)->addText($pu->detallepublicacion);
+                $table->addCell(1500)->addText($pu->montopublicacion);
+            }
         }
+
 
         $table->addRow();
         $table->addCell(7500)->addText('Total (USD)', ['bold' => true]);
-        $table->addCell(1500)->addText($totalPublicacion);
+        $table->addCell(1500)->addText($totalPublicacion ?? '');
 
 
 
@@ -517,22 +541,22 @@ class ReportesController extends Controller
 
         $table->addRow();
         $table->addCell(7000)->addText('Recursos');
-        $table->addCell(2500)->addText($totalRecursos);
+        $table->addCell(2500)->addText($totalRecursos ?? '');
         $table->addRow();
         $table->addCell(7000)->addText('Contrataciones');
-        $table->addCell(2500)->addText($totalPersonal);
+        $table->addCell(2500)->addText($totalPersonal ?? '');
 
         $table->addRow();
         $table->addCell(7000)->addText('Viáticos nacionales');
-        $table->addCell(2500)->addText($totalViajes);
+        $table->addCell(2500)->addText($totalViajes ?? '');
 
         $table->addRow();
         $table->addCell(7000)->addText('Viáticos internacionales');
-        $table->addCell(2500)->addText($totalViajext);
+        $table->addCell(2500)->addText($totalViajext ?? '');
 
         $table->addRow();
         $table->addCell(7000)->addText('Publicaciones');
-        $table->addCell(2500)->addText($totalPublicacion);
+        $table->addCell(2500)->addText($totalPublicacion ?? '');
        
         $totalPr = $totalRecursos+$totalViajes+$totalPersonal+$totalPublicacion;
 

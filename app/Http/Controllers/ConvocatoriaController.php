@@ -193,7 +193,11 @@ class ConvocatoriaController extends Controller
 
     public function enviar()
     {
-        $convocatorias = DB::table('convocatoria')->get();
+       $activa = "Activa";
+
+        $convocatorias = DB::table('convocatoria')
+        ->where('estadodescr', '=', $activa)
+        ->get();
 
         return view('convocatoria.notificar', compact('convocatorias'));
     } 
