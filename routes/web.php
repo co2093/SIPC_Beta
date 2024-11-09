@@ -186,7 +186,8 @@ Route::get('/convocatoria/show', [App\Http\Controllers\ConvocatoriaController::c
 Route::post('/convocatoria/nuevo/store', [App\Http\Controllers\ConvocatoriaController::class, 'store'])->name('convocatoria.store');
 Route::get('/convocatoria/edit/{cod}',[App\Http\Controllers\ConvocatoriaController::class, 'edit'])->name('convocatoria.edit');
 Route::post('/convocatoria/update', [App\Http\Controllers\ConvocatoriaController::class, 'update'])->name('convocatoria.update');
-
+Route::get('/convocatoria/confirm/{id}',[App\Http\Controllers\ConvocatoriaController::class, 'destroyConfirm'])->name('convocatoria.delete');
+Route::delete('/convocatoria/delete/{cod}',[App\Http\Controllers\ConvocatoriaController::class, 'destroy'])->name('convocatoria.destroy');
 
 
 //Colaboradores

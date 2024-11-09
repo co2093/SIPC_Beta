@@ -234,5 +234,52 @@ class ConvocatoriaController extends Controller
         return back()->with('success', 'Se ha enviado la notificación a todos los usuarios exitosamente.');
 
 
-    } 
+    }
+
+      public function destroyConfirm($id)
+    {
+
+        $convocatoria = DB::table('convocatoria')
+        ->where('idconvocatoria', '=', $id)
+        ->first();
+        
+
+        return view('convocatoria.delete', compact('convocatoria'));
+    }
+
+
+    public function destroy($cod)
+    {
+
+        $convocatoria = DB::table('convocatoria')
+        ->where('idconvocatoria', '=', $cod)
+        ->first();
+
+
+        $proyectos = DB::table('proyecto')
+        ->leftJoin('convocatoria', 'convocatoria.idconvocatoria', '=', 'proyecto.idconvocatoria')
+        ->where('convocatoria.idconvocatoria', '=', $cod)
+        ->first();
+
+        if ($proyectos) {
+            // code...
+            session()->flash('error', 'No se puede eliminar la convocatoria debido a que está en uso.');
+            return redirect()->to('/convocatoria/show/');
+
+        } else {
+        //dd($codinventario);
+         $con = DB::table('convocatoria')
+        ->where('idconvocatoria', '=', $cod)
+        ->delete();
+
+        session()->flash('success', 'Convocatoria eliminada exitosamente.');
+        return redirect()->to('/convocatoria/show/');
+
+        }
+        
+
+        
+      
+    }
+ 
 }
