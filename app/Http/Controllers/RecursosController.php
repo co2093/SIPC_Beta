@@ -37,11 +37,13 @@ class RecursosController extends Controller
         ->where('idproyecto', '=', $cod)
         ->first();
 
- 
+         $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
         //dd($f);
 
-        return view('recursos.index', compact('cod', 'actividades', 'unidades', 'tipo', 'fuentes', 'p'));
+        return view('recursos.index', compact('cod', 'actividades', 'unidades', 'tipo', 'fuentes', 'p', 'proyectos'));
     }
 
 
@@ -58,8 +60,11 @@ class RecursosController extends Controller
 
         $total = DB::select("select sum(subtotalrecurso) from pre_recurso where idproyecto = '$cod'");
 
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
-        return view('recursos.show', compact('cod', 'recursos', 'total'));
+        return view('recursos.show', compact('cod', 'recursos', 'total', 'proyectos'));
     }
 
 
@@ -157,11 +162,10 @@ class RecursosController extends Controller
         ->leftjoin('actividad', 'actividad.idactividad', '=', 'pre_recurso.idactividad')
         ->leftjoin('pre_fuente', 'pre_fuente.idfuente', '=', 'pre_recurso.idfuente')
         ->select('pre_recurso.*', 'unidad_medida.nombreunidadmedida', 'tipo_recurso.nombretiporecurso', 
-            'actividad.idproyecto', 'pre_fuente.descripcionfuente', 'pre_fuente.financiamiento', 'actividad.nombreactividad')    
+             'pre_fuente.descripcionfuente', 'pre_fuente.financiamiento', 'actividad.nombreactividad')    
         ->where('pre_recurso.idrecurso', '=', $cod)
         ->first();
 
-        //dd($recurso);
 
         $p = DB::table('presupuesto_inicial')
         ->where('idproyecto', '=', $recurso->idproyecto)
@@ -183,10 +187,11 @@ class RecursosController extends Controller
         ->where('idrubro', '=', 1)
         ->get();
 
-      //  dd($recurso);
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $recurso->idproyecto)
+        ->first();
 
-
-        return view('recursos.edit', compact('recurso', 'actividades', 'unidades', 'tipo', 'fuentes', 'p'));
+        return view('recursos.edit', compact('recurso', 'actividades', 'unidades', 'tipo', 'fuentes', 'p', 'proyectos'));
     }    
 
 
@@ -354,8 +359,11 @@ class RecursosController extends Controller
         ->where('pre_recurso.idrecurso', '=', $id)
         ->first();
         
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $recurso->idproyecto)
+        ->first();
 
-        return view('recursos.delete', compact('recurso'));
+        return view('recursos.delete', compact('recurso', 'proyectos'));
     }
 
 

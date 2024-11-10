@@ -257,6 +257,8 @@ Route::get('/catalogos/mun/edit/{cod}',[App\Http\Controllers\CatalogosController
 
 //Presupuesto
 Route::get('/presupuesto/show/menu/{cod}', [App\Http\Controllers\PresupuestoController::class, 'showPresupuesto'])->name('presupuesto.menu.show');
+Route::get('/presupuesto/finalizar/{cod}',[App\Http\Controllers\PresupuestoController::class, 'end'])->name('presupuesto.end');
+
 
 
 //Inventario

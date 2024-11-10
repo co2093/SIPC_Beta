@@ -33,10 +33,12 @@ class ViaticosController extends Controller
         ->where('idproyecto', '=', $cod)
         ->first();
 
+         $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
 
-
-        return view('viaticos.index', compact('cod', 'fuentes', 'departamentos', 'actividades', 'p'));
+        return view('viaticos.index', compact('cod', 'fuentes', 'departamentos', 'actividades', 'p', 'proyectos'));
     }
 
 
@@ -51,7 +53,11 @@ class ViaticosController extends Controller
         ->where('pre_viaje_local.idproyecto', '=', $cod)
         ->get();
 
-        return view('viaticos.show', compact('cod', 'viajes'));
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+
+        return view('viaticos.show', compact('cod', 'viajes', 'proyectos'));
     }
     
 
@@ -152,7 +158,9 @@ class ViaticosController extends Controller
         ->first();
 
         //dd($viaje);
-
+         $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $viaje->idproyecto)
+        ->first();
 
 
         $actividades = DB::table('actividad')
@@ -171,7 +179,7 @@ class ViaticosController extends Controller
         ->first();
 
 
-        return view('viaticos.edit', compact('viaje', 'cod', 'actividades', 'departamentos', 'fuentes', 'p'));
+        return view('viaticos.edit', compact('viaje', 'cod', 'actividades', 'departamentos', 'fuentes', 'p', 'proyectos'));
     }
 
 
@@ -284,8 +292,10 @@ class ViaticosController extends Controller
     ->where('pre_viaje_local.idpreviajelocal', '=', $id)
         ->first();
         
-
-        return view('viaticos.delete', compact('viaje'));
+         $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $viaje->idproyecto)
+        ->first();
+        return view('viaticos.delete', compact('viaje', 'proyectos'));
     }
 
 
@@ -393,8 +403,12 @@ class ViaticosController extends Controller
         ->where('idproyecto', '=', $cod)
         ->first();
 
+         $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
-        return view('viaticos.indexInt', compact('cod', 'actividades', 'fuentes', 'paises', 'viaje', 'p'));
+
+        return view('viaticos.indexInt', compact('cod', 'actividades', 'fuentes', 'paises', 'viaje', 'p', 'proyectos'));
     }
 
 
@@ -409,10 +423,12 @@ class ViaticosController extends Controller
         ->select('pre_viaje_exterior.*', 'actividad.nombreactividad', 'pais.nombrepais', 'pre_fuente.descripcionfuente')
         ->where('pre_viaje_exterior.idproyecto', '=', $cod)
         ->first();
+         $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
 
-
-        return view('viaticos.showInt', compact('cod', 'viaje'));
+        return view('viaticos.showInt', compact('cod', 'viaje', 'proyectos'));
     }
 
     public function storeInt(Request $request){
@@ -534,7 +550,9 @@ class ViaticosController extends Controller
         ->where('idfuente', '=', $viaje->idproyecto)
         ->where('idrubro', '=', 4)
         ->get();
-
+         $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $viaje->idproyecto)
+        ->first();
 
        $fuente = DB::table('pre_fuente')
         ->where('idfuente', '=', $viaje->idfuente)
@@ -552,7 +570,7 @@ class ViaticosController extends Controller
        $disponibleconv = $viaje->montoconvocatoria + $p->montoconvocatoria; 
 
         //dd($disponibleconv);      
-        return view('viaticos.editInt', compact('viaje', 'actividades', 'paises', 'fuentes', 'p', 'pais', 'fuente', 'disponibleconv', 'disponiblefuente', 'flag'));
+        return view('viaticos.editInt', compact('viaje', 'actividades', 'paises', 'fuentes', 'p', 'pais', 'fuente', 'disponibleconv', 'disponiblefuente', 'flag', 'proyectos'));
 
     }
 
@@ -675,9 +693,11 @@ class ViaticosController extends Controller
         ->where('pre_viaje_exterior.idpreviajeexterior', '=', $id)
         ->first();
 
-        
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $viaje->idproyecto)
+        ->first();  
 
-        return view('viaticos.deleteInt', compact('viaje'));
+        return view('viaticos.deleteInt', compact('viaje', 'proyectos'));
     }
 
 

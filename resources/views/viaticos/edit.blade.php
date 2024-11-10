@@ -3,8 +3,11 @@
 
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
-        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $viaje->idproyecto)}}">Registro</a></li>
+ @if($proyectos->idestadoproyecto == 1)
+            <li class="breadcrumb-item"><a href="{{ route('projects.show') }}">Proyectos</a></li>
+        @else
+            <li class="breadcrumb-item"><a href="{{ route('archivados.show') }}">Proyectos antiguos</a></li>
+        @endif        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $viaje->idproyecto)}}">Registro</a></li>
         <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show', $viaje->idproyecto)}}">Presupuesto</a></li>
         <li class="breadcrumb-item"><a href="{{route('viaticos.show', $viaje->idproyecto)}}">Viáticos Nacionales</a></li>
 	    <li class="breadcrumb-item active" aria-current="page">Editar viático</li>
@@ -79,16 +82,16 @@
               </div>
             </div>
 
-<!-- Selector de Municipio -->
-<div class="col-md-6">
-    <div class="form-group">
-        <label for="idmunicipio">Municipio</label>
-        <select class="form-control" id="idmunicipio" name="idmunicipio" required>
-            <!-- Valor inicial preseleccionado -->
-            <option value="{{ $viaje->idmunicipio }}" selected>{{ $viaje->nombremunicipio }}</option>
-        </select>
-    </div>
-</div>
+		<!-- Selector de Municipio -->
+		<div class="col-md-6">
+		    <div class="form-group">
+		        <label for="idmunicipio">Municipio</label>
+		        <select class="form-control" id="idmunicipio" name="idmunicipio" required>
+		            <!-- Valor inicial preseleccionado -->
+		            <option value="{{ $viaje->idmunicipio }}" selected>{{ $viaje->nombremunicipio }}</option>
+		        </select>
+		    </div>
+		</div>
 
 
           </div>

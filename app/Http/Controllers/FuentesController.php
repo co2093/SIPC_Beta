@@ -19,8 +19,11 @@ class FuentesController extends Controller
 
         $rubros = DB::table('pre_rubro')
         ->get();
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
-        return view('fuentes.index', compact('cod', 'rubros'));
+        return view('fuentes.index', compact('cod', 'rubros', 'proyectos'));
     }
 
 
@@ -34,10 +37,12 @@ class FuentesController extends Controller
         ->where('idproyecto', '=', $cod)
         ->get();
 
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
 
-
-        return view('fuentes.show', compact('cod', 'fuentes'));
+        return view('fuentes.show', compact('cod', 'fuentes', 'proyectos'));
     }
 
     public function store(Request $request){
@@ -128,7 +133,11 @@ class FuentesController extends Controller
         ->orderby('rubro')
         ->get();
 
-        return view('fuentes.edit', compact('fuente', 'rubros'));
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $fuente->idproyecto)
+        ->first();
+
+        return view('fuentes.edit', compact('fuente', 'rubros', 'proyectos'));
     }
 
 
@@ -228,8 +237,11 @@ class FuentesController extends Controller
         ->where('idfuente', '=', $id)
         ->first();
         
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $fuente->idproyecto)
+        ->first();
 
-        return view('fuentes.delete', compact('fuente'));
+        return view('fuentes.delete', compact('fuente', 'proyectos'));
     }
 
 

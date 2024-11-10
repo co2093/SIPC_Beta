@@ -282,12 +282,18 @@ class ProjectsController extends Controller
 
     public function protocolo($cod)
     {
-        return view('projects.protocolo', compact('cod'));
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+        return view('projects.protocolo', compact('cod', 'proyectos'));
     }
 
     public function enviar($cod)
     {
-        return view('projects.enviar', compact('cod'));
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+        return view('projects.enviar', compact('cod', 'proyectos'));
     }
 
     public function updateProtocolo(Request $request){

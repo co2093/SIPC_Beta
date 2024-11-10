@@ -13,8 +13,11 @@
 
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
-        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $cod)}}">Registro</a></li>
+ @if($proyectos->idestadoproyecto == 1)
+            <li class="breadcrumb-item"><a href="{{ route('projects.show') }}">Proyectos</a></li>
+        @else
+            <li class="breadcrumb-item"><a href="{{ route('archivados.show') }}">Proyectos antiguos</a></li>
+        @endif        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $cod)}}">Registro</a></li>
         <li class="breadcrumb-item active" aria-current="page">Presupuesto</li>
       </ol>
     </nav>
@@ -188,6 +191,7 @@
                             <strong>Nota:</strong> Todos los montos están expresados en dólares estadounidenses (USD).
                         </div>
                         <hr class="my-4">
+                    <a  class="btn btn-danger" href="{{route('presupuesto.end', $cod)}}">Finalizar</a>  
                      <a  class="btn btn-secondary float-right" href="{{route('projects.prueba', $cod)}}">Regresar</a>
 
 

@@ -24,22 +24,28 @@ class ObjetivosController extends Controller
         ->where('tipo', '=', 1)
         ->first();
 
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
-        return view('objetivos.index', compact('cod', 'obj'));
+
+        return view('objetivos.index', compact('cod', 'obj', 'proyectos'));
     }
 
 
 
     public function show($cod)
     {
-      
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
         $obj = DB::table('objetivo')
         ->where('idproyecto', '=', $cod)
         ->orderby('tipo', 'asc')
         ->get();
 
-        return view('objetivos.show',compact('cod', 'obj'));
+        return view('objetivos.show',compact('cod', 'obj', 'proyectos'));
     }
 
 
@@ -67,7 +73,11 @@ class ObjetivosController extends Controller
         ->where('idobjetivo', '=', $cod)
         ->first();
 
-        return view('objetivos.edit', compact('obj'));
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $obj->idproyecto)
+        ->first();
+
+        return view('objetivos.edit', compact('obj', 'proyectos'));
     }
 
 
@@ -99,9 +109,13 @@ class ObjetivosController extends Controller
         $obj = DB::table('objetivo')
         ->where('idobjetivo', '=', $id)
         ->first();
+
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $obj->idproyecto)
+        ->first();
         
 
-        return view('objetivos.confirm', compact('obj'));
+        return view('objetivos.confirm', compact('obj', 'proyectos'));
     }
 
 

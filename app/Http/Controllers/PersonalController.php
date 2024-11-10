@@ -30,8 +30,11 @@ class PersonalController extends Controller
         ->where('idproyecto', '=', $cod)
         ->first();
 
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
-        return view('personal.index', compact('cod', 'actividades', 'tipo', 'fuentes', 'p'));
+        return view('personal.index', compact('cod', 'actividades', 'tipo', 'fuentes', 'p', 'proyectos'));
     }
 
 
@@ -53,7 +56,12 @@ class PersonalController extends Controller
             inner join actividad on pre_contratacion.idactividad = actividad.idactividad
             where actividad.idproyecto = '$cod'");
 
-        return view('personal.show', compact('cod', 'personal', 'total'));
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+
+
+        return view('personal.show', compact('cod', 'personal', 'total', 'proyectos'));
     }
 
 
@@ -165,9 +173,11 @@ class PersonalController extends Controller
         $tipo = DB::table('tipo_contratacion')
         ->get();
 
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $personal->idproyecto)
+        ->first();
 
-
-        return view('personal.edit', compact('personal', 'actividades', 'tipo', 'p', 'fuentes'));
+        return view('personal.edit', compact('personal', 'actividades', 'tipo', 'p', 'fuentes', 'proyectos'));
     }
 
 
@@ -302,8 +312,11 @@ class PersonalController extends Controller
         ->where('pre_contratacion.idcontratacion', '=', $cod)
         ->first();
 
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $personal->idproyecto)
+        ->first();
 
-        return view('personal.delete', compact('personal'));
+        return view('personal.delete', compact('personal', 'proyectos'));
     }
 
 

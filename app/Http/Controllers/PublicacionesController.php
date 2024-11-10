@@ -25,8 +25,10 @@ class PublicacionesController extends Controller
         ->where('idproyecto', '=', $cod)
         ->first();
 
-
-        return view('publicaciones.index', compact('cod', 'tipos', 'fuentes', 'p'));
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+        return view('publicaciones.index', compact('cod', 'tipos', 'fuentes', 'p', 'proyectos'));
     }
 
 
@@ -43,10 +45,12 @@ class PublicacionesController extends Controller
         ->get();
         $total = DB::select("select sum(montopublicacion) from pre_publicacion where idproyecto = '$cod'");
 
-
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
         //dd($publicaciones);
 
-        return view('publicaciones.show', compact('cod', 'publicaciones','total'));
+        return view('publicaciones.show', compact('cod', 'publicaciones','total', 'proyectos'));
     }
 
 
@@ -95,9 +99,11 @@ class PublicacionesController extends Controller
         $p = DB::table('presupuesto_inicial')
         ->where('idproyecto', '=', $publicacion->idproyecto)
         ->first();
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $publicacion->idproyecto)
+        ->first();
 
-
-        return view('publicaciones.edit', compact('publicacion', 'fuentes', 'tipos', 'p'));
+        return view('publicaciones.edit', compact('publicacion', 'fuentes', 'tipos', 'p', 'proyectos'));
     }
 
 
@@ -136,9 +142,11 @@ class PublicacionesController extends Controller
         ->select('pre_publicacion.*', 'tipo_publicacion.nombretipopublicacion', 'pre_fuente.descripcionfuente')
         ->where('pre_publicacion.idpublicacion', '=', $id)
         ->first();
-        
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $publicacion->idproyecto)
+        ->first();
 
-        return view('publicaciones.delete', compact('publicacion'));
+        return view('publicaciones.delete', compact('publicacion', 'proyectos'));
     }
 
 

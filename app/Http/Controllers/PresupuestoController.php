@@ -43,6 +43,10 @@ class PresupuestoController extends Controller
         $pasos = DB::table('pasos_presupuesto')
         ->where('idproyecto', '=', $cod)
         ->first();
+        
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
         if($pasos) {
             // code...
@@ -92,7 +96,7 @@ class PresupuestoController extends Controller
 
 
 
-        return view('recursos.presupuesto', compact('cod', 'pre', 'completado', 'pasos'));
+        return view('recursos.presupuesto', compact('cod', 'pre', 'completado', 'pasos', 'proyectos'));
 
         }else{
 
@@ -109,10 +113,26 @@ class PresupuestoController extends Controller
         ->first();  
 
 
-        return view('recursos.presupuesto', compact('cod', 'pre', 'completado', 'pasos'));
+        return view('recursos.presupuesto', compact('cod', 'pre', 'completado', 'pasos', 'proyectos'));
 
         }
 
+
+    }
+
+
+    public function end($cod){
+
+
+        DB::table('pasos_registro')
+        ->where('idproyecto', $cod)
+        ->update([
+            'presupuesto' => 1    
+
+        ]);
+
+        session()->flash('success', 'Presupuesto completado.');
+        return redirect()->to('/projects/registro/pasos/'.$cod);
 
     }
 }

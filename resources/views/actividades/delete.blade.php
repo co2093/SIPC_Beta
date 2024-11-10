@@ -4,8 +4,11 @@
 
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
-
+ @if($proyectos->idestadoproyecto == 1)
+            <li class="breadcrumb-item"><a href="{{ route('projects.show') }}">Proyectos</a></li>
+        @else
+            <li class="breadcrumb-item"><a href="{{ route('archivados.show') }}">Proyectos antiguos</a></li>
+        @endif
         <li class="breadcrumb-item"><a href="{{route('projects.prueba', $act->idproyecto)}}">Registro</a></li>
         <li class="breadcrumb-item"><a href="{{ route('actividades.show', $act->idproyecto) }}">Actividades</a></li>
 	    <li class="breadcrumb-item active" aria-current="page">Eliminar actividad</li>
@@ -24,7 +27,7 @@
                     <div class="card-body">
                     	
                     	<br>
-                    	<label>Objetivo específico asociado: </label>{{$obje->descripcion}}
+                    	<label>Objetivo específico asociado: </label>{{$obje->descripcion ?? ''}}
                 
                     	<br>
                     	<label>Tipo de actividad: </label>{{$tp->nombretipoactividad}}

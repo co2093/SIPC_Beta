@@ -9,8 +9,11 @@
 
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
-
+ @if($proyectos->idestadoproyecto == 1)
+            <li class="breadcrumb-item"><a href="{{ route('projects.show') }}">Proyectos</a></li>
+        @else
+            <li class="breadcrumb-item"><a href="{{ route('archivados.show') }}">Proyectos antiguos</a></li>
+        @endif
         <li class="breadcrumb-item"><a href="{{route('projects.prueba', $act->idproyecto)}}">Registro</a></li>
         <li class="breadcrumb-item"><a href="{{ route('actividades.show', $act->idproyecto) }}">Actividades</a></li>
         <li class="breadcrumb-item active" aria-current="page">Editar actividad</li>
@@ -38,7 +41,7 @@
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Objetivo específico asociado</label>
                         <select class="form-control" name="objetivo">
-                        <option value="{{$obje->idobjetivo}}">{{$obje->descripcion}}</option>    
+                        <option value="{{$obje->idobjetivo ?? ''}}">{{$obje->descripcion ?? ''}}</option>    
                         @foreach($obj as $o)
                         @if($obje->idobjetivo != $o->idobjetivo)
                             <option value="{{$o->idobjetivo}}">{{$o->descripcion}}</option>

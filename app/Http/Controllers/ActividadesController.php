@@ -24,7 +24,11 @@ class ActividadesController extends Controller
         $tipo = DB::table('tipo_actividad')
         ->get();
 
-        return view('actividades.index', compact('cod', 'obj', 'tipo'));
+         $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+
+        return view('actividades.index', compact('cod', 'obj', 'tipo', 'proyectos'));
     }
 
 
@@ -41,11 +45,13 @@ class ActividadesController extends Controller
         ->get();
 
       
+         $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
 
 
-
-        return view('actividades.show', compact('cod', 'act'));
+        return view('actividades.show', compact('cod', 'act', 'proyectos'));
     }
 
 
@@ -96,9 +102,11 @@ class ActividadesController extends Controller
         ->where('idobjetivo', '=', $act->idobjetivo)
         ->first();
 
+         $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $act->idproyecto)
+        ->first();
 
-
-        return view('actividades.edit', compact('act', 'tipo', 'obj', 'tp', 'obje'));
+        return view('actividades.edit', compact('act', 'tipo', 'obj', 'tp', 'obje', 'proyectos'));
     }
 
 
@@ -143,9 +151,11 @@ class ActividadesController extends Controller
         ->where('idobjetivo', '=', $act->idobjetivo)
         ->first();
 
-        
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $act->idproyecto)
+        ->first();
 
-        return view('actividades.delete', compact('act', 'obje', 'tp'));
+        return view('actividades.delete', compact('act', 'obje', 'tp', 'proyectos'));
     }
 
 

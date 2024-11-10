@@ -21,9 +21,11 @@ class ColaboradoresController extends Controller
 
         $tipo = DB::table('tipocolaborador')
         ->get();
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
 
-
-        return view('colaboradores.index', compact('cod', 'facultades', 'tipo'));
+        return view('colaboradores.index', compact('cod', 'facultades', 'tipo', 'proyectos'));
     }
 
 
@@ -44,7 +46,11 @@ class ColaboradoresController extends Controller
         $tipo = DB::table('tipocolaborador')
         ->get();
 
-        return view('colaboradores.show', compact('cod', 'colaboradores', 'facultades', 'tipo'));
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $cod)
+        ->first();
+
+        return view('colaboradores.show', compact('cod', 'colaboradores', 'facultades', 'tipo', 'proyectos'));
     }
 
 
@@ -91,8 +97,12 @@ class ColaboradoresController extends Controller
         ->where('idfacultad', '=', $col->idfacultad)
         ->first();
 
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $col->idproyecto)
+        ->first();
 
-        return view('colaboradores.edit', compact('col', 'facultades', 'tipo', 'facu', 'tp'));
+
+        return view('colaboradores.edit', compact('col', 'facultades', 'tipo', 'facu', 'tp', 'proyectos'));
     }
 
 
@@ -130,8 +140,10 @@ class ColaboradoresController extends Controller
         ->select('colaboradores.*', 'facultad.nombrefacultad', 'tipocolaborador.nombretipocolaborador')
         ->where('idcolaborador', '=', $id)
         ->first();
-
-        return view('colaboradores.delete', compact('col'));
+        $proyectos = DB::table('proyecto')
+        ->where('idproyecto', '=', $col->idproyecto)
+        ->first();
+        return view('colaboradores.delete', compact('col', 'proyectos'));
     }
 
 

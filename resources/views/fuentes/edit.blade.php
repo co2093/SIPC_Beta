@@ -3,8 +3,11 @@
 
 	<nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{route('projects.show')}}">Proyectos</a></li>
-        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $fuente->idproyecto)}}">Registro</a></li>
+ @if($proyectos->idestadoproyecto == 1)
+            <li class="breadcrumb-item"><a href="{{ route('projects.show') }}">Proyectos</a></li>
+        @else
+            <li class="breadcrumb-item"><a href="{{ route('archivados.show') }}">Proyectos antiguos</a></li>
+        @endif        <li class="breadcrumb-item"><a href="{{route('projects.prueba', $fuente->idproyecto)}}">Registro</a></li>
         <li class="breadcrumb-item"><a href="{{route('presupuesto.menu.show', $fuente->idproyecto)}}">Presupuesto</a></li>
 	    <li class="breadcrumb-item"><a href="{{ route('fuentes.show', $fuente->idproyecto) }}">Financiamientos</a></li>
 	    <li class="breadcrumb-item active" aria-current="page">Editar fuente de financiamiento</li>
