@@ -66,7 +66,8 @@ Route::get('/projects/datos-grafico', [App\Http\Controllers\ProjectsController::
 Route::get('/projects/datos-grafico/facultad', [App\Http\Controllers\ProjectsController::class, 'obtenerdatosfacultad']);
 Route::get('/projects/datos-grafico/financiamientos', [App\Http\Controllers\ProjectsController::class, 'obtenerdatosfinanciamientos']);
 Route::get('/projects/datos-grafico/investigadores', [App\Http\Controllers\ProjectsController::class, 'obtenerdatosinvestigadores']);
-
+Route::get('/projects/confirm/{id}',[App\Http\Controllers\ProjectsController::class, 'destroyConfirm'])->name('projects.confirm');
+Route::delete('/projects/delete/{cod}',[App\Http\Controllers\ProjectsController::class, 'destroy'])->name('projects.destroy');
 
 
 

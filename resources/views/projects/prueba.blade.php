@@ -203,7 +203,7 @@
                                         <td class="fixed-col">
                                     
                                         <a  class="btn btn-danger" 
-                                        href="#">Eliminar</a>
+                                        href="{{route('projects.confirm', $cod)}}">Eliminar</a>
 
 
                                         </td>

@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 
 
 class ProjectsController extends Controller
@@ -192,30 +193,56 @@ class ProjectsController extends Controller
     public function destroyConfirm($cod)
     {
 
-        //dd($codinventario);
-         $inv = DB::table('inventario')
-        ->where('codinventario', '=', $codinventario)
-        ->first();
-
-    
-        
-        return view('inventario.delete', compact('inv'));
+        $proyectos = DB::table('proyecto')
+        ->leftjoin('estado_proyecto', 'estado_proyecto.idestadoproyecto', '=', 'proyecto.idestadoproyecto')
+        ->leftjoin('tipo_proyecto', 'tipo_proyecto.idtipoproyecto', '=', 'proyecto.idtipoproyecto')
+        ->leftjoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
+        ->leftjoin('facultad', 'facultad.idfacultad', '=', 'proyecto.idfacultad')
+        ->select('proyecto.*', 'estado_proyecto.nombreestadoproyecto', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento', 'facultad.nombrefacultad')
+        ->where('proyecto.idproyecto', '=', $cod)
+        ->first();    
+        return view('projects.delete', compact('proyectos', 'cod'));
     }
 
 
-    // Remove the specified task from storage
     public function destroy($cod)
     {
-        
-        //dd($codinventario);
-         $inv = DB::table('inventario')
-        ->where('codinventario', '=', $codinventario)
-        ->delete();
+        // Obtén el proyecto
+        $proyectos = DB::table('proyecto')
+            ->where('proyecto.idproyecto', '=', $cod)
+            ->first();
 
+        try {
+            // Verifica el estado del proyecto y decide la ruta de redirección
+            if ($proyectos->idestadoproyecto != '1') {
+                // Intentar eliminar el proyecto
+                DB::table('proyecto')
+                    ->where('proyecto.idproyecto', '=', $cod)
+                    ->delete();
 
-        session()->flash('success', 'Producto eliminado exitosamente');
-        return redirect()->route('inventario.show');
+                session()->flash('success', 'Proyecto de investigación eliminado exitosamente');
+                return redirect()->route('archivados.show');
+            } else {
+                DB::table('proyecto')
+                    ->where('proyecto.idproyecto', '=', $cod)
+                    ->delete();
+
+                session()->flash('success', 'Proyecto de investigación eliminado exitosamente');
+                return redirect()->route('projects.show');
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Verificar si el error es de tipo "violación de clave foránea"
+            if ($e->getCode() == '23503') { // 23503 es el código de error de clave foránea en PostgreSQL
+                session()->flash('error', 'No se puede eliminar el proyecto porque está asociado a otros registros.');
+                return redirect()->back();
+            }
+
+            // Manejar otros tipos de errores, si es necesario
+            session()->flash('error', 'Ocurrió un error al intentar eliminar el proyecto.');
+            return redirect()->back();
+        }
     }
+
 
 
 
