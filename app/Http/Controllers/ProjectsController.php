@@ -16,6 +16,8 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProjectsController extends Controller
 {
@@ -1024,4 +1026,76 @@ public function colaboradoresreportes(Request $request)
     }
 
 
+    public function informes($cod)
+    {
+
+        $documentos = DB::table('proyecto_documentos')
+        ->where('idproyecto', '=', $cod)
+        ->get();
+
+        return view('projects.informes', compact('cod', 'documentos'));
+    }
+
+
+
+    public function informesindex($cod)
+    {
+
+        
+
+        return view('projects.informesindex', compact('cod'));
+    }
+
+
+    public function informesnuevo(Request $request)
+    {
+        // Validación de los datos
+        $request->validate([
+            'attachment' => 'required|file|mimes:doc,docx,pdf',
+            'cod' => 'required|integer'
+        ]);
+
+        // Personalización del nombre del archivo
+        $cod = $request->input('cod');
+        $file = $request->file('attachment');
+        $customFileName = 'documento_'. $request->input('nombre').'_proyecto_'. $cod . '_' . time() . '.' . $file->getClientOriginalExtension();
+
+        // Guardar el archivo con un nombre personalizado
+        $attachmentPath = $request->file('attachment')->storeAs('public/attachments', $customFileName);
+
+
+        // Guardar los datos en la base
+        DB::table('proyecto_documentos')->insert([
+            'idproyecto' => $cod,
+            'nombredocumento' => $request->input('nombre'),
+            'documento' => $attachmentPath
+        ]);
+
+        // Mensaje de éxito y redirección
+        return redirect()->route('archivados.informes', $cod)
+                         ->with('success', 'Proyecto enviado a revisión exitosamente.');
+    }
+
+
+    public function informedestroy($id)
+    {
+
+    // Obtiene el registro del archivo desde la base de datos
+    $documento = DB::table('proyecto_documentos')->where('iddocumento', $id)->first();
+
+    // Verifica si el archivo existe en el sistema de almacenamiento y lo elimina
+    if ($documento && Storage::exists($documento->documento)) {
+        Storage::delete($documento->documento);
+    }
+
+    // Elimina el registro en la base de datos
+    DB::table('proyecto_documentos')->where('iddocumento', $id)->delete();
+
+    // Redirige con un mensaje de éxito
+    return back()->with('success', 'El archivo ha sido eliminado exitosamente.');
+
+    }
+
+
+    
 }

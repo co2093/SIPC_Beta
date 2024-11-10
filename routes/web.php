@@ -43,6 +43,12 @@ Route::get('/projects/archivados/nuevo', [App\Http\Controllers\ProjectsControlle
 Route::post('/projects/archivados/nuevo/store', [App\Http\Controllers\ProjectsController::class, 'archivadosstore'])->name('archivados.store');
 Route::get('/projects/archivados/reportes', [App\Http\Controllers\ProjectsController::class, 'reportes'])->name('archivados.reportes');
 Route::get('/projects/archivados/reportes/crear', [App\Http\Controllers\ProjectsController::class, 'proyectosreportes'])->name('archivados.crearreporte');
+Route::get('/projects/archivados/informes/{cod}', [App\Http\Controllers\ProjectsController::class, 'informes'])->name('archivados.informes');
+Route::get('/projects/archivados/informes/nuevo/{cod}', [App\Http\Controllers\ProjectsController::class, 'informesindex'])->name('archivados.informesindex');
+Route::post('/projects/archivados/nuevo/informe', [App\Http\Controllers\ProjectsController::class, 'informesnuevo'])->name('archivados.storedoc');
+Route::delete('/projects/archivados/delete/{cod}',[App\Http\Controllers\ProjectsController::class, 'informedestroy'])->name('archivados.destroydoc');
+
+
 
 Route::get('/projects/colaboradores/reportes/crear', [App\Http\Controllers\ProjectsController::class, 'colaboradoresreportes'])->name('colaboradores.crearreporte');
 
