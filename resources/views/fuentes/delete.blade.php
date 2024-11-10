@@ -28,14 +28,9 @@
                         <div class="card-body">
 
                             <p><strong>Nombre de la fuente:</strong> {{$fuente->descripcionfuente}}</p>
-                            <p><strong>Tipo de institución:</strong> 
-                            @if($fuente->esexterno == "true")
-                            Cooperacion externa internacional
-                            @else
-                            Fuentes nacionales externas a la UES
-                            @endif           
+                            <p><strong>Tipo de institución:</strong> {{$fuente->tipo}} </p>
+                            <p><strong>Facultad:</strong> {{$fuente->nombrefacultad}} </p>
 
-                            </p>
                             <p><strong>Rubro:</strong> {{$fuente->rubro}}</p>
                             <p><strong>Monto financiado (USD):</strong> <span class="monto">{{$fuente->financiamiento}}</span></p>
                         </div>

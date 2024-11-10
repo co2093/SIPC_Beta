@@ -22,7 +22,7 @@ class InventarioController extends Controller
     //
     public function index()
     {
-        $facultades = DB::table('facultad')->get();
+        $facultades = DB::table('facultad')->orderby('nombrefacultad')->get();
         $estados = DB::table('condicion_inventario')->get();
 
         $proyectos = DB::table('proyecto')

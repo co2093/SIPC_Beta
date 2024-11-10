@@ -50,22 +50,36 @@
 					  </div>
 
 					 
+				<div class="form-group">
+				    <label for="exampleFormControlSelect1">Tipo</label>
+				    <select class="form-control" name="externa" id="tipoSelect" required>
+				        <option value="Cooperacion externa internacional" 
+				            {{ $fuente->tipo == 'Cooperacion externa internacional' ? 'selected' : '' }}>
+				            Cooperacion externa internacional
+				        </option>
+				        <option value="Fuentes nacionales externas a la UES" 
+				            {{ $fuente->tipo == 'Fuentes nacionales externas a la UES' ? 'selected' : '' }}>
+				            Fuentes nacionales externas a la UES
+				        </option>
+				        <option value="Fuentes nacionales internas de la UES" 
+				            {{ $fuente->tipo == 'Fuentes nacionales internas de la UES' ? 'selected' : '' }}>
+				            Fuentes nacionales internas de la UES
+				        </option>
+				    </select>
+				</div>
 
-				  	<div class="form-group">
-					    <label for="exampleFormControlSelect1">Tipo</label>
-					    <select class="form-control" name="externa" required>
-					    	@if($fuente->esexterno == "true")			
-					      <option value="true">Cooperacion externa internacional</option>
-					      <option value="false">Fuentes nacionales externas a la UES</option>
 
-					      @else
-					      <option value="false">Fuentes nacionales externas a la UES</option>
-					  	<option value="true">Cooperacion externa</option>
-					      @endif
-
+					<div class="form-group">
+					    <label for="exampleFormControlSelect1">Facultad</label>
+					    <select class="form-control" name="facultad" id="facultadSelect" disabled>
+					        <option value="{{$fuente->idfacultad}}">{{$fuente->nombrefacultad}}</option>
+					        @foreach($facultades as $i)
+					        @if($i->idfacultad != $fuente->idfacultad)
+					            <option value="{{ $i->idfacultad }}">{{ $i->nombrefacultad }}</option>
+					        @endif
+					        @endforeach
 					    </select>
 					</div>
-
 
 
 				  	<div class="form-group">
@@ -106,6 +120,26 @@
     </div>
 
 
+<script>
+    document.getElementById('tipoSelect').addEventListener('change', function() {
+        const facultadSelect = document.getElementById('facultadSelect');
+        // Habilita solo si se selecciona "Fuentes nacionales internas de la UES"
+        if (this.value === 'Fuentes nacionales internas de la UES') {
+            facultadSelect.disabled = false;
+        } else {
+            facultadSelect.disabled = true;
+        }
+    });
+
+    // Inicializar el estado del select de facultad al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        const tipoSelect = document.getElementById('tipoSelect');
+        const facultadSelect = document.getElementById('facultadSelect');
+        if (tipoSelect.value === 'Fuentes nacionales internas de la UES') {
+            facultadSelect.disabled = false;
+        }
+    });
+</script>
 
 
 

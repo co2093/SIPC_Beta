@@ -43,16 +43,25 @@
 
 					 
 
-				  	<div class="form-group">
+					<div class="form-group">
 					    <label for="exampleFormControlSelect1">Tipo</label>
-					    <select class="form-control" name="externa" required>
-					    	<option value="" disabled selected>Seleccione una opción</option>
-					      <option value="true">Cooperacion externa internacional</option>
-					      <option value="false">Fuentes nacionales externas a la UES</option>
+					    <select class="form-control" name="externa" id="tipoSelect" required>
+					        <option value="" disabled selected>Seleccione una opción</option>
+					        <option value="Cooperacion externa internacional">Cooperacion externa internacional</option>
+					        <option value="Fuentes nacionales externas a la UES">Fuentes nacionales externas a la UES</option>
+					        <option value="Fuentes nacionales internas de la UES">Fuentes nacionales internas de la UES</option>
 					    </select>
 					</div>
 
-
+					<div class="form-group">
+					    <label for="exampleFormControlSelect1">Facultad</label>
+					    <select class="form-control" name="facultad" id="facultadSelect" disabled>
+					        <option value="" disabled selected>Seleccione una opción</option>
+					        @foreach($facultades as $i)
+					            <option value="{{ $i->idfacultad }}">{{ $i->nombrefacultad }}</option>
+					        @endforeach
+					    </select>
+					</div>
 
 				  	<div class="form-group">
 					    <label for="exampleFormControlSelect1">Rubro</label>
@@ -90,7 +99,13 @@
     </div>
 
 
-
+<script>
+    document.getElementById('tipoSelect').addEventListener('change', function() {
+        const facultadSelect = document.getElementById('facultadSelect');
+        // Habilita solo si se selecciona "Fuentes nacionales internas de la UES"
+        facultadSelect.disabled = this.value !== 'Fuentes nacionales internas de la UES';
+    });
+</script>
 
 
 @endsection

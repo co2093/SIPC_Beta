@@ -22,8 +22,9 @@ class FuentesController extends Controller
         $proyectos = DB::table('proyecto')
         ->where('idproyecto', '=', $cod)
         ->first();
+        $facultades = DB::table('facultad')->orderby('nombrefacultad')->get();
 
-        return view('fuentes.index', compact('cod', 'rubros', 'proyectos'));
+        return view('fuentes.index', compact('cod', 'rubros', 'proyectos', 'facultades'));
     }
 
 
@@ -33,7 +34,8 @@ class FuentesController extends Controller
 
         $fuentes = DB::table('pre_fuente')
         ->leftjoin('pre_rubro', 'pre_rubro.idrubro', '=', 'pre_fuente.idrubro')
-        ->select('pre_fuente.*', 'pre_rubro.rubro')
+        ->leftjoin('facultad', 'facultad.idfacultad', '=', 'pre_fuente.idfacultad')
+        ->select('pre_fuente.*', 'pre_rubro.rubro', 'facultad.nombrefacultad')
         ->where('idproyecto', '=', $cod)
         ->get();
 
@@ -59,9 +61,10 @@ class FuentesController extends Controller
             DB::table('pre_fuente')->insert([
                 'descripcionfuente' => $request->input('descripcion'),
                 'financiamiento' => $request->input('financiamiento'),
-                'esexterno' => $request->input('externo'),
+                'tipo' => $request->input('externa'),
                 'idproyecto' => $request->input('cod'),
-                'idrubro' =>$request->input('rubro')
+                'idrubro' =>$request->input('rubro'),
+                'idfacultad' => $request->input('facultad')
             ]);
 
 
@@ -125,7 +128,8 @@ class FuentesController extends Controller
         //dd($codinventario);
         $fuente = DB::table('pre_fuente')
         ->leftjoin('pre_rubro', 'pre_rubro.idrubro', '=', 'pre_fuente.idrubro')
-        ->select('pre_fuente.*', 'pre_rubro.rubro', 'pre_rubro.idrubro')
+        ->leftjoin('facultad', 'facultad.idfacultad', '=', 'pre_fuente.idfacultad')
+        ->select('pre_fuente.*', 'pre_rubro.rubro', 'pre_rubro.idrubro', 'facultad.nombrefacultad')
         ->where('idfuente', '=', $cod)
         ->first();
         
@@ -136,8 +140,9 @@ class FuentesController extends Controller
         $proyectos = DB::table('proyecto')
         ->where('idproyecto', '=', $fuente->idproyecto)
         ->first();
+        $facultades = DB::table('facultad')->orderby('nombrefacultad')->get();
 
-        return view('fuentes.edit', compact('fuente', 'rubros', 'proyectos'));
+        return view('fuentes.edit', compact('fuente', 'rubros', 'proyectos', 'facultades'));
     }
 
 
@@ -173,8 +178,9 @@ class FuentesController extends Controller
         ->update([
             'descripcionfuente' => $request->input('descripcion'),
             'financiamiento' => $request->input('financiamiento'),
-            'esexterno' => $request->input('esexterno'),
-            'idrubro' =>$request->input('rubro')   
+            'tipo' => $request->input('externa'),
+            'idrubro' =>$request->input('rubro'), 
+            'idfacultad' =>$request->input('facultad')   
         ]);
 
         DB::table('presupuesto_inicial')
@@ -233,7 +239,8 @@ class FuentesController extends Controller
 
         $fuente = DB::table('pre_fuente')
         ->leftjoin('pre_rubro', 'pre_rubro.idrubro', '=', 'pre_fuente.idrubro')
-        ->select('pre_fuente.*', 'pre_rubro.rubro')
+        ->leftjoin('facultad', 'facultad.idfacultad', '=', 'pre_fuente.idfacultad')
+        ->select('pre_fuente.*', 'pre_rubro.rubro', 'facultad.nombrefacultad')
         ->where('idfuente', '=', $id)
         ->first();
         

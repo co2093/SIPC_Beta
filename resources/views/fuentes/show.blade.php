@@ -50,6 +50,8 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Nombre</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Facultad</th>
                                     <th scope="col">Rubro</th>
                                     <th scope="col">Monto</th>
                                      <th scope="col" class="fixed-col">Acciones</th>
@@ -60,6 +62,14 @@
                                 @foreach($fuentes as $f)
                                     <tr>
                                         <td>{{$f->descripcionfuente}}</td>
+                                        <td>{{$f->tipo}}</td>
+                                        <td>
+                                        @if($f->nombrefacultad)
+                                            {{$f->nombrefacultad}}
+                                        @else
+                                        No aplica
+                                        @endif    
+                                        </td>
                                         <td>{{$f->rubro}}</td>
                                         <td class="monto">{{$f->financiamiento}}</td>
                                         <td class="fixed-col">
