@@ -22,7 +22,8 @@ class ReportesController extends Controller
         ->leftjoin('tipo_proyecto', 'tipo_proyecto.idtipoproyecto', '=', 'proyecto.idtipoproyecto')
         ->leftjoin('area_conocimiento', 'area_conocimiento.idareaconocimiento', '=', 'proyecto.idareaconocimiento')
         ->leftjoin('facultad', 'facultad.idfacultad', '=','proyecto.idfacultad')
-        ->select('proyecto.*', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento', 'facultad.nombrefacultad')
+        ->leftjoin('users', 'users.email', '=', 'proyecto.usuario')
+        ->select('proyecto.*', 'tipo_proyecto.tipoproyecto', 'area_conocimiento.nombreareaconocimiento', 'facultad.nombrefacultad', 'users.name')
         ->where('proyecto.idproyecto', '=', $cod)
         ->first();
 
@@ -152,7 +153,7 @@ class ReportesController extends Controller
         $textRun = $section->addTextRun();
         
         $textRun->addText('INVESTIGADOR PRINCIPAL: ');
-        $textRun->addText($usuario->name ?? ''); 
+        $textRun->addText($proyecto->name ?? ''); 
        
         $section->addTextBreak(1);
         $section->addText('TELÉFONO: ');
@@ -160,7 +161,7 @@ class ReportesController extends Controller
         $textRun = $section->addTextRun();
         
         $textRun->addText('EMAIL: ');
-        $textRun->addText($usuario->email ?? ''); 
+        $textRun->addText($proyecto->usuario ?? ''); 
        
 
         $section->addTextBreak(1);
